@@ -48,18 +48,18 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.swing.JOptionPane;
 
-public class RSSTray {
+public class TrayRSS {
 
 	private static SystemTray tray = null;
 	private static LinkedList<FeedInfo> rssUrlSave = null;
 	//nach den anderen Vairablen die befüllt werden
-	private static RSSTray instance = new RSSTray();
+	private static TrayRSS instance = new TrayRSS();
 
-	private RSSTray() {
+	private TrayRSS() {
 		if (SystemTray.isSupported()) {
 			tray = SystemTray.getSystemTray();
 			final TrayIcon trayIcon;
-			RSSTray.rssUrlSave = loadRssInfo();
+			TrayRSS.rssUrlSave = loadRssInfo();
 
 			Image image = Toolkit.getDefaultToolkit().getImage(
 					getClass().getResource("/img/rsstrayicon.PNG"));
@@ -260,7 +260,7 @@ public class RSSTray {
 		}
 	}
 
-	public static RSSTray getInstance() {
+	public static TrayRSS getInstance() {
 		return instance;
 	}
 
