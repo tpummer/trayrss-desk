@@ -21,6 +21,7 @@
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
+import java.awt.TrayIcon;
 import java.io.InputStreamReader;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
@@ -31,9 +32,12 @@ import com.sun.syndication.io.XmlReader;
 
 public class FeedReaderThread implements Runnable {
 	private FeedInfo feedInfo = null;
+	private TrayIcon icon = null;
 
-	public FeedReaderThread(FeedInfo feedInfo) {
+	public FeedReaderThread(FeedInfo feedInfo, TrayIcon icon) {
 		this.feedInfo = feedInfo;
+		this.icon = icon;
+		
 	}
 
 	@Override
@@ -56,6 +60,11 @@ public class FeedReaderThread implements Runnable {
 					System.out.println(node.getUpdatedDate());
 					System.out.println(node.getUri());
 					System.out.println("-------------");
+					
+					icon.displayMessage(node.getPublishedDate().toString(), node.getTitle(), 
+							TrayIcon.MessageType.INFO);
+					//TODO wieder entfernen
+					Thread.sleep(1000);
 				}
 
 				ok = true;
