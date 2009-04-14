@@ -64,15 +64,7 @@ public class TrayRSS {
 			Image image = Toolkit.getDefaultToolkit().getImage(
 					getClass().getResource("/img/rsstrayicon.PNG"));
 			// Image image =
-			// Toolkit.getDefaultToolkit().getImage("./img/rsstrayicon.PNG");
-
-			ExecutorService threadExecutor = Executors.newFixedThreadPool( 5 );
-			for(Iterator<FeedInfo> it = rssUrlSave.iterator(); it.hasNext();){
-				FeedReaderThread feedReader = new FeedReaderThread(it.next());
-				//TODO Thread wo speichern zum interruppten
-				threadExecutor.execute(feedReader);
-			}
-			
+			// Toolkit.getDefaultToolkit().getImage("./img/rsstrayicon.PNG");			
 
 			MouseListener mouseListener = new MouseListener() {
 
@@ -189,6 +181,14 @@ public class TrayRSS {
 			} catch (AWTException e) {
 				System.err.println("TrayIcon could not be added.");
 			}
+			
+			ExecutorService threadExecutor = Executors.newFixedThreadPool( 5 );
+			for(Iterator<FeedInfo> it = rssUrlSave.iterator(); it.hasNext();){
+				FeedReaderThread feedReader = new FeedReaderThread(it.next(), trayIcon);
+				//TODO Thread wo speichern zum interruppten
+				threadExecutor.execute(feedReader);
+			}
+			
 		}
 
 		else {
