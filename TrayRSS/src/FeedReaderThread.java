@@ -18,11 +18,9 @@
 
  */
 
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.TrayIcon;
-import java.io.InputStreamReader;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
