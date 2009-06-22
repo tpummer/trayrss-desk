@@ -61,10 +61,10 @@ public class TrayRSS {
 			final TrayIcon trayIcon;
 			TrayRSS.rssUrlSave = loadRssInfo();
 
-			Image image = Toolkit.getDefaultToolkit().getImage(
-					getClass().getResource("/img/rsstrayicon.PNG"));
-			// Image image =
-			// Toolkit.getDefaultToolkit().getImage("./img/rsstrayicon.PNG");			
+			//Image image = Toolkit.getDefaultToolkit().getImage(
+			//		getClass().getResource("/img/rsstrayicon.PNG"));
+			 Image image =
+			 Toolkit.getDefaultToolkit().getImage("./img/rsstrayicon.PNG");			
 
 			MouseListener mouseListener = new MouseListener() {
 
@@ -202,7 +202,9 @@ public class TrayRSS {
 	 */
 	public static void main(String[] args) {
 
-		getInstance().manageSplash();
+		TrayRSSSplashScreen splash = new TrayRSSSplashScreen();
+		splash.show(3);
+		splash.close();
 
 		// TODO Feed auslesen
 		// TODO neuer Feedinhalt zwischenpuffern
@@ -246,18 +248,6 @@ public class TrayRSS {
 			}
 		}
 		return erg;
-	}
-
-	public void manageSplash() {
-		SplashScreen splash = SplashScreen.getSplashScreen();
-		if (splash.isVisible()) {
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-
-			}
-			splash.close();
-		}
 	}
 
 	public static TrayRSS getInstance() {
