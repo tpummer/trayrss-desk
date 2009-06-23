@@ -24,6 +24,8 @@ import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 
+import configuration.ReferenceCollection;
+
 /**
  * Controller to manage the TrayIcon and its possible states
  * 
@@ -31,10 +33,6 @@ import java.awt.TrayIcon;
  *
  */
 public class IconChanger {
-	
-	public static final String NORMALICON = "./img/icons/rssTrayIcon.PNG";
-	public static final String WARNICON = "./img/icons/rssTrayIconWarn.PNG";
-	public static final String NEWICON = "./img/icons/rssTrayIconWarn.PNG";
 	
 	/**
 	 * Changes the Image of a TrayIcon
@@ -61,8 +59,8 @@ public class IconChanger {
 	 */
 	public static TrayIcon createTrayIcon(PopupMenu popup) {
 		Image image = Toolkit.getDefaultToolkit().getImage(
-				NORMALICON);
-		return new TrayIcon(image, "TrayRSS 0.4 Alpha", popup);
+				ReferenceCollection.ICON_NORMAL);
+		return new TrayIcon(image, ReferenceCollection.TRAYRSS_APP_TITLE, popup);
 	}
 
 }

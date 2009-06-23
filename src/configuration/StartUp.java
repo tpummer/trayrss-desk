@@ -1,3 +1,23 @@
+/**
+    RSSTray - simply alerting at new Feed Information
+    Copyright (C) 2009 Thomas Pummer
+    conatct me fake (at) sprossenwanne.at
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
 package configuration;
 
 import java.io.IOException;
@@ -7,19 +27,35 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.apache.log4j.SimpleLayout;
 
+/**
+ * Prozesses all initial loadings
+ * 
+ * @author put
+ *
+ */
 public class StartUp {
 	Logger log;
 	
-	public StartUp(){
-		startLogger();
+	/**
+	 * Prozesses all initial loadings
+	 * 
+	 * @param debug switches the logger to debug mode
+	 */
+	public StartUp(boolean debug){
+		startLogger(debug);
+		ReferenceCollection.log.info("Startup complete.");
 	}
 	
-	private void startLogger(){
+	private void startLogger(boolean debug){
 		log = Logger.getRootLogger();
-
-		SimpleLayout layout = new SimpleLayout();
+		
+		ReferenceCollection.log = log;
+		
+		String pattern = "%d{MM/dd/yyyy HH:mm:ss,SSSS}: %m %n";
+		PatternLayout layout = new PatternLayout(pattern);
 		ConsoleAppender consoleAppender = new ConsoleAppender(layout);
 		log.addAppender(consoleAppender);
 		FileAppender fileAppender;
@@ -28,10 +64,10 @@ public class StartUp {
 					"logs/TrayRSS.log", false);
 			log.addAppender(fileAppender);
 			// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
-			log.setLevel(Level.WARN);
+			log.setLevel(ReferenceCollection.LOG_LEVEL);
+			if(debug) log.setLevel(ReferenceCollection.LOG_LEVEL_DEBUG);
 		} catch (IOException e) {
 			System.err.println("Logdatei kann nicht geöffnet werden!");
 		}
 	}
-
 }
