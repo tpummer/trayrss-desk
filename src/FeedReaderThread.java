@@ -1,4 +1,7 @@
 /**
+ * Obsolet
+ */
+/**
     RSSTray - simply alerting at new Feed Information
     Copyright (C) 2009 Thomas Pummer
     conatct me fake (at) sprossenwanne.at

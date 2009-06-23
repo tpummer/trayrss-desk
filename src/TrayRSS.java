@@ -18,12 +18,13 @@
 
  */
 
+import gui.TrayRSSSplashScreen;
+
 import java.awt.AWTException;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-import java.awt.SplashScreen;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
@@ -48,23 +49,27 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.swing.JOptionPane;
 
+import monitor.IconChanger;
+
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
+
+import configuration.StartUp;
+
 public class TrayRSS {
 
 	private static SystemTray tray = null;
 	private static LinkedList<FeedInfo> rssUrlSave = null;
-	//nach den anderen Vairablen die befüllt werden
+	// nach den anderen Vairablen die befÃ¼llt werden
 	private static TrayRSS instance = new TrayRSS();
+	
 
 	private TrayRSS() {
 		if (SystemTray.isSupported()) {
 			tray = SystemTray.getSystemTray();
 			final TrayIcon trayIcon;
 			TrayRSS.rssUrlSave = loadRssInfo();
-
-			//Image image = Toolkit.getDefaultToolkit().getImage(
-			//		getClass().getResource("/img/rsstrayicon.PNG"));
-			 Image image =
-			 Toolkit.getDefaultToolkit().getImage("./img/rsstrayicon.PNG");			
 
 			MouseListener mouseListener = new MouseListener() {
 
@@ -126,22 +131,22 @@ public class TrayRSS {
 						checktime = 60 * 1000 * Long
 								.parseLong(JOptionPane
 										.showInputDialog(
-												"Geben die den Prüfintervall in Minuten ein!",
+												"Geben die den Prï¿½fintervall in Minuten ein!",
 												"30"));
 						rssUrlSave.add(new FeedInfo(url, checktime, null));
 					} catch (HeadlessException e1) {
 						JOptionPane
 								.showMessageDialog(
 										null,
-										"Sie haben keine gültige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
+										"Sie haben keine gï¿½ltige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
 					} catch (MalformedURLException e1) {
 						JOptionPane
 								.showMessageDialog(
 										null,
-										"Sie haben keine gültige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
+										"Sie haben keine gï¿½ltige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null,
-								"Sie haben keine gültige Zahl eingegeben!");
+								"Sie haben keine gï¿½ltige Zahl eingegeben!");
 					}
 				}
 			};
@@ -162,7 +167,7 @@ public class TrayRSS {
 			exitItem.addActionListener(exitListener);
 			popup.add(exitItem);
 
-			trayIcon = new TrayIcon(image, "RSSTRAY", popup);
+			trayIcon = IconChanger.createTrayIcon(popup);
 
 			ActionListener actionListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -181,14 +186,15 @@ public class TrayRSS {
 			} catch (AWTException e) {
 				System.err.println("TrayIcon could not be added.");
 			}
-			
-			ExecutorService threadExecutor = Executors.newFixedThreadPool( 5 );
-			for(Iterator<FeedInfo> it = rssUrlSave.iterator(); it.hasNext();){
-				FeedReaderThread feedReader = new FeedReaderThread(it.next(), trayIcon);
-				//TODO Thread wo speichern zum interruppten
+
+			ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
+			for (Iterator<FeedInfo> it = rssUrlSave.iterator(); it.hasNext();) {
+				FeedReaderThread feedReader = new FeedReaderThread(it.next(),
+						trayIcon);
+				// TODO Thread wo speichern zum interruppten
 				threadExecutor.execute(feedReader);
 			}
-			
+
 		}
 
 		else {
@@ -203,15 +209,15 @@ public class TrayRSS {
 	public static void main(String[] args) {
 
 		TrayRSSSplashScreen splash = new TrayRSSSplashScreen();
-		splash.show(3);
-		splash.close();
+		StartUp startup = new StartUp();
+		splash.endSplashAfterDisplaytime(3);
 
 		// TODO Feed auslesen
 		// TODO neuer Feedinhalt zwischenpuffern
-		// TODO Icon verändern
-		// TODO Artikel im browser öffnen
+		// TODO Icon verï¿½ndern
+		// TODO Artikel im browser ï¿½ffnen
 		// TODO Meldung an besitzer
-		// TODO feed löschen
+		// TODO feed lï¿½schen
 		// TODO intervall anpassen
 		// TODO Drag n Drop einer FeedURL auf das Icon
 
@@ -239,9 +245,9 @@ public class TrayRSS {
 				erg = (LinkedList<FeedInfo>) objectIS.readObject();
 				objectIS.close();
 			} catch (IOException e) {
-				//System.err.println(e);
+				// System.err.println(e);
 			} catch (ClassNotFoundException e) {
-				//System.err.println(e);
+				// System.err.println(e);
 			} finally {
 				if (erg == null)
 					erg = new LinkedList<FeedInfo>();
@@ -253,5 +259,8 @@ public class TrayRSS {
 	public static TrayRSS getInstance() {
 		return instance;
 	}
-
+ 
+	public TrayIcon getTrayIcon(){
+		return null;
+	}
 }
