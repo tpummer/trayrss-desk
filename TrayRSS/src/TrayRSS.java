@@ -22,11 +22,9 @@ import gui.TrayRSSSplashScreen;
 
 import java.awt.AWTException;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,15 +43,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.swing.JOptionPane;
 
 import monitor.IconChanger;
-
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.SimpleLayout;
 
 import configuration.StartUp;
 
