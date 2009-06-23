@@ -22,6 +22,8 @@ package gui;
 import java.awt.SplashScreen;
 import java.util.GregorianCalendar;
 
+import configuration.ReferenceCollection;
+
 /**
  * Offers the management of the SplashScreen
  * 
@@ -37,7 +39,7 @@ public class TrayRSSSplashScreen {
 	/**
 	 * Creates a TrayRSSSplashScreen Object and retrieves a
 	 * reference to the actual SplashScreen given with the
-	 * java vm parameter -splash. Also the splashscreentimer
+	 * java vm parameter -splash. Also the splash screen timer
 	 * is initiated. 
 	 */
 	public TrayRSSSplashScreen() {
@@ -46,7 +48,8 @@ public class TrayRSSSplashScreen {
 		try {
 			this.splash = SplashScreen.getSplashScreen();
 		} catch (NullPointerException e) {
-			System.err.println("No splash screen found!");
+			ReferenceCollection.log.warn("No splash screen found!");
+			ReferenceCollection.log.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
 		}
 		
 		this.start = new GregorianCalendar().getTimeInMillis();
@@ -60,12 +63,16 @@ public class TrayRSSSplashScreen {
 	 */
 	public void endSplashAfterDisplaytime(int seconds){
 		endTimer();
+		long diff = end - start;
 		long time = (seconds * 1000) - (end-start);
 		try {
 			show(time > 0 ? time : 0);
 			close();
+			ReferenceCollection.log.debug("Startup time: " + diff + " Milliseconds");
+			ReferenceCollection.log.debug("Splash shown for " + seconds + " Seconds");
 		} catch (NullPointerException e) {
-			System.err.println("No splash screen found!");
+			ReferenceCollection.log.warn("No splash screen found!");
+			ReferenceCollection.log.debug("at TrayRSSSplashScreen#endSplashAfterDisplaytime");
 		}		
 	}
 
@@ -86,4 +93,5 @@ public class TrayRSSSplashScreen {
 	private void close() throws NullPointerException{
 		splash.close();
 	}
+
 }

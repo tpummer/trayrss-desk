@@ -17,28 +17,40 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
- 
- Short descrition
- + New Function
- * Updated Function
- - Removed Function
+package configuration;
 
-0.4
-+ ReferenceCollection added and integrated
-+ Log4j and HSQL DB integrated
-+ TrayRSSSplashScreen - controls the actions on the splash screen
-+ Week - manages the days the feed should be monitored on
-+ StartUp<startLog> - Log4j Logger added
-+ IconChanger - change the Icon of the systemtray
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
-0.3 finished on 04/23/09
-+ balloon tips added
+/**
+ * Collection of all references
+ * 
+ * @author thefake
+ *
+ */
+public class ReferenceCollection {
+	
+	/*
+	 * Captions
+	 */
+	
+	public final static String TRAYRSS_APP_TITLE = "TrayRSS 0.4 Alpha";
 
-0.2
-+ only textual output
-+ add feeds
-+ get feedinfos with rome
-
-0.1
-+ trayicon added
-+ splashscreen added
+	
+	/*
+	 * Icons
+	 */
+	
+	public static final String ICON_NORMAL = "./img/icons/rssTrayIcon.PNG";
+	public static final String ICON_WARN = "./img/icons/rssTrayIconWarn.PNG";
+	public static final String ICON_NEW = "./img/icons/rssTrayIconWarn.PNG";
+	
+	/*
+	 * Logger
+	 */
+	
+	public static Logger log;
+	// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
+	public static final Level LOG_LEVEL = Level.INFO;
+	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
+}

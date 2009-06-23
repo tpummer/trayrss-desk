@@ -200,9 +200,18 @@ public class TrayRSS {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		boolean debug = false;;
+		
+		if(args.length != 0){
+			if(args[0].equals("-debug")){
+				debug = true;
+			} else {
+				//TODO Parameterausgabe zur Hilfe
+			}
+		}
 
 		TrayRSSSplashScreen splash = new TrayRSSSplashScreen();
-		StartUp startup = new StartUp();
+		StartUp startup = new StartUp(debug);
 		splash.endSplashAfterDisplaytime(3);
 
 		// TODO Feed auslesen
