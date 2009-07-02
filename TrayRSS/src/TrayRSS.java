@@ -19,6 +19,7 @@
  */
 
 import gui.TrayRSSSplashScreen;
+import gui.tray.TrayIconPOJO;
 
 import java.awt.AWTException;
 import java.awt.HeadlessException;
@@ -46,154 +47,23 @@ import java.util.concurrent.Executors;
 
 import javax.swing.JOptionPane;
 
+import monitor.FeedReaderThread;
 import monitor.IconChanger;
 
 import configuration.StartUp;
+import configuration.feeds.Feed;
 
 public class TrayRSS {
 
 	private static SystemTray tray = null;
-	private static LinkedList<FeedInfo> rssUrlSave = null;
+	private static LinkedList<Feed> rssUrlSave = null;
 	// nach den anderen Vairablen die befüllt werden
 	private static TrayRSS instance = new TrayRSS();
+	public static TrayIcon trayIcon;
 	
 
 	private TrayRSS() {
-		if (SystemTray.isSupported()) {
-			tray = SystemTray.getSystemTray();
-			final TrayIcon trayIcon;
-			TrayRSS.rssUrlSave = loadRssInfo();
-
-			MouseListener mouseListener = new MouseListener() {
-
-				public void mouseClicked(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse clicked!");
-				}
-
-				public void mouseEntered(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse entered!");
-				}
-
-				public void mouseExited(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse exited!");
-				}
-
-				public void mousePressed(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse pressed!");
-				}
-
-				public void mouseReleased(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse released!");
-				}
-			};
-
-			PopupMenu popup = new PopupMenu();
-
-			ActionListener ReadListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String allFeeds = "";
-					for (Iterator<FeedInfo> it = rssUrlSave.iterator(); it
-							.hasNext();) {
-						FeedInfo help = it.next();
-						String lastuse = "-";
-						if (help.getLastAction() != null) {
-							SimpleDateFormat format = new SimpleDateFormat(
-									"YYYY-MM-DD HH:mm:ss");
-							lastuse = format.format(help.getLastAction());
-						}
-						allFeeds = allFeeds + help.getUrl()
-								+ " im Intervall von " + help.getIntervall()
-								/ 1000 / 60 + " min zuletzt am: " + lastuse
-								+ "\n";
-					}
-					JOptionPane.showMessageDialog(null, allFeeds);
-				}
-			};
-
-			MenuItem listRss = new MenuItem("List RSS");
-			listRss.addActionListener(ReadListener);
-			popup.add(listRss);
-
-			ActionListener addListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					URL url = null;
-					long checktime = 0;
-					try {
-						url = new URL(JOptionPane.showInputDialog(
-								"Bitte geben Sie einen Text ein", "http://"));
-						checktime = 60 * 1000 * Long
-								.parseLong(JOptionPane
-										.showInputDialog(
-												"Geben die den Pr�fintervall in Minuten ein!",
-												"30"));
-						rssUrlSave.add(new FeedInfo(url, checktime, null));
-					} catch (HeadlessException e1) {
-						JOptionPane
-								.showMessageDialog(
-										null,
-										"Sie haben keine g�ltige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
-					} catch (MalformedURLException e1) {
-						JOptionPane
-								.showMessageDialog(
-										null,
-										"Sie haben keine g�ltige URL eingegeben!\nGeben sie die URL mitsamt \"http://\" ein");
-					} catch (NumberFormatException e1) {
-						JOptionPane.showMessageDialog(null,
-								"Sie haben keine g�ltige Zahl eingegeben!");
-					}
-				}
-			};
-
-			MenuItem addRss = new MenuItem("Add RSS");
-			addRss.addActionListener(addListener);
-			popup.add(addRss);
-
-			ActionListener exitListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// TODO alle threads beenden
-					getInstance().saveRssInfo();
-					System.exit(0);
-				}
-			};
-
-			MenuItem exitItem = new MenuItem("Exit");
-			exitItem.addActionListener(exitListener);
-			popup.add(exitItem);
-
-			trayIcon = IconChanger.createTrayIcon(popup);
-
-			ActionListener actionListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					trayIcon.displayMessage("Action Event",
-							"An Action Event Has Been Performed!",
-							TrayIcon.MessageType.INFO);
-				}
-			};
-
-			trayIcon.setImageAutoSize(true);
-			trayIcon.addActionListener(actionListener);
-			trayIcon.addMouseListener(mouseListener);
-
-			try {
-				tray.add(trayIcon);
-			} catch (AWTException e) {
-				System.err.println("TrayIcon could not be added.");
-			}
-
-			ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
-			for (Iterator<FeedInfo> it = rssUrlSave.iterator(); it.hasNext();) {
-				FeedReaderThread feedReader = new FeedReaderThread(it.next(),
-						trayIcon);
-				// TODO Thread wo speichern zum interruppten
-				threadExecutor.execute(feedReader);
-			}
-
-		}
-
-		else {
-			System.err.println("Systray not supported!");
-			System.exit(1);
-		}
+		
 	}
 
 	/**
@@ -216,10 +86,10 @@ public class TrayRSS {
 
 		// TODO Feed auslesen
 		// TODO neuer Feedinhalt zwischenpuffern
-		// TODO Icon ver�ndern
+		// TODO Icon verändern
 		// TODO Artikel im browser �ffnen
 		// TODO Meldung an besitzer
-		// TODO feed l�schen
+		// TODO feed löschen
 		// TODO intervall anpassen
 		// TODO Drag n Drop einer FeedURL auf das Icon
 
@@ -237,14 +107,14 @@ public class TrayRSS {
 
 	}
 
-	public static LinkedList<FeedInfo> loadRssInfo() {
-		LinkedList<FeedInfo> erg = new LinkedList<FeedInfo>();
+	public static LinkedList<Feed> loadRssInfo() {
+		LinkedList<Feed> erg = new LinkedList<Feed>();
 		File feeds = new File(".feeds");
 		if (feeds.exists()) {
 			try {
 				FileInputStream fileIS = new FileInputStream(feeds);
 				ObjectInputStream objectIS = new ObjectInputStream(fileIS);
-				erg = (LinkedList<FeedInfo>) objectIS.readObject();
+				erg = (LinkedList<Feed>) objectIS.readObject();
 				objectIS.close();
 			} catch (IOException e) {
 				// System.err.println(e);
@@ -252,7 +122,7 @@ public class TrayRSS {
 				// System.err.println(e);
 			} finally {
 				if (erg == null)
-					erg = new LinkedList<FeedInfo>();
+					erg = new LinkedList<Feed>();
 			}
 		}
 		return erg;

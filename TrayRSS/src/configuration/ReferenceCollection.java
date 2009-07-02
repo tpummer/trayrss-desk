@@ -19,6 +19,8 @@
  */
 package configuration;
 
+import java.awt.TrayIcon;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -53,4 +55,10 @@ public class ReferenceCollection {
 	// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
 	public static final Level LOG_LEVEL = Level.INFO;
 	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
+	
+	/*
+	 * Tray
+	 */
+	
+	public static TrayIcon TRAY_ICON;
 }
