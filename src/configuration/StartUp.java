@@ -20,6 +20,8 @@
 
 package configuration;
 
+import gui.tray.TrayIconPOJO;
+
 import java.io.IOException;
 
 import org.apache.log4j.FileAppender;
@@ -33,7 +35,7 @@ import org.apache.log4j.SimpleLayout;
 /**
  * Prozesses all initial loadings
  * 
- * @author put
+ * @author thefake
  *
  */
 public class StartUp {
@@ -46,9 +48,15 @@ public class StartUp {
 	 */
 	public StartUp(boolean debug){
 		startLogger(debug);
+		startTray();
 		ReferenceCollection.log.info("Startup complete.");
 	}
 	
+	private void startTray() {
+		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
+		trayIconPOJO.startTrayIcon();
+	}
+
 	private void startLogger(boolean debug){
 		log = Logger.getRootLogger();
 		

@@ -1,6 +1,5 @@
-/**
- * Obsolet
- */
+package monitor;
+
 /**
     RSSTray - simply alerting at new Feed Information
     Copyright (C) 2009 Thomas Pummer
@@ -30,12 +29,19 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+import configuration.feeds.Feed;
 
+/**
+ * Monitors a feed
+ * 
+ * @author thefake
+ *
+ */
 public class FeedReaderThread implements Runnable {
-	private FeedInfo feedInfo = null;
+	private Feed feedInfo = null;
 	private TrayIcon icon = null;
 
-	public FeedReaderThread(FeedInfo feedInfo, TrayIcon icon) {
+	public FeedReaderThread(Feed feedInfo, TrayIcon icon) {
 		this.feedInfo = feedInfo;
 		this.icon = icon;
 		

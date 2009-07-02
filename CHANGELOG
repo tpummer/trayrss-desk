@@ -24,6 +24,9 @@
  - Removed Function
 
 0.4
+* TrayIcon encapsulated
++ Prepared Feed Monitor
++ Implemented the Feed
 + ReferenceCollection added and integrated
 + Log4j and HSQL DB integrated
 + TrayRSSSplashScreen - controls the actions on the splash screen
