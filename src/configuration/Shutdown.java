@@ -30,18 +30,18 @@ public class Shutdown {
 	
 	
 	public void now(){
-		ReferenceCollection.log.info("Shutdown initiated!");
+		ReferenceCollection.LOG.info("Shutdown initiated!");
 		ReferenceCollection.MONITOR_THREAD.interrupt();
 		
 		while(!isAllClosed()){
 			
 		}
-		ReferenceCollection.log.info("Shutdown completed!");
+		ReferenceCollection.LOG.info("Shutdown completed!");
 	}
 
 	public boolean isAllClosed() {
 		boolean allClosed = ReferenceCollection.MONITOR_THREAD.isAlive();
-		ReferenceCollection.log.debug("AllClosed after Monitor Thread check: " + allClosed);
+		ReferenceCollection.LOG.debug("AllClosed after Monitor Thread check: " + allClosed);
 		return allClosed;
 	}
 }
