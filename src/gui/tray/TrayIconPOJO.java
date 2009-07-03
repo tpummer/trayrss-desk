@@ -29,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import configuration.ReferenceCollection;
+
 import monitor.IconChanger;
 
 /**
@@ -57,75 +59,13 @@ public class TrayIconPOJO {
 		if (SystemTray.isSupported()) {
 			tray = SystemTray.getSystemTray();
 
-			MouseListener mouseListener = new MouseListener() {
-
-				public void mouseClicked(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse clicked!");
-				}
-
-				public void mouseEntered(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse entered!");
-				}
-
-				public void mouseExited(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse exited!");
-				}
-
-				public void mousePressed(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse pressed!");
-				}
-
-				public void mouseReleased(MouseEvent e) {
-					// System.out.println("Tray Icon - Mouse released!");
-				}
-			};
-
-			PopupMenu popup = new PopupMenu();
-
-			ActionListener ReadListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			};
-
-			MenuItem listRss = new MenuItem("List RSS");
-			listRss.addActionListener(ReadListener);
-			popup.add(listRss);
-
-			ActionListener addListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			};
-
-			MenuItem addRss = new MenuItem("Add RSS");
-			addRss.addActionListener(addListener);
-			popup.add(addRss);
-
-			ActionListener exitListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-					System.exit(0);
-				}
-			};
-
-			MenuItem exitItem = new MenuItem("Exit");
-			exitItem.addActionListener(exitListener);
-			popup.add(exitItem);
-
-			trayIcon = IconChanger.createTrayIcon(popup);
-
-			ActionListener actionListener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					trayIcon.displayMessage("Action Event",
-							"An Action Event Has Been Performed!",
-							TrayIcon.MessageType.INFO);
-				}
-			};
+			trayIcon = IconChanger.createTrayIcon(new TrayMenu());
 
 			trayIcon.setImageAutoSize(true);
-			trayIcon.addActionListener(actionListener);
-			trayIcon.addMouseListener(mouseListener);
+			trayIcon.addActionListener(new TrayIconActionListener());
+			trayIcon.addMouseListener(new TrayIconMouseListener());
+			
+			ReferenceCollection.TRAY_ICON = trayIcon;
 
 			try {
 				tray.add(trayIcon);

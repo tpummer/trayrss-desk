@@ -24,6 +24,8 @@ import gui.tray.TrayIconPOJO;
 
 import java.io.IOException;
 
+import monitor.Monitor;
+
 import org.apache.log4j.FileAppender;
 
 import org.apache.log4j.ConsoleAppender;
@@ -49,9 +51,17 @@ public class StartUp {
 	public StartUp(boolean debug){
 		startLogger(debug);
 		startTray();
+		startMonitor();
 		ReferenceCollection.log.info("Startup complete.");
 	}
 	
+	private void startMonitor() {
+		Thread monitor = new Thread(new Monitor());
+		monitor.setName("Monitor");
+		ReferenceCollection.MONITOR_THREAD = monitor;
+		monitor.start();
+	}
+
 	private void startTray() {
 		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
 		trayIconPOJO.startTrayIcon();

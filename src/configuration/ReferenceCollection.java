@@ -61,4 +61,9 @@ public class ReferenceCollection {
 	 */
 	
 	public static TrayIcon TRAY_ICON;
+
+	/*
+	 * Monitor
+	 */
+	public static Thread MONITOR_THREAD;
 }
