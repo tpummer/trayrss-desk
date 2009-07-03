@@ -35,10 +35,6 @@ public class TrayMenuActionListener implements ActionListener {
 		}else if(e.getActionCommand().equals("Exit")){
 			Shutdown shutdown = new Shutdown();
 			shutdown.now();
-			
-			while(!shutdown.isAllClosed()){
-
-			}
 			System.exit(0);
 		}
 
