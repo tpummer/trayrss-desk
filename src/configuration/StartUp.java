@@ -23,6 +23,7 @@ package configuration;
 import gui.tray.TrayIconPOJO;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,10 +62,16 @@ public class StartUp {
 		loadLanguage();
 		setCaptions();
 		startTray();
+		startDatabase();
 		startMonitor();
 		ReferenceCollection.LOG.info("Startup complete.");
 	}
 	
+	private void startDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void loadProps() {
 		InputStream reader = null;
 		try 
@@ -74,9 +81,14 @@ public class StartUp {
 		  props = new Properties();
 		  props.loadFromXML( reader ); 
 		} 
+		catch ( FileNotFoundException e){
+			ReferenceCollection.LOG.error("No config file found! - "
+					+ "\n Please reinstall the application!");
+			System.exit(0);
+		}
 		catch ( IOException e ) 
 		{ 
-		  e.printStackTrace(); 
+		   e.printStackTrace(); 
 		} 
 		finally 
 		{ 
