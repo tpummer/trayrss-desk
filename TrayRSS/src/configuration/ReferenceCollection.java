@@ -33,6 +33,12 @@ import org.apache.log4j.Logger;
 public class ReferenceCollection {
 	
 	/*
+	 * Configuration
+	 */
+	public static final String LANGUAGE_CONFIG = "./config.ini";
+	public static String LANGUAGE;
+	
+	/*
 	 * Captions
 	 */
 	
@@ -51,7 +57,7 @@ public class ReferenceCollection {
 	 * Logger
 	 */
 	
-	public static Logger log;
+	public static Logger LOG;
 	// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
 	public static final Level LOG_LEVEL = Level.INFO;
 	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
@@ -61,6 +67,7 @@ public class ReferenceCollection {
 	 */
 	
 	public static TrayIcon TRAY_ICON;
+	public static String TRAYMENU_EXIT = "Exit";
 
 	/*
 	 * Monitor

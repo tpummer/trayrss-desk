@@ -48,8 +48,8 @@ public class TrayRSSSplashScreen {
 		try {
 			this.splash = SplashScreen.getSplashScreen();
 		} catch (NullPointerException e) {
-			ReferenceCollection.log.warn("No splash screen found!");
-			ReferenceCollection.log.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
+			ReferenceCollection.LOG.warn("No splash screen found!");
+			ReferenceCollection.LOG.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
 		}
 		
 		this.start = new GregorianCalendar().getTimeInMillis();
@@ -68,11 +68,11 @@ public class TrayRSSSplashScreen {
 		try {
 			show(time > 0 ? time : 0);
 			close();
-			ReferenceCollection.log.debug("Startup time: " + diff + " Milliseconds");
-			ReferenceCollection.log.debug("Splash shown for " + seconds + " Seconds");
+			ReferenceCollection.LOG.debug("Startup time: " + diff + " Milliseconds");
+			ReferenceCollection.LOG.debug("Splash shown for " + seconds + " Seconds");
 		} catch (NullPointerException e) {
-			ReferenceCollection.log.warn("No splash screen found!");
-			ReferenceCollection.log.debug("at TrayRSSSplashScreen#endSplashAfterDisplaytime");
+			ReferenceCollection.LOG.warn("No splash screen found!");
+			ReferenceCollection.LOG.debug("at TrayRSSSplashScreen#endSplashAfterDisplaytime");
 		}		
 	}
 

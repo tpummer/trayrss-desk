@@ -22,6 +22,7 @@ package gui.tray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import configuration.ReferenceCollection;
 import configuration.Shutdown;
 
 public class TrayMenuActionListener implements ActionListener {
@@ -32,7 +33,7 @@ public class TrayMenuActionListener implements ActionListener {
 			
 		}else if(e.getActionCommand().equals("Add RSS")){
 			
-		}else if(e.getActionCommand().equals("Exit")){
+		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_EXIT)){
 			Shutdown shutdown = new Shutdown();
 			shutdown.now();
 			System.exit(0);

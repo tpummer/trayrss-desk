@@ -22,7 +22,13 @@ package configuration;
 
 import gui.tray.TrayIconPOJO;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Properties;
 
 import monitor.Monitor;
 
@@ -42,6 +48,7 @@ import org.apache.log4j.SimpleLayout;
  */
 public class StartUp {
 	Logger log;
+	Properties props = new Properties();
 	
 	/**
 	 * Prozesses all initial loadings
@@ -50,11 +57,46 @@ public class StartUp {
 	 */
 	public StartUp(boolean debug){
 		startLogger(debug);
+		loadProps();				
+		loadLanguage();
+		setCaptions();
 		startTray();
 		startMonitor();
-		ReferenceCollection.log.info("Startup complete.");
+		ReferenceCollection.LOG.info("Startup complete.");
 	}
 	
+	private void loadProps() {
+		InputStream reader = null;
+		try 
+		{  
+		  reader = new FileInputStream( ReferenceCollection.LANGUAGE_CONFIG ); 
+		  
+		  props = new Properties();
+		  props.loadFromXML( reader ); 
+		} 
+		catch ( IOException e ) 
+		{ 
+		  e.printStackTrace(); 
+		} 
+		finally 
+		{ 
+		  try { reader.close(); } catch ( Exception e ) { } 
+		}
+		
+	}
+
+	private void setCaptions() {
+		ReferenceCollection.TRAYMENU_EXIT = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".traymenu_exit");
+		
+	}
+
+	private void loadLanguage() {
+		
+		  ReferenceCollection.LANGUAGE = props.getProperty("trayrss.lang");
+		
+	}
+
 	private void startMonitor() {
 		Thread monitor = new Thread(new Monitor());
 		monitor.setName("Monitor");
@@ -70,7 +112,7 @@ public class StartUp {
 	private void startLogger(boolean debug){
 		log = Logger.getRootLogger();
 		
-		ReferenceCollection.log = log;
+		ReferenceCollection.LOG = log;
 		
 		String pattern = "%d{MM/dd/yyyy HH:mm:ss,SSSS}: %m %n";
 		PatternLayout layout = new PatternLayout(pattern);
