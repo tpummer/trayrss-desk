@@ -17,34 +17,31 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
- 
- Short descrition
- + New Function
- * Updated Function
- - Removed Function
+package gui.tray;
 
-0.4
-+ Shutdown
-+ Monitor startup
-* TrayMenu encapsulated
-* TrayIcon encapsulated
-+ Prepared Feed Monitor
-+ Implemented the Feed
-+ ReferenceCollection added and integrated
-+ Log4j and HSQL DB integrated
-+ TrayRSSSplashScreen - controls the actions on the splash screen
-+ Week - manages the days the feed should be monitored on
-+ StartUp<startLog> - Log4j Logger added
-+ IconChanger - change the Icon of the systemtray
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-0.3 finished on 04/23/09
-+ balloon tips added
+import configuration.Shutdown;
 
-0.2
-+ only textual output
-+ add feeds
-+ get feedinfos with rome
+public class TrayMenuActionListener implements ActionListener {
 
-0.1
-+ trayicon added
-+ splashscreen added
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("List RSS")){
+			
+		}else if(e.getActionCommand().equals("Add RSS")){
+			
+		}else if(e.getActionCommand().equals("Exit")){
+			Shutdown shutdown = new Shutdown();
+			shutdown.now();
+			
+			while(!shutdown.isAllClosed()){
+
+			}
+			System.exit(0);
+		}
+
+	}
+
+}

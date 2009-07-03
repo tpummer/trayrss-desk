@@ -17,41 +17,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package monitor;
+package gui.tray;
 
-import java.util.Iterator;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import configuration.ReferenceCollection;
-import configuration.feeds.Feed;
 
-public class Monitor implements Runnable {
-	
-	public Monitor(){
-
-	}
-	
-	
+public class TrayIconActionListener implements ActionListener {
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
-//		for (Iterator<Feed> it = rssUrlSave.iterator(); it.hasNext();) {
-//			FeedReaderThread feedReader = new FeedReaderThread(it.next(),
-//					ReferenceCollection.TRAY_ICON);
-//			// TODO Thread wo speichern zum interruppten
-//			threadExecutor.execute(feedReader);
-		while(true){ 
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				System.out.println("End");
-				break;
-			}
-			System.out.println("Ping");
-		}
-//		}
+	public void actionPerformed(ActionEvent e) {
+
+		ReferenceCollection.TRAY_ICON.displayMessage("Action Event",
+				"An Action Event Has Been Performed!",
+				TrayIcon.MessageType.INFO);
 	}
 }

@@ -17,34 +17,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
- 
- Short descrition
- + New Function
- * Updated Function
- - Removed Function
+package configuration;
 
-0.4
-+ Shutdown
-+ Monitor startup
-* TrayMenu encapsulated
-* TrayIcon encapsulated
-+ Prepared Feed Monitor
-+ Implemented the Feed
-+ ReferenceCollection added and integrated
-+ Log4j and HSQL DB integrated
-+ TrayRSSSplashScreen - controls the actions on the splash screen
-+ Week - manages the days the feed should be monitored on
-+ StartUp<startLog> - Log4j Logger added
-+ IconChanger - change the Icon of the systemtray
+public class Shutdown {
+	public Shutdown(){
+		stopMonitor();
+	}
 
-0.3 finished on 04/23/09
-+ balloon tips added
+	private void stopMonitor() {
+		
+	}
+	
+	
+	public void now(){
+		ReferenceCollection.MONITOR_THREAD.interrupt();
+	}
 
-0.2
-+ only textual output
-+ add feeds
-+ get feedinfos with rome
-
-0.1
-+ trayicon added
-+ splashscreen added
+	public boolean isAllClosed() {
+		boolean allClosed = ReferenceCollection.MONITOR_THREAD.isAlive();
+		return allClosed;
+	}
+}
