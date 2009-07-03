@@ -24,6 +24,9 @@
  - Removed Function
 
 0.4
+* access configuration modified(FileNotFoundException)
++ multilanguage support
++ access configuration
 + Shutdown
 + Monitor startup
 * TrayMenu encapsulated
