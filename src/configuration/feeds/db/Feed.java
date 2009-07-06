@@ -1,4 +1,4 @@
-package configuration.feeds;
+package configuration.feeds.db;
 /**
     RSSTray - simply alerting at new Feed Information
     Copyright (C) 2009 Thomas Pummer
