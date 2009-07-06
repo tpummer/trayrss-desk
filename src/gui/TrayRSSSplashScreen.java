@@ -20,7 +20,6 @@
 package gui;
 
 import java.awt.SplashScreen;
-import java.util.GregorianCalendar;
 
 import configuration.ReferenceCollection;
 
@@ -52,7 +51,7 @@ public class TrayRSSSplashScreen {
 			ReferenceCollection.LOG.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
 		}
 		
-		this.start = new GregorianCalendar().getTimeInMillis();
+		this.start = System.currentTimeMillis(); 
 	}
 
 	/**
@@ -77,7 +76,7 @@ public class TrayRSSSplashScreen {
 	}
 
 	private void endTimer(){
-		this.end = new GregorianCalendar().getTimeInMillis();
+		this.end = System.currentTimeMillis(); 
 	}
 	
 	private void show (long milliseconds)throws NullPointerException{

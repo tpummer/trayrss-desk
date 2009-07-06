@@ -22,12 +22,24 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * Represents a RSS or Atom Feed
  * 
  * @author thefake
  *
  */
+
+@Entity
+@Table(name = "feeds")
 public class Feed implements Serializable {
 
 	
@@ -35,35 +47,56 @@ public class Feed implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 12L;
-
-	private URL url;
-	private long intervall;
+	
+	private Long id;
+	private String url;
+	private Long intervall;
 	private Date lastAction;
-	
-	public Feed(URL url, long intervall, Date lastAction) {
-		this.url = url;
-		this.intervall = intervall;
-		this.lastAction = lastAction;
-	}
+	private String name;
 	
 	
-	public URL getUrl() {
-		return url;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
 	}
-	public void setUrl(URL url) {
-		this.url = url;
+	public void setId(Long id) {
+		this.id = id;
 	}
+	
+	@Column(nullable = false)
 	public long getIntervall() {
 		return intervall;
 	}
-	public void setIntervall(long intervall) {
+	public void setIntervall(Long intervall) {
 		this.intervall = intervall;
 	}
+	
+	@Column(nullable = false)
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getLastAction() {
 		return lastAction;
 	}
 	public void setLastAction(Date lastAction) {
 		this.lastAction = lastAction;
 	}
+	
+	@Column(nullable = true)
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 }

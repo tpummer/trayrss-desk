@@ -20,6 +20,7 @@ package monitor;
 
  */
 
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.TrayIcon;
@@ -55,7 +56,7 @@ public class FeedReaderThread implements Runnable {
 			try {
 
 				SyndFeedInput input = new SyndFeedInput();
-				SyndFeed feed = input.build(new XmlReader(feedInfo.getUrl()));
+				SyndFeed feed = input.build(new XmlReader(new URL(feedInfo.getUrl())));
 
 				List<SyndEntryImpl> content = feed.getEntries();
 				

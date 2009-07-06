@@ -84,15 +84,6 @@ public class TrayRSS {
 		StartUp startup = new StartUp(debug);
 		splash.endSplashAfterDisplaytime(3);
 
-		// TODO Feed auslesen
-		// TODO neuer Feedinhalt zwischenpuffern
-		// TODO Icon verändern
-		// TODO Artikel im browser �ffnen
-		// TODO Meldung an besitzer
-		// TODO feed löschen
-		// TODO intervall anpassen
-		// TODO Drag n Drop einer FeedURL auf das Icon
-
 	}
 
 	public void saveRssInfo() {

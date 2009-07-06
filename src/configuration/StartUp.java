@@ -50,6 +50,7 @@ import org.apache.log4j.SimpleLayout;
 public class StartUp {
 	Logger log;
 	Properties props = new Properties();
+	boolean debug = false;
 	
 	/**
 	 * Prozesses all initial loadings
@@ -57,6 +58,7 @@ public class StartUp {
 	 * @param debug switches the logger to debug mode
 	 */
 	public StartUp(boolean debug){
+		this.debug = debug;
 		startLogger(debug);
 		loadProps();				
 		loadLanguage();
@@ -68,11 +70,19 @@ public class StartUp {
 	}
 	
 	private void startDatabase() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Start Database at " + start);
 		// TODO Auto-generated method stub
-		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis();  
+		ReferenceCollection.LOG.debug("Startup: Finished Start Database at " + end);
 	}
 
 	private void loadProps() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis();  
+		ReferenceCollection.LOG.debug("Startup: Load Properties at " + start);
 		InputStream reader = null;
 		try 
 		{  
@@ -94,31 +104,64 @@ public class StartUp {
 		{ 
 		  try { reader.close(); } catch ( Exception e ) { } 
 		}
-		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Finished Load Properites at " + end);
 	}
 
 	private void setCaptions() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Set Captions at " + start);
+		
 		ReferenceCollection.TRAYMENU_EXIT = props.getProperty("trayrss."+
 				ReferenceCollection.LANGUAGE+".traymenu_exit");
+		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Finished Set Captions at " + end);
 		
 	}
 
 	private void loadLanguage() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Set Language at " + start);
 		
 		  ReferenceCollection.LANGUAGE = props.getProperty("trayrss.lang");
+		  
+		  long end = 0;
+			if(debug) end = System.currentTimeMillis(); 
+			ReferenceCollection.LOG.debug("Startup: Finished Set Language at " + end);
 		
 	}
 
 	private void startMonitor() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Start Monitor at " + start);
+		
 		Thread monitor = new Thread(new Monitor());
 		monitor.setName("Monitor");
 		ReferenceCollection.MONITOR_THREAD = monitor;
 		monitor.start();
+		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Finished Start Monitor at " + end);
 	}
 
 	private void startTray() {
+		long start = 0;
+		if(debug) start = System.currentTimeMillis();  
+		ReferenceCollection.LOG.debug("Startup: Start Tray at " + start);
+		
 		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
 		trayIconPOJO.startTrayIcon();
+		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Finished Start Tray at " + end);
 	}
 
 	private void startLogger(boolean debug){
@@ -141,5 +184,9 @@ public class StartUp {
 		} catch (IOException e) {
 			System.err.println("Logdatei kann nicht geöffnet werden!");
 		}
+		
+		long end = 0;
+		if(debug) end = System.currentTimeMillis(); 
+		ReferenceCollection.LOG.debug("Startup: Finished Start Database at " + end);
 	}
 }
