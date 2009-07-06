@@ -69,10 +69,23 @@ public class ReferenceCollection {
 	
 	public static TrayIcon TRAY_ICON;
 	public static String TRAYMENU_EXIT = "Exit";
+	public static String TRAYMENU_MONITOR = "Check Feeds manually";
+	public static String TRAYMENU_CONFIG = "Configuration";
+	public static String TRAYMENU_HELP = "Help";
 
 	/*
 	 * Monitor
 	 */
 	public static Thread MONITOR_THREAD;
 	public static SessionFactory SESSION_FACTORY;
+	
+	/*
+	 * Help Window
+	 */
+	public static String HELP_TITLE = "Help";
+	
+	/*
+	 * Configuration Window
+	 */
+	public static String CONFIG_TITLE = "Configuration";
 }

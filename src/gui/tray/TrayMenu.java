@@ -12,11 +12,12 @@ public class TrayMenu extends PopupMenu {
 	public TrayMenu() {
 
 
-		MenuItem listRss = new MenuItem("List RSS");
-		this.add(listRss);
-
-		MenuItem addRss = new MenuItem("Add RSS");
-		this.add(addRss);
+		MenuItem monitorItem = new MenuItem(ReferenceCollection.TRAYMENU_MONITOR);
+		this.add(monitorItem);
+		MenuItem configItem = new MenuItem(ReferenceCollection.TRAYMENU_CONFIG);
+		this.add(configItem);
+		MenuItem helpItem = new MenuItem(ReferenceCollection.TRAYMENU_HELP);
+		this.add(helpItem);
 
 		MenuItem exitItem = new MenuItem(ReferenceCollection.TRAYMENU_EXIT);
 		this.add(exitItem);
