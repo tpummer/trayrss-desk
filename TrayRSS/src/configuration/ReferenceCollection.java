@@ -23,6 +23,7 @@ import java.awt.TrayIcon;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 
 /**
  * Collection of all references
@@ -73,4 +74,5 @@ public class ReferenceCollection {
 	 * Monitor
 	 */
 	public static Thread MONITOR_THREAD;
+	public static SessionFactory SESSION_FACTORY;
 }

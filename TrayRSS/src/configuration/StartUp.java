@@ -29,7 +29,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+
+import javax.naming.NamingException;
+import javax.naming.Reference;
 
 import monitor.Monitor;
 
@@ -40,6 +47,16 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.SimpleLayout;
+import org.hibernate.HibernateException;
+import org.hibernate.Interceptor;
+import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.classic.Session;
+import org.hibernate.engine.FilterDefinition;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
+import org.hibernate.stat.Statistics;
 
 /**
  * Prozesses all initial loadings
@@ -74,6 +91,9 @@ public class StartUp {
 		if(debug) start = System.currentTimeMillis(); 
 		ReferenceCollection.LOG.debug("Startup: Start Database at " + start);
 		// TODO Auto-generated method stub
+		SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+		ReferenceCollection.SESSION_FACTORY = sessionFactory;
+		
 		long end = 0;
 		if(debug) end = System.currentTimeMillis();  
 		ReferenceCollection.LOG.debug("Startup: Finished Start Database at " + end);

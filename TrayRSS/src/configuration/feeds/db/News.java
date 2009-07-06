@@ -1,4 +1,4 @@
-package configuration.feeds;
+package configuration.feeds.db;
 
 import java.util.Date;
 

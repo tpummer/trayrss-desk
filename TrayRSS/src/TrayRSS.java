@@ -51,7 +51,7 @@ import monitor.FeedReaderThread;
 import monitor.IconChanger;
 
 import configuration.StartUp;
-import configuration.feeds.Feed;
+import configuration.feeds.db.Feed;
 
 public class TrayRSS {
 

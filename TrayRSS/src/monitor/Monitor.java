@@ -19,12 +19,16 @@
  */
 package monitor;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import configuration.ReferenceCollection;
-import configuration.feeds.Feed;
+import configuration.feeds.db.Feed;
 
 public class Monitor implements Runnable {
 	
@@ -51,6 +55,20 @@ public class Monitor implements Runnable {
 				break;
 			}
 			System.out.println("Ping");
+			
+			Session session = ReferenceCollection.SESSION_FACTORY.openSession();
+			
+			Transaction tx = session.beginTransaction();
+			Feed test = new Feed();
+			test.setIntervall(new Long(2));
+			test.setLastAction(new Date());
+			test.setName("ha!");
+			test.setUrl("das");
+			
+			session.save(test);
+			tx.commit();
+			session.close();
+
 		}
 //		}
 	}

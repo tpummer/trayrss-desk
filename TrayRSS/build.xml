@@ -6,12 +6,13 @@
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="RSSTray">
     <property environment="env"/>
-    <property name="junit.output.dir" value="junit"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="../../../eclipse/plugins/org.junit4_4.3.1/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit4_4.5.0.v20090423/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
     </path>
     <path id="RSSTray.classpath">
         <pathelement location="bin"/>
@@ -19,11 +20,27 @@
         <pathelement location="lib/jdom/jdom.jar"/>
         <pathelement location="lib/log4j/log4j-1.2.15.jar"/>
         <pathelement location="lib/rome/rome-1.0.jar"/>
+        <pathelement location="lib/hsqldb/hsqldb.jar"/>
+        <pathelement location="lib/hibernate/hibernate3.jar"/>
+        <pathelement location="lib/hibernate/lib/required/antlr-2.7.6.jar"/>
+        <pathelement location="lib/hibernate/lib/required/commons-collections-3.1.jar"/>
+        <pathelement location="lib/hibernate/lib/required/dom4j-1.6.1.jar"/>
+        <pathelement location="lib/hibernate/lib/required/ejb3-persistence.jar"/>
+        <pathelement location="lib/hibernate/lib/required/hibernate-commons-annotations.jar"/>
+        <pathelement location="lib/hibernate/lib/required/hibernate-core.jar"/>
+        <pathelement location="lib/hibernate/lib/required/javassist-3.9.0.GA.jar"/>
+        <pathelement location="lib/hibernate/lib/required/jta-1.1.jar"/>
+        <pathelement location="lib/hibernate/lib/required/slf4j-api-1.5.8.jar"/>
+        <pathelement location="lib/hibernate/hibernate-annotations.jar"/>
+        <pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src" excludes="**/*.launch, **/*.java"/>
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
     <target name="clean">
@@ -53,20 +70,6 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="TestEntityCollection">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="TestEntityCollection" todir="${junit.output.dir}"/>
-            <classpath refid="RSSTray.classpath"/>
-        </junit>
-    </target>
-    <target name="TrayRSS">
-        <java classname="TrayRSS" failonerror="true" fork="yes">
-            <jvmarg line="-splash:img/rsstray.PNG"/>
-            <classpath refid="RSSTray.classpath"/>
-        </java>
-    </target>
     <target name="debugTrayRSS">
         <java classname="TrayRSS" failonerror="true" fork="yes">
             <jvmarg line="-splash:img/rsstray.PNG"/>
@@ -74,12 +77,10 @@
             <classpath refid="RSSTray.classpath"/>
         </java>
     </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
+    <target name="TrayRSS">
+        <java classname="TrayRSS" failonerror="true" fork="yes">
+            <jvmarg line="-splash:img/rsstray.PNG"/>
+            <classpath refid="RSSTray.classpath"/>
+        </java>
     </target>
 </project>

@@ -30,7 +30,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
-import configuration.feeds.Feed;
+import configuration.feeds.db.Feed;
 
 /**
  * Monitors a feed
