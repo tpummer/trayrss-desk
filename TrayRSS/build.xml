@@ -34,6 +34,7 @@
         <pathelement location="lib/hibernate/hibernate-annotations.jar"/>
         <pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar"/>
     </path>
+	
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
@@ -43,12 +44,17 @@
             </fileset>
         </copy>
     </target>
+	
     <target name="clean">
         <delete dir="bin"/>
     </target>
+	
     <target depends="clean" name="cleanall"/>
+	
     <target depends="build-subprojects,build-project" name="build"/>
+	
     <target name="build-subprojects"/>
+	
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
@@ -56,7 +62,11 @@
             <classpath refid="RSSTray.classpath"/>
         </javac>
     </target>
+    	
+	<target depends="clean,build" name="rebuild"/>
+	
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	
     <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
         <copy todir="${ant.library.dir}">
             <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
@@ -66,10 +76,12 @@
             <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
         </unzip>
     </target>
+	
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+	
     <target name="debugTrayRSS">
         <java classname="TrayRSS" failonerror="true" fork="yes">
             <jvmarg line="-splash:img/rsstray.PNG"/>
@@ -77,6 +89,7 @@
             <classpath refid="RSSTray.classpath"/>
         </java>
     </target>
+	
     <target name="TrayRSS">
         <java classname="TrayRSS" failonerror="true" fork="yes">
             <jvmarg line="-splash:img/rsstray.PNG"/>

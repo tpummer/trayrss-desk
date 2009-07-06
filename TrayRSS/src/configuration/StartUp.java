@@ -136,6 +136,16 @@ public class StartUp {
 		
 		ReferenceCollection.TRAYMENU_EXIT = props.getProperty("trayrss."+
 				ReferenceCollection.LANGUAGE+".traymenu_exit");
+		ReferenceCollection.TRAYMENU_MONITOR = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".traymenu_monitor");
+		ReferenceCollection.TRAYMENU_CONFIG = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".traymenu_config");
+		ReferenceCollection.TRAYMENU_HELP = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".traymenu_help");
+		ReferenceCollection.HELP_TITLE = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".help_title");
+		ReferenceCollection.CONFIG_TITLE = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".config_title");
 		
 		long end = 0;
 		if(debug) end = System.currentTimeMillis(); 

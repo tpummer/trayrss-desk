@@ -19,6 +19,8 @@
  */
 package gui.tray;
 
+
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,9 +31,15 @@ public class TrayMenuActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("List RSS")){
+		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
+			ReferenceCollection.TRAY_ICON.displayMessage("Useraction", "Handmade Monitoringintervall", 
+					TrayIcon.MessageType.INFO);
 			
-		}else if(e.getActionCommand().equals("Add RSS")){
+		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
+			ConfigFrame conig = new ConfigFrame();
+			
+		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_HELP)){
+			Help help = new Help();
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_EXIT)){
 			Shutdown shutdown = new Shutdown();

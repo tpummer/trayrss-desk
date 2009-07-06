@@ -24,6 +24,8 @@
  - Removed Function
 
 0.4
++ Helpwindow
++ TrayMenu
 + Using Hibernate to connect to the Database 
 + Timelogging at Startup
 * access configuration modified(FileNotFoundException)

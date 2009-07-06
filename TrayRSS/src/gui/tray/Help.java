@@ -8,10 +8,10 @@ import javax.swing.JLabel;
 
 import configuration.ReferenceCollection;
 
-public class ConfigFrame extends JFrame {
+public class Help extends JFrame {
 
-	public ConfigFrame(){
-		this.setTitle(ReferenceCollection.CONFIG_TITLE);
+	public Help(){
+		this.setTitle(ReferenceCollection.HELP_TITLE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JLabel test = new JLabel("<html><center>" + ReferenceCollection.TRAYRSS_APP_TITLE + "<br/>"+
 								  "<a href=\"http://trayrss.sourceforge.net\">Trayrss</a>" +
