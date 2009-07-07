@@ -144,6 +144,8 @@ public class StartUp {
 				ReferenceCollection.LANGUAGE+".traymenu_help");
 		ReferenceCollection.HELP_TITLE = props.getProperty("trayrss."+
 				ReferenceCollection.LANGUAGE+".help_title");
+		ReferenceCollection.HELP_OK = props.getProperty("trayrss."+
+				ReferenceCollection.LANGUAGE+".help_ok");
 		ReferenceCollection.CONFIG_TITLE = props.getProperty("trayrss."+
 				ReferenceCollection.LANGUAGE+".config_title");
 		
