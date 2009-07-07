@@ -19,6 +19,8 @@
  */
 package configuration;
 
+import gui.tray.Help;
+
 import java.awt.TrayIcon;
 
 import org.apache.log4j.Level;
@@ -54,6 +56,8 @@ public class ReferenceCollection {
 	public static final String ICON_WARN = "./img/icons/rssTrayIconWarn.PNG";
 	public static final String ICON_NEW = "./img/icons/rssTrayIconWarn.PNG";
 	
+	public static final String ICON_HELP = "./img/rssTrayHelp.PNG";
+	
 	/*
 	 * Logger
 	 */
@@ -83,6 +87,8 @@ public class ReferenceCollection {
 	 * Help Window
 	 */
 	public static String HELP_TITLE = "Help";
+	public static Help HELP_WINDOW;
+	public static String HELP_OK = "Ok";
 	
 	/*
 	 * Configuration Window
