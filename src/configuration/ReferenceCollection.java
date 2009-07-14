@@ -94,4 +94,27 @@ public class ReferenceCollection {
 	 * Configuration Window
 	 */
 	public static String CONFIG_TITLE = "Configuration";
+	public static String jTextField4;
+	public static String jTextField5;
+	public static String CONFIG_TIMEFRAMESLABEL;
+	public static String CONFIG_TIMEFRAMESFIELD;
+	public static String CONFIG_MONITORINGDAYSLABEL;
+	public static String CONFIG_MONITORINGDAYSMO;
+	public static String CONFIG_MONITORINGDAYSWE;
+	public static String CONFIG_MONITORINGDAYSFR;
+	public static String CONFIG_MONITORINGDAYSSA;
+	public static String CONFIG_MONITORINGDAYSTH;
+	public static String CONFIG_MONITORINGDAYSTU;
+	public static String CONFIG_MONITORINGDAYSSU;
+	public static String CONFIG_VACATIONSTARTLABEL;
+	public static String CONFIG_VACATIONLABEL;
+	public static String CONFIG_VACATIONENDLABEL;
+	public static String CONFIG_TIMEFRAMESPANEL_BORDER_TITLE;
+	public static String CONFIG_FEEDSPANEL_BORDER_TITLE;
+	public static String CONFIG_SAVEBUTTON_TEXT;
+	public static String CONFIG_DELETEBUTTON_TEXT;
+	public static String CONFIG_CANCELBUTTON_TEXT;
+	public static String CONFIG_MAINCONFIGPANEL_BORDER_TITLE;
+	public static String CONFIG_DISPLAYCOUNTLABEL;
+	public static String CONFIG_DISPLAYTIMELABEL;
 }
