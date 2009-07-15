@@ -50,6 +50,7 @@ import javax.swing.JOptionPane;
 import monitor.FeedReaderThread;
 import monitor.IconChanger;
 
+import configuration.ReferenceCollection;
 import configuration.StartUp;
 import configuration.feeds.db.Feed;
 
@@ -70,6 +71,9 @@ public class TrayRSS {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		//ReferenceCollection.TRAYRSS_APP_TITLE = TrayRSS.class.getPackage().getImplementationVersion();
+
 		boolean debug = false;;
 		
 		if(args.length != 0){

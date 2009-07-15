@@ -5,95 +5,140 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="RSSTray">
-    <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../eclipse"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit4_4.5.0.v20090423/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
-    </path>
-    <path id="RSSTray.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
-        <pathelement location="lib/jdom/jdom.jar"/>
-        <pathelement location="lib/log4j/log4j-1.2.15.jar"/>
-        <pathelement location="lib/rome/rome-1.0.jar"/>
-        <pathelement location="lib/hsqldb/hsqldb.jar"/>
-        <pathelement location="lib/hibernate/hibernate3.jar"/>
-        <pathelement location="lib/hibernate/lib/required/antlr-2.7.6.jar"/>
-        <pathelement location="lib/hibernate/lib/required/commons-collections-3.1.jar"/>
-        <pathelement location="lib/hibernate/lib/required/dom4j-1.6.1.jar"/>
-        <pathelement location="lib/hibernate/lib/required/ejb3-persistence.jar"/>
-        <pathelement location="lib/hibernate/lib/required/hibernate-commons-annotations.jar"/>
-        <pathelement location="lib/hibernate/lib/required/hibernate-core.jar"/>
-        <pathelement location="lib/hibernate/lib/required/javassist-3.9.0.GA.jar"/>
-        <pathelement location="lib/hibernate/lib/required/jta-1.1.jar"/>
-        <pathelement location="lib/hibernate/lib/required/slf4j-api-1.5.8.jar"/>
-        <pathelement location="lib/hibernate/hibernate-annotations.jar"/>
-        <pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar"/>
-    </path>
-	
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-	
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-	
-    <target depends="clean" name="cleanall"/>
-	
-    <target depends="build-subprojects,build-project" name="build"/>
-	
-    <target name="build-subprojects"/>
-	
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="RSSTray.classpath"/>
-        </javac>
-    </target>
-    	
-	<target depends="clean,build" name="rebuild"/>
-	
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-	
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-	
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-	
-    <target name="debugTrayRSS">
-        <java classname="TrayRSS" failonerror="true" fork="yes">
-            <jvmarg line="-splash:img/rsstray.PNG"/>
-            <arg line="-debug"/>
-            <classpath refid="RSSTray.classpath"/>
-        </java>
-    </target>
-	
-    <target name="TrayRSS">
-        <java classname="TrayRSS" failonerror="true" fork="yes">
-            <jvmarg line="-splash:img/rsstray.PNG"/>
-            <classpath refid="RSSTray.classpath"/>
-        </java>
-    </target>
+	<property environment="env" />
+	<property name="ECLIPSE_HOME" value="../../../eclipse" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<path id="JUnit 4.libraryclasspath">
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit4_4.5.0.v20090423/junit.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar" />
+	</path>
+	<path id="RSSTray.classpath">
+		<pathelement location="bin" />
+		<path refid="JUnit 4.libraryclasspath" />
+		<pathelement location="lib/jdom/jdom.jar" />
+		<pathelement location="lib/log4j/log4j-1.2.15.jar" />
+		<pathelement location="lib/rome/rome-1.0.jar" />
+		<pathelement location="lib/hsqldb/hsqldb.jar" />
+		<pathelement location="lib/hibernate/hibernate3.jar" />
+		<pathelement location="lib/hibernate/lib/required/antlr-2.7.6.jar" />
+		<pathelement location="lib/hibernate/lib/required/commons-collections-3.1.jar" />
+		<pathelement location="lib/hibernate/lib/required/dom4j-1.6.1.jar" />
+		<pathelement location="lib/hibernate/lib/required/ejb3-persistence.jar" />
+		<pathelement location="lib/hibernate/lib/required/hibernate-commons-annotations.jar" />
+		<pathelement location="lib/hibernate/lib/required/hibernate-core.jar" />
+		<pathelement location="lib/hibernate/lib/required/javassist-3.9.0.GA.jar" />
+		<pathelement location="lib/hibernate/lib/required/jta-1.1.jar" />
+		<pathelement location="lib/hibernate/lib/required/slf4j-api-1.5.8.jar" />
+		<pathelement location="lib/hibernate/hibernate-annotations.jar" />
+		<pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+	<target depends="clean" name="cleanall" />
+
+	<target depends="build-subprojects,build-project" name="build" />
+
+	<target name="build-subprojects" />
+
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+			<src path="src" />
+			<classpath refid="RSSTray.classpath" />
+		</javac>
+	</target>
+
+	<target depends="clean,build" name="rebuild" />
+
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+
+	<target name="debugTrayRSS">
+		<java classname="TrayRSS" failonerror="true" fork="yes">
+			<jvmarg line="-splash:img/rsstray.PNG" />
+			<arg line="-debug" />
+			<classpath refid="RSSTray.classpath" />
+		</java>
+	</target>
+
+	<target name="TrayRSS">
+		<java classname="TrayRSS" failonerror="true" fork="yes">
+			<jvmarg line="-splash:img/rsstray.PNG" />
+			<classpath refid="RSSTray.classpath" />
+		</java>
+	</target>
+
+	<target name="dist" depends="rebuild">
+		<delete file="dist/TrayRSS.jar" />
+		<property name="version.num" value="0.4" />
+		<buildnumber file="dist/build.num" />
+		<tstamp>
+			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>
+		<jar destfile="dist/TrayRSS.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="TrayRSS" />
+				<attribute name="Class-Path" value="." />
+				<attribute name="Implementation-Version" value="${version.num}-b${build.number}" />
+				<attribute name="Built-Date" value="${TODAY}" />
+				<attribute name="SplashScreen-Image" value="img/rsstray.PNG" />
+				<attribute name="Implementation-Vendor" value="thefake" />
+				<attribute name="Implementation-Vendor-Id" value="" />
+				<attribute name="Implementation-URL" value="http://trayrss.sourceforge.net" />
+			</manifest>
+			<fileset dir="bin" />
+			<fileset dir="." id="img">
+				<include name="img/*.PNG" />
+				<include name="img/icons/*.PNG" />
+				<include name="confing.ini" />
+				<include name="CHANGELOG" />
+				<include name="README" />
+			</fileset>
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/hibernate-annotations.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/hibernate3.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/antlr-2.7.6.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/commons-collections-3.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/dom4j-1.6.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/ejb3-persistence.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/hibernate-commons-annotations.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/hibernate-core.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/javassist-3.9.0.GA.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/jta-1.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/slf4j-api-1.5.8.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/hsqldb/hsqldb.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/jdom/jdom.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/log4j/log4j-1.2.15.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/rome/rome-1.0.jar" />
+		</jar>
+	</target>
 </project>
