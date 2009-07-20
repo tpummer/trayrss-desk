@@ -24,6 +24,7 @@
  - Removed Function
 
 0.5
++ loading config properties
 + Captions loaded by caption classes
 + supporting of languagefiles
 * ConfigFrame JCalendar

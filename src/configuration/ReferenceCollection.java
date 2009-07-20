@@ -23,6 +23,7 @@ import gui.tray.ConfigFrame;
 import gui.tray.Help;
 
 import java.awt.TrayIcon;
+import java.util.Properties;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -39,12 +40,15 @@ public class ReferenceCollection {
 	/*
 	 * Configuration
 	 */
+	public static Configuration CONFIGURATION;
 	public static final String CONFIG = "./config.ini";
 	public static final String DE = "de";
 	public static final String DE_LANG = "./lang/de.XML";
 	public static final String EN = "en";
     public static final String EN_LANG = "./lang/en.XML";
 	public static String LANGUAGE;
+	public static int DISPLAY_COUNT;
+	public static int DISPLAY_SECONDS;
 	
 	/*
 	 * Captions

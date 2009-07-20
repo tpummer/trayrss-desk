@@ -81,7 +81,7 @@ public class StartUp {
 		this.debug = debug;
 		startLogger(debug);
 		loadProps();
-		loadLanguage();
+		loadInitialProperties();
 		setCaptions();
 		startTray();
 		startDatabase();
@@ -117,6 +117,8 @@ public class StartUp {
 
 			props = new Properties();
 			props.loadFromXML(reader);
+			
+			ReferenceCollection.CONFIGURATION = new Configuration(props);
 		} catch (FileNotFoundException e) {
 			ReferenceCollection.LOG.error("No config file found! - "
 					+ "\n Please reinstall the application!");
@@ -195,13 +197,13 @@ public class StartUp {
 
 	}
 
-	private void loadLanguage() {
+	private void loadInitialProperties() {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
 		ReferenceCollection.LOG.debug("Startup: Set Language at " + start);
 
-		ReferenceCollection.LANGUAGE = props.getProperty("trayrss.lang");
+		ReferenceCollection.CONFIGURATION.load();
 
 		long end = 0;
 		if (debug)

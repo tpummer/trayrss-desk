@@ -29,12 +29,11 @@
 <entry key="trayrss.de.config_cancelButton.text">Abbrechen</entry>
 <entry key="trayrss.de.config_mainConfigPanel.border.title">Generelle Konfiguration</entry>
 <entry key="trayrss.de.config_displayCountLabel.text">Anzeigehäufigkeit</entry>
-<entry key="trayrss.de.config_displayCountField.text"></entry>
 <entry key="trayrss.de.config_displayTimeLabel.text">Anzeigezeit (Sekunden)</entry>
 <entry key="trayrss.de.config_table.header.column_one">Feed Name</entry>
 <entry key="trayrss.de.config_table.header.column_two">Feed URL</entry>
 <entry key="trayrss.de.config_table.header.column_three">Intervall</entry>
 <entry key="trayrss.de.config_table.header.column_four">Überwacht</entry>
 <entry key="trayrss.de.config_languageSelectorLabel.text">Sprache</entry>
-<entry key="trayrss.de.config_languageSelectorField.text">de,en</entry>
+<entry key="trayrss.de.config_languageSelectorField.text">en,de</entry>
 </properties>
