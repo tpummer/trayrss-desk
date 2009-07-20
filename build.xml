@@ -33,6 +33,8 @@
 		<pathelement location="lib/hibernate/lib/required/slf4j-api-1.5.8.jar" />
 		<pathelement location="lib/hibernate/hibernate-annotations.jar" />
 		<pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar" />
+		<pathelement location="lib/jcalendar/lib/jcalendar-1.3.3.jar" />
+		<pathelement location="lib/jcalendar/lib/looks-2.0.1.jar" />
 	</path>
 
 	<target name="init">
