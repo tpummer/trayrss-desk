@@ -99,7 +99,7 @@
 
 	<target name="dist" depends="rebuild">
 		<delete file="dist/TrayRSS.jar" />
-		<property name="version.num" value="0.4" />
+		<property name="version.num" value="0.5" />
 		<buildnumber file="dist/build.num" />
 		<tstamp>
 			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
