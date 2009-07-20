@@ -1,3 +1,22 @@
+/**
+    RSSTray - simply alerting at new Feed Information
+    Copyright (C) 2009 Thomas Pummer
+    conatct me fake (at) sprossenwanne.at
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
 package gui.tray;
 
 
@@ -38,8 +57,12 @@ public class ConfigFrame extends JFrame {
     private javax.swing.JLabel vacationEndLabel;
     private javax.swing.JLabel vacationLabel;
     private javax.swing.JLabel vacationStartLabel;
+    
+    private ConfigFrameCaptions captions;
 
 	public ConfigFrame() {
+		
+		this.captions = new ConfigFrameCaptions();
 		
         configurationframe = new javax.swing.JPanel();
         timeframesPanel = new javax.swing.JPanel();
@@ -206,9 +229,7 @@ public class ConfigFrame extends JFrame {
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+            this.captions.getfeedsTableHeader()
         ));
         feedsTable.setName("feedsTable"); // NOI18N
         feedsScrollPane.setViewportView(feedsTable);

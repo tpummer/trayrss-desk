@@ -23,6 +23,10 @@
  * Updated Function
  - Removed Function
 
+0.5
+* ConfigFrame captions encapsulated 
+* Feed captions
+
 0.4
 + Config Window GUI
 + Helpwindow

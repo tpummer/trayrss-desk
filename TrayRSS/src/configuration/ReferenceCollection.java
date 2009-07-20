@@ -45,7 +45,7 @@ public class ReferenceCollection {
 	 * Captions
 	 */
 	
-	public static String TRAYRSS_APP_TITLE = "TrayRSS 0.4 Alpha";
+	public static String TRAYRSS_APP_TITLE = "TrayRSS 0.5 Alpha";
 
 	
 	/*
