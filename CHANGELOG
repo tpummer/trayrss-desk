@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
++ Captions loaded by caption classes
++ supporting of languagefiles
 * ConfigFrame JCalendar
 * ConfigFrame captions encapsulated 
 * Feed captions
