@@ -32,7 +32,15 @@ public class ConfigFrameActionListener implements ActionListener {
 		if(e.getActionCommand().equals(ReferenceCollection.CONFIG_CANCELBUTTON_TEXT)){
 			ReferenceCollection.CONFIG_WINDOW.dispose();
 			
-		}
+		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT)){
+			//TODO delete Feed from table
+			System.out.println("Feed will be deleted");
+			
+		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)){
+			//TODO save config in config.ini
+			ReferenceCollection.CONFIG_WINDOW.dispose();
+			
+		} 
 	}
 
 }
