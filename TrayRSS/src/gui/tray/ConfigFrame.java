@@ -24,6 +24,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import com.toedter.calendar.JDateChooser;
+
 import configuration.ReferenceCollection;
 
 
@@ -39,8 +41,8 @@ public class ConfigFrame extends JFrame {
     private javax.swing.JPanel feedsPanel;
     private javax.swing.JScrollPane feedsScrollPane;
     private javax.swing.JTable feedsTable;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private JDateChooser startJCalendar;
+    private JDateChooser endJCalendar;
     private javax.swing.JPanel mainConfigPanel;
     private javax.swing.JCheckBox monitoringDaysFr;
     private javax.swing.JLabel monitoringDaysLabel;
@@ -78,9 +80,9 @@ public class ConfigFrame extends JFrame {
         monitoringDaysSu = new javax.swing.JCheckBox();
         vacationLabel = new javax.swing.JLabel();
         vacationStartLabel = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        startJCalendar = new JDateChooser();
         vacationEndLabel = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        endJCalendar = new JDateChooser();
         feedsPanel = new javax.swing.JPanel();
         feedsScrollPane = new javax.swing.JScrollPane();
         feedsTable = new javax.swing.JTable();
@@ -135,14 +137,16 @@ public class ConfigFrame extends JFrame {
         vacationStartLabel.setText(ReferenceCollection.CONFIG_VACATIONSTARTLABEL); // NOI18N
         vacationStartLabel.setName("vacationStartLabel"); // NOI18N
 
-        jTextField4.setText(""); // NOI18N
-        jTextField4.setName("jTextField4"); // NOI18N
+       // jTextField4.setText(""); // NOI18N
+        startJCalendar.setDateFormatString("dd.MMM.yyyy");
+        startJCalendar.setName("startJCalendar"); // NOI18N
 
         vacationEndLabel.setText(ReferenceCollection.CONFIG_VACATIONENDLABEL); // NOI18N
         vacationEndLabel.setName("vacationEndLabel"); // NOI18N
 
-        jTextField5.setText(""); // NOI18N
-        jTextField5.setName("jTextField5"); // NOI18N
+      //  jTextField5.setText(""); // NOI18N
+        endJCalendar.setDateFormatString("dd.MMM.yyyy");
+        endJCalendar.setName("endJCalendar"); // NOI18N
 
         javax.swing.GroupLayout timeframesPanelLayout = new javax.swing.GroupLayout(timeframesPanel);
         timeframesPanel.setLayout(timeframesPanelLayout);
@@ -166,10 +170,10 @@ public class ConfigFrame extends JFrame {
                     .addGroup(timeframesPanelLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(timeframesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(startJCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vacationStartLabel)
                             .addComponent(vacationEndLabel)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(endJCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(timeframesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, timeframesPanelLayout.createSequentialGroup()
                             .addComponent(monitoringDaysSa)
@@ -209,11 +213,11 @@ public class ConfigFrame extends JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(vacationStartLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(startJCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(vacationEndLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(endJCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
