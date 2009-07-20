@@ -20,6 +20,7 @@
 
 package configuration;
 
+import gui.tray.ConfigFrameCaptions;
 import gui.tray.TrayIconPOJO;
 
 import java.io.FileInputStream;
@@ -67,6 +68,7 @@ import org.hibernate.stat.Statistics;
 public class StartUp {
 	Logger log;
 	Properties props = new Properties();
+	Properties langprops = new Properties();
 	boolean debug = false;
 
 	/**
@@ -111,7 +113,7 @@ public class StartUp {
 		ReferenceCollection.LOG.debug("Startup: Load Properties at " + start);
 		InputStream reader = null;
 		try {
-			reader = new FileInputStream(ReferenceCollection.LANGUAGE_CONFIG);
+			reader = new FileInputStream(ReferenceCollection.CONFIG);
 
 			props = new Properties();
 			props.loadFromXML(reader);
@@ -135,88 +137,55 @@ public class StartUp {
 	}
 
 	private void setCaptions() {
+		
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Set Captions at " + start);
+		
+		ReferenceCollection.LOG.debug("Startup: Load Languagefile at " + System.currentTimeMillis());
+		InputStream reader = null;
+		
+		String languagefile = ReferenceCollection.EN_LANG;
+		
+		if(ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE)) languagefile = ReferenceCollection.DE_LANG;
+		
+		try {
+			reader = new FileInputStream(languagefile);
 
-		ReferenceCollection.TRAYMENU_EXIT = props.getProperty("trayrss."
+			langprops = new Properties();
+			langprops.loadFromXML(reader);
+		} catch (FileNotFoundException e) {
+			ReferenceCollection.LOG.error("No config file found! - "
+					+ "\n Please reinstall the application!");
+			System.exit(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		
+		
+		
+		ReferenceCollection.LOG.debug("Startup: Set Captions at " + System.currentTimeMillis());
+
+		ReferenceCollection.TRAYMENU_EXIT = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_exit");
-		ReferenceCollection.TRAYMENU_MONITOR = props.getProperty("trayrss."
+		ReferenceCollection.TRAYMENU_MONITOR = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_monitor");
-		ReferenceCollection.TRAYMENU_CONFIG = props.getProperty("trayrss."
+		ReferenceCollection.TRAYMENU_CONFIG = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_config");
-		ReferenceCollection.TRAYMENU_HELP = props.getProperty("trayrss."
+		ReferenceCollection.TRAYMENU_HELP = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_help");
-		ReferenceCollection.HELP_TITLE = props.getProperty("trayrss."
+		ReferenceCollection.HELP_TITLE = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".help_title");
-		ReferenceCollection.HELP_OK = props.getProperty("trayrss."
+		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".help_ok");
-		ReferenceCollection.CONFIG_TITLE = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_title");
-		ReferenceCollection.jTextField4 = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_jTextField4.text");
-		ReferenceCollection.jTextField5 = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_jTextField5.text");
-		ReferenceCollection.CONFIG_TIMEFRAMESLABEL = props
-				.getProperty("trayrss." + ReferenceCollection.LANGUAGE
-						+ ".config_timeframesLabel.text");
-		ReferenceCollection.CONFIG_TIMEFRAMESFIELD = props
-				.getProperty("trayrss." + ReferenceCollection.LANGUAGE
-						+ ".config_timeframesField.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSLABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysLabel.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSMO = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysMo.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSWE = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysWe.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSFR = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysFr.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSSA = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysSa.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSTH = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysTh.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSTU = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysTu.text");
-		ReferenceCollection.CONFIG_MONITORINGDAYSSU = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_monitoringDaysSu.text");
-		ReferenceCollection.CONFIG_VACATIONSTARTLABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_vacationStartLabel.text");
-		ReferenceCollection.CONFIG_VACATIONLABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_vacationLabel.text");
-		ReferenceCollection.CONFIG_VACATIONENDLABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_vacationEndLabel.text");
-		ReferenceCollection.CONFIG_TIMEFRAMESPANEL_BORDER_TITLE = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_timeframesPanel.border.title");
-		ReferenceCollection.CONFIG_FEEDSPANEL_BORDER_TITLE = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_feedsPanel.border.title");
-		ReferenceCollection.CONFIG_SAVEBUTTON_TEXT = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_saveButton.text");
-		ReferenceCollection.CONFIG_DELETEBUTTON_TEXT = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_deleteButton.text");
-		ReferenceCollection.CONFIG_CANCELBUTTON_TEXT = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".config_cancelButton.text");
-		ReferenceCollection.CONFIG_MAINCONFIGPANEL_BORDER_TITLE = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_mainConfigPanel.border.title");
-		ReferenceCollection.CONFIG_DISPLAYCOUNTLABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_displayCountLabel.text");
-		ReferenceCollection.CONFIG_DISPLAYTIMELABEL = props.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE
-				+ ".config_displayTimeLabel.text");
+		
+		ConfigFrameCaptions.load(langprops);
 
 		long end = 0;
 		if (debug)

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd"> 
+<properties>
+<comment>en</comment> 
+<entry key="trayrss.en.traymenu_exit">Exit</entry>
+<entry key="trayrss.en.traymenu_monitor">Check Feeds</entry>
+<entry key="trayrss.en.traymenu_config">Configuration</entry>
+<entry key="trayrss.en.traymenu_help">Help</entry>
+<entry key="trayrss.en.help_title">Help</entry>
+<entry key="trayrss.en.help_ok">Ok</entry>
+<entry key="trayrss.en.config_title">Configuration</entry>
+<entry key="trayrss.en.config_timeframesLabel.text">Timeframes</entry>
+<entry key="trayrss.en.config_timeframesField.text"></entry>
+<entry key="trayrss.en.config_monitoringDaysLabel.text">Monitoring Days</entry>
+<entry key="trayrss.en.config_monitoringDaysMo.text">Mo</entry>
+<entry key="trayrss.en.config_monitoringDaysWe.text">We</entry>
+<entry key="trayrss.en.config_monitoringDaysFr.text">Fr</entry>
+<entry key="trayrss.en.config_monitoringDaysSa.text">Sa</entry>
+<entry key="trayrss.en.config_monitoringDaysTh.text">Th</entry>
+<entry key="trayrss.en.config_monitoringDaysTu.text">Tu</entry>
+<entry key="trayrss.en.config_monitoringDaysSu.text">Su</entry>
+<entry key="trayrss.en.config_vacationStartLabel.text">Start</entry>
+<entry key="trayrss.en.config_vacationLabel.text">Vacation</entry>
+<entry key="trayrss.en.config_vacationEndLabel.text">End</entry>
+<entry key="trayrss.en.config_timeframesPanel.border.title">Timeframes</entry>
+<entry key="trayrss.en.config_feedsPanel.border.title">Feeds</entry>
+<entry key="trayrss.en.config_saveButton.text">Save</entry>
+<entry key="trayrss.en.config_deleteButton.text">Delete Feed</entry>
+<entry key="trayrss.en.config_cancelButton.text">Cancel</entry>
+<entry key="trayrss.en.config_mainConfigPanel.border.title">General Settings</entry>
+<entry key="trayrss.en.config_displayCountLabel.text">Display Count</entry>
+<entry key="trayrss.en.config_displayCountField.text"></entry>
+<entry key="trayrss.en.config_displayTimeLabel.text">Display Time (seconds)</entry>
+<entry key="trayrss.en.config_table.header.column_one">Feed Name</entry>
+<entry key="trayrss.en.config_table.header.column_two">Feed URL</entry>
+<entry key="trayrss.en.config_table.header.column_three">Intervall</entry>
+<entry key="trayrss.en.config_table.header.column_four">Monitored</entry>
+<entry key="trayrss.en.config_languageSelectorLabel.text">Language</entry>
+<entry key="trayrss.en.config_languageSelectorField.text">de,en</entry>
+</properties>

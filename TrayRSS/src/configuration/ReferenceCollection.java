@@ -19,6 +19,7 @@
  */
 package configuration;
 
+import gui.tray.ConfigFrame;
 import gui.tray.Help;
 
 import java.awt.TrayIcon;
@@ -38,7 +39,11 @@ public class ReferenceCollection {
 	/*
 	 * Configuration
 	 */
-	public static final String LANGUAGE_CONFIG = "./config.ini";
+	public static final String CONFIG = "./config.ini";
+	public static final String DE = "de";
+	public static final String DE_LANG = "./lang/de.XML";
+	public static final String EN = "en";
+    public static final String EN_LANG = "./lang/en.XML";
 	public static String LANGUAGE;
 	
 	/*
@@ -93,9 +98,10 @@ public class ReferenceCollection {
 	/*
 	 * Configuration Window
 	 */
+	public static ConfigFrame CONFIG_WINDOW;
+	
 	public static String CONFIG_TITLE = "Configuration";
-	public static String jTextField4;
-	public static String jTextField5;
+	
 	public static String CONFIG_TIMEFRAMESLABEL;
 	public static String CONFIG_TIMEFRAMESFIELD;
 	public static String CONFIG_MONITORINGDAYSLABEL;
@@ -117,4 +123,7 @@ public class ReferenceCollection {
 	public static String CONFIG_MAINCONFIGPANEL_BORDER_TITLE;
 	public static String CONFIG_DISPLAYCOUNTLABEL;
 	public static String CONFIG_DISPLAYTIMELABEL;
+	public static Object[] CONFIG_TABLE_HEADER;
+	public static String CONFIG_LANGUAGESELECTORLABEL;
+	public static String CONFIG_LANGUAGESELECTORFIELD;
 }
