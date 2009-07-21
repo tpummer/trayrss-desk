@@ -110,9 +110,6 @@ public class ConfigFrame extends JFrame {
 		languageSelectorComboBox.setName("languageSelectorComboBox");
 		languageSelectorComboBox.setSelectedItem(ReferenceCollection.LANGUAGE);
 
-		ConfigFrameActionListener configFrameActionListener = new ConfigFrameActionListener();
-		cancelButton.addActionListener(configFrameActionListener);
-
 		configurationframe.setMinimumSize(new java.awt.Dimension(800, 400));
 		configurationframe.setName("Configuration Frame"); // NOI18N
 
@@ -365,6 +362,11 @@ public class ConfigFrame extends JFrame {
 
 		deleteButton.setText(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT); // NOI18N
 		deleteButton.setName("deleteButton"); // NOI18N
+		
+		ConfigFrameActionListener configFrameActionListener = new ConfigFrameActionListener(this);
+		cancelButton.addActionListener(configFrameActionListener);
+		saveButton.addActionListener(configFrameActionListener);
+		deleteButton.addActionListener(configFrameActionListener);
 
 		javax.swing.GroupLayout feedsPanelLayout = new javax.swing.GroupLayout(
 				feedsPanel);
@@ -555,5 +557,120 @@ public class ConfigFrame extends JFrame {
 						.getHeight() + 50);
 		this.setVisible(true);
 	}
+
+	public javax.swing.JTextField getDisplayCountField() {
+		return displayCountField;
+	}
+
+	public void setDisplayCountField(javax.swing.JTextField displayCountField) {
+		this.displayCountField = displayCountField;
+	}
+
+	public javax.swing.JTextField getDisplayTimeField() {
+		return displayTimeField;
+	}
+
+	public void setDisplayTimeField(javax.swing.JTextField displayTimeField) {
+		this.displayTimeField = displayTimeField;
+	}
+
+	public javax.swing.JTable getFeedsTable() {
+		return feedsTable;
+	}
+
+	public void setFeedsTable(javax.swing.JTable feedsTable) {
+		this.feedsTable = feedsTable;
+	}
+
+	public JDateChooser getStartJCalendar() {
+		return startJCalendar;
+	}
+
+	public void setStartJCalendar(JDateChooser startJCalendar) {
+		this.startJCalendar = startJCalendar;
+	}
+
+	public JDateChooser getEndJCalendar() {
+		return endJCalendar;
+	}
+
+	public void setEndJCalendar(JDateChooser endJCalendar) {
+		this.endJCalendar = endJCalendar;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysFr() {
+		return monitoringDaysFr;
+	}
+
+	public void setMonitoringDaysFr(javax.swing.JCheckBox monitoringDaysFr) {
+		this.monitoringDaysFr = monitoringDaysFr;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysMo() {
+		return monitoringDaysMo;
+	}
+
+	public void setMonitoringDaysMo(javax.swing.JCheckBox monitoringDaysMo) {
+		this.monitoringDaysMo = monitoringDaysMo;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysSa() {
+		return monitoringDaysSa;
+	}
+
+	public void setMonitoringDaysSa(javax.swing.JCheckBox monitoringDaysSa) {
+		this.monitoringDaysSa = monitoringDaysSa;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysSu() {
+		return monitoringDaysSu;
+	}
+
+	public void setMonitoringDaysSu(javax.swing.JCheckBox monitoringDaysSu) {
+		this.monitoringDaysSu = monitoringDaysSu;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysTh() {
+		return monitoringDaysTh;
+	}
+
+	public void setMonitoringDaysTh(javax.swing.JCheckBox monitoringDaysTh) {
+		this.monitoringDaysTh = monitoringDaysTh;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysTu() {
+		return monitoringDaysTu;
+	}
+
+	public void setMonitoringDaysTu(javax.swing.JCheckBox monitoringDaysTu) {
+		this.monitoringDaysTu = monitoringDaysTu;
+	}
+
+	public javax.swing.JCheckBox getMonitoringDaysWe() {
+		return monitoringDaysWe;
+	}
+
+	public void setMonitoringDaysWe(javax.swing.JCheckBox monitoringDaysWe) {
+		this.monitoringDaysWe = monitoringDaysWe;
+	}
+
+	public javax.swing.JTextField getTimeframesField() {
+		return timeframesField;
+	}
+
+	public void setTimeframesField(javax.swing.JTextField timeframesField) {
+		this.timeframesField = timeframesField;
+	}
+
+	public javax.swing.JComboBox getLanguageSelectorComboBox() {
+		return languageSelectorComboBox;
+	}
+
+	public void setLanguageSelectorComboBox(
+			javax.swing.JComboBox languageSelectorComboBox) {
+		this.languageSelectorComboBox = languageSelectorComboBox;
+	}
+	
+	
 
 }

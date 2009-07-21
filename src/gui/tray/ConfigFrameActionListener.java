@@ -23,9 +23,16 @@ package gui.tray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.hibernate.util.ConfigHelper;
+
 import configuration.ReferenceCollection;
 
 public class ConfigFrameActionListener implements ActionListener {
+	ConfigFrame configFrame;
+	
+	public ConfigFrameActionListener(ConfigFrame inputFrame){
+		this.configFrame = inputFrame;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -37,7 +44,11 @@ public class ConfigFrameActionListener implements ActionListener {
 			System.out.println("Feed will be deleted");
 			
 		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)){
-			//TODO save config in config.ini
+			//TODO
+			ReferenceCollection.LANGUAGE = (String) this.configFrame.getLanguageSelectorComboBox().getSelectedItem();
+			ReferenceCollection.DISPLAY_COUNT = Integer.parseInt(this.configFrame.getDisplayCountField().getText());
+			ReferenceCollection.DISPLAY_SECONDS = Integer.parseInt(this.configFrame.getDisplayTimeField().getText());
+			ReferenceCollection.CONFIGURATION.save();
 			ReferenceCollection.CONFIG_WINDOW.dispose();
 			
 		} 

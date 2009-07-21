@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
++ Storing properties
++ Language Selection
 + loading config properties
 + Captions loaded by caption classes
 + supporting of languagefiles
