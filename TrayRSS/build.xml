@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="RSSTray">
 	<property environment="env" />
 	<property name="ECLIPSE_HOME" value="../../../eclipse" />
@@ -85,7 +80,7 @@
 	</target>
 
 	<target name="debugTrayRSS">
-		<java classname="TrayRSS" failonerror="true" fork="yes">
+		<java classname="at.nullpointer.trayrss.TrayRSS" failonerror="true" fork="yes">
 			<jvmarg line="-splash:img/rsstray.PNG" />
 			<arg line="-debug" />
 			<classpath refid="RSSTray.classpath" />
@@ -93,7 +88,7 @@
 	</target>
 
 	<target name="TrayRSS">
-		<java classname="TrayRSS" failonerror="true" fork="yes">
+		<java classname="at.nullpointer.trayrss.TrayRSS" failonerror="true" fork="yes">
 			<jvmarg line="-splash:img/rsstray.PNG" />
 			<classpath refid="RSSTray.classpath" />
 		</java>
@@ -108,9 +103,9 @@
 		</tstamp>
 		<jar destfile="dist/TrayRSS.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
-				<attribute name="Main-Class" value="TrayRSS" />
+				<attribute name="Main-Class" value="at.nullpointer.trayrss.TrayRSS" />
 				<attribute name="Class-Path" value="." />
-				<attribute name="Implementation-Version" value="${version.num}-b${build.number}" />
+				<attribute name="Implementation-Version" value="${version.num}-b${build.number} Alpha" />
 				<attribute name="Built-Date" value="${TODAY}" />
 				<attribute name="SplashScreen-Image" value="img/rsstray.PNG" />
 				<attribute name="Implementation-Vendor" value="thefake" />
