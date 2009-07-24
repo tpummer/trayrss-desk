@@ -24,6 +24,7 @@
  - Removed Function
 
 0.5
++ Storing time settings
 + Apptitle and version from manifest
 + Storing properties
 + Language Selection

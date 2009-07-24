@@ -33,8 +33,6 @@ public class ConfigFrameCaptions {
 				+ ".config_title");
 		ReferenceCollection.CONFIG_TIMEFRAMESLABEL = props.getProperty(pre
 				+ ".config_timeframesLabel.text");
-		ReferenceCollection.CONFIG_TIMEFRAMESFIELD = props.getProperty(pre
-				+ ".config_timeframesField.text");
 		ReferenceCollection.CONFIG_MONITORINGDAYSLABEL = props.getProperty(pre
 				+ ".config_monitoringDaysLabel.text");
 		ReferenceCollection.CONFIG_MONITORINGDAYSMO = props.getProperty(pre

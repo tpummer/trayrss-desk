@@ -108,18 +108,27 @@ public class ReferenceCollection {
 	public static String CONFIG_TITLE = "Configuration";
 	
 	public static String CONFIG_TIMEFRAMESLABEL;
-	public static String CONFIG_TIMEFRAMESFIELD;
+	public static String CONFIG_TIMEFRAMES_VALUE;
 	public static String CONFIG_MONITORINGDAYSLABEL;
 	public static String CONFIG_MONITORINGDAYSMO;
+	public static String CONFIG_MONITORINGDAYSMO_VALUE;
 	public static String CONFIG_MONITORINGDAYSWE;
+	public static String CONFIG_MONITORINGDAYSWE_VALUE;
 	public static String CONFIG_MONITORINGDAYSFR;
+	public static String CONFIG_MONITORINGDAYSFR_VALUE;
 	public static String CONFIG_MONITORINGDAYSSA;
+	public static String CONFIG_MONITORINGDAYSSA_VALUE;
 	public static String CONFIG_MONITORINGDAYSTH;
+	public static String CONFIG_MONITORINGDAYSTH_VALUE;
 	public static String CONFIG_MONITORINGDAYSTU;
+	public static String CONFIG_MONITORINGDAYSTU_VALUE;
 	public static String CONFIG_MONITORINGDAYSSU;
+	public static String CONFIG_MONITORINGDAYSSU_VALUE;
 	public static String CONFIG_VACATIONSTARTLABEL;
 	public static String CONFIG_VACATIONLABEL;
 	public static String CONFIG_VACATIONENDLABEL;
+	public static String CONFIG_VACATION_START_VALUE;
+	public static String CONFIG_VACATION_END_VALUE;
 	public static String CONFIG_TIMEFRAMESPANEL_BORDER_TITLE;
 	public static String CONFIG_FEEDSPANEL_BORDER_TITLE;
 	public static String CONFIG_SAVEBUTTON_TEXT;
