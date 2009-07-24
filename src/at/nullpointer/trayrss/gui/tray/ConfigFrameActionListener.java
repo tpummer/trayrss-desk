@@ -44,11 +44,61 @@ public class ConfigFrameActionListener implements ActionListener {
 			//TODO delete Feed from table
 			System.out.println("Feed will be deleted");
 			
-		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)){
-			//TODO
+		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)){			
+			// main
 			ReferenceCollection.LANGUAGE = (String) this.configFrame.getLanguageSelectorComboBox().getSelectedItem();
 			ReferenceCollection.DISPLAY_COUNT = Integer.parseInt(this.configFrame.getDisplayCountField().getText());
 			ReferenceCollection.DISPLAY_SECONDS = Integer.parseInt(this.configFrame.getDisplayTimeField().getText());
+			
+			// time
+			ReferenceCollection.CONFIG_TIMEFRAMES_VALUE = this.configFrame.getTimeframesField().getText();
+			
+			if (this.configFrame.getMonitoringDaysMo().isSelected())
+			ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "true";
+			else 
+		    ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysTu().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysWe().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysTh().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysFr().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysSa().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE = "false";
+			
+			if (this.configFrame.getMonitoringDaysSu().isSelected())
+				ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE = "true";
+				else 
+			    ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE = "false";
+			
+			if(this.configFrame.getStartJCalendar().getDate() != null)
+			ReferenceCollection.CONFIG_VACATION_START_VALUE = ""+this.configFrame.getStartJCalendar().getDate().getTime();
+			else ReferenceCollection.CONFIG_VACATION_START_VALUE = "";
+			
+			if(this.configFrame.getEndJCalendar().getDate() != null)
+			ReferenceCollection.CONFIG_VACATION_END_VALUE = ""+this.configFrame.getEndJCalendar().getDate().getTime();
+			else ReferenceCollection.CONFIG_VACATION_END_VALUE = "";
+			
+			// Feeds
+			//TODO
+			
 			ReferenceCollection.CONFIGURATION.save();
 			ReferenceCollection.CONFIG_WINDOW.dispose();
 			

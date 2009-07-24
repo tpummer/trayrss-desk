@@ -20,6 +20,7 @@
 package at.nullpointer.trayrss.gui.tray;
 
 import java.awt.Toolkit;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,7 +28,6 @@ import javax.swing.JFrame;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 import com.toedter.calendar.JDateChooser;
-
 
 public class ConfigFrame extends JFrame {
 
@@ -122,7 +122,7 @@ public class ConfigFrame extends JFrame {
 		timeframesLabel.setText(ReferenceCollection.CONFIG_TIMEFRAMESLABEL); // NOI18N
 		timeframesLabel.setName("timeframesLabel"); // NOI18N
 
-		timeframesField.setText(""); // NOI18N
+		timeframesField.setText(ReferenceCollection.CONFIG_TIMEFRAMES_VALUE); // NOI18N
 		timeframesField.setName("timeframesField"); // NOI18N
 
 		monitoringDaysLabel
@@ -131,24 +131,52 @@ public class ConfigFrame extends JFrame {
 
 		monitoringDaysMo.setText(ReferenceCollection.CONFIG_MONITORINGDAYSMO); // NOI18N
 		monitoringDaysMo.setName("monitoringDaysMo"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE.equals("true"))
+			monitoringDaysMo.setSelected(true);
+		else
+			monitoringDaysMo.setSelected(false);
 
 		monitoringDaysTu.setText(ReferenceCollection.CONFIG_MONITORINGDAYSTU); // NOI18N
 		monitoringDaysTu.setName("monitoringDaysTu"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE.equals("true"))
+			monitoringDaysTu.setSelected(true);
+		else
+			monitoringDaysTu.setSelected(false);
 
 		monitoringDaysWe.setText(ReferenceCollection.CONFIG_MONITORINGDAYSWE); // NOI18N
 		monitoringDaysWe.setName("monitoringDaysWe"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE.equals("true"))
+			monitoringDaysWe.setSelected(true);
+		else
+			monitoringDaysWe.setSelected(false);
 
 		monitoringDaysTh.setText(ReferenceCollection.CONFIG_MONITORINGDAYSTH); // NOI18N
 		monitoringDaysTh.setName("monitoringDaysTh"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE.equals("true"))
+			monitoringDaysTh.setSelected(true);
+		else
+			monitoringDaysTh.setSelected(false);
 
 		monitoringDaysFr.setText(ReferenceCollection.CONFIG_MONITORINGDAYSFR); // NOI18N
 		monitoringDaysFr.setName("monitoringDaysFr"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE.equals("true"))
+			monitoringDaysFr.setSelected(true);
+		else
+			monitoringDaysFr.setSelected(false);
 
 		monitoringDaysSa.setText(ReferenceCollection.CONFIG_MONITORINGDAYSSA); // NOI18N
 		monitoringDaysSa.setName("monitoringDaysSa"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE.equals("true"))
+			monitoringDaysSa.setSelected(true);
+		else
+			monitoringDaysSa.setSelected(false);
 
 		monitoringDaysSu.setText(ReferenceCollection.CONFIG_MONITORINGDAYSSU); // NOI18N
 		monitoringDaysSu.setName("monitoringDaysSu"); // NOI18N
+		if (ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE.equals("true"))
+			monitoringDaysSu.setSelected(true);
+		else
+			monitoringDaysSu.setSelected(false);
 
 		vacationLabel.setText(ReferenceCollection.CONFIG_VACATIONLABEL); // NOI18N
 		vacationLabel.setName("vacationLabel"); // NOI18N
@@ -157,16 +185,28 @@ public class ConfigFrame extends JFrame {
 				.setText(ReferenceCollection.CONFIG_VACATIONSTARTLABEL); // NOI18N
 		vacationStartLabel.setName("vacationStartLabel"); // NOI18N
 
-		// jTextField4.setText(""); // NOI18N
 		startJCalendar.setDateFormatString("dd.MMM.yyyy");
 		startJCalendar.setName("startJCalendar"); // NOI18N
+		try {
+			startJCalendar
+					.setDate(new Date(
+							Long
+									.parseLong(ReferenceCollection.CONFIG_VACATION_START_VALUE)));
+		} catch (NumberFormatException e) {
+			ReferenceCollection.LOG.debug("No Vacation End Date set");
+		}
 
 		vacationEndLabel.setText(ReferenceCollection.CONFIG_VACATIONENDLABEL); // NOI18N
 		vacationEndLabel.setName("vacationEndLabel"); // NOI18N
 
-		// jTextField5.setText(""); // NOI18N
 		endJCalendar.setDateFormatString("dd.MMM.yyyy");
 		endJCalendar.setName("endJCalendar"); // NOI18N
+		try {
+			endJCalendar.setDate(new Date(Long
+					.parseLong(ReferenceCollection.CONFIG_VACATION_END_VALUE)));
+		} catch (NumberFormatException e) {
+			ReferenceCollection.LOG.debug("No Vacation End Date set");
+		}
 
 		javax.swing.GroupLayout timeframesPanelLayout = new javax.swing.GroupLayout(
 				timeframesPanel);
@@ -363,8 +403,9 @@ public class ConfigFrame extends JFrame {
 
 		deleteButton.setText(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT); // NOI18N
 		deleteButton.setName("deleteButton"); // NOI18N
-		
-		ConfigFrameActionListener configFrameActionListener = new ConfigFrameActionListener(this);
+
+		ConfigFrameActionListener configFrameActionListener = new ConfigFrameActionListener(
+				this);
 		cancelButton.addActionListener(configFrameActionListener);
 		saveButton.addActionListener(configFrameActionListener);
 		deleteButton.addActionListener(configFrameActionListener);
@@ -439,13 +480,13 @@ public class ConfigFrame extends JFrame {
 		displayCountLabel.setText(ReferenceCollection.CONFIG_DISPLAYCOUNTLABEL); // NOI18N
 		displayCountLabel.setName("displayCountLabel"); // NOI18N
 
-		displayCountField.setText(""+ReferenceCollection.DISPLAY_COUNT); // NOI18N
+		displayCountField.setText("" + ReferenceCollection.DISPLAY_COUNT); // NOI18N
 		displayCountField.setName("displayCountField"); // NOI18N
 
 		displayTimeLabel.setText(ReferenceCollection.CONFIG_DISPLAYTIMELABEL); // NOI18N
 		displayTimeLabel.setName("displayTimeLabel"); // NOI18N
 
-		displayTimeField.setText(""+ReferenceCollection.DISPLAY_SECONDS);
+		displayTimeField.setText("" + ReferenceCollection.DISPLAY_SECONDS);
 		displayTimeField.setName("displayTimeField"); // NOI18N
 
 		javax.swing.GroupLayout mainConfigPanelLayout = new javax.swing.GroupLayout(
@@ -453,43 +494,110 @@ public class ConfigFrame extends JFrame {
 		mainConfigPanel.setLayout(mainConfigPanelLayout);
 
 		mainConfigPanel.setLayout(mainConfigPanelLayout);
-        mainConfigPanelLayout.setHorizontalGroup(
-            mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainConfigPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayCountLabel)
-                    .addGroup(mainConfigPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(displayCountField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
-                .addGroup(mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayTimeLabel)
-                    .addGroup(mainConfigPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(displayTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37)
-                .addGroup(mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainConfigPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(languageSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(languageSelectorLabel))
-                .addContainerGap(254, Short.MAX_VALUE))
-        );
-        mainConfigPanelLayout.setVerticalGroup(
-            mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainConfigPanelLayout.createSequentialGroup()
-                .addGroup(mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(displayCountLabel)
-                    .addComponent(displayTimeLabel)
-                    .addComponent(languageSelectorLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(mainConfigPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(displayCountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(displayTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(languageSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+		mainConfigPanelLayout
+				.setHorizontalGroup(mainConfigPanelLayout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								mainConfigPanelLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												mainConfigPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																displayCountLabel)
+														.addGroup(
+																mainConfigPanelLayout
+																		.createSequentialGroup()
+																		.addGap(
+																				10,
+																				10,
+																				10)
+																		.addComponent(
+																				displayCountField,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				68,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addGap(49, 49, 49)
+										.addGroup(
+												mainConfigPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																displayTimeLabel)
+														.addGroup(
+																mainConfigPanelLayout
+																		.createSequentialGroup()
+																		.addGap(
+																				10,
+																				10,
+																				10)
+																		.addComponent(
+																				displayTimeField,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				68,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addGap(37, 37, 37)
+										.addGroup(
+												mainConfigPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(
+																mainConfigPanelLayout
+																		.createSequentialGroup()
+																		.addGap(
+																				10,
+																				10,
+																				10)
+																		.addComponent(
+																				languageSelectorComboBox,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.PREFERRED_SIZE))
+														.addComponent(
+																languageSelectorLabel))
+										.addContainerGap(254, Short.MAX_VALUE)));
+		mainConfigPanelLayout
+				.setVerticalGroup(mainConfigPanelLayout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								mainConfigPanelLayout
+										.createSequentialGroup()
+										.addGroup(
+												mainConfigPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																displayCountLabel)
+														.addComponent(
+																displayTimeLabel)
+														.addComponent(
+																languageSelectorLabel))
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(
+												mainConfigPanelLayout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(
+																displayCountField,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																displayTimeField,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																languageSelectorComboBox,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(25, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout configurationframeLayout = new javax.swing.GroupLayout(
 				configurationframe);
@@ -671,7 +779,5 @@ public class ConfigFrame extends JFrame {
 			javax.swing.JComboBox languageSelectorComboBox) {
 		this.languageSelectorComboBox = languageSelectorComboBox;
 	}
-	
-	
 
 }
