@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
+* Monitor select feeds
++ FeedDAO
 * equals and hash of Feed and News
 * link between Feed and News
 + Storing time settings
