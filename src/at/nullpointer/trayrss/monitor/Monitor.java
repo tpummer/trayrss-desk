@@ -28,6 +28,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 
@@ -68,6 +69,14 @@ public class Monitor implements Runnable {
 			
 			session.save(test);
 			tx.commit();
+			session.close();
+			
+			FeedDAO feedDAO = new FeedDAO();
+			Feed testfeed = feedDAO.findFeedById(new Long(1));
+			if (testfeed != null) System.out.println("ETWAS");
+			//TODO LAZI
+			session = ReferenceCollection.SESSION_FACTORY.openSession();
+			System.out.println(testfeed.getName());
 			session.close();
 
 		}
