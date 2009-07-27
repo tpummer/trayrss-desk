@@ -58,9 +58,19 @@ public class Feed implements Serializable {
 	private Long intervall;
 	private Date lastAction;
 	private String name;
+	private Boolean monitored;
 	private List<News> news = new ArrayList<News>();
 	
 	
+	
+	@Column(nullable = false)
+	public Boolean isMonitored(){
+		return monitored;
+	}
+	public void setMonitored(Boolean monitored) {
+		this.monitored = monitored;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {

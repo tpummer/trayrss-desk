@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
+* shutdown bug if thread never was started
+* Display saved Feeds in config frame
 * Monitor select feeds
 + FeedDAO
 * equals and hash of Feed and News

@@ -49,37 +49,34 @@ public class Monitor implements Runnable {
 //					ReferenceCollection.TRAY_ICON);
 //			// TODO Thread wo speichern zum interruppten
 //			threadExecutor.execute(feedReader);
-		while(true){ 
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				System.out.println("End");
-				break;
-			}
-			System.out.println("Ping");
-			
-			Session session = ReferenceCollection.SESSION_FACTORY.openSession();
-			
-			Transaction tx = session.beginTransaction();
-			Feed test = new Feed();
-			test.setIntervall(new Long(2));
-			test.setLastAction(new Date());
-			test.setName("ha!");
-			test.setUrl("das");
-			
-			session.save(test);
-			tx.commit();
-			session.close();
-			
-			FeedDAO feedDAO = new FeedDAO();
-			Feed testfeed = feedDAO.findFeedById(new Long(1));
-			if (testfeed != null) System.out.println("ETWAS");
-			//TODO LAZI
-			session = ReferenceCollection.SESSION_FACTORY.openSession();
-			System.out.println(testfeed.getName());
-			session.close();
-
-		}
+//		while(true){ 
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				System.out.println("End");
+//				break;
+//			}
+//			System.out.println("Ping");
+//			
+//			FeedDAO feedDAO = new FeedDAO();
+//			
+//			Session session = ReferenceCollection.SESSION_FACTORY.openSession();
+//		
+//			Feed test = new Feed();
+//			test.setIntervall(new Long(2));
+//			test.setLastAction(new Date());
+//			test.setName("ha!");
+//			test.setUrl("das");
+//			
+//			feedDAO.save(test, session);
+//						
+//			Feed testfeed = feedDAO.findFeedById(new Long(1), session);
+//			if (testfeed != null) System.out.println("ETWAS");
+//			//TODO LAZI
+//			System.out.println(testfeed.getName());
+//			session.close();
+//
+//		}
 //		}
 	}
 }
