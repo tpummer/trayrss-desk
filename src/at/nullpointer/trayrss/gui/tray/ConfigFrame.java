@@ -21,11 +21,20 @@ package at.nullpointer.trayrss.gui.tray;
 
 import java.awt.Toolkit;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -387,11 +396,7 @@ public class ConfigFrame extends JFrame {
 
 		feedsScrollPane.setName("feedsScrollPane"); // NOI18N
 
-		feedsTable.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { null, null, null, null },
-						{ null, null, null, null }, { null, null, null, null },
-						{ null, null, null, null } },
-				ReferenceCollection.CONFIG_TABLE_HEADER));
+		loadTable();
 		feedsTable.setName("feedsTable"); // NOI18N
 		feedsScrollPane.setViewportView(feedsTable);
 
@@ -778,6 +783,35 @@ public class ConfigFrame extends JFrame {
 	public void setLanguageSelectorComboBox(
 			javax.swing.JComboBox languageSelectorComboBox) {
 		this.languageSelectorComboBox = languageSelectorComboBox;
+	}
+	
+	public void loadTable(){
+		JTable feedsTable = new JTable();
+		
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
+				
+		FeedDAO feedDAO = new FeedDAO();
+		List<Feed> feedList = (List<Feed>) feedDAO.getFeeds(session);
+		
+		Object[][] data= new Object[feedList.size()][4];
+				
+		int i = 0;
+		for(Iterator<Feed> it = feedList.iterator(); it.hasNext();){
+			Feed current = (Feed) it.next();
+			data[i][0] = current.getName();
+			data[i][1] = current.getUrl();
+			data[i][2] = current.getIntervall();
+			data[i][3] = current.isMonitored();
+			
+			i++;
+		}
+		feedsTable.setModel(new javax.swing.table.DefaultTableModel(
+				data,
+				ReferenceCollection.CONFIG_TABLE_HEADER));
+		
+		this.setFeedsTable(feedsTable);
+		
+		session.close();
 	}
 
 }
