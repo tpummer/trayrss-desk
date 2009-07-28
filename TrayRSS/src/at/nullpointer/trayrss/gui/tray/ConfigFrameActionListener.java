@@ -90,8 +90,11 @@ public class ConfigFrameActionListener implements ActionListener {
 		ReferenceCollection.CONFIGURATION.save();
 	}
 
+	/**
+	 * To store the entire feed information
+	 */
 	public void performFeedSave(){
-		//TODO feeds sollten in die DB geschrieben werden
+		ReferenceCollection.FEED_TABLE.store();
 	}
 	
 	@Override

@@ -24,6 +24,7 @@
  - Removed Function
 
 0.5
+* new column to the feed table: id
 * Config frame add row and delete row
 * Config frame add button
 * shutdown bug if thread never was started
