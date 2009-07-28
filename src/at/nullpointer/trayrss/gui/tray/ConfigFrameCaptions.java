@@ -78,6 +78,7 @@ public class ConfigFrameCaptions {
 		ReferenceCollection.CONFIG_LANGUAGESELECTORFIELD = props.getProperty(pre
 				+ ".config_languageSelectorField.text");
 		String[] configTableHeader = {
+				props.getProperty(pre + ".config_table.header.column_id"),
 				props.getProperty(pre + ".config_table.header.column_one"),
 				props.getProperty(pre + ".config_table.header.column_two"),
 				props.getProperty(pre + ".config_table.header.column_three"),

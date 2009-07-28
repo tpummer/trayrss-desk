@@ -31,6 +31,7 @@
 <entry key="trayrss.en.config_mainConfigPanel.border.title">General Settings</entry>
 <entry key="trayrss.en.config_displayCountLabel.text">Display Count</entry>
 <entry key="trayrss.en.config_displayTimeLabel.text">Display Time (seconds)</entry>
+<entry key="trayrss.en.config_table.header.column_id">id</entry>
 <entry key="trayrss.en.config_table.header.column_one">Feed Name</entry>
 <entry key="trayrss.en.config_table.header.column_two">Feed URL</entry>
 <entry key="trayrss.en.config_table.header.column_three">Intervall</entry>
