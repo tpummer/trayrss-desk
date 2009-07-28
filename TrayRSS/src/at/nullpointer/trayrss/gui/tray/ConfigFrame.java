@@ -42,6 +42,7 @@ public class ConfigFrame extends JFrame {
 
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JPanel configurationframe;
+	private javax.swing.JButton addButton;
 	private javax.swing.JButton deleteButton;
 	private javax.swing.JTextField displayCountField;
 	private javax.swing.JLabel displayCountLabel;
@@ -100,6 +101,7 @@ public class ConfigFrame extends JFrame {
 		feedsTable = new javax.swing.JTable();
 		saveButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
+		addButton = new javax.swing.JButton();
 		deleteButton = new javax.swing.JButton();
 		mainConfigPanel = new javax.swing.JPanel();
 		displayCountLabel = new javax.swing.JLabel();
@@ -392,27 +394,31 @@ public class ConfigFrame extends JFrame {
 		feedsPanel
 				.setBorder(javax.swing.BorderFactory
 						.createTitledBorder(ReferenceCollection.CONFIG_FEEDSPANEL_BORDER_TITLE)); // NOI18N
-		feedsPanel.setName("feedsPanel"); // NOI18N
+		feedsPanel.setName("feedsPanel");
 
-		feedsScrollPane.setName("feedsScrollPane"); // NOI18N
+		feedsScrollPane.setName("feedsScrollPane");
 
 		loadTable();
-		feedsTable.setName("feedsTable"); // NOI18N
+		feedsTable.setName("feedsTable");
 		feedsScrollPane.setViewportView(feedsTable);
 
-		saveButton.setText(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT); // NOI18N
-		saveButton.setName("saveButton"); // NOI18N
+		saveButton.setText(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT);
+		saveButton.setName("saveButton");
 
-		cancelButton.setText(ReferenceCollection.CONFIG_CANCELBUTTON_TEXT); // NOI18N
-		cancelButton.setName("cancelButton"); // NOI18N
+		cancelButton.setText(ReferenceCollection.CONFIG_CANCELBUTTON_TEXT);
+		cancelButton.setName("cancelButton");
 
-		deleteButton.setText(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT); // NOI18N
-		deleteButton.setName("deleteButton"); // NOI18N
+		addButton.setText(ReferenceCollection.CONFIG_ADDBUTTON_TEXT);
+		addButton.setName("addButton");
+
+		deleteButton.setText(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT);
+		deleteButton.setName("deleteButton");
 
 		ConfigFrameActionListener configFrameActionListener = new ConfigFrameActionListener(
 				this);
 		cancelButton.addActionListener(configFrameActionListener);
 		saveButton.addActionListener(configFrameActionListener);
+		addButton.addActionListener(configFrameActionListener);
 		deleteButton.addActionListener(configFrameActionListener);
 
 		javax.swing.GroupLayout feedsPanelLayout = new javax.swing.GroupLayout(
@@ -446,8 +452,12 @@ public class ConfigFrame extends JFrame {
 																				cancelButton)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-																				399,
+																				380,
 																				Short.MAX_VALUE)
+																		.addComponent(
+																				addButton)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																		.addComponent(
 																				deleteButton)))
 										.addContainerGap()));
@@ -474,22 +484,24 @@ public class ConfigFrame extends JFrame {
 														.addComponent(
 																cancelButton)
 														.addComponent(
+																addButton)
+														.addComponent(
 																deleteButton))
 										.addContainerGap(13, Short.MAX_VALUE)));
 
 		mainConfigPanel
 				.setBorder(javax.swing.BorderFactory
-						.createTitledBorder(ReferenceCollection.CONFIG_MAINCONFIGPANEL_BORDER_TITLE)); // NOI18N
-		mainConfigPanel.setName("mainConfigPanel"); // NOI18N
+						.createTitledBorder(ReferenceCollection.CONFIG_MAINCONFIGPANEL_BORDER_TITLE));
+		mainConfigPanel.setName("mainConfigPanel");
 
-		displayCountLabel.setText(ReferenceCollection.CONFIG_DISPLAYCOUNTLABEL); // NOI18N
-		displayCountLabel.setName("displayCountLabel"); // NOI18N
+		displayCountLabel.setText(ReferenceCollection.CONFIG_DISPLAYCOUNTLABEL);
+		displayCountLabel.setName("displayCountLabel");
 
-		displayCountField.setText("" + ReferenceCollection.DISPLAY_COUNT); // NOI18N
-		displayCountField.setName("displayCountField"); // NOI18N
+		displayCountField.setText("" + ReferenceCollection.DISPLAY_COUNT);
+		displayCountField.setName("displayCountField");
 
-		displayTimeLabel.setText(ReferenceCollection.CONFIG_DISPLAYTIMELABEL); // NOI18N
-		displayTimeLabel.setName("displayTimeLabel"); // NOI18N
+		displayTimeLabel.setText(ReferenceCollection.CONFIG_DISPLAYTIMELABEL);
+		displayTimeLabel.setName("displayTimeLabel");
 
 		displayTimeField.setText("" + ReferenceCollection.DISPLAY_SECONDS);
 		displayTimeField.setName("displayTimeField"); // NOI18N
@@ -784,34 +796,35 @@ public class ConfigFrame extends JFrame {
 			javax.swing.JComboBox languageSelectorComboBox) {
 		this.languageSelectorComboBox = languageSelectorComboBox;
 	}
-	
-	public void loadTable(){
-		JTable feedsTable = new JTable();
+
+	public void loadTable() {
 		
+		JTable feedsTable = new JTable();
+
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
-				
+
 		FeedDAO feedDAO = new FeedDAO();
 		List<Feed> feedList = (List<Feed>) feedDAO.getFeeds(session);
+
 		
-		Object[][] data= new Object[feedList.size()][4];
-				
-		int i = 0;
-		for(Iterator<Feed> it = feedList.iterator(); it.hasNext();){
+		ReferenceCollection.FEED_TABLE = new FeedTable();
+
+		for (Iterator<Feed> it = feedList.iterator(); it.hasNext();) {
 			Feed current = (Feed) it.next();
-			data[i][0] = current.getName();
-			data[i][1] = current.getUrl();
-			data[i][2] = current.getIntervall();
-			data[i][3] = current.isMonitored();
-			
-			i++;
+			ReferenceCollection.FEED_TABLE.addRow(current);
 		}
-		feedsTable.setModel(new javax.swing.table.DefaultTableModel(
-				data,
+		feedsTable.setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
 				ReferenceCollection.CONFIG_TABLE_HEADER));
-		
+
 		this.setFeedsTable(feedsTable);
-		
+
 		session.close();
+	}
+	
+	public void refreshTableWithoutDB(){
+		this.getFeedsTable().setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
+				ReferenceCollection.CONFIG_TABLE_HEADER));
+		this.getFeedsTable().repaint();
 	}
 
 }

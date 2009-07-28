@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 
 import at.nullpointer.trayrss.gui.tray.ConfigFrame;
+import at.nullpointer.trayrss.gui.tray.FeedTable;
 import at.nullpointer.trayrss.gui.tray.Help;
 
 /**
@@ -131,13 +132,18 @@ public class ReferenceCollection {
 	public static String CONFIG_VACATION_END_VALUE;
 	public static String CONFIG_TIMEFRAMESPANEL_BORDER_TITLE;
 	public static String CONFIG_FEEDSPANEL_BORDER_TITLE;
+	
 	public static String CONFIG_SAVEBUTTON_TEXT;
+	public static String CONFIG_ADDBUTTON_TEXT;
 	public static String CONFIG_DELETEBUTTON_TEXT;
 	public static String CONFIG_CANCELBUTTON_TEXT;
+	
 	public static String CONFIG_MAINCONFIGPANEL_BORDER_TITLE;
 	public static String CONFIG_DISPLAYCOUNTLABEL;
 	public static String CONFIG_DISPLAYTIMELABEL;
 	public static Object[] CONFIG_TABLE_HEADER;
 	public static String CONFIG_LANGUAGESELECTORLABEL;
 	public static String CONFIG_LANGUAGESELECTORFIELD;
+	
+	public static FeedTable FEED_TABLE;
 }

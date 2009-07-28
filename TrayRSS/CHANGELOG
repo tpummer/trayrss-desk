@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
+* Config frame add row and delete row
+* Config frame add button
 * shutdown bug if thread never was started
 * Display saved Feeds in config frame
 * Monitor select feeds
