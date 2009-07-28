@@ -61,6 +61,8 @@ public class ConfigFrameCaptions {
 				.getProperty(pre + ".config_feedsPanel.border.title");
 		ReferenceCollection.CONFIG_SAVEBUTTON_TEXT = props.getProperty(pre
 				+ ".config_saveButton.text");
+		ReferenceCollection.CONFIG_ADDBUTTON_TEXT = props.getProperty(pre
+				+ ".config_addButton.text");
 		ReferenceCollection.CONFIG_DELETEBUTTON_TEXT = props.getProperty(pre
 				+ ".config_deleteButton.text");
 		ReferenceCollection.CONFIG_CANCELBUTTON_TEXT = props.getProperty(pre

@@ -25,6 +25,7 @@
 <entry key="trayrss.en.config_timeframesPanel.border.title">Timeframes</entry>
 <entry key="trayrss.en.config_feedsPanel.border.title">Feeds</entry>
 <entry key="trayrss.en.config_saveButton.text">Save</entry>
+<entry key="trayrss.en.config_addButton.text">Add Feed</entry>
 <entry key="trayrss.en.config_deleteButton.text">Delete Feed</entry>
 <entry key="trayrss.en.config_cancelButton.text">Cancel</entry>
 <entry key="trayrss.en.config_mainConfigPanel.border.title">General Settings</entry>

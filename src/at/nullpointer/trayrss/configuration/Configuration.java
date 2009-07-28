@@ -1,13 +1,31 @@
+/**
+    RSSTray - simply alerting at new Feed Information
+    Copyright (C) 2009 Thomas Pummer
+    conatct me fake (at) sprossenwanne.at
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
 package at.nullpointer.trayrss.configuration;
 
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Properties;
 
-import at.nullpointer.trayrss.gui.tray.ConfigFrameCaptions;
+import javax.swing.JOptionPane;
 
 public class Configuration {
 	Properties props;
@@ -35,9 +53,6 @@ public class Configuration {
 		ReferenceCollection.CONFIG_VACATION_START_VALUE = props.getProperty("trayrss.time.vacationstart");
 		ReferenceCollection.CONFIG_VACATION_END_VALUE = props.getProperty("trayrss.time.vacationend");
 		
-		// Feeds
-		//TODO
-		
 	}
 	
 	public void save(){
@@ -55,14 +70,13 @@ public class Configuration {
 		props.setProperty("trayrss.time.so", ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE);
 		props.setProperty("trayrss.time.vacationstart", ReferenceCollection.CONFIG_VACATION_START_VALUE);
 		props.setProperty("trayrss.time.vacationend", ReferenceCollection.CONFIG_VACATION_END_VALUE);
+		
 		try {
 			props.storeToXML(new FileOutputStream(ReferenceCollection.CONFIG),"TrayRSS Configuration");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Config file not found", "Config file not found", JOptionPane.ERROR);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "IO Error at saving", "IO Error at saving", JOptionPane.ERROR);
 		}
 	}
 }
