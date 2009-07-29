@@ -23,6 +23,9 @@ package at.nullpointer.trayrss.gui.tray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+
 import org.hibernate.util.ConfigHelper;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
@@ -94,6 +97,20 @@ public class ConfigFrameActionListener implements ActionListener {
 	 * To store the entire feed information
 	 */
 	public void performFeedSave(){
+		//TODO write data from table into FEED_TABLE
+		TableModel table = ReferenceCollection.CONFIG_WINDOW.getFeedsTable().getModel();
+		
+		int length = table.getRowCount();
+		
+		for(int i = length-1; i >= 0; i--){
+			System.out.println(table.getValueAt(i, 4).getClass());
+			ReferenceCollection.FEED_TABLE.getTable()[i][0] = table.getValueAt(i, 0);
+			ReferenceCollection.FEED_TABLE.getTable()[i][1] = table.getValueAt(i, 1);
+			ReferenceCollection.FEED_TABLE.getTable()[i][2] = table.getValueAt(i, 2);
+			ReferenceCollection.FEED_TABLE.getTable()[i][3] = table.getValueAt(i, 3);
+			ReferenceCollection.FEED_TABLE.getTable()[i][4] = table.getValueAt(i, 4);
+		}
+		
 		ReferenceCollection.FEED_TABLE.store();
 	}
 	

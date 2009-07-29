@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.gui.tray;
+package at.nullpointer.trayrss.configuration.feeds;
 
 import java.util.LinkedList;
 
@@ -74,17 +74,25 @@ public class FeedTable {
 	public void store() {
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		
-		Transaction tx = session.beginTransaction();
-		
 		int feedcount = ReferenceCollection.FEED_TABLE.getTable().length;
 		
-		for(int i = 0; i < feedcount; i++){
-			Feed inputfeed = new Feed();
-			//TODO Feed mit ID lesen
-			//TODO Feed mit ID um neue Daten updaten
-		}
+		FeedDAO feeddao = new FeedDAO();
 		
-		tx.commit();
+		for(int i = 0; i < feedcount; i++){
+			Feed change;
+			if(ReferenceCollection.FEED_TABLE.getTable()[i][0] != null){
+			change = feeddao.findFeedById((Long)ReferenceCollection.FEED_TABLE.getTable()[i][0], session);
+			} else change = new Feed();
+			change.setName((String)ReferenceCollection.FEED_TABLE.getTable()[i][1]);
+			change.setUrl((String)ReferenceCollection.FEED_TABLE.getTable()[i][2]);
+			change.setIntervall((Long)ReferenceCollection.FEED_TABLE.getTable()[i][3]);
+			//TODO monitored
+			change.setMonitored((Boolean)ReferenceCollection.FEED_TABLE.getTable()[i][4]);
+			
+			feeddao.save(change, session);
+
+			
+		}
 		
 		session.close();
 		
