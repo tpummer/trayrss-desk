@@ -27,8 +27,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 
+import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.gui.tray.ConfigFrame;
-import at.nullpointer.trayrss.gui.tray.FeedTable;
 import at.nullpointer.trayrss.gui.tray.Help;
 
 /**

@@ -34,6 +34,7 @@ import org.hibernate.Transaction;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 import com.toedter.calendar.JDateChooser;
