@@ -24,6 +24,8 @@
  - Removed Function
 
 0.5
+* store feeds from config frame to db
+* add and change feeds in config frame
 * new column to the feed table: id
 * Config frame add row and delete row
 * Config frame add button
