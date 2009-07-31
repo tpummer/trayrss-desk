@@ -21,6 +21,8 @@
 package at.nullpointer.trayrss.configuration;
 
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -56,6 +58,7 @@ import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.metadata.CollectionMetadata;
 import org.hibernate.stat.Statistics;
 
+import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.gui.tray.ConfigFrameCaptions;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
@@ -114,7 +117,13 @@ public class StartUp {
 		ReferenceCollection.LOG.debug("Startup: Load Properties at " + start);
 		InputStream reader = null;
 		try {
-			reader = new FileInputStream(ReferenceCollection.CONFIG);
+			
+			
+			reader = TrayRSS.class.getResourceAsStream(ReferenceCollection.CONFIG.substring(1));
+			
+			
+			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
+				reader = new FileInputStream(ReferenceCollection.CONFIG);
 
 			props = new Properties();
 			props.loadFromXML(reader);
@@ -153,7 +162,12 @@ public class StartUp {
 		if(ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE)) languagefile = ReferenceCollection.DE_LANG;
 		
 		try {
-			reader = new FileInputStream(languagefile);
+			
+			reader = TrayRSS.class.getResourceAsStream(languagefile.substring(1));
+			
+			
+			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
+				reader = new FileInputStream(languagefile);
 
 			langprops = new Properties();
 			langprops.loadFromXML(reader);

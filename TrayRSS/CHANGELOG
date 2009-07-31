@@ -24,6 +24,7 @@
  - Removed Function
 
 0.5
+* Bugfix db save
 * remove empty rows automatically
 * Change Table field style for booleans 
 * delete feeds in config frame from db
