@@ -103,7 +103,7 @@ public class ConfigFrameActionListener implements ActionListener {
 		int length = table.getRowCount();
 		
 		for(int i = length-1; i >= 0; i--){
-			System.out.println(table.getValueAt(i, 4).getClass());
+			System.out.println(table.getRowCount() + " " + table.getColumnCount());
 			ReferenceCollection.FEED_TABLE.getTable()[i][0] = table.getValueAt(i, 0);
 			ReferenceCollection.FEED_TABLE.getTable()[i][1] = table.getValueAt(i, 1);
 			ReferenceCollection.FEED_TABLE.getTable()[i][2] = table.getValueAt(i, 2);

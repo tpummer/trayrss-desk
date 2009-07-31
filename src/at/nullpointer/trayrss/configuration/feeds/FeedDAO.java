@@ -40,6 +40,8 @@ public class FeedDAO implements FeedDAOInt {
 
 	@Override
 	public void save(Feed feed, Session session) {
+		
+		System.out.println(feed.getId() + " " + feed.getName());
 
 		Transaction tx = session.beginTransaction();
 		session.save(feed);

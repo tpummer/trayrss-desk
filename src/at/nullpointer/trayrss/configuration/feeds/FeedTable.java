@@ -19,6 +19,7 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 import org.hibernate.Transaction;
@@ -47,7 +48,7 @@ public class FeedTable {
 	}
 
 	public void addEmptyRow(){
-		Object[][] emptyRow = {null,null,null,null};
+		Object[] emptyRow = {null,null,null,null,null};
 		table.add(emptyRow);
 	}
 	
@@ -85,9 +86,19 @@ public class FeedTable {
 			} else change = new Feed();
 			change.setName((String)ReferenceCollection.FEED_TABLE.getTable()[i][1]);
 			change.setUrl((String)ReferenceCollection.FEED_TABLE.getTable()[i][2]);
-			change.setIntervall((Long)ReferenceCollection.FEED_TABLE.getTable()[i][3]);
+			if(ReferenceCollection.FEED_TABLE.getTable()[i][3] instanceof Long){
+				change.setIntervall((Long)ReferenceCollection.FEED_TABLE.getTable()[i][3]);
+			}else {
+				change.setIntervall(Long.parseLong((String)ReferenceCollection.FEED_TABLE.getTable()[i][3]));
+			}
 			//TODO monitored
-			change.setMonitored((Boolean)ReferenceCollection.FEED_TABLE.getTable()[i][4]);
+			if(ReferenceCollection.FEED_TABLE.getTable()[i][4] instanceof Boolean){
+				change.setMonitored((Boolean)ReferenceCollection.FEED_TABLE.getTable()[i][4]);
+			} else{
+				change.setMonitored(Boolean.parseBoolean((String)ReferenceCollection.FEED_TABLE.getTable()[i][4]));	
+			}
+			
+			change.setLastAction(new Date());
 			
 			feeddao.save(change, session);
 
