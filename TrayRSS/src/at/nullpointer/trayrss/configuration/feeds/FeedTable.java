@@ -19,10 +19,10 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
@@ -79,7 +79,14 @@ public class FeedTable {
 		
 		FeedDAO feeddao = new FeedDAO();
 		
+		ArrayList<Feed> feeds = (ArrayList<Feed>) feeddao.getFeeds(session);
+		
 		for(int i = 0; i < feedcount; i++){
+			
+			if(ReferenceCollection.FEED_TABLE.getTable()[i][1] == null){
+				
+			} else {
+			
 			Feed change;
 			if(ReferenceCollection.FEED_TABLE.getTable()[i][0] != null){
 			change = feeddao.findFeedById((Long)ReferenceCollection.FEED_TABLE.getTable()[i][0], session);
@@ -101,8 +108,15 @@ public class FeedTable {
 			change.setLastAction(new Date());
 			
 			feeddao.save(change, session);
-
 			
+			feeds.remove(change);
+			
+			}
+			
+		}
+		
+		for(Feed o: feeds){
+			feeddao.deleteById(o.getId(), session);
 		}
 		
 		session.close();
