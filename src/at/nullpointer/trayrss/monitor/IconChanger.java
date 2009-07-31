@@ -24,6 +24,7 @@ import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 
+import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 
@@ -43,10 +44,13 @@ public class IconChanger {
 	 */
 	public static void setIcon(TrayIcon trayIcon, String icon){
 		
-		// Image image = Toolkit.getDefaultToolkit().getImage(
-		// getClass().getResource("/img/rsstrayicon.PNG"));
+
 		
 		Image image = Toolkit.getDefaultToolkit().getImage(
+				 TrayRSS.class.getResource(icon.substring(1)));
+		
+		
+		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage("."+
 				icon);
 		
 		trayIcon.setImage(image);
@@ -60,6 +64,10 @@ public class IconChanger {
 	 */
 	public static TrayIcon createTrayIcon(PopupMenu popup) {
 		Image image = Toolkit.getDefaultToolkit().getImage(
+				 TrayRSS.class.getResource(ReferenceCollection.ICON_NORMAL.substring(1)));
+		
+		
+		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage("."+
 				ReferenceCollection.ICON_NORMAL);
 		return new TrayIcon(image, ReferenceCollection.TRAYRSS_APP_TITLE, popup);
 	}

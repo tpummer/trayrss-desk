@@ -40,6 +40,7 @@ public class Shutdown {
 	}
 
 	public boolean isAllClosed() {
+		ReferenceCollection.SESSION_FACTORY.close();
 		boolean monitorThread = ReferenceCollection.MONITOR_THREAD.isAlive();
 		boolean allClosed = !monitorThread;
 		ReferenceCollection.LOG.debug("AllClosed after Monitor Thread check: " + allClosed);

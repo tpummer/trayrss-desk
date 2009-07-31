@@ -21,6 +21,7 @@
       org.hibernate.cache.HashtableCacheProvider
     </property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    
     <mapping package="at.nullpointer.trayrss.configuration.feeds.db"/>
     <mapping class="at.nullpointer.trayrss.configuration.feeds.db.Feed"/>
     <mapping class="at.nullpointer.trayrss.configuration.feeds.db.News"/>
