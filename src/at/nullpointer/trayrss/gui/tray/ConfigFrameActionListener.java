@@ -97,13 +97,13 @@ public class ConfigFrameActionListener implements ActionListener {
 	 * To store the entire feed information
 	 */
 	public void performFeedSave(){
-		//TODO write data from table into FEED_TABLE
+		//TODO FeedDelete
+		
 		TableModel table = ReferenceCollection.CONFIG_WINDOW.getFeedsTable().getModel();
 		
 		int length = table.getRowCount();
 		
 		for(int i = length-1; i >= 0; i--){
-			System.out.println(table.getRowCount() + " " + table.getColumnCount());
 			ReferenceCollection.FEED_TABLE.getTable()[i][0] = table.getValueAt(i, 0);
 			ReferenceCollection.FEED_TABLE.getTable()[i][1] = table.getValueAt(i, 1);
 			ReferenceCollection.FEED_TABLE.getTable()[i][2] = table.getValueAt(i, 2);
@@ -126,12 +126,14 @@ public class ConfigFrameActionListener implements ActionListener {
 			
 		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_ADDBUTTON_TEXT)){
 			ReferenceCollection.FEED_TABLE.addEmptyRow();
-			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB();
+			FeedTableModel feedTableModel = new FeedTableModel();
+			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB(feedTableModel);
 			
 		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT)){
 			int delete = ReferenceCollection.CONFIG_WINDOW.getFeedsTable().getSelectedRow();
 			ReferenceCollection.FEED_TABLE.deleteRow(delete);
-			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB();
+			FeedTableModel feedTableModel = new FeedTableModel();
+			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB(feedTableModel);
 			
 		} 
 	}

@@ -13,5 +13,7 @@ public interface FeedDAOInt {
 	public Feed findFeedById(Long id, Session session);
 
 	public void save(Feed feed, Session session);
+	
+	public void deleteById(Long id, Session session);
 
 }

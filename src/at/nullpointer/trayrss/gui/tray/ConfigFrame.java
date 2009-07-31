@@ -814,17 +814,21 @@ public class ConfigFrame extends JFrame {
 			Feed current = (Feed) it.next();
 			ReferenceCollection.FEED_TABLE.addRow(current);
 		}
-		feedsTable.setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
-				ReferenceCollection.CONFIG_TABLE_HEADER));
+		
+//		feedsTable.setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
+//				ReferenceCollection.CONFIG_TABLE_HEADER));
+		
+		FeedTableModel feedTableModel = new FeedTableModel();
+		
+		feedsTable.setModel(feedTableModel);
 
 		this.setFeedsTable(feedsTable);
 
 		session.close();
 	}
 	
-	public void refreshTableWithoutDB(){
-		this.getFeedsTable().setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
-				ReferenceCollection.CONFIG_TABLE_HEADER));
+	public void refreshTableWithoutDB(FeedTableModel feedTableModel){
+		this.getFeedsTable().setModel(feedTableModel);
 		this.getFeedsTable().repaint();
 	}
 

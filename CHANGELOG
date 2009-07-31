@@ -24,6 +24,9 @@
  - Removed Function
 
 0.5
+* remove empty rows automatically
+* Change Table field style for booleans 
+* delete feeds in config frame from db
 * store feeds from config frame to db
 * add and change feeds in config frame
 * new column to the feed table: id
