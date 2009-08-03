@@ -1,4 +1,4 @@
-package at.nullpointer.trayrss.gui.tray;
+package at.nullpointer.trayrss.gui.configframe;
 
 import javax.swing.table.AbstractTableModel;
 

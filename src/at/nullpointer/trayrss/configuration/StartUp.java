@@ -59,7 +59,7 @@ import org.hibernate.metadata.CollectionMetadata;
 import org.hibernate.stat.Statistics;
 
 import at.nullpointer.trayrss.TrayRSS;
-import at.nullpointer.trayrss.gui.tray.ConfigFrameCaptions;
+import at.nullpointer.trayrss.gui.configframe.ConfigFrameCaptions;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
 

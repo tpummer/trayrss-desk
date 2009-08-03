@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.gui.tray;
+package at.nullpointer.trayrss.gui.configframe;
 
 
 import java.awt.event.ActionEvent;
