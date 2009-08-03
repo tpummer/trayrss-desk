@@ -821,6 +821,20 @@ public class ConfigFrame extends JFrame {
 		FeedTableModel feedTableModel = new FeedTableModel();
 		
 		feedsTable.setModel(feedTableModel);
+		
+		feedsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	    
+	    TableColumn col = feedsTable.getColumnModel().getColumn(0);
+	    col.setPreferredWidth(40);
+	    col = feedsTable.getColumnModel().getColumn(1);
+	    col.setPreferredWidth(100);
+	    col = feedsTable.getColumnModel().getColumn(2);
+	    col.setPreferredWidth(450);
+	    col = feedsTable.getColumnModel().getColumn(3);
+	    col.setPreferredWidth(60);
+	    col = feedsTable.getColumnModel().getColumn(4);
+	    col.setPreferredWidth(60);
+
 
 		this.setFeedsTable(feedsTable);
 
