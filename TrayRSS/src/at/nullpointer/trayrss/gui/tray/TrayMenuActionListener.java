@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.Shutdown;
+import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
 
 
 public class TrayMenuActionListener implements ActionListener {
