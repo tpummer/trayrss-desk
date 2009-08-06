@@ -84,6 +84,11 @@ public class ConfigFrameCaptions {
 				props.getProperty(pre + ".config_table.header.column_three"),
 				props.getProperty(pre + ".config_table.header.column_four") };
 		ReferenceCollection.CONFIG_TABLE_HEADER = configTableHeader;
+		
+		ReferenceCollection.config_url_valid_title = props.getProperty(pre
+				+ ".config_url.valid.title");
+		ReferenceCollection.config_url_valid_text = props.getProperty(pre
+				+ ".config_url.valid.text");
 	}
 
 }

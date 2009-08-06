@@ -38,4 +38,6 @@
 <entry key="trayrss.en.config_table.header.column_four">Monitored</entry>
 <entry key="trayrss.en.config_languageSelectorLabel.text">Language</entry>
 <entry key="trayrss.en.config_languageSelectorField.text">en,de</entry>
+<entry key="trayrss.en.config_url.valid.title">Url invalid</entry>
+<entry key="trayrss.en.config_url.valid.text">The URL:\n   %s\nin row %s is not a valid feed (rss or atom).\nPlease correct the path.</entry>
 </properties>

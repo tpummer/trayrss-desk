@@ -24,6 +24,7 @@
  - Removed Function
 
 0.6
++ feed validation before save
 * resize the columns to a adequate size
 * Dist fix to include all necessary files
 

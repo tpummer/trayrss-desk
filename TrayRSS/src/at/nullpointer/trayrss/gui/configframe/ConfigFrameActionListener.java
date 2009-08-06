@@ -19,7 +19,6 @@
  */
 package at.nullpointer.trayrss.gui.configframe;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,112 +29,137 @@ import org.hibernate.util.ConfigHelper;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
-
 public class ConfigFrameActionListener implements ActionListener {
 	ConfigFrame configFrame;
-	
-	public ConfigFrameActionListener(ConfigFrame inputFrame){
+
+	public ConfigFrameActionListener(ConfigFrame inputFrame) {
 		this.configFrame = inputFrame;
 	}
-	
-	public void performConfigSave(){
+
+	public void performConfigSave() {
 		// main
-		ReferenceCollection.LANGUAGE = (String) this.configFrame.getLanguageSelectorComboBox().getSelectedItem();
-		ReferenceCollection.DISPLAY_COUNT = Integer.parseInt(this.configFrame.getDisplayCountField().getText());
-		ReferenceCollection.DISPLAY_SECONDS = Integer.parseInt(this.configFrame.getDisplayTimeField().getText());
-		
+		ReferenceCollection.LANGUAGE = (String) this.configFrame
+				.getLanguageSelectorComboBox().getSelectedItem();
+		ReferenceCollection.DISPLAY_COUNT = Integer.parseInt(this.configFrame
+				.getDisplayCountField().getText());
+		ReferenceCollection.DISPLAY_SECONDS = Integer.parseInt(this.configFrame
+				.getDisplayTimeField().getText());
+
 		// time
-		ReferenceCollection.CONFIG_TIMEFRAMES_VALUE = this.configFrame.getTimeframesField().getText();
-		
+		ReferenceCollection.CONFIG_TIMEFRAMES_VALUE = this.configFrame
+				.getTimeframesField().getText();
+
 		if (this.configFrame.getMonitoringDaysMo().isSelected())
-		ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "true";
-		else 
-	    ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "false";
-		
+			ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "true";
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysTu().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE = "false";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysWe().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE = "false";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSWE_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysTh().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE = "false";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSTH_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysFr().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE = "false";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSFR_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysSa().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE = "false";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSSA_VALUE = "false";
+
 		if (this.configFrame.getMonitoringDaysSu().isSelected())
 			ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE = "true";
-			else 
-		    ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE = "false";
-		
-		if(this.configFrame.getStartJCalendar().getDate() != null)
-		ReferenceCollection.CONFIG_VACATION_START_VALUE = ""+this.configFrame.getStartJCalendar().getDate().getTime();
-		else ReferenceCollection.CONFIG_VACATION_START_VALUE = "";
-		
-		if(this.configFrame.getEndJCalendar().getDate() != null)
-		ReferenceCollection.CONFIG_VACATION_END_VALUE = ""+this.configFrame.getEndJCalendar().getDate().getTime();
-		else ReferenceCollection.CONFIG_VACATION_END_VALUE = "";
-		
+		else
+			ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE = "false";
+
+		if (this.configFrame.getStartJCalendar().getDate() != null)
+			ReferenceCollection.CONFIG_VACATION_START_VALUE = ""
+					+ this.configFrame.getStartJCalendar().getDate().getTime();
+		else
+			ReferenceCollection.CONFIG_VACATION_START_VALUE = "";
+
+		if (this.configFrame.getEndJCalendar().getDate() != null)
+			ReferenceCollection.CONFIG_VACATION_END_VALUE = ""
+					+ this.configFrame.getEndJCalendar().getDate().getTime();
+		else
+			ReferenceCollection.CONFIG_VACATION_END_VALUE = "";
+
 		ReferenceCollection.CONFIGURATION.save();
 	}
 
 	/**
 	 * To store the entire feed information
 	 */
-	public void performFeedSave(){
-		//TODO FeedDelete
-		
-		TableModel table = ReferenceCollection.CONFIG_WINDOW.getFeedsTable().getModel();
-		
+	public void performFeedSave() {
+		// TODO FeedDelete
+
+		TableModel table = ReferenceCollection.CONFIG_WINDOW.getFeedsTable()
+				.getModel();
+
 		int length = table.getRowCount();
-		
-		for(int i = length-1; i >= 0; i--){
-			ReferenceCollection.FEED_TABLE.getTable()[i][0] = table.getValueAt(i, 0);
-			ReferenceCollection.FEED_TABLE.getTable()[i][1] = table.getValueAt(i, 1);
-			ReferenceCollection.FEED_TABLE.getTable()[i][2] = table.getValueAt(i, 2);
-			ReferenceCollection.FEED_TABLE.getTable()[i][3] = table.getValueAt(i, 3);
-			ReferenceCollection.FEED_TABLE.getTable()[i][4] = table.getValueAt(i, 4);
+
+		for (int i = length - 1; i >= 0; i--) {
+			ReferenceCollection.FEED_TABLE.getTable()[i][0] = table.getValueAt(
+					i, 0);
+			ReferenceCollection.FEED_TABLE.getTable()[i][1] = table.getValueAt(
+					i, 1);
+			ReferenceCollection.FEED_TABLE.getTable()[i][2] = table.getValueAt(
+					i, 2);
+			ReferenceCollection.FEED_TABLE.getTable()[i][3] = table.getValueAt(
+					i, 3);
+			ReferenceCollection.FEED_TABLE.getTable()[i][4] = table.getValueAt(
+					i, 4);
 		}
-		
+
 		ReferenceCollection.FEED_TABLE.store();
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals(ReferenceCollection.CONFIG_CANCELBUTTON_TEXT)){
+		if (e.getActionCommand().equals(
+				ReferenceCollection.CONFIG_CANCELBUTTON_TEXT)) {
 			ReferenceCollection.CONFIG_WINDOW.dispose();
-			
-		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)){			
+
+		} else if (e.getActionCommand().equals(
+				ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)) {
 			performConfigSave();
-			performFeedSave();
-			ReferenceCollection.CONFIG_WINDOW.dispose();
-			
-		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_ADDBUTTON_TEXT)){
+			// check if the feed urls are valid
+			if (FeedTableValidator.checkURL(ReferenceCollection.FEED_TABLE
+					.getTable(), 2)) {
+				//valid
+				performFeedSave();
+				ReferenceCollection.CONFIG_WINDOW.dispose();
+			}
+
+		} else if (e.getActionCommand().equals(
+				ReferenceCollection.CONFIG_ADDBUTTON_TEXT)) {
 			ReferenceCollection.FEED_TABLE.addEmptyRow();
 			FeedTableModel feedTableModel = new FeedTableModel();
-			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB(feedTableModel);
-			
-		} else if (e.getActionCommand().equals(ReferenceCollection.CONFIG_DELETEBUTTON_TEXT)){
-			int delete = ReferenceCollection.CONFIG_WINDOW.getFeedsTable().getSelectedRow();
+			ReferenceCollection.CONFIG_WINDOW
+					.refreshTableWithoutDB(feedTableModel);
+
+		} else if (e.getActionCommand().equals(
+				ReferenceCollection.CONFIG_DELETEBUTTON_TEXT)) {
+			int delete = ReferenceCollection.CONFIG_WINDOW.getFeedsTable()
+					.getSelectedRow();
 			ReferenceCollection.FEED_TABLE.deleteRow(delete);
 			FeedTableModel feedTableModel = new FeedTableModel();
-			ReferenceCollection.CONFIG_WINDOW.refreshTableWithoutDB(feedTableModel);
-			
-		} 
+			ReferenceCollection.CONFIG_WINDOW
+					.refreshTableWithoutDB(feedTableModel);
+
+		}
 	}
 
 }
