@@ -145,5 +145,8 @@ public class ReferenceCollection {
 	public static String CONFIG_LANGUAGESELECTORLABEL;
 	public static String CONFIG_LANGUAGESELECTORFIELD;
 	
+	public static String config_url_valid_title;
+	public static String config_url_valid_text;
+	
 	public static FeedTable FEED_TABLE;
 }
