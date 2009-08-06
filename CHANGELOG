@@ -24,6 +24,8 @@
  - Removed Function
 
 0.6
++ add Test Suite
++ start and endtime validation
 + feed validation before save
 * resize the columns to a adequate size
 * Dist fix to include all necessary files
