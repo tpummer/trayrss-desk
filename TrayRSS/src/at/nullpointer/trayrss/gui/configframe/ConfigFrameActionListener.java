@@ -134,11 +134,17 @@ public class ConfigFrameActionListener implements ActionListener {
 
 		} else if (e.getActionCommand().equals(
 				ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)) {
-			performConfigSave();
-			// check if the feed urls are valid
-			if (FeedTableValidator.checkURL(ReferenceCollection.FEED_TABLE
-					.getTable(), 2)) {
-				//valid
+			// Validation
+			boolean valid = true;
+			valid = valid
+					&& FeedTableValidator.checkURL(
+							ReferenceCollection.FEED_TABLE.getTable(), 2);
+			
+			valid = valid && DateValidator.checkDates(this.configFrame.getStartJCalendar().getDate(),
+					this.configFrame.getEndJCalendar().getDate());
+			if (valid) {
+				// valid
+				performConfigSave();
 				performFeedSave();
 				ReferenceCollection.CONFIG_WINDOW.dispose();
 			}
