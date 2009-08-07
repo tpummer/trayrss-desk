@@ -17,13 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.test.gui.configframe;
+package at.nullpointer.trayrss.test.checks;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {  })
-public class ConfigFrameTests {
+@Suite.SuiteClasses( { DateValidatorTest.class, FeedTableValidatorTest.class, CheckLibTest.class })
+public class CheckTests {
 
 }

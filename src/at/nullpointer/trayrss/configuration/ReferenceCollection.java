@@ -149,6 +149,8 @@ public class ReferenceCollection {
 	public static String config_url_valid_text;
 	public static String config_vacation_valid_title;
 	public static String config_vacation_valid_text;
+	public static String config_long_valid_text;
+	public static String config_long_valid_title;
 	
 	public static FeedTable FEED_TABLE;
 }

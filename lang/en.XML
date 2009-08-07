@@ -42,4 +42,7 @@
 <entry key="trayrss.en.config_url.valid.text">The URL:\n   %s\nin row %s is not a valid feed (rss or atom).\nPlease correct the path.</entry>
 <entry key="trayrss.en.config_vacation.valid.title">Enddate before startdate</entry>
 <entry key="trayrss.en.config_vacation.valid.text">The end of your vacation is before the start of the vacation! This is not possible.</entry>
+<entry key="trayrss.en.config_long.valid.title">Invalid number</entry>
+<entry key="trayrss.en.config_long.valid.text">The value in the %s field is not a valid number!</entry>
+
 </properties>

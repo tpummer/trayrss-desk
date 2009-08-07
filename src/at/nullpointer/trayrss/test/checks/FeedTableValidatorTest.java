@@ -1,12 +1,12 @@
-package at.nullpointer.trayrss.test.gui.configframe;
+package at.nullpointer.trayrss.test.checks;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import at.nullpointer.trayrss.checks.FeedTableValidator;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.gui.configframe.FeedTableValidator;
 
 public class FeedTableValidatorTest {
 

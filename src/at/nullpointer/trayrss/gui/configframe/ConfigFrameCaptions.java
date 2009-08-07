@@ -93,6 +93,10 @@ public class ConfigFrameCaptions {
 				+ ".config_vacation.valid.title");
 		ReferenceCollection.config_vacation_valid_text = props.getProperty(pre
 				+ ".config_vacation.valid.text");
+		ReferenceCollection.config_long_valid_title = props.getProperty(pre
+				+ ".config_long.valid.title");
+		ReferenceCollection.config_long_valid_text = props.getProperty(pre
+				+ ".config_long.valid.text");
 	}
 
 }

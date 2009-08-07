@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.test.gui.configframe;
+package at.nullpointer.trayrss.test.checks;
 
 import static org.junit.Assert.*;
 
@@ -28,8 +28,8 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.nullpointer.trayrss.checks.DateValidator;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.gui.configframe.DateValidator;
 
 public class DateValidatorTest {
 
