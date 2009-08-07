@@ -44,4 +44,6 @@
 <entry key="trayrss.de.config_vacation.valid.text">Das Enddatum des Urlaubs liegt vor dem Ende, das ist nicht korrekt. Bitte korrigieren.</entry>
 <entry key="trayrss.de.config_long.valid.title">Ungültige Zahl</entry>
 <entry key="trayrss.de.config_long.valid.text">Der Eintrag im Feld %s ist keine gültige Zahl</entry>
+<entry key="trayrss.de.config_timeframe.valid.title">Ungültiges Zeitfenster</entry>
+<entry key="trayrss.de.config_timeframe.valid.text">Das Zeitfenster entspricht keinem lesbaren Format, oder ist keine korrekte Zeitangabe. Eine korrekte Eingabe wäre z.B. "0600-1600 2000-2200"</entry>
 </properties>

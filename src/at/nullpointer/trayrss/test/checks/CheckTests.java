@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { DateValidatorTest.class, FeedTableValidatorTest.class, CheckLibTest.class })
+@Suite.SuiteClasses( { TimeFrameValidatorTest.class, DateValidatorTest.class, FeedTableValidatorTest.class, CheckLibTest.class })
 public class CheckTests {
 
 }
