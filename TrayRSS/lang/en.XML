@@ -44,5 +44,6 @@
 <entry key="trayrss.en.config_vacation.valid.text">The end of your vacation is before the start of the vacation! This is not possible.</entry>
 <entry key="trayrss.en.config_long.valid.title">Invalid number</entry>
 <entry key="trayrss.en.config_long.valid.text">The value in the %s field is not a valid number!</entry>
-
+<entry key="trayrss.en.config_timeframe.valid.title">Invalid TimeFrame</entry>
+<entry key="trayrss.en.config_timeframe.valid.text">The TimeFrame is not formatted correct or is not a valid time. A valid value would be e.g. "0600-1600 2000-2200"</entry>
 </properties>

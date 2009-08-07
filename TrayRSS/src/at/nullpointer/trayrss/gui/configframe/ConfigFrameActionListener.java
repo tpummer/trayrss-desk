@@ -30,6 +30,7 @@ import org.hibernate.util.ConfigHelper;
 import at.nullpointer.trayrss.checks.CheckLib;
 import at.nullpointer.trayrss.checks.DateValidator;
 import at.nullpointer.trayrss.checks.FeedTableValidator;
+import at.nullpointer.trayrss.checks.TimeFrameValidator;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 public class ConfigFrameActionListener implements ActionListener {
@@ -139,20 +140,32 @@ public class ConfigFrameActionListener implements ActionListener {
 				ReferenceCollection.CONFIG_SAVEBUTTON_TEXT)) {
 			// Validation
 			boolean valid = true;
-			
+
 			valid = valid
 					&& FeedTableValidator.checkURL(
 							ReferenceCollection.FEED_TABLE.getTable(), 2);
-			
-			valid = valid && DateValidator.checkDates(this.configFrame.getStartJCalendar().getDate(),
-					this.configFrame.getEndJCalendar().getDate());
-			
-			valid = valid && CheckLib.longMessage(CheckLib.checkLong(this.configFrame
-				.getDisplayCountField().getText()), this.configFrame.getDisplayCountField().getName());
-			
-			valid = valid && CheckLib.longMessage(CheckLib.checkLong(this.configFrame.getDisplayTimeField()
-					.getText()), this.configFrame.getDisplayTimeField().getName());
-			
+
+			valid = valid
+					&& DateValidator.checkDates(this.configFrame
+							.getStartJCalendar().getDate(), this.configFrame
+							.getEndJCalendar().getDate());
+
+			valid = valid
+					&& CheckLib.longMessage(CheckLib.checkLong(this.configFrame
+							.getDisplayCountField().getText()),
+							this.configFrame.getDisplayCountField().getName());
+
+			valid = valid
+					&& CheckLib.longMessage(CheckLib.checkLong(this.configFrame
+							.getDisplayTimeField().getText()), this.configFrame
+							.getDisplayTimeField().getName());
+
+			valid = valid
+					&& TimeFrameValidator.timeFramesMessage(TimeFrameValidator
+							.checkTimeFrames(this.configFrame
+									.getTimeframesField().getText()),
+							this.configFrame.getTimeframesField().getName());
+
 			if (valid) {
 				// valid
 				performConfigSave();

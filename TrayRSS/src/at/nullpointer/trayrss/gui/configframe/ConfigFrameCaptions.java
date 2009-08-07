@@ -97,6 +97,10 @@ public class ConfigFrameCaptions {
 				+ ".config_long.valid.title");
 		ReferenceCollection.config_long_valid_text = props.getProperty(pre
 				+ ".config_long.valid.text");
+		ReferenceCollection.config_timeframe_valid_title = props.getProperty(pre
+				+ ".config_timeframe.valid.title");
+		ReferenceCollection.config_timeframe_valid_text = props.getProperty(pre
+				+ ".config_timeframe.valid.text");
 	}
 
 }
