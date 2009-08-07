@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.gui.configframe;
+package at.nullpointer.trayrss.checks;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

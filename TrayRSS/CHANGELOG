@@ -24,6 +24,7 @@
  - Removed Function
 
 0.6
++ input validation displaycount and displaytime
 + add Test Suite
 + start and endtime validation
 + feed validation before save

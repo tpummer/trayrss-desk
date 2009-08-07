@@ -42,4 +42,6 @@
 <entry key="trayrss.de.config_url.valid.text">Die URL:\n   %s\nin Zeile %s ist kein gültiger Feed (RSS oder Atom)!\nBitte korrigieren Sie den Pfad.</entry>
 <entry key="trayrss.de.config_vacation.valid.title">Ungültiges Start- oder Enddatum</entry>
 <entry key="trayrss.de.config_vacation.valid.text">Das Enddatum des Urlaubs liegt vor dem Ende, das ist nicht korrekt. Bitte korrigieren.</entry>
+<entry key="trayrss.de.config_long.valid.title">Ungültige Zahl</entry>
+<entry key="trayrss.de.config_long.valid.text">Der Eintrag im Feld %s ist keine gültige Zahl</entry>
 </properties>

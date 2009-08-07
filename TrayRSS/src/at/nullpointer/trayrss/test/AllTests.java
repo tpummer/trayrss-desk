@@ -23,10 +23,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import at.nullpointer.trayrss.test.checks.CheckTests;
 import at.nullpointer.trayrss.test.gui.GuiTests;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ GuiTests.class})
+@Suite.SuiteClasses({ GuiTests.class, CheckTests.class})
 public class AllTests {
 
 }
