@@ -165,6 +165,11 @@ public class ConfigFrameActionListener implements ActionListener {
 							.checkTimeFrames(this.configFrame
 									.getTimeframesField().getText()),
 							this.configFrame.getTimeframesField().getName());
+			
+			/*
+			 * TODO Validierung nach Text
+			 * System.out.println(this.configFrame.getStartJCalendar().getText());
+			 */
 
 			if (valid) {
 				// valid
