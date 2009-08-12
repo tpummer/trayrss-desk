@@ -197,7 +197,7 @@ public class ConfigFrame extends JFrame {
 				.setText(ReferenceCollection.CONFIG_VACATIONSTARTLABEL); // NOI18N
 		vacationStartLabel.setName("vacationStartLabel"); // NOI18N
 
-		startJCalendar.setDateFormatString("dd.MMM.yyyy");
+		startJCalendar.setDateFormatString("dd.MM.yyyy");
 		startJCalendar.setName("startJCalendar"); // NOI18N
 		try {
 			startJCalendar
@@ -211,7 +211,7 @@ public class ConfigFrame extends JFrame {
 		vacationEndLabel.setText(ReferenceCollection.CONFIG_VACATIONENDLABEL); // NOI18N
 		vacationEndLabel.setName("vacationEndLabel"); // NOI18N
 
-		endJCalendar.setDateFormatString("dd.MMM.yyyy");
+		endJCalendar.setDateFormatString("dd.MM.yyyy");
 		endJCalendar.setName("endJCalendar"); // NOI18N
 		try {
 			endJCalendar.setDate(new Date(Long
