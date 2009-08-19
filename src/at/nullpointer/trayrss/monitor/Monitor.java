@@ -21,6 +21,7 @@ package at.nullpointer.trayrss.monitor;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,51 +33,30 @@ import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 
-public class Monitor implements Runnable {
+public class Monitor{
+	
+	LinkedList<FeedReaderThread> monitoredFeeds;
+	ExecutorService threadExecutor;
 	
 	public Monitor(){
+		
+		monitoredFeeds = new LinkedList<FeedReaderThread>();
+		threadExecutor = Executors.newFixedThreadPool(20);
 
 	}
 	
-	
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
-//		for (Iterator<Feed> it = rssUrlSave.iterator(); it.hasNext();) {
-//			FeedReaderThread feedReader = new FeedReaderThread(it.next(),
-//					ReferenceCollection.TRAY_ICON);
-//			// TODO Thread wo speichern zum interruppten
-//			threadExecutor.execute(feedReader);
-//		while(true){ 
-//			try {
-//				Thread.sleep(5000);
-//			} catch (InterruptedException e) {
-//				System.out.println("End");
-//				break;
-//			}
-//			System.out.println("Ping");
-//			
-//			FeedDAO feedDAO = new FeedDAO();
-//			
-//			Session session = ReferenceCollection.SESSION_FACTORY.openSession();
-//		
-//			Feed test = new Feed();
-//			test.setIntervall(new Long(2));
-//			test.setLastAction(new Date());
-//			test.setName("ha!");
-//			test.setUrl("das");
-//			
-//			feedDAO.save(test, session);
-//						
-//			Feed testfeed = feedDAO.findFeedById(new Long(1), session);
-//			if (testfeed != null) System.out.println("ETWAS");
-//			//TODO LAZI
-//			System.out.println(testfeed.getName());
-//			session.close();
-//
-//		}
-//		}
+	private void loadFeeds(){
+		
+		//TODO for each Feed in the DB
+		Feed feed = null;
+		FeedReaderThread thread = new FeedReaderThread(feed, /*traynotifier*/);
+		threadExecutor.execute(thread);
+		monitoredFeeds.add(thread);
+		
 	}
+	
+	public void feedChanged(){
+		
+	}
+	
 }
