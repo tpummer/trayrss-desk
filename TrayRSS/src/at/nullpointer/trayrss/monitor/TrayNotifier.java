@@ -17,33 +17,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.configuration;
+package at.nullpointer.trayrss.monitor;
 
-public class Shutdown {
-	public Shutdown(){
-		stopMonitor();
-	}
+import java.awt.TrayIcon;
 
-	private void stopMonitor() {
-		
-	}
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+public class TrayNotifier {
 	
-	
-	public void now(){
-		ReferenceCollection.LOG.info("Shutdown initiated!");
-		//ReferenceCollection.MONITOR_THREAD.interrupt();
-		
-		while(!isAllClosed()){
-			
-		}
-		ReferenceCollection.LOG.info("Shutdown completed!");
+	public void notify(String input, String caption){
+		ReferenceCollection.TRAY_ICON.displayMessage(caption, input, TrayIcon.MessageType.INFO);
 	}
 
-	public boolean isAllClosed() {
-		ReferenceCollection.SESSION_FACTORY.close();
-		//boolean monitorThread = ReferenceCollection.MONITOR_THREAD.isAlive();
-		boolean allClosed = true; //&& !monitorThread;
-		ReferenceCollection.LOG.debug("AllClosed: " + allClosed);
-		return allClosed;
-	}
 }

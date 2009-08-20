@@ -25,6 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.awt.TrayIcon;
 
+import org.hibernate.Session;
+
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
@@ -41,12 +44,17 @@ import com.sun.syndication.io.XmlReader;
  */
 public class FeedReaderThread implements Runnable {
 	private Feed feedInfo = null;
-	private TrayIcon icon = null;
+	private Session session = null;
+	private Long id = null;
 
-	public FeedReaderThread(Feed feedInfo, TrayIcon icon) {
+	public FeedReaderThread(Feed feedInfo, Session session) {
 		this.feedInfo = feedInfo;
-		this.icon = icon;
-		
+		this.id = feedInfo.getId();
+		this.session = session;
+	}
+	
+	public Long getId(){
+		return this.id;
 	}
 
 	@Override
@@ -70,9 +78,7 @@ public class FeedReaderThread implements Runnable {
 					System.out.println(node.getUri());
 					System.out.println("-------------");
 					
-					icon.displayMessage(node.getPublishedDate().toString(), node.getTitle(), 
-							TrayIcon.MessageType.INFO);
-					//TODO wieder entfernen
+					ReferenceCollection.TRAYNOTIFIER.notify(node.getTitle(), feedInfo.getName());
 					Thread.sleep(1000);
 				}
 

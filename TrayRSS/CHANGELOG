@@ -24,6 +24,7 @@
  - Removed Function
 
 0.6
++ first simple monitor added - works after a reboot
 * fixed vacation dates field size bug - new pattern: "dd.MM.yyyy"
 + time frame validation
 + input validation displaycount and displaytime
