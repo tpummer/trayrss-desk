@@ -30,6 +30,8 @@ import org.hibernate.SessionFactory;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
 import at.nullpointer.trayrss.gui.tray.Help;
+import at.nullpointer.trayrss.monitor.Monitor;
+import at.nullpointer.trayrss.monitor.TrayNotifier;
 
 /**
  * Collection of all references
@@ -91,7 +93,7 @@ public class ReferenceCollection {
 	/*
 	 * Monitor
 	 */
-	public static Thread MONITOR_THREAD;
+	public static Monitor MONITOR;
 	public static SessionFactory SESSION_FACTORY;
 	
 	/*
@@ -155,4 +157,5 @@ public class ReferenceCollection {
 	public static String config_timeframe_valid_title;
 	
 	public static FeedTable FEED_TABLE;
+	public static TrayNotifier TRAYNOTIFIER;
 }

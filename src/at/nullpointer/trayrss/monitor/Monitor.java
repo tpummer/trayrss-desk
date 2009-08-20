@@ -22,6 +22,7 @@ package at.nullpointer.trayrss.monitor;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,21 +38,30 @@ public class Monitor{
 	
 	LinkedList<FeedReaderThread> monitoredFeeds;
 	ExecutorService threadExecutor;
+	FeedDAO feedDao;
+	Session session;
 	
 	public Monitor(){
 		
 		monitoredFeeds = new LinkedList<FeedReaderThread>();
 		threadExecutor = Executors.newFixedThreadPool(20);
+		feedDao = new FeedDAO();
+
+		session = ReferenceCollection.SESSION_FACTORY.openSession();
+		
+		loadFeeds();
 
 	}
 	
 	private void loadFeeds(){
 		
-		//TODO for each Feed in the DB
-		Feed feed = null;
-		FeedReaderThread thread = new FeedReaderThread(feed, /*traynotifier*/);
-		threadExecutor.execute(thread);
-		monitoredFeeds.add(thread);
+		List<Feed> feeds = (List<Feed>) feedDao.getFeeds(session);
+		for(Iterator<Feed> it = feeds.iterator(); it.hasNext();){
+			Feed feed = it.next();
+			FeedReaderThread thread = new FeedReaderThread(feed, session);
+			threadExecutor.execute(thread);
+			monitoredFeeds.add(thread);
+		}
 		
 	}
 	

@@ -62,6 +62,7 @@ import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrameCaptions;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
+import at.nullpointer.trayrss.monitor.TrayNotifier;
 
 /**
  * Prozesses all initial loadings
@@ -233,11 +234,9 @@ public class StartUp {
 		if (debug)
 			start = System.currentTimeMillis();
 		ReferenceCollection.LOG.debug("Startup: Start Monitor at " + start);
-
-		Thread monitor = new Thread(new Monitor());
-		monitor.setName("Monitor");
-		ReferenceCollection.MONITOR_THREAD = monitor;
-		monitor.start();
+		
+		ReferenceCollection.TRAYNOTIFIER = new TrayNotifier();
+		ReferenceCollection.MONITOR = new Monitor();		
 
 		long end = 0;
 		if (debug)
