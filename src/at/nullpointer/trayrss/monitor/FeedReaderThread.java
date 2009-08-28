@@ -29,6 +29,7 @@ import org.hibernate.Session;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.configuration.feeds.db.News;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -71,15 +72,15 @@ public class FeedReaderThread implements Runnable {
 				
 				for(Iterator<SyndEntryImpl> it = content.iterator(); it.hasNext();){
 					SyndEntryImpl node = it.next();
-					System.out.println(node.getAuthor());
-					System.out.println(node.getTitle());
-					System.out.println(node.getPublishedDate());
-					System.out.println(node.getUpdatedDate());
-					System.out.println(node.getUri());
-					System.out.println("-------------");
+										
+					News news = new News();
+					news.setAuthor(node.getAuthor());
+					news.setTitle(node.getTitle());
+					news.setPublishedDate(node.getPublishedDate());
+					news.setUpdatedDate(node.getUpdatedDate());
+					news.setUri(node.getUri());
 					
-					ReferenceCollection.TRAYNOTIFIER.notify(node.getTitle(), feedInfo.getName());
-					Thread.sleep(1000);
+					ReferenceCollection.TRAYNOTIFIER.addToNotify(news, feedInfo);
 				}
 
 				ok = true;
@@ -99,6 +100,12 @@ public class FeedReaderThread implements Runnable {
 				Thread.sleep(feedInfo.getIntervall());
 			} catch (InterruptedException e) {
 
+			}
+			try {
+				Thread.sleep(feedInfo.getIntervall()*1000*60);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

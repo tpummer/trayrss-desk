@@ -20,13 +20,23 @@
 package at.nullpointer.trayrss.monitor;
 
 import java.awt.TrayIcon;
+import java.util.Date;
+import java.util.HashMap;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.configuration.feeds.db.News;
 
 public class TrayNotifier {
 	
-	public void notify(String input, String caption){
-		ReferenceCollection.TRAY_ICON.displayMessage(caption, input, TrayIcon.MessageType.INFO);
+	HashMap<Date,Notification> input; 
+	
+	public void notify(News news, Feed feed){
+		ReferenceCollection.TRAY_ICON.displayMessage(news.getTitle(), feed.getName(), TrayIcon.MessageType.INFO);
+	}
+	
+	public void addToNotify(News news, Feed feed){
+		ReferenceCollection.TRAY_ICON.displayMessage(news.getTitle(), feed.getName(), TrayIcon.MessageType.INFO);
 	}
 
 }
