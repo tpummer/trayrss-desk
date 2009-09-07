@@ -28,6 +28,7 @@ import java.awt.TrayIcon;
 import org.hibernate.Session;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 
@@ -96,11 +97,9 @@ public class FeedReaderThread implements Runnable {
 						.println("The first parameter must be the URL of the feed to read.");
 				System.out.println();
 			}
-			try {
-				Thread.sleep(feedInfo.getIntervall());
-			} catch (InterruptedException e) {
-
-			}
+			//reload Thread
+			FeedDAO feeddao = new FeedDAO();
+			feedInfo = feeddao.findFeedById(feedInfo.getId(), session);
 			try {
 				Thread.sleep(feedInfo.getIntervall()*1000*60);
 			} catch (InterruptedException e) {
