@@ -30,6 +30,7 @@
 		<pathelement location="lib/hibernate/lib/required/slf4j-log4j12-1.5.8.jar" />
 		<pathelement location="lib/jcalendar/lib/jcalendar-1.3.3.mod.pt.jar" />
 		<pathelement location="lib/jcalendar/lib/looks-2.0.1.jar" />
+		<pathelement location="lib/junit/junit-4.7.jar" />
 	</path>
 
 	<target name="init">
@@ -108,6 +109,8 @@
 			<fileset dir="dist/complete" includes="**/*"/>
 		</delete>
 		
+		<mkdir dir="dist/complete"/>
+		
 		<copy todir="dist/complete">
 		  <fileset dir=".">
 		  		<include name="config.ini" />
@@ -155,6 +158,7 @@
 			<zipfileset excludes="META-INF/*.SF" src="lib/rome/rome-1.0.jar" />
 			<zipfileset excludes="META-INF/*.SF" src="lib/jcalendar/lib/jcalendar-1.3.3.mod.pt.jar" />
 			<zipfileset excludes="META-INF/*.SF" src="lib/jcalendar/lib/looks-2.0.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/junit/junit-4.7.jar" />
 		</jar>
 		
 		<zip destfile="dist/TrayRSS${version.num}-b${build.number}${suffix}.zip"

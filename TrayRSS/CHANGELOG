@@ -24,6 +24,8 @@
  - Removed Function
 
 0.6
+* monitor intervall bugfix #1
++ junit added to build and ant
 + intervall to monitor added
 + first simple monitor added - works after a reboot
 * fixed vacation dates field size bug - new pattern: "dd.MM.yyyy"
