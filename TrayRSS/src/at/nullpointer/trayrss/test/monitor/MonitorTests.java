@@ -17,19 +17,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.test;
+package at.nullpointer.trayrss.test.monitor;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
-import at.nullpointer.trayrss.test.checks.CheckTests;
-import at.nullpointer.trayrss.test.gui.GuiTests;
-import at.nullpointer.trayrss.test.monitor.MonitorTests;
+import at.nullpointer.trayrss.test.gui.configframe.ConfigFrameTests;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ GuiTests.class, CheckTests.class, MonitorTests.class})
-public class AllTests {
+@Suite.SuiteClasses( { TrayNotifierTest.class })
+public class MonitorTests {
 
 }
-

@@ -20,6 +20,7 @@
 package at.nullpointer.trayrss.monitor;
 
 import java.awt.TrayIcon;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -29,14 +30,36 @@ import at.nullpointer.trayrss.configuration.feeds.db.News;
 
 public class TrayNotifier {
 	
-	HashMap<Date,Notification> input; 
+	ArrayList<Notification> input = new ArrayList<Notification>();
 	
 	public void notify(News news, Feed feed){
-		ReferenceCollection.TRAY_ICON.displayMessage(news.getTitle(), feed.getName(), TrayIcon.MessageType.INFO);
+		ReferenceCollection.LOG.debug("TrayNotifier: notify");
+		
+		String title = input.get(0).getNews().getTitle();
+		String name = input.get(0).getFeed().getName();
+		
+		ReferenceCollection.TRAY_ICON.displayMessage(title, name, TrayIcon.MessageType.INFO);
+		
+		input.remove(0);
+		
+		ReferenceCollection.LOG.debug("-----------------------------------------------");
 	}
 	
 	public void addToNotify(News news, Feed feed){
-		ReferenceCollection.TRAY_ICON.displayMessage(news.getTitle(), feed.getName(), TrayIcon.MessageType.INFO);
+		ReferenceCollection.LOG.debug("TrayNotifier: addToNotify");
+		
+		Notification notifi = new Notification();
+		notifi.setFeed(feed);
+		notifi.setNews(news);
+		
+		input.add(notifi);
+		ReferenceCollection.LOG.debug("TrayNotifier: " + notifi.getFeed().getName());
+		ReferenceCollection.LOG.debug("TrayNotifier: " + notifi.getNews().getTitle());
+		ReferenceCollection.LOG.debug("-----------------------------------------------");
+	}
+	
+	public int getSize(){
+		return input.size();
 	}
 
 }
