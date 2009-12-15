@@ -97,7 +97,7 @@
 	</target>
 
 	<target name="dist" depends="rebuild">
-		<property name="version.num" value="0.5" />
+		<property name="version.num" value="0.6" />
 		<property name="suffix" value="alpha" />
 		<buildnumber file="dist/build.num" />
 		<tstamp>
