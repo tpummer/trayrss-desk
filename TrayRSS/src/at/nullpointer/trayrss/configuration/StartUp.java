@@ -236,6 +236,8 @@ public class StartUp {
 		ReferenceCollection.LOG.debug("Startup: Start Monitor at " + start);
 		
 		ReferenceCollection.TRAYNOTIFIER = new TrayNotifier();
+		new Thread(ReferenceCollection.TRAYNOTIFIER).start();
+		
 		ReferenceCollection.MONITOR = new Monitor();		
 
 		long end = 0;

@@ -70,7 +70,7 @@ public class TrayNotifierTest {
 		tn.addToNotify(testnews, testfeed);
 		int size = tn.getSize();
 		ReferenceCollection.LOG.debug(size);
-		tn.notify(null, null);
+		tn.notifyNews();
 		assertEquals(size - 1, tn.getSize());
 		ReferenceCollection.LOG.debug(tn.getSize());
 		

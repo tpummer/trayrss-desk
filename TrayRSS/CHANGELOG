@@ -24,6 +24,9 @@
  - Removed Function
 
 0.6
+* new popup at notification opens the entry in a browser window
+* Added JNotification Lib
+* notification is now available
 * monitor handling reorganized (notification handling)
 * monitor intervall bugfix #1
 + junit added to build and ant
