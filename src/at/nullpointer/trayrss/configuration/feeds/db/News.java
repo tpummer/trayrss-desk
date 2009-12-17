@@ -1,5 +1,6 @@
 package at.nullpointer.trayrss.configuration.feeds.db;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "news")
-public class News {
+public class News implements Serializable {
 
 	private Long id;
 	private String author;

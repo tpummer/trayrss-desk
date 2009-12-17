@@ -23,6 +23,10 @@
  * Updated Function
  - Removed Function
 
+0.7
++ persist newsentity
+* Changing the monitoring intervall is now recognized after the next monitoring step
+
 0.6
 * new popup at notification opens the entry in a browser window
 * Added JNotification Lib
