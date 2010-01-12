@@ -22,6 +22,8 @@ package at.nullpointer.trayrss.monitor;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
+import at.nullpointer.trayrss.monitor.notification.BrowserButton;
+import at.nullpointer.trayrss.monitor.notification.Dispose;
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
@@ -30,11 +32,6 @@ import de.jutzig.jnotification.animation.FadeIn;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class TrayNotifier implements Runnable {
@@ -141,52 +138,3 @@ public class TrayNotifier implements Runnable {
 
 }
 
-class Dispose implements ActionListener{
-
-	JNotificationPopup popup;
-	PopupManager manager;
-	
-	public Dispose(Component popup, PopupManager manager) {
-		super();
-		this.popup = (JNotificationPopup) popup;
-		this.manager=manager;
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		manager.dequeuePopup(popup);
-		
-	}
-	
-}
-
-class BrowserButton implements ActionListener{
-
-	JNotificationPopup popup;
-	PopupManager manager;
-	String url;
-	
-	public BrowserButton(Component popup, PopupManager manager, String url) {
-		super();
-		this.popup = (JNotificationPopup) popup;
-		this.manager=manager;
-		this.url = url;
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		URI uri;
-		try {
-			uri = new URI(url);
-			Desktop.getDesktop ().browse (uri);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		manager.dequeuePopup(popup);
-		
-	}
-	
-}
