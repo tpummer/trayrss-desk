@@ -75,9 +75,8 @@ public class StartUp {
 			start = System.currentTimeMillis();
 		ReferenceCollection.LOG.debug("Startup: Start Database at " + start);
 		// TODO Auto-generated method stub
-		SessionFactory sessionFactory = new AnnotationConfiguration()
+		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
 				.configure().buildSessionFactory();
-		ReferenceCollection.SESSION_FACTORY = sessionFactory;
 
 		long end = 0;
 		if (debug)
