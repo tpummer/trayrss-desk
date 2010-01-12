@@ -19,25 +19,19 @@
  */
 package at.nullpointer.trayrss.gui.configframe;
 
-import java.awt.Toolkit;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.TableColumn;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-
 import com.toedter.calendar.JDateChooser;
+import org.hibernate.Session;
+
+import javax.swing.*;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class ConfigFrame extends JFrame {
 

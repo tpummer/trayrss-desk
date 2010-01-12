@@ -1,11 +1,8 @@
 package at.nullpointer.trayrss.gui.tray;
 
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import java.awt.*;
 
 
 public class TrayMenu extends PopupMenu {

@@ -19,13 +19,12 @@
  */
 package at.nullpointer.trayrss.checks;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.JOptionPane;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 public class TimeFrameValidator {
 

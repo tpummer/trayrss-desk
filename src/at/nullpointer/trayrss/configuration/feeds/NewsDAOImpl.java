@@ -19,19 +19,16 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-
+import at.nullpointer.trayrss.configuration.feeds.db.News;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import at.nullpointer.trayrss.configuration.feeds.db.News;
+import java.util.Collection;
+import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
 
-	@Override
 	public void deleteById(Long id, Session session) {
 		Transaction tx = session.beginTransaction();
 		
@@ -41,7 +38,6 @@ public class NewsDAOImpl implements NewsDAO {
 
 	}
 
-	@Override
 	public News findNewsById(Long id, Session session) {
 		Transaction tx = session.beginTransaction();
 		News news = (News) session.load(News.class, id);
@@ -51,7 +47,6 @@ public class NewsDAOImpl implements NewsDAO {
 		return news;
 	}
 
-	@Override
 	public Collection<News> getNews(Session session) {
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select n from News n");
@@ -62,7 +57,6 @@ public class NewsDAOImpl implements NewsDAO {
 		return news;
 	}
 
-	@Override
 	public void save(News news, Session session) {
 		Transaction tx = session.beginTransaction();
 		
@@ -73,7 +67,6 @@ public class NewsDAOImpl implements NewsDAO {
 
 	}
 
-	@Override
 	public News getNewsByData(News news, Session session) {
 		Transaction tx = session.beginTransaction();
 		

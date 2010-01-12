@@ -19,33 +19,23 @@
  */
 package at.nullpointer.trayrss.monitor;
 
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.TrayIcon;
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.configuration.feeds.db.News;
+import de.jutzig.jnotification.Corner;
+import de.jutzig.jnotification.JNotificationPopup;
+import de.jutzig.jnotification.PopupManager;
+import de.jutzig.jnotification.animation.FadeIn;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
-import de.jutzig.jnotification.Corner;
-import de.jutzig.jnotification.JNotificationPopup;
-import de.jutzig.jnotification.PopupManager;
-import de.jutzig.jnotification.animation.FadeIn;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import at.nullpointer.trayrss.configuration.feeds.db.News;
 
 public class TrayNotifier implements Runnable {
 
@@ -111,7 +101,6 @@ public class TrayNotifier implements Runnable {
 		return input.size();
 	}
 
-	@Override
 	public void run() {
 		
 		popman = new PopupManager(ReferenceCollection.DISPLAY_SECONDS*1000, Corner.LOWER_RIGHT, new Point(30,100));
@@ -163,7 +152,6 @@ class Dispose implements ActionListener{
 		this.manager=manager;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
 		
@@ -184,7 +172,6 @@ class BrowserButton implements ActionListener{
 		this.url = url;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		URI uri;
 		try {

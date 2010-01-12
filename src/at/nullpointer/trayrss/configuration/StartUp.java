@@ -21,48 +21,23 @@
 package at.nullpointer.trayrss.configuration;
 
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.Serializable;
-import java.sql.Connection;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.naming.NamingException;
-import javax.naming.Reference;
-
-
-import org.apache.log4j.FileAppender;
-
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.SimpleLayout;
-import org.hibernate.HibernateException;
-import org.hibernate.Interceptor;
-import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.classic.Session;
-import org.hibernate.engine.FilterDefinition;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.metadata.CollectionMetadata;
-import org.hibernate.stat.Statistics;
-
 import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrameCaptions;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * Prozesses all initial loadings

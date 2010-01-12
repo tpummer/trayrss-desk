@@ -20,12 +20,11 @@
 package at.nullpointer.trayrss.configuration;
 
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import javax.swing.JOptionPane;
 
 public class Configuration {
 	Properties props;

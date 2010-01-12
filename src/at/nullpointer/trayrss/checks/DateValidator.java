@@ -19,11 +19,10 @@
  */
 package at.nullpointer.trayrss.checks;
 
-import java.util.Date;
-
-import javax.swing.JOptionPane;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import javax.swing.*;
+import java.util.Date;
 
 public class DateValidator {
 

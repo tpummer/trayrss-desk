@@ -1,21 +1,15 @@
 package at.nullpointer.trayrss.configuration.feeds;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import java.util.Collection;
+import java.util.List;
 
 public class FeedDAO implements FeedDAOInt {
 
-	@Override
 	public Feed findFeedById(Long id, Session session) {
 
 		Transaction tx = session.beginTransaction();
@@ -27,7 +21,6 @@ public class FeedDAO implements FeedDAOInt {
 
 	}
 
-	@Override
 	public Collection<Feed> getFeeds(Session session) {
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select f from Feed f");
@@ -38,7 +31,6 @@ public class FeedDAO implements FeedDAOInt {
 		return feeds;
 	}
 
-	@Override
 	public void save(Feed feed, Session session) {
 
 		Transaction tx = session.beginTransaction();
@@ -49,7 +41,6 @@ public class FeedDAO implements FeedDAOInt {
 
 	}
 
-	@Override
 	public void deleteById(Long id, Session session) {
 		
 		Transaction tx = session.beginTransaction();

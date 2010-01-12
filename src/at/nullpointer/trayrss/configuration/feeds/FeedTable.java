@@ -19,14 +19,13 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import org.hibernate.classic.Session;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-
-import org.hibernate.classic.Session;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 public class FeedTable {
 	int tableColumns = 5;

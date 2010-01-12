@@ -19,12 +19,10 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import java.awt.AWTException;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.monitor.IconChanger;
+
+import java.awt.*;
 
 
 

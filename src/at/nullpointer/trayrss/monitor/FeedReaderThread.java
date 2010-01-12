@@ -20,25 +20,22 @@ package at.nullpointer.trayrss.monitor;
 
  */
 
-import java.net.URL;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.awt.TrayIcon;
-
-import org.hibernate.Session;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
-
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+import org.hibernate.Session;
+
+import java.net.URL;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Monitors a feed
@@ -61,7 +58,6 @@ public class FeedReaderThread implements Runnable {
 		return this.id;
 	}
 
-	@Override
 	public void run() {
 
 		while (true) {

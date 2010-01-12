@@ -20,39 +20,14 @@ package at.nullpointer.trayrss;
  */
 
 
-import java.awt.AWTException;
-import java.awt.HeadlessException;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import javax.swing.JOptionPane;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.StartUp;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.gui.TrayRSSSplashScreen;
-import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
-import at.nullpointer.trayrss.monitor.FeedReaderThread;
-import at.nullpointer.trayrss.monitor.IconChanger;
+
+import java.awt.*;
+import java.io.*;
+import java.util.LinkedList;
 
 
 
@@ -76,7 +51,7 @@ public class TrayRSS {
 		
 		ReferenceCollection.TRAYRSS_APP_TITLE = "TrayRSS "+ TrayRSS.class.getPackage().getImplementationVersion();
 
-		boolean debug = false;;
+		boolean debug = false;
 		
 		if(args.length != 0){
 			if(args[0].equals("-debug")){

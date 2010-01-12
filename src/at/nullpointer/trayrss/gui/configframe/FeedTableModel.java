@@ -19,10 +19,10 @@
  */
 package at.nullpointer.trayrss.gui.configframe;
 
-import javax.swing.table.AbstractTableModel;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
+
+import javax.swing.table.AbstractTableModel;
 
 public class FeedTableModel extends AbstractTableModel {
 	
@@ -30,17 +30,14 @@ public class FeedTableModel extends AbstractTableModel {
 
 	Object[] columnNames = ReferenceCollection.CONFIG_TABLE_HEADER;
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		return table.getTable().length;
 	}
 
-	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		return table.getTable()[rowIndex][columnIndex];
 	}
