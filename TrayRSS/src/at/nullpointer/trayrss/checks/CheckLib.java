@@ -1,8 +1,8 @@
 package at.nullpointer.trayrss.checks;
 
-import javax.swing.JOptionPane;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import javax.swing.*;
 
 public class CheckLib {
 	

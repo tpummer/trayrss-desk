@@ -20,18 +20,17 @@
 package at.nullpointer.trayrss.gui.tray;
 
 
-import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.Shutdown;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class TrayMenuActionListener implements ActionListener {
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
 			ReferenceCollection.TRAY_ICON.displayMessage("Useraction", "Handmade Monitoringintervall", 

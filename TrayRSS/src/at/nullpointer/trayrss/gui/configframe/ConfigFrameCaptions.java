@@ -19,9 +19,9 @@
  */
 package at.nullpointer.trayrss.gui.configframe;
 
-import java.util.Properties;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import java.util.Properties;
 
 
 public class ConfigFrameCaptions {

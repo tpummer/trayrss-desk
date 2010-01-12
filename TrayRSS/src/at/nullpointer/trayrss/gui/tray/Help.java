@@ -1,14 +1,9 @@
 package at.nullpointer.trayrss.gui.tray;
 
-import java.awt.BorderLayout;
-import java.awt.Toolkit;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 public class Help extends JFrame {

@@ -19,13 +19,11 @@
  */
 package at.nullpointer.trayrss.test;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-
 import at.nullpointer.trayrss.test.checks.CheckTests;
 import at.nullpointer.trayrss.test.gui.GuiTests;
 import at.nullpointer.trayrss.test.monitor.MonitorTests;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ GuiTests.class, CheckTests.class, MonitorTests.class})

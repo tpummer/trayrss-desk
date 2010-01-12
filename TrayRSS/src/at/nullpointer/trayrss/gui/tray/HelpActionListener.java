@@ -20,15 +20,14 @@
 package at.nullpointer.trayrss.gui.tray;
 
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 
 public class HelpActionListener implements ActionListener {
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(ReferenceCollection.HELP_OK)){
 			ReferenceCollection.HELP_WINDOW.dispose();

@@ -19,19 +19,15 @@
  */
 package at.nullpointer.trayrss.gui.configframe;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
-
-import org.hibernate.util.ConfigHelper;
-
 import at.nullpointer.trayrss.checks.CheckLib;
 import at.nullpointer.trayrss.checks.DateValidator;
 import at.nullpointer.trayrss.checks.FeedTableValidator;
 import at.nullpointer.trayrss.checks.TimeFrameValidator;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import javax.swing.table.TableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ConfigFrameActionListener implements ActionListener {
 	ConfigFrame configFrame;
@@ -130,7 +126,6 @@ public class ConfigFrameActionListener implements ActionListener {
 		ReferenceCollection.FEED_TABLE.store();
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(
 				ReferenceCollection.CONFIG_CANCELBUTTON_TEXT)) {

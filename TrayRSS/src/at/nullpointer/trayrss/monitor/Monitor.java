@@ -19,19 +19,16 @@
  */
 package at.nullpointer.trayrss.monitor;
 
-import java.util.Date;
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import org.hibernate.Session;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 
 public class Monitor{

@@ -19,9 +19,9 @@
  */
 package at.nullpointer.trayrss.gui;
 
-import java.awt.SplashScreen;
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import java.awt.*;
 
 
 /**

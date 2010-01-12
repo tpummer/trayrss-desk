@@ -19,11 +19,10 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
-import java.util.Collection;
-
+import at.nullpointer.trayrss.configuration.feeds.db.News;
 import org.hibernate.Session;
 
-import at.nullpointer.trayrss.configuration.feeds.db.News;
+import java.util.Collection;
 
 public interface NewsDAO {
 	

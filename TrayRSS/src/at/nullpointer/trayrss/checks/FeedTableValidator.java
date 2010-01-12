@@ -19,18 +19,16 @@
  */
 package at.nullpointer.trayrss.checks;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.swing.JOptionPane;
-
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import javax.swing.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class FeedTableValidator {
 

@@ -1,27 +1,19 @@
 package at.nullpointer.trayrss.test.monitor;
 
-import static org.junit.Assert.*;
-
-import java.awt.Image;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.Toolkit;
-import java.awt.TrayIcon;
-import java.io.IOException;
-
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.configuration.feeds.db.News;
+import at.nullpointer.trayrss.monitor.TrayNotifier;
 import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import at.nullpointer.trayrss.configuration.feeds.db.News;
-import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
-import at.nullpointer.trayrss.monitor.TrayNotifier;
+import java.awt.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class TrayNotifierTest {
 	TrayNotifier tn = new TrayNotifier();

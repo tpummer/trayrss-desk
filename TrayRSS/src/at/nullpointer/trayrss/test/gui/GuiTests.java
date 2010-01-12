@@ -19,10 +19,9 @@
  */
 package at.nullpointer.trayrss.test.gui;
 
+import at.nullpointer.trayrss.test.gui.configframe.ConfigFrameTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import at.nullpointer.trayrss.test.gui.configframe.ConfigFrameTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { ConfigFrameTests.class })

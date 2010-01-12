@@ -22,8 +22,6 @@ package at.nullpointer.trayrss.test.monitor;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import at.nullpointer.trayrss.test.gui.configframe.ConfigFrameTests;
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { TrayNotifierTest.class })
 public class MonitorTests {

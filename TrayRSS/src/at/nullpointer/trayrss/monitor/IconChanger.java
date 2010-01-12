@@ -19,13 +19,10 @@
  */
 package at.nullpointer.trayrss.monitor;
 
-import java.awt.Image;
-import java.awt.PopupMenu;
-import java.awt.Toolkit;
-import java.awt.TrayIcon;
-
 import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import java.awt.*;
 
 
 /**

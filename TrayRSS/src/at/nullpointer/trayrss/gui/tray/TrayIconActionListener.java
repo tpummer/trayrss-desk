@@ -19,16 +19,15 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import java.awt.TrayIcon;
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 
 public class TrayIconActionListener implements ActionListener {
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		ReferenceCollection.TRAY_ICON.displayMessage("Action Event",
