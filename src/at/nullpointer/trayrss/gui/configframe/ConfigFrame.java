@@ -805,7 +805,7 @@ public class ConfigFrame extends JFrame {
 		ReferenceCollection.FEED_TABLE = new FeedTable();
 
 		for (Iterator<Feed> it = feedList.iterator(); it.hasNext();) {
-			Feed current = (Feed) it.next();
+			Feed current = it.next();
 			ReferenceCollection.FEED_TABLE.addRow(current);
 		}
 		
