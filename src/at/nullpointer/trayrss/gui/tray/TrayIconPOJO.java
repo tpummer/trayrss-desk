@@ -33,7 +33,6 @@ import java.awt.*;
  *
  */
 public class TrayIconPOJO {
-	private SystemTray tray = null;
 	private TrayIcon trayIcon;
 
 	public TrayIconPOJO() {
@@ -50,7 +49,7 @@ public class TrayIconPOJO {
 	
 	public void startTrayIcon() {
 		if (SystemTray.isSupported()) {
-			tray = SystemTray.getSystemTray();
+			SystemTray tray=SystemTray.getSystemTray();
 
 			trayIcon = IconChanger.createTrayIcon(new TrayMenu());
 

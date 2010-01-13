@@ -53,12 +53,11 @@ public class Monitor{
 	private void loadFeeds(){
 		
 		List<Feed> feeds = (List<Feed>) feedDao.getFeeds(session);
-		for(Iterator<Feed> it = feeds.iterator(); it.hasNext();){
-			Feed feed = it.next();
-			FeedReaderThread thread = new FeedReaderThread(feed, session);
-			threadExecutor.execute(thread);
-			monitoredFeeds.add(thread);
-		}
+        for (Feed feed : feeds) {
+            FeedReaderThread thread = new FeedReaderThread(feed, session);
+            threadExecutor.execute(thread);
+            monitoredFeeds.add(thread);
+        }
 		
 	}
 	
