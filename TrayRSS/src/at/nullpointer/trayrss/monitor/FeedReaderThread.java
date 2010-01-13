@@ -68,45 +68,42 @@ public class FeedReaderThread implements Runnable {
 				SyndFeed feed = input.build(new XmlReader(new URL(feedInfo
 						.getUrl())));
 
-				List<SyndEntryImpl> content = feed.getEntries();
+				List content = feed.getEntries();
 
-				for (Iterator<SyndEntryImpl> it = content.iterator(); it
-						.hasNext();) {
-					SyndEntryImpl node = it.next();
+                for (SyndEntryImpl node : (Iterable<SyndEntryImpl>) content) {
+                    News news = new News();
+                    news.setAuthor(node.getAuthor());
+                    news.setTitle(node.getTitle());
+                    news.setPublishedDate(node.getPublishedDate());
+                    news.setUpdatedDate(node.getUpdatedDate());
+                    news.setUri(node.getUri());
+                    news.setFeed(feedInfo);
 
-					News news = new News();
-					news.setAuthor(node.getAuthor());
-					news.setTitle(node.getTitle());
-					news.setPublishedDate(node.getPublishedDate());
-					news.setUpdatedDate(node.getUpdatedDate());
-					news.setUri(node.getUri());
-					news.setFeed(feedInfo);
+                    news.setUpdatedDate(new Date());
 
-					news.setUpdatedDate(new Date());
+                    NewsDAO newsDao = new NewsDAOImpl();
+                    News test = newsDao.getNewsByData(news, session);
 
-					NewsDAO newsDao = new NewsDAOImpl();
-					News test = newsDao.getNewsByData(news, session);
+                    newsDao.save(news, session);
 
-					newsDao.save(news, session);
+                    if (test != null) {
 
-					if (test != null) {
+                        ReferenceCollection.LOG.debug("News "
+                                + news.getPublishedDate() + " Test "
+                                + test.getPublishedDate());
+                        if (news.getPublishedDate().equals(test.getPublishedDate())) {
+                            ReferenceCollection.LOG
+                                    .debug("News Einträge wurden aktualisiert!");
+                        } else {
+                            ReferenceCollection.LOG
+                                    .debug("News Einträge wurden NICHT aktualisiert!");
+                        }
+                    }
+                    // TODO DB Zugriff
 
-						ReferenceCollection.LOG.debug("News "
-								+ news.getPublishedDate() + " Test "
-								+ test.getPublishedDate());
-						if (news.getPublishedDate().equals(test.getPublishedDate())) {
-							ReferenceCollection.LOG
-									.debug("News Einträge wurden aktualisiert!");
-						} else {
-							ReferenceCollection.LOG
-									.debug("News Einträge wurden NICHT aktualisiert!");
-						}
-					}
-					// TODO DB Zugriff
-
-					ReferenceCollection.TRAYNOTIFIER
-							.addToNotify(news, feedInfo);
-				}
+                    ReferenceCollection.TRAYNOTIFIER
+                            .addToNotify(news, feedInfo);
+                }
 
 				ok = true;
 			} catch (Exception ex) {

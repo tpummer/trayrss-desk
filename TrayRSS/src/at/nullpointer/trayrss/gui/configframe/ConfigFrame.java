@@ -804,10 +804,9 @@ public class ConfigFrame extends JFrame {
 		
 		ReferenceCollection.FEED_TABLE = new FeedTable();
 
-		for (Iterator<Feed> it = feedList.iterator(); it.hasNext();) {
-			Feed current = it.next();
-			ReferenceCollection.FEED_TABLE.addRow(current);
-		}
+        for (Feed current : feedList) {
+            ReferenceCollection.FEED_TABLE.addRow(current);
+        }
 		
 //		feedsTable.setModel(new javax.swing.table.DefaultTableModel(ReferenceCollection.FEED_TABLE.getTable(),
 //				ReferenceCollection.CONFIG_TABLE_HEADER));

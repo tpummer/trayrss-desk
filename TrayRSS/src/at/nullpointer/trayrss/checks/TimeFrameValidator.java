@@ -58,10 +58,8 @@ public class TimeFrameValidator {
 		int hour = Integer.parseInt(input.substring(0, 2));
 		int min = Integer.parseInt(input.substring(2, 4));
 
-		if(hour < 0 || hour > 24 || min < 0 || min > 60)
-			return false;
-		return true;
-	}
+        return !(hour < 0 || hour > 24 || min < 0 || min > 60);
+		}
 
 	public static boolean timeFramesMessage(boolean checkTimeFrames,
 			String field) {
