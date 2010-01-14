@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Configuration {
-	Properties props;
+	final Properties props;
 	
 	Configuration(Properties props){
 		this.props = props;
