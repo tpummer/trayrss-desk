@@ -16,7 +16,7 @@ import java.awt.*;
 import static org.junit.Assert.assertEquals;
 
 public class TrayNotifierTest {
-	TrayNotifier tn = new TrayNotifier();
+	final TrayNotifier tn = new TrayNotifier();
 	Feed testfeed;
 	News testnews;
 	static TrayIcon trayIcon;
