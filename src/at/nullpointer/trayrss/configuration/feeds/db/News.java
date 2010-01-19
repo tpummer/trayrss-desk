@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -18,6 +19,26 @@ public class News implements Serializable {
 	private Date updatedDate;
 	private String uri;
 	private Feed feed;
+    private Date lastRead = new Date();
+    private Long readCount = new Long(0);
+
+    @Column
+    public Date getLastRead() {
+        return lastRead;
+    }
+
+    public void setLastRead(Date lastRead) {
+        this.lastRead = lastRead;
+    }
+
+    @Column
+    public Long getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Long readCount) {
+        this.readCount = readCount;
+    }
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,7 +103,7 @@ public class News implements Serializable {
 	@Override
 	public boolean equals(Object o){
 		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(0)) return false;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		
 		News news = (News) o;
 		
@@ -91,11 +112,10 @@ public class News implements Serializable {
 		
 		if(this.title != null && this.title.equals(news.getTitle())){
 		} else return false;
-		
-		if(this.publishedDate != null && this.publishedDate.equals(news.getPublishedDate())){
-		} else return false;
-		
-		if(this.updatedDate != null && this.updatedDate.equals(news.getUpdatedDate())){
+
+        //TODO Hibernate Problem this.date = Timestamp
+		//if(this.publishedDate != null && ((Date)(this.publishedDate)).equals(news.getPublishedDate())){
+         if(this.publishedDate != null && this.publishedDate.compareTo(news.getPublishedDate()) == 0){
 		} else return false;
 		
 		if(this.uri != null && this.uri.equals(news.getUri())){

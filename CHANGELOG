@@ -24,6 +24,10 @@
  - Removed Function
 
 0.7
+* bugfix: Feed equals
+* bugfix: News equals
+* some code improvements
++ DisplayCount Management
 + persist newsentity
 * Changing the monitoring intervall is now recognized after the next monitoring step
 

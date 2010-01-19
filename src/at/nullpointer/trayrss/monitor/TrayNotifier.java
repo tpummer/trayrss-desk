@@ -24,6 +24,7 @@ import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 import at.nullpointer.trayrss.monitor.notification.BrowserButton;
 import at.nullpointer.trayrss.monitor.notification.Dispose;
+import at.nullpointer.trayrss.monitor.notification.Later;
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
@@ -50,6 +51,8 @@ public class TrayNotifier implements Runnable {
 			String title = input.get(0).getNews().getTitle();
 			String name = input.get(0).getFeed().getName();
 			String url = input.get(0).getNews().getUri();
+
+            News node = input.get(0).getNews();
 			
 			JNotificationPopup popup = null;
 			
@@ -57,14 +60,14 @@ public class TrayNotifier implements Runnable {
 			
 			bstop = new JButton("Stop");
 			
-			bclose = new JButton("Close");
+			bclose = new JButton("Later");
 			
 			popup = new JNotificationPopup(createComponent(title, name, url));
 			popup.setAnimator(new FadeIn(popup,2000));
 			
-			bread.addActionListener(new BrowserButton(popup,popman,url));
-			bstop.addActionListener(new Dispose(popup,popman));
-			bclose.addActionListener(new Dispose(popup,popman));
+			bread.addActionListener(new BrowserButton(popup,popman,url,node));
+			bstop.addActionListener(new Dispose(popup,popman,node));
+			bclose.addActionListener(new Later(popup,popman,node));
 			
 			popman.enqueuePopup(popup);
 

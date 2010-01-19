@@ -116,7 +116,7 @@ public class Feed implements Serializable {
 	@Override
 	public boolean equals(Object o){
 		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(0)) return false;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		
 		Feed feed = (Feed) o;
 		

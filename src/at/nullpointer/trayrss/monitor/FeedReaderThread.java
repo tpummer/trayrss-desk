@@ -84,25 +84,23 @@ public class FeedReaderThread implements Runnable {
                     NewsDAO newsDao = new NewsDAOImpl();
                     News test = newsDao.getNewsByData(news, session);
 
-                    newsDao.save(news, session);
-
-                    if (test != null) {
-
-                        ReferenceCollection.LOG.debug("News "
-                                + news.getPublishedDate() + " Test "
-                                + test.getPublishedDate());
-                        if (news.getPublishedDate().equals(test.getPublishedDate())) {
-                            ReferenceCollection.LOG
+                    if(test != null && test.equals(news)){
+                        news = test;
+                        news.setReadCount(news.getReadCount()+1);
+                        ReferenceCollection.LOG
                                     .debug("News Einträge wurden aktualisiert!");
-                        } else {
-                            ReferenceCollection.LOG
-                                    .debug("News Einträge wurden NICHT aktualisiert!");
-                        }
-                    }
-                    // TODO DB Zugriff
+                    } else {
 
-                    ReferenceCollection.TRAYNOTIFIER
-                            .addToNotify(news, feedInfo);
+                        ReferenceCollection.LOG
+                                    .debug("Neuer Newseintrag!");
+                    }
+
+                    if(news.getReadCount() < ReferenceCollection.DISPLAY_COUNT){
+                        ReferenceCollection.TRAYNOTIFIER
+                                .addToNotify(news, feedInfo);
+                        news.setLastRead(new Date());
+                    }
+                    newsDao.save(news, session);
                 }
 
 				ok = true;
