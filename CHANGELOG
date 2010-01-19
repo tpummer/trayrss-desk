@@ -24,6 +24,7 @@
  - Removed Function
 
 0.7
+* bugfix: exception when splashscreen not found
 * bugfix: Feed equals
 * bugfix: News equals
 * some code improvements
