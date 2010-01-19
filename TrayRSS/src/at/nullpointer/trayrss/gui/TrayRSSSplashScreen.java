@@ -85,13 +85,15 @@ public class TrayRSSSplashScreen {
 			try {
 				Thread.sleep(milliseconds);
 			} catch (InterruptedException e) {
-	
+	            ReferenceCollection.LOG.debug("Splash screen not paused!");
 			}
 		}
 	}
 
 	private void close() throws NullPointerException{
-		splash.close();
+		if(splash.isVisible())
+        splash.close();
+        else ReferenceCollection.LOG.debug("No splash screen found to close!");
 	}
 
 }
