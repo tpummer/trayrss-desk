@@ -56,7 +56,7 @@ public class Configuration {
 	
 	public void save(){
 		props.setProperty("trayrss.lang", ReferenceCollection.LANGUAGE);
-		props.setProperty("trayrss.displaycout", ""+ReferenceCollection.DISPLAY_COUNT);
+		props.setProperty("trayrss.displaycount", ""+ReferenceCollection.DISPLAY_COUNT);
 		props.setProperty("trayrss.displaysecond", ""+ReferenceCollection.DISPLAY_SECONDS);
 		// time
 		props.setProperty("trayrss.time.timeframe", ReferenceCollection.CONFIG_TIMEFRAMES_VALUE);

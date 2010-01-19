@@ -11,9 +11,6 @@ import org.hibernate.Session;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
     RSSTray - simply alerting at new Feed Information
@@ -34,43 +31,29 @@ import java.net.URISyntaxException;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-public class BrowserButton implements ActionListener {
+
+public class Later implements ActionListener {
 
 	JNotificationPopup popup;
 	PopupManager manager;
-	String url;
     News node;
 
-	public BrowserButton(Component popup, PopupManager manager, String url, News node) {
+	public Later(Component popup, PopupManager manager, News node) {
 		super();
 		this.popup = (JNotificationPopup) popup;
 		this.manager=manager;
-		this.url = url;
         this.node = node;
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		URI uri;
-		try {
-			uri = new URI(url);
-			Desktop.getDesktop ().browse (uri);
-
-            Session sess = ReferenceCollection.SESSION_FACTORY.openSession();
-
-            NewsDAO nd = new NewsDAOImpl();
-            News test = nd.getNewsByData(node, sess);
-            test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
-            nd.save(test,sess);
-            
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		manager.dequeuePopup(popup);
+        Session sess = ReferenceCollection.SESSION_FACTORY.openSession();
+        NewsDAO nd = new NewsDAOImpl();
+        News test = nd.getNewsByData(node, sess);
+        test.setReadCount(test.getReadCount()-1);
+        nd.save(test,sess);
+        sess.flush();
+        sess.close();
 
 	}
 
