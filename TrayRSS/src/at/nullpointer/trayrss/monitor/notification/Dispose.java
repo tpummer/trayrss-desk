@@ -52,7 +52,7 @@ public class Dispose implements ActionListener {
         News test = nd.getNewsByData(node, sess);
        test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
         nd.save(test,sess);
-
+                sess.close();
 	}
 
 }

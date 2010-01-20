@@ -52,7 +52,6 @@ public class Later implements ActionListener {
         News test = nd.getNewsByData(node, sess);
         test.setReadCount(test.getReadCount()-1);
         nd.save(test,sess);
-        sess.flush();
         sess.close();
 
 	}

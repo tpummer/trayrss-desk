@@ -120,10 +120,10 @@ public class FeedReaderThread implements Runnable {
 			// reload Feed - empty session
 			session.clear();
 
-			FeedDAO feeddao = new FeedDAO();
+/*			FeedDAO feeddao = new FeedDAO();
 			long id = feedInfo.getId();
 			feedInfo = null;
-			feedInfo = feeddao.findFeedById(id, session);
+			feedInfo = feeddao.findFeedById(id, session);*/
 
 			try {
 				Thread.sleep(feedInfo.getIntervall() * 1000 * 60);
