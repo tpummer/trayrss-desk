@@ -61,7 +61,7 @@ public class BrowserButton implements ActionListener {
             News test = nd.getNewsByData(node, sess);
             test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
             nd.save(test,sess);
-            
+                     sess.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
