@@ -65,7 +65,13 @@ public class FeedTable {
 	}
 	
 	public void deleteRow(int row){
-		table.remove(row);
+		ReferenceCollection.LOG.debug("Delete Row: "+row);
+		if(row != -1){
+			table.remove(row);
+			ReferenceCollection.LOG.debug("Succesfully deleted Row");
+		} else {
+			ReferenceCollection.LOG.debug("No row selected.");
+		}
 	}
 
 	/**
