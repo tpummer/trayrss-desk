@@ -45,7 +45,7 @@ public class Monitor{
 
 	}
 	
-	private void loadFeeds(){
+	public void loadFeeds(){
 		
 		List<Feed> feeds = (List<Feed>) feedDao.getFeeds();
         for (Feed feed : feeds) {

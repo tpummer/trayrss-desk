@@ -2,6 +2,8 @@ package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.configuration.feeds.db.News;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,7 +18,7 @@ public class FeedDAOImpl implements FeedDAO {
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		
 		Transaction tx = session.beginTransaction();
-		Feed feed = (Feed) session.load(Feed.class, id);
+		Feed feed = (Feed) session.get(Feed.class, id);
 
 		tx.commit();
 		session.close();
@@ -45,7 +47,12 @@ public class FeedDAOImpl implements FeedDAO {
 
 		Transaction tx = session.beginTransaction();
 		
-		session.save(feed);
+		if(feed.getId() != null && session.load(Feed.class, feed.getId()) != null){
+			session.update(feed);
+		} else {
+			session.save(feed);
+	
+		}
 
 		tx.commit();
 		session.close();
@@ -58,7 +65,18 @@ public class FeedDAOImpl implements FeedDAO {
 		
 		Transaction tx = session.beginTransaction();
 		
-		session.delete(session.load(Feed.class, id));
+		//Object deletedFeed = session.load(Feed.class, id);
+		
+		//session.delete(deletedFeed);
+		//session.delete("select f from Feed f where id = "+id.longValue());
+		
+		String hqlN = "delete from News n where feed_id = "+id.longValue();
+		Query queryN = session.createQuery(hqlN);
+		int rowN = queryN.executeUpdate();
+		
+		String hql = "delete from Feed f where id = "+id.longValue();
+		Query query = session.createQuery(hql);
+		int row = query.executeUpdate();
 		
 		tx.commit();
 		session.close();

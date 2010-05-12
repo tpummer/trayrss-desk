@@ -46,7 +46,7 @@ public class NewsDAOImpl implements NewsDAO {
 	public News findNewsById(Long id) {
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
-		News news = (News) session.load(News.class, id);
+		News news = (News) session.get(News.class, id);
 
 		tx.commit();
 		session.close();
@@ -70,7 +70,7 @@ public class NewsDAOImpl implements NewsDAO {
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		if(session.load(News.class, news.getId()) != null){
+		if(news.getId() != null && session.load(News.class, news.getId()) != null){
 			session.update(news);
 		} else {
 			session.save(news);
