@@ -132,9 +132,6 @@ public class Feed implements Serializable {
 		if(this.intervall != null){
 			if(!this.intervall.equals(feed.getIntervall())) return false;
 		}
-		if(this.news != null){
-			if(!this.news.equals(feed.getNews())) return false;
-		}
 		
 		return true;
 	}

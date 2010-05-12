@@ -78,53 +78,66 @@ public class FeedTable {
 	 * Stores the feed information in the database
 	 */
 	public void store() {
-		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		
 		int feedcount = ReferenceCollection.FEED_TABLE.getTable().length;
 		
-		FeedDAO feeddao = new FeedDAO();
+		FeedDAOImpl feeddao = new FeedDAOImpl();
 		
-		ArrayList<Feed> feeds = (ArrayList<Feed>) feeddao.getFeeds(session);
+		ArrayList<Feed> feeds = (ArrayList<Feed>) feeddao.getFeeds();
 		
-		for(int i = 0; i < feedcount; i++){
-			
-			if(ReferenceCollection.FEED_TABLE.getTable()[i][1] == null){
-				
+		for (int i = 0; i < feedcount; i++) {
+
+			if (ReferenceCollection.FEED_TABLE.getTable()[i][1] == null) {
+
 			} else {
-			
-			Feed change;
-			if(ReferenceCollection.FEED_TABLE.getTable()[i][0] != null){
-			change = feeddao.findFeedById((Long)ReferenceCollection.FEED_TABLE.getTable()[i][0], session);
-			} else change = new Feed();
-			change.setName((String)ReferenceCollection.FEED_TABLE.getTable()[i][1]);
-			change.setUrl((String)ReferenceCollection.FEED_TABLE.getTable()[i][2]);
-			if(ReferenceCollection.FEED_TABLE.getTable()[i][3] instanceof Long){
-				change.setIntervall((Long)ReferenceCollection.FEED_TABLE.getTable()[i][3]);
-			}else {
-				change.setIntervall(Long.parseLong((String)ReferenceCollection.FEED_TABLE.getTable()[i][3]));
+
+				Feed change = null;
+
+				if (ReferenceCollection.FEED_TABLE.getTable()[i][0] != null) {
+					change = feeddao
+							.findFeedById((Long) ReferenceCollection.FEED_TABLE
+									.getTable()[i][0]);
+				} else {
+					change = new Feed();
+				}
+				change.setName((String) ReferenceCollection.FEED_TABLE
+						.getTable()[i][1]);
+				change.setUrl((String) ReferenceCollection.FEED_TABLE
+						.getTable()[i][2]);
+
+				if (ReferenceCollection.FEED_TABLE.getTable()[i][3] instanceof Long) {
+					change.setIntervall((Long) ReferenceCollection.FEED_TABLE
+							.getTable()[i][3]);
+				} else {
+					change.setIntervall(Long
+							.parseLong((String) ReferenceCollection.FEED_TABLE
+									.getTable()[i][3]));
+				}
+				// TODO monitored
+				if (ReferenceCollection.FEED_TABLE.getTable()[i][4] instanceof Boolean) {
+					change
+							.setMonitored((Boolean) ReferenceCollection.FEED_TABLE
+									.getTable()[i][4]);
+				} else {
+					change
+							.setMonitored(Boolean
+									.parseBoolean((String) ReferenceCollection.FEED_TABLE
+											.getTable()[i][4]));
+				}
+
+				change.setLastAction(new Date());
+
+				feeddao.save(change);
+
+				feeds.remove(change);
+
 			}
-			//TODO monitored
-			if(ReferenceCollection.FEED_TABLE.getTable()[i][4] instanceof Boolean){
-				change.setMonitored((Boolean)ReferenceCollection.FEED_TABLE.getTable()[i][4]);
-			} else{
-				change.setMonitored(Boolean.parseBoolean((String)ReferenceCollection.FEED_TABLE.getTable()[i][4]));	
-			}
-			
-			change.setLastAction(new Date());
-			
-			feeddao.save(change, session);
-			
-			feeds.remove(change);
-			
-			}
-			
+
 		}
 		
 		for(Feed o: feeds){
-			feeddao.deleteById(o.getId(), session);
+			feeddao.deleteById(o.getId());
 		}
-		
-		session.close();
 		
 	}
 

@@ -19,7 +19,10 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -29,52 +32,73 @@ import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
 
-	public void deleteById(Long id, Session session) {
+	public void deleteById(Long id) {
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		session.delete(session.load(News.class, id));
 		
 		tx.commit();
+		session.close();
 
 	}
 
-	public News findNewsById(Long id, Session session) {
+	public News findNewsById(Long id) {
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		News news = (News) session.load(News.class, id);
 
 		tx.commit();
+		session.close();
 
 		return news;
 	}
 
-	public Collection<News> getNews(Session session) {
+	public Collection<News> getNews() {
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select n from News n");
 		List<News> news = (List<News>)query.list();
 
 		tx.commit();
+		session.close();
 
 		return news;
 	}
 
-	public void save(News news, Session session) {
+	public void save(News news) {
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		//TODO noch nicht unique
-		session.save(news);
-
+		if(session.load(News.class, news.getId()) != null){
+			session.update(news);
+		} else {
+			session.save(news);
+	
+		}
+		
 		tx.commit();
+		session.close();
 
 	}
 
-	public News getNewsByData(News news, Session session) {
+	public News getNewsByData(News news) {
+		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		Query query = session.createQuery("select n from News n where n.uri = :uri")
 					  .setParameter("uri", news.getUri());
-		News erg = (News)query.uniqueResult();
+		News erg = null;
+		try {
+			erg = (News)query.uniqueResult();
+		} catch (HibernateException e) {
+			ReferenceCollection.LOG.error(news.getTitle()+ " at "+news.getUri()+" has a duplicated entry!");
+			ReferenceCollection.LOG.debug(e.toString());
+			ReferenceCollection.LOG.debug(query.getQueryString());
+		}
 		
 		tx.commit();
+		session.close();
 		
 		return erg;
 		
