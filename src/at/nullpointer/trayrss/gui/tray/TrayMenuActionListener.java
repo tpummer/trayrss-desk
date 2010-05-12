@@ -33,6 +33,8 @@ public class TrayMenuActionListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
+			ReferenceCollection.MONITOR.stopAll(2);
+			ReferenceCollection.MONITOR.loadFeeds();
 			ReferenceCollection.TRAY_ICON.displayMessage("Useraction", "Handmade Monitoringintervall", 
 					TrayIcon.MessageType.INFO);
 			

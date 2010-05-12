@@ -24,6 +24,7 @@ import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class FeedTable {
@@ -90,9 +91,7 @@ public class FeedTable {
 			
 			Object[][] readTable = ReferenceCollection.FEED_TABLE.getTable();
 
-			if (readTable[i][1] == null) {
-
-			} else {
+			if (readTable[i][1] != null) {
 
 				Feed change = null;
 
@@ -125,11 +124,19 @@ public class FeedTable {
 
 				feeddao.save(change);
 
-				feeds.remove(change);
+				Feed merken = null;
+				for(Iterator<Feed> it = feeds.iterator(); it.hasNext(); ){
+					Feed helper = (Feed)it.next();
+					if (helper.getId().equals(change.getId())){
+						merken = helper;
+					}
+				}
+				if(merken != null)
+				feeds.remove(merken);
 
 			}
 			
-			ReferenceCollection.MONITOR.feedChanged();
+			ReferenceCollection.MONITOR.loadFeeds();
 
 		}
 		

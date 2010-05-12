@@ -24,6 +24,9 @@
  - Removed Function
 
 0.7
+* Storing Data Bugfix
++ UserAction CheckFeeds
+* TableColumn resizing bugfix
 * stop unsynced reloading feed while looping
 * write last event to database
 * bugfix: exception when splashscreen not found
