@@ -31,13 +31,11 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
-import org.hibernate.Session;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -129,8 +127,7 @@ public class FeedReaderThread implements Runnable {
 			try {
 				Thread.sleep(feedInfo.getIntervall() * 1000 * 60);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ReferenceCollection.LOG.debug("FeedReaderThread interrupted!");
 			}
 		}
 	}

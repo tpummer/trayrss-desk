@@ -1,7 +1,6 @@
 package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import org.hibernate.Session;
 
 import java.util.Collection;
 

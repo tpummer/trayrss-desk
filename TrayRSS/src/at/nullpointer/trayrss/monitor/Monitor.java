@@ -19,12 +19,9 @@
  */
 package at.nullpointer.trayrss.monitor;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import org.hibernate.Session;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -61,14 +58,18 @@ public class Monitor{
 	
 	public void feedChanged() {
 
-		threadExecutor.shutdown(); // Disable new tasks from being submitted
-		// Wait a while for existing tasks to terminate
+		stopAll(60);
+		loadFeeds();
+
+	}
+
+	public void stopAll(int seconds) {
 		try {
-			if (!threadExecutor.awaitTermination(60, TimeUnit.SECONDS)) {
+			if (!threadExecutor.awaitTermination(seconds, TimeUnit.SECONDS)) {
 				threadExecutor.shutdownNow(); // Cancel currently executing
 												// tasks
 				// Wait a while for tasks to respond to being cancelled
-				if (!threadExecutor.awaitTermination(60, TimeUnit.SECONDS))
+				if (!threadExecutor.awaitTermination(seconds, TimeUnit.SECONDS))
 					System.err.println("Pool did not terminate");
 			}
 		} catch (InterruptedException ie) {
@@ -79,8 +80,7 @@ public class Monitor{
 		}
 		
 		threadExecutor = Executors.newFixedThreadPool(20);
-		loadFeeds();
-
+		
 	}
 	
 }

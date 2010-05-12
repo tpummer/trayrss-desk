@@ -1,12 +1,10 @@
 package at.nullpointer.trayrss.monitor.notification;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
-import org.hibernate.Session;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,7 +45,6 @@ public class Later implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
-        Session sess = ReferenceCollection.SESSION_FACTORY.openSession();
         NewsDAO nd = new NewsDAOImpl();
         News test = nd.getNewsByData(node);
         test.setReadCount(test.getReadCount()-1);
