@@ -20,7 +20,7 @@
 package at.nullpointer.trayrss.monitor;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import org.hibernate.Session;
 
@@ -29,40 +29,58 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 public class Monitor{
 	
 	LinkedList<FeedReaderThread> monitoredFeeds;
 	ExecutorService threadExecutor;
-	FeedDAO feedDao;
-	Session session;
+	FeedDAOImpl feedDao;
 	
 	public Monitor(){
 		
 		monitoredFeeds = new LinkedList<FeedReaderThread>();
 		threadExecutor = Executors.newFixedThreadPool(20);
-		feedDao = new FeedDAO();
+		feedDao = new FeedDAOImpl();
 
-		session = ReferenceCollection.SESSION_FACTORY.openSession();
-		
 		loadFeeds();
 
 	}
 	
 	private void loadFeeds(){
 		
-		List<Feed> feeds = (List<Feed>) feedDao.getFeeds(session);
+		List<Feed> feeds = (List<Feed>) feedDao.getFeeds();
         for (Feed feed : feeds) {
-            FeedReaderThread thread = new FeedReaderThread(feed, session);
+            FeedReaderThread thread = new FeedReaderThread(feed);
             threadExecutor.execute(thread);
             monitoredFeeds.add(thread);
         }
 		
 	}
 	
-	public void feedChanged(){
+	public void feedChanged() {
+
+		threadExecutor.shutdown(); // Disable new tasks from being submitted
+		// Wait a while for existing tasks to terminate
+		try {
+			if (!threadExecutor.awaitTermination(60, TimeUnit.SECONDS)) {
+				threadExecutor.shutdownNow(); // Cancel currently executing
+												// tasks
+				// Wait a while for tasks to respond to being cancelled
+				if (!threadExecutor.awaitTermination(60, TimeUnit.SECONDS))
+					System.err.println("Pool did not terminate");
+			}
+		} catch (InterruptedException ie) {
+			// (Re-)Cancel if current thread also interrupted
+			threadExecutor.shutdownNow();
+			// Preserve interrupt status
+			Thread.currentThread().interrupt();
+		}
 		
+		threadExecutor = Executors.newFixedThreadPool(20);
+		loadFeeds();
+
 	}
 	
 }

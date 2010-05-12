@@ -55,13 +55,11 @@ public class BrowserButton implements ActionListener {
 			uri = new URI(url);
 			Desktop.getDesktop ().browse (uri);
 
-            Session sess = ReferenceCollection.SESSION_FACTORY.openSession();
-
             NewsDAO nd = new NewsDAOImpl();
-            News test = nd.getNewsByData(node, sess);
+            News test = nd.getNewsByData(node);
             test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
-            nd.save(test,sess);
-                     sess.close();
+            nd.save(test);
+            
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

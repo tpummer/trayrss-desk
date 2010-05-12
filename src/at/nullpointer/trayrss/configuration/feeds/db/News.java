@@ -139,4 +139,8 @@ public class News implements Serializable {
 		result = 29 * result + (feed != null ? feed.hashCode() : 0);
 		return result;	
 	}
+	
+	public void increaseReadCount(long summand){
+		this.setReadCount(this.getReadCount() + summand);
+	}
 }

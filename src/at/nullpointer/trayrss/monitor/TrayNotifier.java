@@ -45,7 +45,7 @@ public class TrayNotifier implements Runnable {
 
 	public void notifyNews() {
 		ReferenceCollection.LOG
-		.debug("--------------TrayNotifier: notify-------------------");
+		.debug("TrayNotifier: notify");
 
 		if (getSize() > 0) {
 			String title = input.get(0).getNews().getTitle();
@@ -72,12 +72,10 @@ public class TrayNotifier implements Runnable {
 			popman.enqueuePopup(popup);
 
 			input.remove(0);
+			ReferenceCollection.LOG.debug("Title: "+title+" Name:"+name+" URI:"+url);
 		} else {
 			ReferenceCollection.LOG.debug("Nothing found to notify!");
 		}
-
-		ReferenceCollection.LOG
-				.debug("----------------End-------------------------");
 	}
 
 	public void addToNotify(News news, Feed feed) {
@@ -103,17 +101,16 @@ public class TrayNotifier implements Runnable {
 
 	public void run() {
 		
-		popman = new PopupManager(ReferenceCollection.DISPLAY_SECONDS*1000, Corner.LOWER_RIGHT, new Point(30,100));
 		
 		while (true) {
-			this.notifyNews();
+			popman = new PopupManager(ReferenceCollection.DISPLAY_SECONDS*1000, Corner.LOWER_RIGHT, new Point(30,100));
 			try {
-				popman = new PopupManager(ReferenceCollection.DISPLAY_SECONDS*1000, Corner.LOWER_RIGHT, new Point(30,100));
 				Thread.sleep(ReferenceCollection.DISPLAY_SECONDS*1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			this.notifyNews();
 		}
 
 	}

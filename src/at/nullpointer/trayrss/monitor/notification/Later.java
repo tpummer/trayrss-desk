@@ -49,10 +49,9 @@ public class Later implements ActionListener {
 		manager.dequeuePopup(popup);
         Session sess = ReferenceCollection.SESSION_FACTORY.openSession();
         NewsDAO nd = new NewsDAOImpl();
-        News test = nd.getNewsByData(node, sess);
+        News test = nd.getNewsByData(node);
         test.setReadCount(test.getReadCount()-1);
-        nd.save(test,sess);
-        sess.close();
+        nd.save(test);
 
 	}
 

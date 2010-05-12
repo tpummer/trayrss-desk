@@ -26,14 +26,14 @@ import java.util.Collection;
 
 public interface NewsDAO {
 	
-	public Collection<News> getNews(Session session);
+	public Collection<News> getNews();
 
-	public News findNewsById(Long id, Session session);
+	public News findNewsById(Long id);
 
-	public void save(News news, Session session);
+	public void save(News news);
 	
-	public void deleteById(Long id, Session session);
+	public void deleteById(Long id);
 
-	public News getNewsByData(News news, Session session);
+	public News getNewsByData(News news);
 
 }

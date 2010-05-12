@@ -21,17 +21,20 @@ package at.nullpointer.trayrss.monitor;
  */
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import org.hibernate.Session;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
@@ -45,13 +48,11 @@ import java.util.List;
  */
 public class FeedReaderThread implements Runnable {
 	private Feed feedInfo = null;
-	private Session session = null;
 	private Long id = null;
 
-	public FeedReaderThread(Feed feedInfo, Session session) {
+	public FeedReaderThread(Feed feedInfo) {
 		this.feedInfo = feedInfo;
 		this.id = feedInfo.getId();
-		this.session = session;
 	}
 
 	public Long getId() {
@@ -61,38 +62,47 @@ public class FeedReaderThread implements Runnable {
 	public void run() {
 
 		while (true) {
+			
 			boolean ok = false;
-			try {
 
 				SyndFeedInput input = new SyndFeedInput();
-				SyndFeed feed = input.build(new XmlReader(new URL(feedInfo
-						.getUrl())));
-
-				List content = feed.getEntries();
+				SyndFeed feed;
+				List<SyndEntryImpl> content = null;
+				try {
+					feed = input.build(new XmlReader(new URL(feedInfo
+							.getUrl())));
+					content = feed.getEntries();
+				} catch (IllegalArgumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FeedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
                 for (SyndEntryImpl node : (Iterable<SyndEntryImpl>) content) {
-                    News news = new News();
-                    news.setAuthor(node.getAuthor());
-                    news.setTitle(node.getTitle());
-                    news.setPublishedDate(node.getPublishedDate());
-                    news.setUpdatedDate(node.getUpdatedDate());
-                    news.setUri(node.getUri());
-                    news.setFeed(feedInfo);
-
-                    news.setUpdatedDate(new Date());
+                	
+                	News news = prepareNode(node);
 
                     NewsDAO newsDao = new NewsDAOImpl();
-                    News test = newsDao.getNewsByData(news, session);
+                    
+                    News test = newsDao.getNewsByData(news);
 
                     if(test != null && test.equals(news)){
                         news = test;
-                        news.setReadCount(news.getReadCount()+1);
+                        news.increaseReadCount(1);
                         ReferenceCollection.LOG
-                                    .debug("News Einträge wurden aktualisiert!");
+                                    .debug("Feed "+getId()+": News Eintrag "+news.getTitle()+" von "+node.getUri()+" wurden aktualisiert!");
                     } else {
 
                         ReferenceCollection.LOG
-                                    .debug("Neuer Newseintrag!");
+                                    .debug("Feed "+getId()+": Neuer Newseintrag "+news.getTitle()+" von "+node.getUri());
                     }
 
                     if(news.getReadCount() < ReferenceCollection.DISPLAY_COUNT){
@@ -100,30 +110,21 @@ public class FeedReaderThread implements Runnable {
                                 .addToNotify(news, feedInfo);
                         news.setLastRead(new Date());
                     }
-                    newsDao.save(news, session);
+                    newsDao.save(news);
                 }
 
 				ok = true;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				System.out.println("ERROR: " + ex.getMessage());
-			}
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//				ReferenceCollection.LOG
+//                .debug("ERROR: " + ex.getMessage());
+//			}
 			if (!ok) {
-				System.out.println();
-				System.out
-						.println("FeedReader reads and prints any RSS/Atom feed type.");
-				System.out
-						.println("The first parameter must be the URL of the feed to read.");
-				System.out.println();
+				ReferenceCollection.LOG
+                .debug("FeedReader reads and prints any RSS/Atom feed type.");
+				ReferenceCollection.LOG
+                .debug("The first parameter must be the URL of the feed to read.");
 			}
-
-			// reload Feed - empty session
-			session.clear();
-
-/*			FeedDAO feeddao = new FeedDAO();
-			long id = feedInfo.getId();
-			feedInfo = null;
-			feedInfo = feeddao.findFeedById(id, session);*/
 
 			try {
 				Thread.sleep(feedInfo.getIntervall() * 1000 * 60);
@@ -132,6 +133,20 @@ public class FeedReaderThread implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private News prepareNode(SyndEntryImpl node) {
+		
+		News news = new News();
+        news.setAuthor(node.getAuthor());
+        news.setTitle(node.getTitle());
+        news.setPublishedDate(node.getPublishedDate());
+        news.setUpdatedDate(node.getUpdatedDate());
+        news.setUri(node.getUri());
+        news.setFeed(feedInfo);
+
+        news.setUpdatedDate(new Date());
+		return news;
 	}
 
 }

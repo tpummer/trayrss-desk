@@ -20,7 +20,7 @@
 package at.nullpointer.trayrss.gui.configframe;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAO;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import com.toedter.calendar.JDateChooser;
@@ -796,10 +796,8 @@ public class ConfigFrame extends JFrame {
 		
 		JTable feedsTable = new JTable();
 
-		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
-
-		FeedDAO feedDAO = new FeedDAO();
-		List<Feed> feedList = (List<Feed>) feedDAO.getFeeds(session);
+		FeedDAOImpl feedDAO = new FeedDAOImpl();
+		List<Feed> feedList = (List<Feed>) feedDAO.getFeeds();
 
 		
 		ReferenceCollection.FEED_TABLE = new FeedTable();
@@ -817,25 +815,57 @@ public class ConfigFrame extends JFrame {
 		
 		feedsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    
-	    TableColumn col = feedsTable.getColumnModel().getColumn(0);
-	    col.setPreferredWidth(40);
-	    col = feedsTable.getColumnModel().getColumn(1);
-	    col.setPreferredWidth(100);
-	    col = feedsTable.getColumnModel().getColumn(2);
-	    col.setPreferredWidth(450);
-	    col = feedsTable.getColumnModel().getColumn(3);
-	    col.setPreferredWidth(60);
-	    col = feedsTable.getColumnModel().getColumn(4);
-	    col.setPreferredWidth(60);
-
+	    setColumnWidth(feedsTable);
 
 		this.setFeedsTable(feedsTable);
 
-		session.close();
+	}
+	
+	private void setColumnWidth(JTable feedsTable){
+		int sizeIDColumn = 40;
+		int posIDColumn = 0;
+		int sizeFeedNameColumn = 100;
+		int posFeedNameColumn = 1;
+		int sizeFeedUrlColumn = 450;
+		int posFeedUrlColumn = 2;
+		int sizeIntervallColumn = 60;
+		int posIntervallColumn = 3;
+		int sizeMonitoredColumn = 60;
+		int posMonitoredColumn = 4;
+		
+		ReferenceCollection.LOG.debug("Sizing table columns(" + posIDColumn
+				+ ":ID=" + sizeIDColumn + ", " + posFeedNameColumn
+				+ ":FeedName=" + sizeFeedNameColumn + ", " + posFeedUrlColumn
+				+ ":FeedUrl=" + sizeFeedUrlColumn + ", " + posIntervallColumn
+				+ ":Intervall=" + sizeIntervallColumn + ", "
+				+ posMonitoredColumn + ":Monitored=" + sizeMonitoredColumn
+				+ ")");
+		
+		TableColumn col = null;
+		
+	    col = feedsTable.getColumnModel().getColumn(posIDColumn);
+	    col.setPreferredWidth(sizeIDColumn);
+	    
+	    col = feedsTable.getColumnModel().getColumn(posFeedNameColumn);
+	    col.setPreferredWidth(sizeFeedNameColumn);
+	    
+	    col = feedsTable.getColumnModel().getColumn(posFeedUrlColumn);
+	    col.setPreferredWidth(sizeFeedUrlColumn);
+	    
+	    col = feedsTable.getColumnModel().getColumn(posIntervallColumn);
+	    col.setPreferredWidth(sizeIntervallColumn);
+	    
+	    col = feedsTable.getColumnModel().getColumn(posMonitoredColumn);
+	    col.setPreferredWidth(sizeMonitoredColumn);
+		
 	}
 	
 	public void refreshTableWithoutDB(FeedTableModel feedTableModel){
+		
 		this.getFeedsTable().setModel(feedTableModel);
+		
+		setColumnWidth(this.getFeedsTable());
+		
 		this.getFeedsTable().repaint();
 	}
 

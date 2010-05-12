@@ -170,6 +170,7 @@ public class ConfigFrameActionListener implements ActionListener {
 				// valid
 				performConfigSave();
 				performFeedSave();
+				ReferenceCollection.MONITOR.feedChanged();
 				ReferenceCollection.CONFIG_WINDOW.dispose();
 			}
 
