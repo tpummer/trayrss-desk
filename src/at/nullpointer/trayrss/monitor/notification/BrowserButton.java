@@ -6,7 +6,6 @@ import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
-import org.hibernate.Session;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

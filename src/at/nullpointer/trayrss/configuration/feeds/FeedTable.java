@@ -21,7 +21,6 @@ package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import org.hibernate.classic.Session;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,6 +78,8 @@ public class FeedTable {
 	 */
 	public void store() {
 		
+		ReferenceCollection.MONITOR.stopAll(2);
+		
 		int feedcount = ReferenceCollection.FEED_TABLE.getTable().length;
 		
 		FeedDAOImpl feeddao = new FeedDAOImpl();
@@ -86,43 +87,38 @@ public class FeedTable {
 		ArrayList<Feed> feeds = (ArrayList<Feed>) feeddao.getFeeds();
 		
 		for (int i = 0; i < feedcount; i++) {
+			
+			Object[][] readTable = ReferenceCollection.FEED_TABLE.getTable();
 
-			if (ReferenceCollection.FEED_TABLE.getTable()[i][1] == null) {
+			if (readTable[i][1] == null) {
 
 			} else {
 
 				Feed change = null;
 
-				if (ReferenceCollection.FEED_TABLE.getTable()[i][0] != null) {
+				if (readTable[i][0] != null) {
 					change = feeddao
-							.findFeedById((Long) ReferenceCollection.FEED_TABLE
-									.getTable()[i][0]);
+							.findFeedById((Long) readTable[i][0]);
 				} else {
 					change = new Feed();
 				}
-				change.setName((String) ReferenceCollection.FEED_TABLE
-						.getTable()[i][1]);
-				change.setUrl((String) ReferenceCollection.FEED_TABLE
-						.getTable()[i][2]);
+				change.setName((String) readTable[i][1]);
+				change.setUrl((String) readTable[i][2]);
 
 				if (ReferenceCollection.FEED_TABLE.getTable()[i][3] instanceof Long) {
-					change.setIntervall((Long) ReferenceCollection.FEED_TABLE
-							.getTable()[i][3]);
+					change.setIntervall((Long) readTable[i][3]);
 				} else {
 					change.setIntervall(Long
-							.parseLong((String) ReferenceCollection.FEED_TABLE
-									.getTable()[i][3]));
+							.parseLong((String) readTable[i][3]));
 				}
 				// TODO monitored
-				if (ReferenceCollection.FEED_TABLE.getTable()[i][4] instanceof Boolean) {
+				if (readTable[i][4] instanceof Boolean) {
 					change
-							.setMonitored((Boolean) ReferenceCollection.FEED_TABLE
-									.getTable()[i][4]);
+							.setMonitored((Boolean) readTable[i][4]);
 				} else {
 					change
 							.setMonitored(Boolean
-									.parseBoolean((String) ReferenceCollection.FEED_TABLE
-											.getTable()[i][4]));
+									.parseBoolean((String) readTable[i][4]));
 				}
 
 				change.setLastAction(new Date());
@@ -132,6 +128,8 @@ public class FeedTable {
 				feeds.remove(change);
 
 			}
+			
+			ReferenceCollection.MONITOR.feedChanged();
 
 		}
 		

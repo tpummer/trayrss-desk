@@ -24,13 +24,11 @@ import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import com.toedter.calendar.JDateChooser;
-import org.hibernate.Session;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class ConfigFrame extends JFrame {
