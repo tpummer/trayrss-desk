@@ -35,4 +35,6 @@ public interface NewsDAO {
 
 	public News getNewsByData(News news);
 
+	public void deleteOlderThanTwoMonth(Long id);
+
 }

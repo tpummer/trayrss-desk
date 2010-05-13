@@ -27,7 +27,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
@@ -102,6 +106,33 @@ public class NewsDAOImpl implements NewsDAO {
 		
 		return erg;
 		
+	}
+
+	@Override
+	public void deleteOlderThanTwoMonth(Long id) {
+Session session = ReferenceCollection.SESSION_FACTORY.openSession();
+		
+		
+		Transaction tx = session.beginTransaction();
+		
+		Date twoMonthsAgo = new Date();
+		
+		int month = twoMonthsAgo.getMonth();
+		month = month - 2;
+		if(month < 1){
+			month = month+12;
+			twoMonthsAgo.setYear(twoMonthsAgo.getYear()-1);
+		}
+		twoMonthsAgo.setMonth(month);
+			
+		String hqlN = "delete from News n where feed_id = "+id.longValue() + " and UPDATEDDATE < :date";
+		
+		Query queryN = session.createQuery(hqlN).setDate("date", twoMonthsAgo);
+		
+		int rowN = queryN.executeUpdate();
+		
+		tx.commit();
+		session.close();
 	}
 
 }

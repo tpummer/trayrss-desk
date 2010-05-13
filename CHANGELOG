@@ -24,6 +24,7 @@
  - Removed Function
 
 0.7
++ delete old entries
 * Storing Data Bugfix
 + UserAction CheckFeeds
 * TableColumn resizing bugfix

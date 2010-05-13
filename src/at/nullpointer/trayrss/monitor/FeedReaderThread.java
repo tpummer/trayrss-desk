@@ -123,6 +123,8 @@ public class FeedReaderThread implements Runnable {
 				ReferenceCollection.LOG
                 .debug("The first parameter must be the URL of the feed to read.");
 			}
+			
+			deleteOldNews();
 
 			try {
 				Thread.sleep(feedInfo.getIntervall() * 1000 * 60);
@@ -130,6 +132,13 @@ public class FeedReaderThread implements Runnable {
 				ReferenceCollection.LOG.debug("FeedReaderThread interrupted!");
 			}
 		}
+	}
+
+	private void deleteOldNews() {
+		NewsDAO newsDao = new NewsDAOImpl();
+		
+		newsDao.deleteOlderThanTwoMonth(feedInfo.getId());
+		
 	}
 
 	private News prepareNode(SyndEntryImpl node) {
