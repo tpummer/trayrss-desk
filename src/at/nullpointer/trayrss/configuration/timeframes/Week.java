@@ -19,28 +19,43 @@
  */
 package at.nullpointer.trayrss.configuration.timeframes;
 
+import java.util.Calendar;
+
 /**
  * Represents the days TrayRSS should monitor the feeds
  * 
  * @author thefake
- *
+ * 
  */
 public class Week {
 	private boolean mon, tue, wed, thu, fri, sat, sun;
 
+	public Week(String mon, String tue, String wed, String thu, String fri,
+			String sat, String sun) {
+
+		this.mon = new Boolean(mon);
+		this.tue = new Boolean(tue);
+		this.wed = new Boolean(wed);
+		this.thu = new Boolean(thu);
+		this.fri = new Boolean(fri);
+		this.sat = new Boolean(sat);
+		this.sun = new Boolean(sun);
+
+	}
+
 	public void setMon(boolean mon) {
 		this.mon = mon;
 	}
-	
-	public boolean isMon(){
+
+	public boolean isMon() {
 		return this.mon;
 	}
 
 	public void setTue(boolean tue) {
 		this.tue = tue;
 	}
-	
-	public boolean isTue(){
+
+	public boolean isTue() {
 		return this.tue;
 	}
 
@@ -48,41 +63,73 @@ public class Week {
 		this.wed = wed;
 	}
 
-	public boolean isWed(){
+	public boolean isWed() {
 		return this.wed;
 	}
-	
+
 	public void setThu(boolean thu) {
 		this.thu = thu;
 	}
-	
-	public boolean isThu(){
+
+	public boolean isThu() {
 		return this.thu;
 	}
 
 	public void setFri(boolean fri) {
 		this.fri = fri;
 	}
-	
-	public boolean isFri(){
+
+	public boolean isFri() {
 		return this.fri;
 	}
 
 	public void setSat(boolean sat) {
 		this.sat = sat;
 	}
-	
-	public boolean isSat(){
+
+	public boolean isSat() {
 		return this.sat;
 	}
 
 	public void setSun(boolean sun) {
 		this.sun = sun;
 	}
-	
-	public boolean isSun(){
+
+	public boolean isSun() {
 		return this.sun;
 	}
-	
+
+	public boolean isAllowed(Calendar now) {
+		int day = now.get(Calendar.DAY_OF_WEEK);
+
+		boolean erlaubt = true;
+		
+		switch (day) {
+		case Calendar.MONDAY:
+			erlaubt = erlaubt && isMon();
+			break;
+		case Calendar.TUESDAY:
+			erlaubt = erlaubt && isTue();
+			break;
+		case Calendar.WEDNESDAY:
+			erlaubt = erlaubt && isWed();
+			break;
+		case Calendar.THURSDAY:
+			erlaubt = erlaubt && isThu();
+			break;
+		case Calendar.FRIDAY:
+			erlaubt = erlaubt && isFri();
+			break;
+		case Calendar.SATURDAY:
+			erlaubt = erlaubt && isSat();
+			break;
+		case Calendar.SUNDAY:
+			erlaubt = erlaubt && isSun();
+			break;
+		default:
+		}
+
+		return erlaubt;
+	}
 
 }
