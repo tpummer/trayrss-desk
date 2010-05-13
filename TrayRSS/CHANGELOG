@@ -24,6 +24,8 @@
  - Removed Function
 
 0.7
++ introduced timevalidation
+* delete old entries improved
 + delete old entries
 * Storing Data Bugfix
 + UserAction CheckFeeds

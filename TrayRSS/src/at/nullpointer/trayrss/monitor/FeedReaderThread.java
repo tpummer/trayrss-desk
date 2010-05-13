@@ -21,11 +21,13 @@ package at.nullpointer.trayrss.monitor;
  */
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
+import at.nullpointer.trayrss.configuration.timeframes.TimeValidation;
+import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
+
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
@@ -58,11 +60,15 @@ public class FeedReaderThread implements Runnable {
 	}
 
 	public void run() {
+		
+		TimeValidation timeValidation = new TimeValidationImpl();
 
-		while (true) {
-			
-			boolean ok = false;
+		while (timeValidation.isAllowed()) {
 
+			if(true){
+				
+				boolean ok = false;
+							
 				SyndFeedInput input = new SyndFeedInput();
 				SyndFeed feed;
 				List<SyndEntryImpl> content = null;
@@ -112,16 +118,14 @@ public class FeedReaderThread implements Runnable {
                 }
 
 				ok = true;
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//				ReferenceCollection.LOG
-//                .debug("ERROR: " + ex.getMessage());
-//			}
-			if (!ok) {
-				ReferenceCollection.LOG
-                .debug("FeedReader reads and prints any RSS/Atom feed type.");
-				ReferenceCollection.LOG
-                .debug("The first parameter must be the URL of the feed to read.");
+				if (!ok) {
+					ReferenceCollection.LOG
+	                .debug("FeedReader reads and prints any RSS/Atom feed type.");
+					ReferenceCollection.LOG
+	                .debug("The first parameter must be the URL of the feed to read.");
+				}
+			} else {
+				ReferenceCollection.LOG.debug("Not within an allowded Time!");
 			}
 			
 			deleteOldNews();

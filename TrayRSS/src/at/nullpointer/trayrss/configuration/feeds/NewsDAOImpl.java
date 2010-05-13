@@ -27,11 +27,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
@@ -115,19 +114,12 @@ Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		
 		Transaction tx = session.beginTransaction();
 		
-		Date twoMonthsAgo = new Date();
-		
-		int month = twoMonthsAgo.getMonth();
-		month = month - 2;
-		if(month < 1){
-			month = month+12;
-			twoMonthsAgo.setYear(twoMonthsAgo.getYear()-1);
-		}
-		twoMonthsAgo.setMonth(month);
+		Calendar now = GregorianCalendar.getInstance();
+		now.add(Calendar.MONTH, -2);
 			
-		String hqlN = "delete from News n where feed_id = "+id.longValue() + " and UPDATEDDATE < :date";
+		String hqlN = "delete from News n where feed_id = :id and UPDATEDDATE < :date";
 		
-		Query queryN = session.createQuery(hqlN).setDate("date", twoMonthsAgo);
+		Query queryN = session.createQuery(hqlN).setLong("id", id).setDate("date", now.getTime());
 		
 		int rowN = queryN.executeUpdate();
 		
