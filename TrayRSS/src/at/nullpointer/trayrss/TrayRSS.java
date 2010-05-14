@@ -33,7 +33,6 @@ import java.util.LinkedList;
 
 public class TrayRSS {
 
-	private static SystemTray tray = null;
 	private static LinkedList<Feed> rssUrlSave = null;
 	// nach den anderen Vairablen die befüllt werden
 	private static TrayRSS instance = new TrayRSS();
@@ -57,12 +56,13 @@ public class TrayRSS {
 			if(args[0].equals("-debug")){
 				debug = true;
 			} else {
-				//TODO Parameterausgabe zur Hilfe
+				System.out.println("You may start the program within the "
+						+ "debug mode by using -debug as parameter.");
 			}
 		}
 
 		TrayRSSSplashScreen splash = new TrayRSSSplashScreen();
-		StartUp startup = new StartUp(debug);
+		new StartUp(debug);
 		splash.endSplashAfterDisplaytime(3);
 
 	}

@@ -63,9 +63,9 @@ public class FeedReaderThread implements Runnable {
 		
 		TimeValidation timeValidation = new TimeValidationImpl();
 
-		while (timeValidation.isAllowed()) {
+		while (true) {
 
-			if(true){
+			if(timeValidation.isAllowed()){
 				
 				boolean ok = false;
 							
@@ -75,7 +75,7 @@ public class FeedReaderThread implements Runnable {
 				try {
 					feed = input.build(new XmlReader(new URL(feedInfo
 							.getUrl())));
-					content = feed.getEntries();
+					content = (List<SyndEntryImpl>) feed.getEntries(); 
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

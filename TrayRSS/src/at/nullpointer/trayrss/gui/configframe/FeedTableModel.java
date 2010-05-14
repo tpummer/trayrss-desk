@@ -26,6 +26,11 @@ import javax.swing.table.AbstractTableModel;
 
 public class FeedTableModel extends AbstractTableModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7696255321306199812L;
+
 	FeedTable table = ReferenceCollection.FEED_TABLE;
 
 	Object[] columnNames = ReferenceCollection.CONFIG_TABLE_HEADER;
@@ -50,8 +55,8 @@ public class FeedTableModel extends AbstractTableModel {
 		return (String)columnNames[column];
 	}
 
-	public Class getColumnClass(int column) {
-		Class erg = null;
+	public Class<?> getColumnClass(int column) {
+		Class<?> erg = null;
 		switch (column){
 		case 0: 
 			erg = Long.class;

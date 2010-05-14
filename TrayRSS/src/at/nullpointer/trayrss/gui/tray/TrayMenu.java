@@ -7,6 +7,11 @@ import java.awt.*;
 
 public class TrayMenu extends PopupMenu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4671463948924491627L;
+
 	public TrayMenu() {
 
 

@@ -73,7 +73,6 @@ public class StartUp {
 		if (debug)
 			start = System.currentTimeMillis();
 		ReferenceCollection.LOG.debug("Startup: Start Database at " + start);
-		// TODO Auto-generated method stub
 		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
 				.configure().buildSessionFactory();
 
@@ -123,10 +122,6 @@ public class StartUp {
 	}
 
 	private void setCaptions() {
-		
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
 		
 		ReferenceCollection.LOG.debug("Startup: Load Languagefile at " + System.currentTimeMillis());
 		InputStream reader = null;

@@ -33,6 +33,11 @@ import java.util.List;
 
 public class ConfigFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2410312346103558110L;
+	
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JPanel configurationframe;
 	private javax.swing.JButton addButton;
@@ -65,12 +70,9 @@ public class ConfigFrame extends JFrame {
 	private javax.swing.JLabel languageSelectorLabel;
 	private javax.swing.JComboBox languageSelectorComboBox;
 
-	private ConfigFrameCaptions captions;
-
 	public ConfigFrame() {
 
 		ReferenceCollection.CONFIG_WINDOW = this;
-		this.captions = new ConfigFrameCaptions();
 
 		configurationframe = new javax.swing.JPanel();
 		timeframesPanel = new javax.swing.JPanel();

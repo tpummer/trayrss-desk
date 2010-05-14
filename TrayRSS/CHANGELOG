@@ -24,7 +24,8 @@
  - Removed Function
 
 0.7
-+ introduced timevalidation
+* beautify code
++ timevalidation on monitoring
 * delete old entries improved
 + delete old entries
 * Storing Data Bugfix

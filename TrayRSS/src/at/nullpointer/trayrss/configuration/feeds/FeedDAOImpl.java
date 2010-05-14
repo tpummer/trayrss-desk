@@ -2,8 +2,6 @@ package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import at.nullpointer.trayrss.configuration.feeds.db.News;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -72,11 +70,11 @@ public class FeedDAOImpl implements FeedDAO {
 		
 		String hqlN = "delete from News n where feed_id = "+id.longValue();
 		Query queryN = session.createQuery(hqlN);
-		int rowN = queryN.executeUpdate();
+		queryN.executeUpdate();
 		
 		String hql = "delete from Feed f where id = "+id.longValue();
 		Query query = session.createQuery(hql);
-		int row = query.executeUpdate();
+		query.executeUpdate();
 		
 		tx.commit();
 		session.close();
