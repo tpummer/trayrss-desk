@@ -20,7 +20,6 @@
 package at.nullpointer.trayrss.checks;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
@@ -43,9 +42,8 @@ public class FeedTableValidator {
 		}
 		
             SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feed;
 			try {
-				feed = input.build(new XmlReader(test));
+				input.build(new XmlReader(test));
 			} catch (IllegalArgumentException e) {
 				return false;
 			} catch (FeedException e) {

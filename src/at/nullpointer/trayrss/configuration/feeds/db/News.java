@@ -4,7 +4,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -12,6 +11,10 @@ import java.util.Date;
 @Table(name = "news")
 public class News implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2803819855246131975L;
 	private Long id;
 	private String author;
 	private String title;

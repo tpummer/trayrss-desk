@@ -39,10 +39,10 @@ public class TrayMenuActionListener implements ActionListener {
 					TrayIcon.MessageType.INFO);
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
-			ConfigFrame conig = new ConfigFrame();
+			new ConfigFrame();
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_HELP)){
-			Help help = new Help();
+			new Help();
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_EXIT)){
 			Shutdown shutdown = new Shutdown();

@@ -1,7 +1,6 @@
 package at.nullpointer.trayrss.configuration.timeframes;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;

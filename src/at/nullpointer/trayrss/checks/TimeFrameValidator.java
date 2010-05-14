@@ -24,7 +24,6 @@ import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class TimeFrameValidator {
 
@@ -51,7 +50,7 @@ public class TimeFrameValidator {
 	private static boolean checkTime(String input) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
 		try {
-			Date date = sdf.parse(input);
+			sdf.parse(input);
 		} catch (ParseException e) {
 			return false;
 		}

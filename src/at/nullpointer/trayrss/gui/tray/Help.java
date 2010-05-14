@@ -8,6 +8,11 @@ import java.awt.*;
 
 public class Help extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5454404301398733509L;
+
 	public Help(){
 		ReferenceCollection.HELP_WINDOW = this;
 		this.setTitle(ReferenceCollection.HELP_TITLE);

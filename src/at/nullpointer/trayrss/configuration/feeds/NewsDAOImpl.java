@@ -29,7 +29,6 @@ import org.hibernate.Transaction;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -121,7 +120,7 @@ Session session = ReferenceCollection.SESSION_FACTORY.openSession();
 		
 		Query queryN = session.createQuery(hqlN).setLong("id", id).setDate("date", now.getTime());
 		
-		int rowN = queryN.executeUpdate();
+		queryN.executeUpdate();
 		
 		tx.commit();
 		session.close();
