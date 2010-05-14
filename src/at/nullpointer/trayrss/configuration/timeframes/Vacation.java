@@ -10,6 +10,10 @@ public class Vacation {
 
 	public Vacation(String start,
 			String end) {
+		
+		if (start == "") start = "0";
+		if (end == "") end  = "1";
+		
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(Long.parseLong(start));
 		this.start = cal.getTime();
@@ -19,7 +23,7 @@ public class Vacation {
 	}
 
 	public boolean isAllowed(Calendar now) {
-		return start.after(now.getTime()) && end.before(now.getTime());
+		return start.after(now.getTime()) || end.before(now.getTime());
 	}
 
 }

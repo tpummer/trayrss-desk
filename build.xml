@@ -97,8 +97,8 @@
 	</target>
 
 	<target name="dist" depends="rebuild">
-		<property name="version.num" value="0.6" />
-		<property name="suffix" value="alpha" />
+		<property name="version.num" value="0.7" />
+		<property name="suffix" value="beta" />
 		<buildnumber file="dist/build.num" />
 		<tstamp>
 			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />

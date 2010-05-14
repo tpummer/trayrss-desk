@@ -19,9 +19,13 @@ public class TimeValidationImpl implements TimeValidation {
 		
 		allowed = allowed && vac.isAllowed(now);
 		
+		ReferenceCollection.LOG.debug("Allowed after Vacationcheck: "+ allowed);
+		
 		Timeframe frame = new Timeframe(ReferenceCollection.CONFIG_TIMEFRAMES_VALUE);
 		
 		allowed = allowed && frame.isAllowed(now);
+		
+		ReferenceCollection.LOG.debug("Allowed after Timeframecheck: "+ allowed);
 				
 		Week week = new Week(ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE,
 							 ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE,
@@ -32,6 +36,8 @@ public class TimeValidationImpl implements TimeValidation {
 							 ReferenceCollection.CONFIG_MONITORINGDAYSSU_VALUE);
 		
 		allowed = allowed && week.isAllowed(now);
+		
+		ReferenceCollection.LOG.debug("Allowed after Weekcheck: "+ allowed);
 		
 		return allowed;
 	}
