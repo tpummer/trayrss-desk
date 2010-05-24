@@ -105,6 +105,6 @@ public class TrayRSS {
 	}
  
 	public TrayIcon getTrayIcon(){
-		return null;
+		return trayIcon;
 	}
 }

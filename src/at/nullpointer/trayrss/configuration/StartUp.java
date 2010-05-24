@@ -112,6 +112,7 @@ public class StartUp {
 			try {
 				reader.close();
 			} catch (Exception e) {
+                ReferenceCollection.LOG.error("Error closing RSS Stream.");
 			}
 		}
 		long end = 0;
@@ -150,6 +151,7 @@ public class StartUp {
 			try {
 				reader.close();
 			} catch (Exception e) {
+                ReferenceCollection.LOG.error("Error closing RSS Stream.");
 			}
 		}
 		

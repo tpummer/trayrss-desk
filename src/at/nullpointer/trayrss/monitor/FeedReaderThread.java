@@ -90,7 +90,7 @@ public class FeedReaderThread implements Runnable {
 					e1.printStackTrace();
 				}
 
-                for (SyndEntryImpl node : (Iterable<SyndEntryImpl>) content) {
+                for (SyndEntryImpl node : content) {
                 	
                 	News news = prepareNode(node);
 

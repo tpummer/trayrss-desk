@@ -126,7 +126,7 @@ public class FeedTable {
 
 				Feed merken = null;
 				for(Iterator<Feed> it = feeds.iterator(); it.hasNext(); ){
-					Feed helper = (Feed)it.next();
+					Feed helper = it.next();
 					if (helper.getId().equals(change.getId())){
 						merken = helper;
 					}

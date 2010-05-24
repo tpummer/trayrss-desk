@@ -26,7 +26,7 @@ public class Timeframe {
 			allowed = allowed && frame.isAllowed(now);
 		}
 
-		return true;
+		return allowed;
 	}
 
 }

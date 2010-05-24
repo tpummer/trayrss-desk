@@ -11,7 +11,7 @@
       jdbc:hsqldb:file:./data/feeds;shutdown=true
     </property>
     <property name="hibernate.connection.username">sa</property>
-    <property name="hibernate.connection.password"></property>
+    <property name="hibernate.connection.password"/>
     <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
     <property name="show_sql">false</property>
     <property name="transaction.factory_class">
