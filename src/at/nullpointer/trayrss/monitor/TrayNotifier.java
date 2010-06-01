@@ -136,5 +136,9 @@ public class TrayNotifier implements Runnable {
 		
 	}
 
+	public void setPopupManager(PopupManager popupManager) {
+		this.popman = popupManager;	
+	}
+
 }
 
