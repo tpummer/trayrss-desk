@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.jutzig.jnotification.Corner;
+import de.jutzig.jnotification.PopupManager;
+
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
@@ -54,17 +57,22 @@ public class TrayNotifierTest {
 		testfeed.setName("testname");
 		testnews = new News();
 		testnews.setTitle("testtitle");
+		
+		tn.setPopupManager(new PopupManager(
+				ReferenceCollection.DISPLAY_SECONDS * 1000, Corner.LOWER_RIGHT,
+				new Point(30, 100)));
 
 	}
 
 	@Test
-	public void testNotifyNewsFeed() {
+	public void testNotifyNewsFeed() throws InterruptedException {
 		tn.addToNotify(testnews, testfeed);
 		int size = tn.getSize();
 		ReferenceCollection.LOG.debug(size);
 		tn.notifyNews();
 		assertEquals(size - 1, tn.getSize());
 		ReferenceCollection.LOG.debug(tn.getSize());
+		Thread.sleep(10000);
 		
 	}
 
