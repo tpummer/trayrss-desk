@@ -74,7 +74,7 @@ public class TrayRSS {
 			objectOS.writeObject(rssUrlSave);
 			objectOS.close();
 		} catch (IOException e) {
-			System.err.println(e);
+			ReferenceCollection.LOG.error(e.toString());
 		}
 
 	}
