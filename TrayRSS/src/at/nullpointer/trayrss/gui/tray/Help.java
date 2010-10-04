@@ -24,7 +24,7 @@ public class Help extends JFrame {
 		
 		JLabel helpMsg = new JLabel("<html><center>" + ReferenceCollection.TRAYRSS_APP_TITLE + "<br/>"+
 								  "<a href=\"http://trayrss.sourceforge.net\">Trayrss</a>" +
-								  "<br/>by thefake - fake@sprossenwanne.at</center></html>");
+								  "<br/>by Thomas Pummer - thefake@users.sourceforge.net</center></html>");
 		this.getContentPane().add(helpMsg, BorderLayout.CENTER);
 		
 		JButton helpOkButton = new JButton();
