@@ -19,7 +19,6 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.Shutdown;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
@@ -27,7 +26,6 @@ import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 public class TrayMenuActionListener implements ActionListener {
 
@@ -39,10 +37,18 @@ public class TrayMenuActionListener implements ActionListener {
 					TrayIcon.MessageType.INFO);
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
-			new ConfigFrame();
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					new ConfigFrame();
+				}
+			});
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_HELP)){
-			new Help();
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					new Help();
+				}
+			});
 			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_EXIT)){
 			Shutdown shutdown = new Shutdown();
@@ -51,5 +57,4 @@ public class TrayMenuActionListener implements ActionListener {
 		}
 
 	}
-
 }

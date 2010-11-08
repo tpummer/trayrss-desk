@@ -22,6 +22,9 @@
  + New Function
  * Updated Function
  - Removed Function
+
+1.1
+* event-dispatcher threads for gui
  
 1.0
 * function validation
