@@ -29,9 +29,13 @@ import java.awt.*;
 import java.io.*;
 import java.util.LinkedList;
 
+import org.apache.log4j.Logger;
+
 
 
 public class TrayRSS {
+	
+	private Logger log = Logger.getLogger(TrayRSS.class);
 
 	private static LinkedList<Feed> rssUrlSave = null;
 	// nach den anderen Vairablen die befüllt werden
@@ -74,7 +78,7 @@ public class TrayRSS {
 			objectOS.writeObject(rssUrlSave);
 			objectOS.close();
 		} catch (IOException e) {
-			ReferenceCollection.LOG.error(e.toString());
+			log.error(e.toString());
 		}
 
 	}

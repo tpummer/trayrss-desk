@@ -40,6 +40,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * Monitors a feed
  * 
@@ -47,6 +49,9 @@ import java.util.List;
  * 
  */
 public class FeedReaderThread implements Runnable {
+
+	private Logger log = Logger.getLogger(FeedReaderThread.class);
+
 	private Feed feedInfo = null;
 	private Long id = null;
 
@@ -60,22 +65,22 @@ public class FeedReaderThread implements Runnable {
 	}
 
 	public void run() {
-		
+
 		TimeValidation timeValidation = new TimeValidationImpl();
 
 		while (true) {
 
-			if(timeValidation.isAllowed()){
-				
+			if (timeValidation.isAllowed()) {
+
 				boolean ok = false;
-							
+
 				SyndFeedInput input = new SyndFeedInput();
 				SyndFeed feed;
 				List<SyndEntryImpl> content = null;
 				try {
-					feed = input.build(new XmlReader(new URL(feedInfo
-							.getUrl())));
-					content = (List<SyndEntryImpl>) feed.getEntries(); 
+					feed = input
+							.build(new XmlReader(new URL(feedInfo.getUrl())));
+					content = (List<SyndEntryImpl>) feed.getEntries();
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -90,72 +95,71 @@ public class FeedReaderThread implements Runnable {
 					e1.printStackTrace();
 				}
 
-                for (SyndEntryImpl node : content) {
-                	
-                	News news = prepareNode(node);
+				for (SyndEntryImpl node : content) {
 
-                    NewsDAO newsDao = new NewsDAOImpl();
-                    
-                    News test = newsDao.getNewsByData(news);
+					News news = prepareNode(node);
 
-                    if(test != null && test.equals(news)){
-                        news = test;
-                        news.increaseReadCount(1);
-                        ReferenceCollection.LOG
-                                    .debug("Feed "+getId()+": News Eintrag "+news.getTitle()+" von "+node.getUri()+" wurden aktualisiert!");
-                    } else {
+					NewsDAO newsDao = new NewsDAOImpl();
 
-                        ReferenceCollection.LOG
-                                    .debug("Feed "+getId()+": Neuer Newseintrag "+news.getTitle()+" von "+node.getUri());
-                    }
+					News test = newsDao.getNewsByData(news);
 
-                    if(news.getReadCount() < ReferenceCollection.DISPLAY_COUNT){
-                        ReferenceCollection.TRAYNOTIFIER
-                                .addToNotify(news, feedInfo);
-                        news.setLastRead(new Date());
-                    }
-                    newsDao.save(news);
-                }
+					if (test != null && test.equals(news)) {
+						news = test;
+						news.increaseReadCount(1);
+						log.debug("Feed " + getId() + ": News Eintrag "
+								+ news.getTitle() + " von " + node.getUri()
+								+ " wurden aktualisiert!");
+					} else {
+
+						log.debug("Feed " + getId() + ": Neuer Newseintrag "
+								+ news.getTitle() + " von " + node.getUri());
+					}
+
+					if (news.getReadCount() < ReferenceCollection.DISPLAY_COUNT) {
+						ReferenceCollection.TRAYNOTIFIER.addToNotify(news,
+								feedInfo);
+						news.setLastRead(new Date());
+					}
+					newsDao.save(news);
+				}
 
 				ok = true;
 				if (!ok) {
-					ReferenceCollection.LOG
-	                .debug("FeedReader reads and prints any RSS/Atom feed type.");
-					ReferenceCollection.LOG
-	                .debug("The first parameter must be the URL of the feed to read.");
+					log.debug("FeedReader reads and prints any RSS/Atom feed type.");
+					log.debug("The first parameter must be the URL of the feed to read.");
 				}
 			} else {
-				ReferenceCollection.LOG.debug("Not within an allowded Time!");
+				log.debug("Not within an allowded Time!");
 			}
-			
+
 			deleteOldNews();
 
 			try {
 				Thread.sleep(feedInfo.getIntervall() * 1000 * 60);
 			} catch (InterruptedException e) {
-				ReferenceCollection.LOG.debug("FeedReaderThread interrupted!");
+				log.debug("FeedReaderThread interrupted!");
 			}
 		}
 	}
 
 	private void deleteOldNews() {
 		NewsDAO newsDao = new NewsDAOImpl();
-		
+
 		newsDao.deleteOlderThanTwoMonth(feedInfo.getId());
-		
+
 	}
 
 	private News prepareNode(SyndEntryImpl node) {
-		
-		News news = new News();
-        news.setAuthor(node.getAuthor());
-        news.setTitle(node.getTitle());
-        news.setPublishedDate(node.getPublishedDate());
-        news.setUpdatedDate(node.getUpdatedDate());
-        news.setUri(node.getUri());
-        news.setFeed(feedInfo);
 
-        news.setUpdatedDate(new Date());
+		News news = new News();
+		news.setAuthor(node.getAuthor());
+		news.setTitle(node.getTitle());
+		news.setPublishedDate(node.getPublishedDate());
+		news.setUpdatedDate(node.getUpdatedDate());
+		news.setUri(node.getUri());
+		news.setFeed(feedInfo);
+
+		news.setUpdatedDate(new Date());
 		return news;
 	}
 

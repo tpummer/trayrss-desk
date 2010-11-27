@@ -27,7 +27,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.apache.log4j.Logger;
+
 public class FeedTable {
+	private Logger log = Logger.getLogger(FeedTable.class);
+	
 	int tableColumns = 5;
 	
 	LinkedList<Object[]> table;
@@ -65,12 +69,12 @@ public class FeedTable {
 	}
 	
 	public void deleteRow(int row){
-		ReferenceCollection.LOG.debug("Delete Row: "+row);
+		log.debug("Delete Row: "+row);
 		if(row != -1){
 			table.remove(row);
-			ReferenceCollection.LOG.debug("Succesfully deleted Row");
+			log.debug("Succesfully deleted Row");
 		} else {
-			ReferenceCollection.LOG.debug("No row selected.");
+			log.debug("No row selected.");
 		}
 	}
 

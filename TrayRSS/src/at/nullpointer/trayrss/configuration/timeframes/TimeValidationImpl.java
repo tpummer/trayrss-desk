@@ -3,9 +3,13 @@ package at.nullpointer.trayrss.configuration.timeframes;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
+
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 public class TimeValidationImpl implements TimeValidation {
+	
+	private Logger log = Logger.getLogger(TimeValidationImpl.class);
 
 	@Override
 	public boolean isAllowed() {
@@ -19,13 +23,13 @@ public class TimeValidationImpl implements TimeValidation {
 		
 		allowed = allowed && vac.isAllowed(now);
 		
-		ReferenceCollection.LOG.debug("Allowed after Vacationcheck: "+ allowed);
+		log.debug("Allowed after Vacationcheck: "+ allowed);
 		
 		Timeframe frame = new Timeframe(ReferenceCollection.CONFIG_TIMEFRAMES_VALUE);
 		
 		allowed = allowed && frame.isAllowed(now);
 		
-		ReferenceCollection.LOG.debug("Allowed after Timeframecheck: "+ allowed);
+		log.debug("Allowed after Timeframecheck: "+ allowed);
 				
 		Week week = new Week(ReferenceCollection.CONFIG_MONITORINGDAYSMO_VALUE,
 							 ReferenceCollection.CONFIG_MONITORINGDAYSTU_VALUE,
@@ -37,7 +41,7 @@ public class TimeValidationImpl implements TimeValidation {
 		
 		allowed = allowed && week.isAllowed(now);
 		
-		ReferenceCollection.LOG.debug("Allowed after Weekcheck: "+ allowed);
+		log.debug("Allowed after Weekcheck: "+ allowed);
 		
 		return allowed;
 	}

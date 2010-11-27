@@ -22,6 +22,7 @@ package at.nullpointer.trayrss.configuration.feeds;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.db.News;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -33,6 +34,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
+	
+	private Logger log = Logger.getLogger(NewsDAOImpl.class);
 
 	public void deleteById(Long id) {
 		Session session = ReferenceCollection.SESSION_FACTORY.openSession();
@@ -94,9 +97,9 @@ public class NewsDAOImpl implements NewsDAO {
 		try {
 			erg = (News)query.uniqueResult();
 		} catch (HibernateException e) {
-			ReferenceCollection.LOG.error(news.getTitle()+ " at "+news.getUri()+" has a duplicated entry!");
-			ReferenceCollection.LOG.debug(e.toString());
-			ReferenceCollection.LOG.debug(query.getQueryString());
+			log.error(news.getTitle()+ " at "+news.getUri()+" has a duplicated entry!");
+			log.debug(e.toString());
+			log.debug(query.getQueryString());
 		}
 		
 		tx.commit();

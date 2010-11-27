@@ -4,9 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
+
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 public class SingleTimeFrame {
+	
+	private Logger log = Logger.getLogger(SingleTimeFrame.class);
 	
 	int startHour, startMin, endHour, endMin;	
 	
@@ -19,7 +23,7 @@ public class SingleTimeFrame {
 			sdf.parse(split[0]);
 			sdf.parse(split[1]);
 		} catch (ParseException e) {
-			ReferenceCollection.LOG.error("Error parsing Timeframes on Check");
+			log.error("Error parsing Timeframes on Check");
 		}
 		startHour = Integer.parseInt(split[0].substring(0, 2));
 		startMin = Integer.parseInt(split[0].substring(2, 4));

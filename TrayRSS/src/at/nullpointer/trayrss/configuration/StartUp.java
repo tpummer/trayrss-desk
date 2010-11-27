@@ -20,7 +20,6 @@
 
 package at.nullpointer.trayrss.configuration;
 
-
 import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.gui.configframe.ConfigFrameCaptions;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
@@ -45,7 +44,7 @@ import java.util.Properties;
  * 
  */
 public class StartUp {
-	Logger log;
+	Logger log = Logger.getLogger(StartUp.class);
 	Properties props = new Properties();
 	Properties langprops = new Properties();
 	boolean debug = false;
@@ -58,52 +57,55 @@ public class StartUp {
 	 */
 	public StartUp(boolean debug) {
 		this.debug = debug;
-		startLogger(debug);
+		//TODO debug into RC
 		loadProps();
 		loadInitialProperties();
 		setCaptions();
 		startTray();
 		startDatabase();
 		startMonitor();
-		ReferenceCollection.LOG.info("Startup complete.");
+		log.info("Startup complete.");
 	}
 
 	private void startDatabase() {
 		long start = 0;
-		if (debug)
+		if (debug) {
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Start Database at " + start);
+			log.debug("Startup: Start Database at " + start);
+		}
+
 		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
 				.configure().buildSessionFactory();
 
 		long end = 0;
-		if (debug)
+		if (debug) {
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Start Database at "
-				+ end);
+			log
+					.debug("Startup: Finished Start Database at " + end);
+		}
 	}
 
 	private void loadProps() {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Load Properties at " + start);
+		log.debug("Startup: Load Properties at " + start);
 		InputStream reader = null;
 		try {
-			
-			
-			reader = TrayRSS.class.getResourceAsStream(ReferenceCollection.CONFIG.substring(1));
-			
-			
+
+			reader = TrayRSS.class
+					.getResourceAsStream(ReferenceCollection.CONFIG
+							.substring(1));
+
 			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
 				reader = new FileInputStream(ReferenceCollection.CONFIG);
 
 			props = new Properties();
 			props.loadFromXML(reader);
-			
+
 			ReferenceCollection.CONFIGURATION = new Configuration(props);
 		} catch (FileNotFoundException e) {
-			ReferenceCollection.LOG.error("No config file found! - "
+			log.error("No config file found! - "
 					+ "\n Please reinstall the application!");
 			System.exit(0);
 		} catch (IOException e) {
@@ -112,37 +114,39 @@ public class StartUp {
 			try {
 				reader.close();
 			} catch (Exception e) {
-                ReferenceCollection.LOG.error("Error closing RSS Stream.");
+				log.error("Error closing RSS Stream.");
 			}
 		}
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Load Properites at "
+		log.debug("Startup: Finished Load Properites at "
 				+ end);
 	}
 
 	private void setCaptions() {
-		
-		ReferenceCollection.LOG.debug("Startup: Load Languagefile at " + System.currentTimeMillis());
+
+		log.debug("Startup: Load Languagefile at "
+				+ System.currentTimeMillis());
 		InputStream reader = null;
-		
+
 		String languagefile = ReferenceCollection.EN_LANG;
-		
-		if(ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE)) languagefile = ReferenceCollection.DE_LANG;
-		
+
+		if (ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE))
+			languagefile = ReferenceCollection.DE_LANG;
+
 		try {
-			
-			reader = TrayRSS.class.getResourceAsStream(languagefile.substring(1));
-			
-			
+
+			reader = TrayRSS.class.getResourceAsStream(languagefile
+					.substring(1));
+
 			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
 				reader = new FileInputStream(languagefile);
 
 			langprops = new Properties();
 			langprops.loadFromXML(reader);
 		} catch (FileNotFoundException e) {
-			ReferenceCollection.LOG.error("No config file found! - "
+			log.error("No config file found! - "
 					+ "\n Please reinstall the application!");
 			System.exit(0);
 		} catch (IOException e) {
@@ -151,14 +155,12 @@ public class StartUp {
 			try {
 				reader.close();
 			} catch (Exception e) {
-                ReferenceCollection.LOG.error("Error closing RSS Stream.");
+				log.error("Error closing RSS Stream.");
 			}
 		}
-		
-		
-		
-		
-		ReferenceCollection.LOG.debug("Startup: Set Captions at " + System.currentTimeMillis());
+
+		log.debug("Startup: Set Captions at "
+				+ System.currentTimeMillis());
 
 		ReferenceCollection.TRAYMENU_EXIT = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_exit");
@@ -166,19 +168,22 @@ public class StartUp {
 				+ ReferenceCollection.LANGUAGE + ".traymenu_monitor");
 		ReferenceCollection.TRAYMENU_CONFIG = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_config");
+		ReferenceCollection.TRAYMENU_CONFIG_SWIXML = langprops
+				.getProperty("trayrss." + ReferenceCollection.LANGUAGE
+						+ ".traymenu_config_swixml");
 		ReferenceCollection.TRAYMENU_HELP = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_help");
 		ReferenceCollection.HELP_TITLE = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".help_title");
 		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".help_ok");
-		
+
 		ConfigFrameCaptions.load(langprops);
 
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Set Captions at "
+		log.debug("Startup: Finished Set Captions at "
 				+ end);
 
 	}
@@ -187,14 +192,14 @@ public class StartUp {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Set Language at " + start);
+		log.debug("Startup: Set Language at " + start);
 
 		ReferenceCollection.CONFIGURATION.load();
 
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Set Language at "
+		log.debug("Startup: Finished Set Language at "
 				+ end);
 
 	}
@@ -203,17 +208,17 @@ public class StartUp {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Start Monitor at " + start);
-		
+		log.debug("Startup: Start Monitor at " + start);
+
 		ReferenceCollection.TRAYNOTIFIER = new TrayNotifier();
 		new Thread(ReferenceCollection.TRAYNOTIFIER).start();
-		
-		ReferenceCollection.MONITOR = new Monitor();		
+
+		ReferenceCollection.MONITOR = new Monitor();
 
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Start Monitor at "
+		log.debug("Startup: Finished Start Monitor at "
 				+ end);
 	}
 
@@ -221,7 +226,7 @@ public class StartUp {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Start Tray at " + start);
+		log.debug("Startup: Start Tray at " + start);
 
 		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
 		trayIconPOJO.startTrayIcon();
@@ -229,34 +234,6 @@ public class StartUp {
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Start Tray at " + end);
-	}
-
-	private void startLogger(boolean debug) {
-		log = Logger.getRootLogger();
-
-		ReferenceCollection.LOG = log;
-
-		String pattern = "%d{MM/dd/yyyy HH:mm:ss,SSSS}: %m %n";
-		PatternLayout layout = new PatternLayout(pattern);
-		ConsoleAppender consoleAppender = new ConsoleAppender(layout);
-		log.addAppender(consoleAppender);
-		FileAppender fileAppender;
-		try {
-			fileAppender = new FileAppender(layout, "logs/TrayRSS.log", false);
-			log.addAppender(fileAppender);
-			// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
-			log.setLevel(ReferenceCollection.LOG_LEVEL);
-			if (debug)
-				log.setLevel(ReferenceCollection.LOG_LEVEL_DEBUG);
-		} catch (IOException e) {
-			System.err.println("Logdatei kann nicht geöffnet werden!");
-		}
-
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		ReferenceCollection.LOG.debug("Startup: Finished Start Database at "
-				+ end);
+		log.debug("Startup: Finished Start Tray at " + end);
 	}
 }

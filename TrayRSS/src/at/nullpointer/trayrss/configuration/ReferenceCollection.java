@@ -73,7 +73,7 @@ public class ReferenceCollection {
 	 * Logger
 	 */
 	
-	public static Logger LOG;
+	//public static Logger LOG;
 	// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
 	public static final Level LOG_LEVEL = Level.INFO;
 	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
@@ -86,6 +86,7 @@ public class ReferenceCollection {
 	public static String TRAYMENU_EXIT = "Exit";
 	public static String TRAYMENU_MONITOR = "Check Feeds manually";
 	public static String TRAYMENU_CONFIG = "Configuration";
+	public static String TRAYMENU_CONFIG_SWIXML = "Configuration SWIXML";
 	public static String TRAYMENU_HELP = "Help";
 
 	/*

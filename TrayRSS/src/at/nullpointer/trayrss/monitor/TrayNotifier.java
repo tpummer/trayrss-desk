@@ -32,10 +32,15 @@ import de.jutzig.jnotification.animation.FadeIn;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class TrayNotifier implements Runnable {
+
+	private Logger log = Logger.getLogger(TrayNotifier.class);
 
 	ArrayList<Notification> input = new ArrayList<Notification>();
 	private static PopupManager popman;
@@ -44,55 +49,51 @@ public class TrayNotifier implements Runnable {
 	private static JButton bclose;
 
 	public void notifyNews() {
-		ReferenceCollection.LOG
-		.debug("TrayNotifier: notify");
+		log.debug("TrayNotifier: notify");
 
 		if (getSize() > 0) {
 			String title = input.get(0).getNews().getTitle();
 			String name = input.get(0).getFeed().getName();
 			String url = input.get(0).getNews().getUri();
 
-            News node = input.get(0).getNews();
-			
+			News node = input.get(0).getNews();
+
 			JNotificationPopup popup = null;
-			
+
 			bread = new JButton("Read");
-			
+
 			bstop = new JButton("Stop");
-			
+
 			bclose = new JButton("Later");
-			
+
 			popup = new JNotificationPopup(createComponent(title, name, url));
-			popup.setAnimator(new FadeIn(popup,2000));
-			
-			bread.addActionListener(new BrowserButton(popup,popman,url,node));
-			bstop.addActionListener(new Dispose(popup,popman,node));
-			bclose.addActionListener(new Later(popup,popman,node));
-			
+			popup.setAnimator(new FadeIn(popup, 2000));
+
+			bread.addActionListener(new BrowserButton(popup, popman, url, node));
+			bstop.addActionListener(new Dispose(popup, popman, node));
+			bclose.addActionListener(new Later(popup, popman, node));
+
 			popman.enqueuePopup(popup);
 
 			input.remove(0);
-			ReferenceCollection.LOG.debug("Title: "+title+" Name:"+name+" URI:"+url);
+			log.debug("Title: " + title + " Name:" + name + " URI:" + url);
 		} else {
-			ReferenceCollection.LOG.debug("Nothing found to notify!");
+			log.debug("Nothing found to notify!");
 		}
 	}
 
 	public void addToNotify(News news, Feed feed) {
-		ReferenceCollection.LOG.debug("TrayNotifier: addToNotify");
+		log.debug("TrayNotifier: addToNotify");
 
 		Notification notifi = new Notification();
 		notifi.setFeed(feed);
 		notifi.setNews(news);
 
 		input.add(notifi);
-		ReferenceCollection.LOG.debug("TrayNotifier: "
-				+ notifi.getFeed().getName());
-		ReferenceCollection.LOG.debug("TrayNotifier: "
-				+ notifi.getNews().getTitle());
-		ReferenceCollection.LOG.debug(getSize());
-		ReferenceCollection.LOG
-				.debug("-----------------------------------------------");
+		log.debug("TrayNotifier: " + notifi.getFeed().getName());
+		log.debug("TrayNotifier: " + notifi.getNews().getTitle());
+		log.debug(getSize());
+		log.debug("-----------------------------------------------");
 	}
 
 	public int getSize() {
@@ -100,12 +101,13 @@ public class TrayNotifier implements Runnable {
 	}
 
 	public void run() {
-		
-		
+
 		while (true) {
-			popman = new PopupManager(ReferenceCollection.DISPLAY_SECONDS*1000, Corner.LOWER_RIGHT, new Point(30,100));
+			popman = new PopupManager(
+					ReferenceCollection.DISPLAY_SECONDS * 1000,
+					Corner.LOWER_RIGHT, new Point(30, 100));
 			try {
-				Thread.sleep(ReferenceCollection.DISPLAY_SECONDS*1000);
+				Thread.sleep(ReferenceCollection.DISPLAY_SECONDS * 1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -114,31 +116,29 @@ public class TrayNotifier implements Runnable {
 		}
 
 	}
-	
-	
-	private static Component createComponent(String title, String feedName, String url)
-	{
-		JPanel panel = new JPanel(new GridLayout(2,1));
-		JLabel ltitel =new JLabel();
-		ltitel.setText("<html><b>"+title+"</b></html>");
+
+	private static Component createComponent(String title, String feedName,
+			String url) {
+		JPanel panel = new JPanel(new GridLayout(2, 1));
+		JLabel ltitel = new JLabel();
+		ltitel.setText("<html><b>" + title + "</b></html>");
 		panel.add(ltitel);
-		
-		JPanel buttonPanel = new JPanel(new GridLayout(1,3));
-		
+
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+
 		buttonPanel.add(bread);
 		buttonPanel.add(bstop);
 		buttonPanel.add(bclose);
-		
+
 		panel.add(buttonPanel);
-		
+
 		panel.setBorder(new TitledBorder(feedName));
 		return panel;
-		
+
 	}
 
 	public void setPopupManager(PopupManager popupManager) {
-		this.popman = popupManager;	
+		this.popman = popupManager;
 	}
 
 }
-

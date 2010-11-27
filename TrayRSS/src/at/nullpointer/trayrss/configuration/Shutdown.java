@@ -19,7 +19,11 @@
  */
 package at.nullpointer.trayrss.configuration;
 
+import org.apache.log4j.Logger;
+
 public class Shutdown {
+	private Logger log = Logger.getLogger(Shutdown.class);
+	
 	public Shutdown(){
 		stopMonitor();
 	}
@@ -30,20 +34,20 @@ public class Shutdown {
 	
 	
 	public void now(){
-		ReferenceCollection.LOG.info("Shutdown initiated!");
+		log.info("Shutdown initiated!");
 		//ReferenceCollection.MONITOR_THREAD.interrupt();
 		
 		while(!isAllClosed()){
 			
 		}
-		ReferenceCollection.LOG.info("Shutdown completed!");
+		log.info("Shutdown completed!");
 	}
 
 	public boolean isAllClosed() {
 		ReferenceCollection.SESSION_FACTORY.close();
 		//boolean monitorThread = ReferenceCollection.MONITOR_THREAD.isAlive();
 		boolean allClosed = true; //&& !monitorThread;
-		ReferenceCollection.LOG.debug("AllClosed: " + allClosed);
+		log.debug("AllClosed: " + allClosed);
 		return allClosed;
 	}
 }

@@ -19,6 +19,8 @@ import java.awt.*;
 import static org.junit.Assert.assertEquals;
 
 public class TrayNotifierTest {
+	private Logger log = Logger.getLogger(TrayNotifierTest.class);
+	
 	final TrayNotifier tn = new TrayNotifier();
 	Feed testfeed;
 	News testnews;
@@ -35,19 +37,6 @@ public class TrayNotifierTest {
 
 		 tray.add(trayIcon);
 		 ReferenceCollection.TRAY_ICON = trayIcon;
-		
-		Logger log = Logger.getRootLogger();
-
-		ReferenceCollection.LOG = log;
-
-		String pattern = "%d{MM/dd/yyyy HH:mm:ss,SSSS}: %m %n";
-		PatternLayout layout = new PatternLayout(pattern);
-		ConsoleAppender consoleAppender = new ConsoleAppender(layout);
-		log.addAppender(consoleAppender);
-		// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
-		log.setLevel(ReferenceCollection.LOG_LEVEL_DEBUG);
-		
-		ReferenceCollection.LOG = log;
 	}
 
 	@Before
@@ -68,10 +57,10 @@ public class TrayNotifierTest {
 	public void testNotifyNewsFeed() throws InterruptedException {
 		tn.addToNotify(testnews, testfeed);
 		int size = tn.getSize();
-		ReferenceCollection.LOG.debug(size);
+		log.debug(size);
 		tn.notifyNews();
 		assertEquals(size - 1, tn.getSize());
-		ReferenceCollection.LOG.debug(tn.getSize());
+		log.debug(tn.getSize());
 		Thread.sleep(10000);
 		
 	}
@@ -79,9 +68,9 @@ public class TrayNotifierTest {
 	@Test
 	public void testAddToNotify() {
 		int size = tn.getSize();
-		ReferenceCollection.LOG.debug(size);
+		log.debug(size);
 		tn.addToNotify(testnews, testfeed);
-		ReferenceCollection.LOG.debug(tn.getSize());
+		log.debug(tn.getSize());
 		assertEquals(size + 1, tn.getSize());
 		
 	}

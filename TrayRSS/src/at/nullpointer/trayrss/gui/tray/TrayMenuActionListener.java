@@ -27,7 +27,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.apache.log4j.Logger;
+
 public class TrayMenuActionListener implements ActionListener {
+	
+	private Logger log = Logger.getLogger(TrayIconActionListener.class);
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
@@ -40,6 +44,13 @@ public class TrayMenuActionListener implements ActionListener {
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					new ConfigFrame();
+				}
+			});
+			
+		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG_SWIXML)){
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					log.debug("SWIXML config frame started");
 				}
 			});
 			

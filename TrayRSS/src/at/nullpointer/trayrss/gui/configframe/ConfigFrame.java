@@ -27,11 +27,16 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
 public class ConfigFrame extends JFrame {
+	
+	private Logger log = Logger.getLogger(ConfigFrame.class);
 
 	/**
 	 * 
@@ -199,7 +204,7 @@ public class ConfigFrame extends JFrame {
 							Long
 									.parseLong(ReferenceCollection.CONFIG_VACATION_START_VALUE)));
 		} catch (NumberFormatException e) {
-			ReferenceCollection.LOG.debug("No Vacation End Date set");
+			log.debug("No Vacation End Date set");
 		}
 
 		vacationEndLabel.setText(ReferenceCollection.CONFIG_VACATIONENDLABEL); // NOI18N
@@ -211,7 +216,7 @@ public class ConfigFrame extends JFrame {
 			endJCalendar.setDate(new Date(Long
 					.parseLong(ReferenceCollection.CONFIG_VACATION_END_VALUE)));
 		} catch (NumberFormatException e) {
-			ReferenceCollection.LOG.debug("No Vacation End Date set");
+			log.debug("No Vacation End Date set");
 		}
 
 		javax.swing.GroupLayout timeframesPanelLayout = new javax.swing.GroupLayout(
@@ -833,7 +838,7 @@ public class ConfigFrame extends JFrame {
 		int sizeMonitoredColumn = 60;
 		int posMonitoredColumn = 4;
 		
-		ReferenceCollection.LOG.debug("Sizing table columns(" + posIDColumn
+		log.debug("Sizing table columns(" + posIDColumn
 				+ ":ID=" + sizeIDColumn + ", " + posFeedNameColumn
 				+ ":FeedName=" + sizeFeedNameColumn + ", " + posFeedUrlColumn
 				+ ":FeedUrl=" + sizeFeedUrlColumn + ", " + posIntervallColumn

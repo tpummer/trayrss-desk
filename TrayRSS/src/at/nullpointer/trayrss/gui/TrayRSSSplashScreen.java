@@ -23,6 +23,8 @@ import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 import java.awt.*;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Offers the management of the SplashScreen
@@ -31,6 +33,8 @@ import java.awt.*;
  *
  */
 public class TrayRSSSplashScreen {
+	
+	private Logger log = Logger.getLogger(TrayRSSSplashScreen.class);
 	
 	private SplashScreen splash;
 	private long start;
@@ -48,8 +52,8 @@ public class TrayRSSSplashScreen {
 		try {
 			this.splash = SplashScreen.getSplashScreen();
 		} catch (NullPointerException e) {
-			ReferenceCollection.LOG.warn("No splash screen found!");
-			ReferenceCollection.LOG.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
+			log.warn("No splash screen found!");
+			log.debug("at TrayRSSSplashScreen#TrayRSSSplashScreen()");
 		}
 		
 		this.start = System.currentTimeMillis(); 
@@ -68,11 +72,11 @@ public class TrayRSSSplashScreen {
 		try {
 			show(time > 0 ? time : 0);
 			close();
-			ReferenceCollection.LOG.debug("Startup time: " + diff + " Milliseconds");
-			ReferenceCollection.LOG.debug("Splash shown for " + seconds + " Seconds");
+			log.debug("Startup time: " + diff + " Milliseconds");
+			log.debug("Splash shown for " + seconds + " Seconds");
 		} catch (NullPointerException e) {
-			ReferenceCollection.LOG.warn("No splash screen found!");
-			ReferenceCollection.LOG.debug("at TrayRSSSplashScreen#endSplashAfterDisplaytime");
+			log.warn("No splash screen found!");
+			log.debug("at TrayRSSSplashScreen#endSplashAfterDisplaytime");
 		}		
 	}
 
@@ -85,7 +89,7 @@ public class TrayRSSSplashScreen {
 			try {
 				Thread.sleep(milliseconds);
 			} catch (InterruptedException e) {
-	            ReferenceCollection.LOG.debug("Splash screen not paused!");
+	            log.debug("Splash screen not paused!");
 			}
 		}
 	}
@@ -93,7 +97,7 @@ public class TrayRSSSplashScreen {
 	private void close() throws NullPointerException{
 		if(splash.isVisible())
         splash.close();
-        else ReferenceCollection.LOG.debug("No splash screen found to close!");
+        else log.debug("No splash screen found to close!");
 	}
 
 }
