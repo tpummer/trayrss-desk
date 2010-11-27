@@ -25,6 +25,9 @@
 
 1.1
 * event-dispatcher threads for gui
+* log4j updated
+* refactored the useage of log4j
+* UI of Config Screen refactored with swixml
  
 1.0
 * function validation
