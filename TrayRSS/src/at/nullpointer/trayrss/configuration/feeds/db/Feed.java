@@ -127,22 +127,26 @@ public class Feed implements Serializable {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		
-		Feed feed = (Feed) o;
-		
-		if(this.url != null){
-			if(!this.url.equals(feed.getUrl())) return false;
+		if(o instanceof Feed){
+			Feed feed = (Feed) o;
+			
+			if(this.url != null){
+				if(!this.url.equals(feed.getUrl())) return false;
+			}
+			if(this.name != null){
+				if(!this.name.equals(feed.getName())) return false;
+			}
+			if(this.lastAction != null){
+				if(!this.lastAction.equals(feed.getLastAction())) return false;
+			}
+			if(this.intervall != null){
+				if(!this.intervall.equals(feed.getIntervall())) return false;
+			}
+			return true;
+		} else {
+			return false;
 		}
-		if(this.name != null){
-			if(!this.name.equals(feed.getName())) return false;
-		}
-		if(this.lastAction != null){
-			if(!this.lastAction.equals(feed.getLastAction())) return false;
-		}
-		if(this.intervall != null){
-			if(!this.intervall.equals(feed.getIntervall())) return false;
-		}
-		
-		return true;
+
 	}
 	
 	@Override

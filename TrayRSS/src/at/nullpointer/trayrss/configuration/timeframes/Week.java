@@ -33,13 +33,13 @@ public class Week {
 	public Week(String mon, String tue, String wed, String thu, String fri,
 			String sat, String sun) {
 
-		this.mon = new Boolean(mon);
-		this.tue = new Boolean(tue);
-		this.wed = new Boolean(wed);
-		this.thu = new Boolean(thu);
-		this.fri = new Boolean(fri);
-		this.sat = new Boolean(sat);
-		this.sun = new Boolean(sun);
+		this.mon = Boolean.valueOf(mon);
+		this.tue = Boolean.valueOf(tue);
+		this.wed = Boolean.valueOf(wed);
+		this.thu = Boolean.valueOf(thu);
+		this.fri = Boolean.valueOf(fri);
+		this.sat = Boolean.valueOf(sat);
+		this.sun = Boolean.valueOf(sun);
 
 	}
 

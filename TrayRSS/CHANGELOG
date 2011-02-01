@@ -24,6 +24,7 @@
  - Removed Function
 
 1.1
+* performance refactoring
 * event-dispatcher threads for gui
 * log4j updated
 * refactored the useage of log4j

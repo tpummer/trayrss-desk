@@ -11,8 +11,8 @@ public class Vacation {
 	public Vacation(String start,
 			String end) {
 		
-		if (start == "") start = "0";
-		if (end == "") end  = "1";
+		if (start.equals("")) start = "0";
+		if (end.equals("")) end  = "1";
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(Long.parseLong(start));

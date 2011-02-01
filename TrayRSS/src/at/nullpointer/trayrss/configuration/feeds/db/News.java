@@ -108,26 +108,30 @@ public class News implements Serializable {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		
-		News news = (News) o;
-		
-		if(this.author != null && this.author.equals(news.getAuthor())){
-		} else return false;
-		
-		if(this.title != null && this.title.equals(news.getTitle())){
-		} else return false;
+		if (o instanceof News){
+			News news = (News) o;
+			
+			if(this.author != null && this.author.equals(news.getAuthor())){
+			} else return false;
+			
+			if(this.title != null && this.title.equals(news.getTitle())){
+			} else return false;
 
-        //TODO Hibernate Problem this.date = Timestamp
-		//if(this.publishedDate != null && ((Date)(this.publishedDate)).equals(news.getPublishedDate())){
-         if(this.publishedDate != null && this.publishedDate.compareTo(news.getPublishedDate()) == 0){
-		} else return false;
-		
-		if(this.uri != null && this.uri.equals(news.getUri())){
-		} else return false;
-		
-		if(this.feed != null && this.feed.equals(news.getFeed())){
-		} else return false;
-		
-		return true;
+	        //TODO Hibernate Problem this.date = Timestamp
+			//if(this.publishedDate != null && ((Date)(this.publishedDate)).equals(news.getPublishedDate())){
+	         if(this.publishedDate != null && this.publishedDate.compareTo(news.getPublishedDate()) == 0){
+			} else return false;
+			
+			if(this.uri != null && this.uri.equals(news.getUri())){
+			} else return false;
+			
+			if(this.feed != null && this.feed.equals(news.getFeed())){
+			} else return false;
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
