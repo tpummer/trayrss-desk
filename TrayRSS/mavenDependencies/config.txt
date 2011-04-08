@@ -1,0 +1,3 @@
+mvn install:install-file -Dfile=JNotification/JNotification.jar -DgroupId=de.jutzig -DartifactId=jnotification -Dversion=0.3 -Dpackaging=jar
+
+mvn install:install-file -Dfile=jcalendar/jcalendar-1.3.3.mod.pt.jar -DgroupId=com.toedter -DartifactId=jcalendar -Dversion=1.3.3.mod -Dpackaging=jar
