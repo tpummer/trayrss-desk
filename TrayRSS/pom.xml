@@ -185,6 +185,11 @@
 				<updatePolicy>never</updatePolicy>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>trayrss-repository</id>
+			<name>TrayRSS Repository</name>
+			<url>http://trayrss.sourceforge.net/repository/</url>
+		</repository>
 	</repositories>
 
 </project>
