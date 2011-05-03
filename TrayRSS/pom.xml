@@ -3,9 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.nullpointer</groupId>
 	<artifactId>trayrss</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>TrayRSS</name>
-	<description>The goal of this tool is to offer the user a fast and cheap way to read news given by an RSS or ATOM feed by tray notifications. To read the news, it will open a browser.</description>
+	<description>The goal of this tool is to offer the user a fast and
+		cheap way to read news given by an RSS or ATOM feed by tray
+		notifications. To read the news, it will open a browser.</description>
 	<url>http://trayrss.nullpointer.at</url>
 
 	<properties>
@@ -95,7 +97,7 @@
 	</modules>
 	<issueManagement>
 		<system>TrayRSS Trac</system>
-		<url>http://sourceforge.net/apps/trac/trayrss/</url>
+		<url>http://trayrss.nullpointer.at/bug/</url>
 	</issueManagement>
 	<inceptionYear>2009-03-26</inceptionYear>
 	<build>
@@ -107,53 +109,92 @@
 					<archive>
 						<manifest>
 							<mainClass>at.nullpointer.trayrss.TrayRSS</mainClass>
+							<addDefaultImplementationEntries>true
+							</addDefaultImplementationEntries>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
+						<manifestEntries>
+							<Version>${project.version}</Version>
+						</manifestEntries>
 					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					<filters>
+						<filter>src/assemble/filter.properties</filter>
+					</filters>
+					<descriptors>
+						<descriptor>src/assemble/distribution.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>at.nullpointer.trayrss.TrayRSS</mainClass>
+							<addDefaultImplementationEntries>
+								true
+							</addDefaultImplementationEntries>
+							<addClasspath>true</addClasspath>
+							´
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Version>
+								${project.version}
+                        	</Version>
+							<Implementation-Version>
+								${project.version}-${release.suffix}
+							</Implementation-Version>
+							<SplashScreen-Image>img/rsstray.PNG</SplashScreen-Image>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
-			<plugin> 
-        <artifactId>maven-antrun-plugin</artifactId> 
-        <executions> 
-          <execution> 
-            <phase>deploy</phase> 
-            <configuration> 
-              <tasks> 
-                <mkdir dir="dist/complete"/>
-		
-				<copy todir="dist/complete">
-				  <fileset dir=".">
-				  		<include name="config.ini" />
-				  		<include name="CHANGELOG" />
-				  		<include name="README" />
-				  		<include name="lang/*.XML" />
-				  </fileset>
-				</copy>
-				<copy todir="dist/complete">
-					<fileset dir="target">
-						<include name="*.jar"/>
-					</fileset>
-				</copy>
-
-              </tasks> 
-            </configuration> 
-            <goals> 
-              <goal>run</goal> 
-            </goals> 
-          </execution> 
-        </executions> 
-      </plugin>
 			<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-			
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<excludeTransitive>false</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 	<repositories>

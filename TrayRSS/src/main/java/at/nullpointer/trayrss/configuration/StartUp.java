@@ -92,12 +92,7 @@ public class StartUp {
 		InputStream reader = null;
 		try {
 
-			reader = TrayRSS.class
-					.getResourceAsStream(ReferenceCollection.CONFIG
-							.substring(1));
-
-			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
-				reader = new FileInputStream(ReferenceCollection.CONFIG);
+			reader = new FileInputStream(ReferenceCollection.CONFIG);
 
 			props = new Properties();
 			props.loadFromXML(reader);

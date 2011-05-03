@@ -27,8 +27,10 @@
 * event-dispatcher threads for gui
 * log4j updated
 * refactored the useage of log4j
-+ task 00036: implementing maven
-* fix 00035: timesets starttimes where set as endtime
++ task 00035: implementing maven
+* fix 00033: timesets starttimes where set as endtime
++ task 00035: packaging by maven
+
  
 1.0
 * function validation
