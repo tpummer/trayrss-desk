@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<release.suffix>Beta</release.suffix>
 	</properties>
 
 	<dependencies>
@@ -96,11 +97,19 @@
 	<modules>
 	</modules>
 	<issueManagement>
-		<system>TrayRSS Trac</system>
+		<system>TrayRSS MantisBT</system>
 		<url>http://trayrss.nullpointer.at/bug/</url>
 	</issueManagement>
 	<inceptionYear>2009-03-26</inceptionYear>
+
+	<scm>
+		<connection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</connection>
+		<developerConnection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</developerConnection>
+		<tag>head</tag>
+		<url>http://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</url>
+	</scm>
 	<build>
+		<finalName>${project.name}-${project.version}-${release.suffix}-${buildNumber}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -161,7 +170,7 @@
 								${project.version}
                         	</Version>
 							<Implementation-Version>
-								${project.version}-${release.suffix}
+								${project.version}-${release.suffix}-${buildNumber}
 							</Implementation-Version>
 							<SplashScreen-Image>img/rsstray.PNG</SplashScreen-Image>
 						</manifestEntries>
@@ -194,7 +203,41 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>buildnumber-one</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+						<configuration>
+							<doCheck>true</doCheck>
+     						<doUpdate>false</doUpdate>
+							<item>buildNumber</item>
+						</configuration>
+					</execution>
+					<execution>
+						<id>buildnumber-two</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+						<configuration>
+							<format>r${buildNumber} {0,date,yyyy-MM-dd'T'HH-mm-ss.SSSZ}</format>
+							<items>
+								<item>timestamp</item>
+							</items>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<revisionOnScmFailure>UNKNOWN_REVISION</revisionOnScmFailure>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>

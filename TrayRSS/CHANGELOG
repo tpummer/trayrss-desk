@@ -30,6 +30,7 @@
 + task 00035: implementing maven
 * fix 00033: timesets starttimes where set as endtime
 + task 00035: packaging by maven
++ task 00035: buildnumber
 
  
 1.0
