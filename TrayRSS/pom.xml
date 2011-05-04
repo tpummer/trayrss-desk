@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.nullpointer</groupId>
 	<artifactId>trayrss</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>TrayRSS</name>
 	<description>The goal of this tool is to offer the user a fast and
 		cheap way to read news given by an RSS or ATOM feed by tray
@@ -12,7 +12,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<release.suffix>Beta</release.suffix>
 	</properties>
 
 	<dependencies>
@@ -109,7 +108,7 @@
 		<url>http://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</url>
 	</scm>
 	<build>
-		<finalName>${project.name}-${project.version}-${release.suffix}-${buildNumber}</finalName>
+		<finalName>${project.name}-${project.version}-${buildNumber}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -170,7 +169,7 @@
 								${project.version}
                         	</Version>
 							<Implementation-Version>
-								${project.version}-${release.suffix}-${buildNumber}
+								${project.version}-${buildNumber}
 							</Implementation-Version>
 							<SplashScreen-Image>img/rsstray.PNG</SplashScreen-Image>
 						</manifestEntries>
@@ -215,24 +214,11 @@
 							<goal>create</goal>
 						</goals>
 						<configuration>
-							<format>{0,number}</format>
+							<format>r{0,number}</format>
 							<doCheck>false</doCheck>
      						<doUpdate>false</doUpdate>
 							<items>
 								<item>buildNumber</item>
-							</items>
-						</configuration>
-					</execution>
-					<execution>
-						<id>buildnumber-two</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>create</goal>
-						</goals>
-						<configuration>
-							<format>r${buildNumber} {0,date,yyyy-MM-dd'T'HH-mm-ss.SSSZ}</format>
-							<items>
-								<item>timestamp</item>
 							</items>
 						</configuration>
 					</execution>
