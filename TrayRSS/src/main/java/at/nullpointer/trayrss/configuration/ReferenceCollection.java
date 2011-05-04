@@ -85,7 +85,6 @@ public class ReferenceCollection {
 	public static String TRAYMENU_EXIT = "Exit";
 	public static String TRAYMENU_MONITOR = "Check Feeds manually";
 	public static String TRAYMENU_CONFIG = "Configuration";
-	public static String TRAYMENU_CONFIG_SWIXML = "Configuration SWIXML";
 	public static String TRAYMENU_HELP = "Help";
 
 	/*

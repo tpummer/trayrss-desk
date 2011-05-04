@@ -162,9 +162,6 @@ public class StartUp {
 				+ ReferenceCollection.LANGUAGE + ".traymenu_monitor");
 		ReferenceCollection.TRAYMENU_CONFIG = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_config");
-		ReferenceCollection.TRAYMENU_CONFIG_SWIXML = langprops
-				.getProperty("trayrss." + ReferenceCollection.LANGUAGE
-						+ ".traymenu_config_swixml");
 		ReferenceCollection.TRAYMENU_HELP = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_help");
 		ReferenceCollection.HELP_TITLE = langprops.getProperty("trayrss."

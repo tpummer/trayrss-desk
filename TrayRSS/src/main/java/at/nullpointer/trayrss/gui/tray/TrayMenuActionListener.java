@@ -46,13 +46,6 @@ public class TrayMenuActionListener implements ActionListener {
 				}
 			});
 			
-		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG_SWIXML)){
-			javax.swing.SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					log.debug("SWIXML config frame started");
-				}
-			});
-			
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_HELP)){
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {

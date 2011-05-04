@@ -31,6 +31,7 @@
 * fix 00033: timesets starttimes where set as endtime
 + task 00035: packaging by maven
 + task 00035: buildnumber
+- task 00044: SWIXML menu removed
 
  
 1.0
