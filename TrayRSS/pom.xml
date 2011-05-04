@@ -215,9 +215,12 @@
 							<goal>create</goal>
 						</goals>
 						<configuration>
-							<doCheck>true</doCheck>
+							<format>{0,number}</format>
+							<doCheck>false</doCheck>
      						<doUpdate>false</doUpdate>
-							<item>buildNumber</item>
+							<items>
+								<item>buildNumber</item>
+							</items>
 						</configuration>
 					</execution>
 					<execution>
