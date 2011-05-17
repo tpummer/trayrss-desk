@@ -9,4 +9,39 @@
 		<module>../trayrss-desk-base</module>
 		<module>../trayrss-desk-gui</module>
 	</modules>
+	<repositories>
+		<repository>
+			<id>standard-repo</id>
+			<name>Maven Standard Repository</name>
+			<url>http://repo1.maven.org/maven2/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>trayrss-repository</id>
+			<name>TrayRSS Repository</name>
+			<url>http://trayrss.sourceforge.net/repository/</url>
+		</repository>
+	</repositories>
 </project>
