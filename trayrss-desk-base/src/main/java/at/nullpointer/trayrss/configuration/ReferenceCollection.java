@@ -78,6 +78,11 @@ public class ReferenceCollection {
 	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
 	
 	/*
+	 * Notification Messages
+	 */
+	public static final String notification_read_error_uri = "Error reading URL";
+	
+	/*
 	 * Tray
 	 */
 	

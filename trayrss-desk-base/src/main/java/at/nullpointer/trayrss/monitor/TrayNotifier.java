@@ -68,7 +68,13 @@ public class TrayNotifier implements Runnable {
 			popup = new JNotificationPopup(createComponent(title, name, url));
 			popup.setAnimator(new FadeIn(popup, 2000));
 
-			bread.addActionListener(new BrowserButton(popup, popman, url, node));
+			if(url != null){
+				bread.addActionListener(new BrowserButton(popup, popman, url,
+						node));
+			} else {
+				bread.setEnabled(false);
+			}
+
 			bstop.addActionListener(new Dispose(popup, popman, node));
 			bclose.addActionListener(new Later(popup, popman, node));
 
@@ -91,7 +97,7 @@ public class TrayNotifier implements Runnable {
 		input.add(notifi);
 		log.debug("TrayNotifier: " + notifi.getFeed().getName());
 		log.debug("TrayNotifier: " + notifi.getNews().getTitle());
-		log.debug(getSize());
+		log.debug("TrayNotifier: Size " + getSize());
 		log.debug("-----------------------------------------------");
 	}
 

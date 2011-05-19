@@ -19,16 +19,21 @@ package at.nullpointer.trayrss;
  */
 
 
+import java.awt.TrayIcon;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
+
+import org.apache.log4j.Logger;
+
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.StartUp;
 import at.nullpointer.trayrss.configuration.feeds.db.Feed;
 import at.nullpointer.trayrss.gui.TrayRSSSplashScreen;
-
-import java.awt.*;
-import java.io.*;
-import java.util.LinkedList;
-
-import org.apache.log4j.Logger;
 
 
 

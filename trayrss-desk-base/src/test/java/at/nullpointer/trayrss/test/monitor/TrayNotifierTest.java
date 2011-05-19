@@ -41,7 +41,7 @@ public class TrayNotifierTest {
 	
 	final TrayNotifier tn = new TrayNotifier();
 	Feed testfeed;
-	News testnews;
+	News testnews, testNewsBadUri;
 	static TrayIcon trayIcon;
 	
 	@BeforeClass
@@ -64,6 +64,9 @@ public class TrayNotifierTest {
 		testfeed.setName("testname");
 		testnews = new News();
 		testnews.setTitle("testtitle");
+		testNewsBadUri = new News();
+		testNewsBadUri.setTitle("Bad URL");
+		testNewsBadUri.setUri("asd");
 		
 		tn.setPopupManager(new PopupManager(
 				ReferenceCollection.DISPLAY_SECONDS * 1000, Corner.LOWER_RIGHT,
@@ -91,6 +94,13 @@ public class TrayNotifierTest {
 		log.debug(tn.getSize());
 		assertEquals(size + 1, tn.getSize());
 		
+	}
+	
+	@Test
+	public void testNotifyNewsFeedBadUri() throws InterruptedException{
+		tn.addToNotify(testNewsBadUri, testfeed);
+		tn.notifyNews();
+		Thread.sleep(10000);
 	}
 
 }

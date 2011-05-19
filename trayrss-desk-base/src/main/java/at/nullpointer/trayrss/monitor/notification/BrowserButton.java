@@ -18,6 +18,18 @@
  */
 package at.nullpointer.trayrss.monitor.notification;
 
+import java.awt.Component;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
@@ -25,48 +37,80 @@ import at.nullpointer.trayrss.configuration.feeds.db.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 public class BrowserButton implements ActionListener {
+
+	private Logger log = Logger.getLogger(BrowserButton.class);
 
 	JNotificationPopup popup;
 	PopupManager manager;
 	String url;
-    News node;
+	News node;
 
-	public BrowserButton(Component popup, PopupManager manager, String url, News node) {
+	/**
+	 * This is a button on the notification where the user can choose to open
+	 * the original news entry in a browser
+	 * 
+	 * @param popup
+	 * @param manager
+	 * @param url
+	 * @param node
+	 */
+	public BrowserButton(Component popup, PopupManager manager, String url,
+			News node) {
 		super();
 		this.popup = (JNotificationPopup) popup;
-		this.manager=manager;
+		this.manager = manager;
 		this.url = url;
-        this.node = node;
+		this.node = node;
 	}
 
+	/**
+	 * Opens the url of an news entry in the browser
+	 */
 	public void actionPerformed(ActionEvent e) {
-		URI uri;
-		try {
-			uri = new URI(url);
-			Desktop.getDesktop ().browse (uri);
+		URI uri = null;
 
-            NewsDAO nd = new NewsDAOImpl();
-            News test = nd.getNewsByData(node);
-            test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
-            nd.save(test);
-            
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (url == null) {
+			log.error("Pressing [Read] Button but the url is empty!");
+		} else {
+
+			try {
+				uri = new URI(url);
+				log.debug("Pressing [Read] Button at uri: " + uri);
+				if (Desktop.getDesktop() == null) {
+					log.warn("Pressing [Read] Button, Desktop not found!");
+				}
+				try {
+					Desktop.getDesktop().browse(uri);
+					log.debug("Pressing [Read] Button, uri should be open now.");
+				} catch (IOException e2) {
+					JOptionPane.showMessageDialog(null,
+							ReferenceCollection.notification_read_error_uri,
+							ReferenceCollection.notification_read_error_uri,
+							JOptionPane.ERROR_MESSAGE);
+					log.debug("Pressing [Read] Button IOException");
+					log.error(e2.getMessage());
+					e2.printStackTrace();
+				}
+
+				NewsDAO nd = new NewsDAOImpl();
+				News test = nd.getNewsByData(node);
+				test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
+				nd.save(test);
+
+				manager.dequeuePopup(popup);
+
+			} catch (URISyntaxException e1) {
+				JOptionPane.showMessageDialog(null,
+						ReferenceCollection.notification_read_error_uri,
+						ReferenceCollection.notification_read_error_uri,
+						JOptionPane.ERROR_MESSAGE);
+				log.debug("Pressing [Read] Button URISyntaxException");
+				log.error(e1.getMessage());
+				e1.printStackTrace();
+			}
+
 		}
-
-		manager.dequeuePopup(popup);
 
 	}
 
