@@ -27,6 +27,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class TrayRssConfigWindow {
 
@@ -73,15 +77,17 @@ public class TrayRssConfigWindow {
 		frmTrayrss.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel pnlGeneral = new JPanel();
-		tabbedPane.addTab(ConfigurationMessages.getString("config.general.tab.title", "General"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/general.png")), pnlGeneral, null); //$NON-NLS-1$ //$NON-NLS-2$
+		tabbedPane.addTab(ConfigurationMessages.getString("config.general.tab.title", "General"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/general.png")), pnlGeneral, null);
 		pnlGeneral.setLayout(new BoxLayout(pnlGeneral, BoxLayout.PAGE_AXIS));
 		
-		JPanel pnlDisplayCount = new JPanel();
-		FlowLayout fl_pnlDisplayCount = new FlowLayout();
-		pnlDisplayCount.setLayout(fl_pnlDisplayCount);
-		pnlGeneral.add(pnlDisplayCount);
+		Component verticalGlueAbove = Box.createVerticalGlue();
+		pnlGeneral.add(verticalGlueAbove);
 		
-		JLabel lblDisplayCount = new JLabel(ConfigurationMessages.getString("config.general.displaycount.label", "Display Count")); //$NON-NLS-1$ //$NON-NLS-2$
+		JPanel pnlDisplayCount = new JPanel();
+		pnlGeneral.add(pnlDisplayCount);
+		pnlDisplayCount.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblDisplayCount = new JLabel(ConfigurationMessages.getString("config.general.displaycount.label", "Display Count"));
 		pnlDisplayCount.add(lblDisplayCount);
 		
 		txtDisplaycount = new JTextField();
@@ -91,8 +97,9 @@ public class TrayRssConfigWindow {
 		
 		JPanel pnlDisplayTime = new JPanel();
 		pnlGeneral.add(pnlDisplayTime);
+		pnlDisplayTime.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblDisplayTime = new JLabel(ConfigurationMessages.getString("config.general.displaytime.label", "Display Time")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblDisplayTime = new JLabel(ConfigurationMessages.getString("config.general.displaytime.label", "Display Time"));
 		pnlDisplayTime.add(lblDisplayTime);
 		
 		txtDisplaytime = new JTextField();
@@ -103,15 +110,17 @@ public class TrayRssConfigWindow {
 		
 		JPanel pnlLanguage = new JPanel();
 		pnlGeneral.add(pnlLanguage);
+		pnlLanguage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		pnlGeneral.add(Box.createVerticalGlue());
-		
-		JLabel lblLanguage = new JLabel(ConfigurationMessages.getString("config.general.language.label", "Language")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblLanguage = new JLabel(ConfigurationMessages.getString("config.general.language.label", "Language"));
 		pnlLanguage.add(lblLanguage);
 		
 		JComboBox cbbLanguage = new JComboBox();
 		cbbLanguage.setModel(new DefaultComboBoxModel(new String[] {"de", "en"}));
 		pnlLanguage.add(cbbLanguage);
+		
+		Component verticalGlueBelow = Box.createVerticalGlue();
+		pnlGeneral.add(verticalGlueBelow);
 		
 		JPanel pnlFeed = new JPanel();
 		tabbedPane.addTab("Feeds", new ImageIcon(TrayRssConfigWindow.class.getResource("/images/feed.png")), pnlFeed, null);
@@ -163,7 +172,7 @@ public class TrayRssConfigWindow {
 		
 		JPanel pnlTimeFrame = new JPanel();
 		tabbedPane.addTab("TimeFrames", new ImageIcon(TrayRssConfigWindow.class.getResource("/images/timeframe.png")), pnlTimeFrame, null);
-		pnlTimeFrame.setLayout(new BoxLayout(pnlTimeFrame, BoxLayout.PAGE_AXIS));
+		pnlTimeFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel pnlTimeFrameActive = new JPanel();
 		FlowLayout fl_pnlTimeFrameActive = (FlowLayout) pnlTimeFrameActive.getLayout();
