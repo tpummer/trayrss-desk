@@ -8,6 +8,7 @@
 	<modules>
 		<module>../trayrss-desk-base</module>
 		<module>../trayrss-desk-gui</module>
+		<module>../trayrss-desk-model</module>
 	</modules>
 	<repositories>
 		<repository>
