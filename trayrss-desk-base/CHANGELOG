@@ -26,6 +26,7 @@ Changes in 1.1.0
 * splitting the project into submodules
 + if no url in rss entry, the read button is disabled
 + new UI
++ extraxt model
 
 
 Changes in 1.0.1
