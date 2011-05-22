@@ -27,6 +27,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -230,14 +233,22 @@ public class TrayRssConfigWindow {
 		JLabel lblVacation = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.label", "Vacation")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblVacation);
 		
-		JSpinner spinnerStart = new JSpinner();
-		pnlTimeFrameVacation.add(spinnerStart);
+//		JSpinner spinnerStart = new JSpinner();
+//		pnlTimeFrameVacation.add(spinnerStart);
+		
+		JDateChooser dacVacStart = new JDateChooser();
+		dacVacStart.setDateFormatString("dd.MM.yyyy");
+		pnlTimeFrameVacation.add(dacVacStart);
 		
 		JLabel lblStart = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblStart);
 		
-		JSpinner spinnerEnd = new JSpinner();
-		pnlTimeFrameVacation.add(spinnerEnd);
+//		JSpinner spinnerEnd = new JSpinner();
+//		pnlTimeFrameVacation.add(spinnerEnd);
+		
+		JDateChooser dacVacEnd = new JDateChooser();
+		dacVacEnd.setDateFormatString("dd.MM.yyyy");
+		pnlTimeFrameVacation.add(dacVacEnd);
 		
 		JLabel lblEnd = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.end.label", "End")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblEnd);
