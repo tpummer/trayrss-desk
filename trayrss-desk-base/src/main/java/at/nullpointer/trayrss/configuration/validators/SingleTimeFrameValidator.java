@@ -17,38 +17,45 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.configuration.timeframes;
+package at.nullpointer.trayrss.configuration.validators;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import at.nullpointer.trayrss.configuration.model.SingleTimeFrame;
-import at.nullpointer.trayrss.configuration.validators.SingleTimeFrameValidator;
 
-public class Timeframe {
+/**
+ * <p>This class contains methods to validate a {@link} SingleTimeFrame</p> 
+ * @author Thomas Pummer
+ * @version 1.0
+ */
+//TODO check @link
+public class SingleTimeFrameValidator{
 	
-	ArrayList<SingleTimeFrame> frameList;
-
-	public Timeframe(String inputFrame) {
-		String[] splitted = inputFrame.trim().split(" ");
+	/**
+	 * validateSingleTimeFrame is used to validate if a date matches a {@link} SingleTimeFrame</p>
+	 * @param stf
+	 * @param now
+	 * @return
+	 */
+	public static Boolean validateTimeInSingleTimeFrame(SingleTimeFrame stf, Calendar now){
+		Boolean result = true;
 		
-		frameList = new ArrayList<SingleTimeFrame>();
+		int hour = now.get(Calendar.HOUR_OF_DAY);
+		int min = now.get(Calendar.MINUTE);
 		
-		for (String timeframe : splitted) {
-			SingleTimeFrame frame = new SingleTimeFrame(timeframe.split("-"));
-			frameList.add(frame);
+		result = result && stf.getStartHour() < hour;
+		
+		if(stf.getStartHour() == hour){
+			result = result && stf.getStartMin() <= min;
 		}
-	}
-
-	public boolean isAllowed(Calendar now) {
 		
-		boolean allowed = true;
+		result = result && stf.getEndHour() > hour;
 		
-		for (SingleTimeFrame frame : frameList){
-			allowed = allowed && SingleTimeFrameValidator.validateTimeInSingleTimeFrame(frame, now);
+		if(stf.getEndHour() == hour){
+			result = result && stf.getEndMin() >= min;
 		}
-
-		return allowed;
+		
+		return result;
 	}
 
 }

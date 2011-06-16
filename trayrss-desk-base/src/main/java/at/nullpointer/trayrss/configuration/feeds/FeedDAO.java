@@ -19,7 +19,7 @@
  */
 package at.nullpointer.trayrss.configuration.feeds;
 
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.model.Feed;
 
 import java.util.Collection;
 

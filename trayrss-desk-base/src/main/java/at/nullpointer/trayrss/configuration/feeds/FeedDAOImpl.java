@@ -20,7 +20,7 @@
 package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.model.Feed;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

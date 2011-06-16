@@ -20,7 +20,7 @@
 package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.News;
+import at.nullpointer.trayrss.model.News;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;

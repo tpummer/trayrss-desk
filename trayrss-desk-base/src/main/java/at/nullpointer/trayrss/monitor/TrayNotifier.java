@@ -20,8 +20,8 @@
 package at.nullpointer.trayrss.monitor;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
-import at.nullpointer.trayrss.configuration.feeds.db.News;
+import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.monitor.notification.BrowserButton;
 import at.nullpointer.trayrss.monitor.notification.Dispose;
 import at.nullpointer.trayrss.monitor.notification.Later;

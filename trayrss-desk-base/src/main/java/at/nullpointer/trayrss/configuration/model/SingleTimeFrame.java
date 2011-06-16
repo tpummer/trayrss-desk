@@ -17,15 +17,13 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.configuration.timeframes;
+package at.nullpointer.trayrss.configuration.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
-
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 public class SingleTimeFrame {
 	
@@ -88,31 +86,7 @@ public class SingleTimeFrame {
 
 	public void setEndMin(int endMin) {
 		this.endMin = endMin;
-	}
-
-
-	public boolean isAllowed(Calendar now) {
-		
-		boolean allowed = true;
-		
-		int hour = now.get(Calendar.HOUR_OF_DAY);
-		int min = now.get(Calendar.MINUTE);
-		
-		allowed = allowed && startHour < hour;
-		
-		if(startHour == hour){
-			allowed = allowed && startMin <= min;
-		}
-		
-		allowed = allowed && endHour > hour;
-		
-		if(endHour == hour){
-			allowed = allowed && endMin >= min;
-		}
-		
-		return allowed;
-	}
-	
+	}	
 	
 
 }

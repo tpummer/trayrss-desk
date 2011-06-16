@@ -22,7 +22,7 @@ package at.nullpointer.trayrss.gui.configframe;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.model.Feed;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;

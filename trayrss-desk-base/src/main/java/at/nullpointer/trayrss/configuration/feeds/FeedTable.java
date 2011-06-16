@@ -20,7 +20,7 @@
 package at.nullpointer.trayrss.configuration.feeds;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.model.Feed;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +63,7 @@ public class FeedTable {
 		newRow[1] = feed.getName();
 		newRow[2] = feed.getUrl();
 		newRow[3] = feed.getIntervall();
-		newRow[4] = feed.isMonitored();
+		newRow[4] = feed.getMonitored();
 		
 		table.add(newRow);
 	}

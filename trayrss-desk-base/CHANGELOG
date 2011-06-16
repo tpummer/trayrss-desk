@@ -26,7 +26,15 @@ Changes in 1.1.0
 * splitting the project into submodules
 + if no url in rss entry, the read button is disabled
 + new UI
-+ extraxt model
++ extract model
+* headercomment update
++ Add Feed InternalFrame
++ ConfigurationModel Interface
+* refactored model to match jpa
+- ConfigurationModel Interface
++ ConfigurationModel
+* moved SingleTimeFrame
++ added SingleTimeFrameValidator and extraced validation from SingleTimeFrame to it
 
 
 Changes in 1.0.1

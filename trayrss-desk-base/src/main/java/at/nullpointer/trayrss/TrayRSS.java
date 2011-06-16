@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.StartUp;
-import at.nullpointer.trayrss.configuration.feeds.db.Feed;
+import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.gui.TrayRSSSplashScreen;
 
 
