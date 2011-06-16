@@ -19,40 +19,33 @@
  */
 package at.nullpointer.trayrss.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import java.awt.FlowLayout;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.BevelBorder;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
-
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class TrayRssConfigWindow {
 
@@ -252,18 +245,12 @@ public class TrayRssConfigWindow {
 		JLabel lblVacation = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.label", "Vacation")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblVacation);
 		
-//		JSpinner spinnerStart = new JSpinner();
-//		pnlTimeFrameVacation.add(spinnerStart);
-		
 		JDateChooser dacVacStart = new JDateChooser();
 		dacVacStart.setDateFormatString("dd.MM.yyyy");
 		pnlTimeFrameVacation.add(dacVacStart);
 		
 		JLabel lblStart = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblStart);
-		
-//		JSpinner spinnerEnd = new JSpinner();
-//		pnlTimeFrameVacation.add(spinnerEnd);
 		
 		JDateChooser dacVacEnd = new JDateChooser();
 		dacVacEnd.setDateFormatString("dd.MM.yyyy");
