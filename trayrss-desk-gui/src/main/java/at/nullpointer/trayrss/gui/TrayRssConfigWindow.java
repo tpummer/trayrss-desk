@@ -21,7 +21,6 @@ package at.nullpointer.trayrss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
@@ -56,22 +55,6 @@ public class TrayRssConfigWindow {
 	private JTable table_1;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrayRssConfigWindow window = new TrayRssConfigWindow();
-					window.frmTrayrss.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public TrayRssConfigWindow() {
@@ -86,7 +69,7 @@ public class TrayRssConfigWindow {
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));
 		frmTrayrss.setTitle(ConfigurationMessages.getString("config.window.title", "TrayRSS - Configuration")); //$NON-NLS-1$ //$NON-NLS-2$
 		frmTrayrss.setBounds(100, 100, 551, 473);
-		frmTrayrss.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmTrayrss.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmTrayrss.getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -270,6 +253,10 @@ public class TrayRssConfigWindow {
 		
 		JButton btnCancel = new JButton(ConfigurationMessages.getString("config.window.button.cancel", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
 		saveExitPanel.add(btnCancel);
+	}
+	
+	public JFrame getJFrame(){
+		return this.frmTrayrss;
 	}
 
 }
