@@ -35,7 +35,13 @@ Changes in 1.1.0
 + ConfigurationModel
 * moved SingleTimeFrame
 + added SingleTimeFrameValidator and extraced validation from SingleTimeFrame to it
-
+* alter new ui adding public getter
++ skeletion of ConfigController
+- cleanup in ReferenceCollection
+- removed unused classes (Balloon, BrowserHandler)
+- removed old ConfigFrame, ConfigFrameActionListener, ConfigFrameCaptions
+* altered hibernate.cfg.xml to point to new model
+* changed configmenu button to new ui
 
 Changes in 1.0.1
 * performance refactoring
