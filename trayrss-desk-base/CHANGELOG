@@ -42,6 +42,7 @@ Changes in 1.1.0
 - removed old ConfigFrame, ConfigFrameActionListener, ConfigFrameCaptions
 * altered hibernate.cfg.xml to point to new model
 * changed configmenu button to new ui
++ read properties into model at startup
 
 Changes in 1.0.1
 * performance refactoring

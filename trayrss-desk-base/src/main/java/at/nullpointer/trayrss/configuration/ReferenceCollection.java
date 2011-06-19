@@ -42,7 +42,7 @@ public class ReferenceCollection {
 	 * Configuration
 	 */
 	public static ConfigurationController CONFIGURATION;
-	public static final String CONFIG = "./config.ini";
+	
 	public static final String DE = "de";
 	public static final String DE_LANG = "./lang/de.XML";
 	public static final String EN = "en";

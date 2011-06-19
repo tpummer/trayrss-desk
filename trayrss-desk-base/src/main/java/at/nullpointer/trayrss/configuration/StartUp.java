@@ -28,7 +28,11 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import at.nullpointer.trayrss.ConfigurationConstants;
 import at.nullpointer.trayrss.TrayRSS;
+import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
+import at.nullpointer.trayrss.configuration.timeframes.Timeframe;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
@@ -40,9 +44,12 @@ import at.nullpointer.trayrss.monitor.TrayNotifier;
  * 
  */
 public class StartUp {
+	
 	Logger log = Logger.getLogger(StartUp.class);
+	
 	Properties props = new Properties();
 	Properties langprops = new Properties();
+	
 	boolean debug = false;
 
 	/**
@@ -55,45 +62,31 @@ public class StartUp {
 		this.debug = debug;
 		//TODO debug into RC
 		loadProps();
-		loadInitialProperties();
-		setCaptions();
+		ConfigurationModel configModel = loadInitialProperties();
+		setCaptions(configModel.getLanguage());
 		startTray();
 		startDatabase();
 		startMonitor();
 		log.info("Startup complete.");
 	}
 
-	private void startDatabase() {
-		long start = 0;
-		if (debug) {
-			start = System.currentTimeMillis();
-			log.debug("Startup: Start Database at " + start);
-		}
-
-		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
-				.configure().buildSessionFactory();
-
-		long end = 0;
-		if (debug) {
-			end = System.currentTimeMillis();
-			log
-					.debug("Startup: Finished Start Database at " + end);
-		}
-	}
-
+	/**
+	 * <p>Reads all properties into memory</p>
+	 */
 	private void loadProps() {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
 		log.debug("Startup: Load Properties at " + start);
+		
 		InputStream reader = null;
 		try {
-
-			reader = new FileInputStream(ReferenceCollection.CONFIG);
-
+	
+			reader = new FileInputStream(ConfigurationConstants.CONFIG);
+	
 			props = new Properties();
 			props.loadFromXML(reader);
-
+	
 			ReferenceCollection.CONFIGURATION = new ConfigurationController();
 		} catch (FileNotFoundException e) {
 			log.error("No config file found! - "
@@ -115,26 +108,71 @@ public class StartUp {
 				+ end);
 	}
 
-	private void setCaptions() {
+	/**
+	 * <p>Initializes the {@link ConfigurationModel}</p>
+	 */
+	private ConfigurationModel loadInitialProperties() {
+		long start = 0;
+		if (debug)
+			start = System.currentTimeMillis();
+		log.debug("Startup: Set Language at " + start);
+	
+		//TODO Config laden
+		ConfigurationModel configModel = new ConfigurationModel();
+		
+		//general
+		configModel.setLanguage(LanguageShortcut.valueOf(props.getProperty(ConfigurationConstants.LANGUAGE).toUpperCase()));
+		configModel.setDisplayTime(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYSECOND)));
+		configModel.setDisplayCount(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYCOUNT)));
+		
+		//timerestriction
+		configModel.setIsTimeFrameActivated(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIMERESTRICTION)));
+		//TODO configModel.setTimeFrames(timeFrames)
+		//props.getProperty(ConfigurationConstants.TIMEFRAME);
+		configModel.setIsMondayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_MO)));
+		configModel.setIsTuesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_TU)));
+		configModel.setIsWednesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_WE)));
+		configModel.setIsThursdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_TH)));
+		configModel.setIsFridayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_FR)));
+		configModel.setIsSaturdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SA)));
+		configModel.setIsSundayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SU)));
+		
+		long end = 0;
+		if (debug)
+			end = System.currentTimeMillis();
+		log.debug("Startup: Finished Set Language at "
+				+ end);
+		
+		return configModel;
+	
+	}
 
+	
+	/**
+	 * <p>preloads the captions of the tray menu</p>
+	 * 
+	 * @param lang of type LanguageShortcut
+	 */
+	private void setCaptions(LanguageShortcut lang) {
+	
 		log.debug("Startup: Load Languagefile at "
 				+ System.currentTimeMillis());
 		InputStream reader = null;
-
+	
+		//TODO Sprache auf neues Konzept umstellen
 		String languagefile = ReferenceCollection.EN_LANG;
-
-		//TODO Language aus Model holen
-		//if (ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE))
-		//	languagefile = ReferenceCollection.DE_LANG;
-
+	
+		if (lang.getShortcut().equals(ReferenceCollection.DE))
+			languagefile = ReferenceCollection.DE_LANG;
+	
 		try {
-
+	
 			reader = TrayRSS.class.getResourceAsStream(languagefile
 					.substring(1));
-
+	
 			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
 				reader = new FileInputStream(languagefile);
-
+	
 			langprops = new Properties();
 			langprops.loadFromXML(reader);
 		} catch (FileNotFoundException e) {
@@ -150,47 +188,64 @@ public class StartUp {
 				log.error("Error closing RSS Stream.");
 			}
 		}
-
+	
 		log.debug("Startup: Set Captions at "
 				+ System.currentTimeMillis());
 		
-		//TODO language not hardcoded - from config
-		ReferenceCollection.LANGUAGE = "en";
-
+		String language_short = lang.getShortcut(); 
+	
 		ReferenceCollection.TRAYMENU_EXIT = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".traymenu_exit");
+				+ language_short + ".traymenu_exit");
 		ReferenceCollection.TRAYMENU_MONITOR = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".traymenu_monitor");
+				+ language_short + ".traymenu_monitor");
 		ReferenceCollection.TRAYMENU_CONFIG = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".traymenu_config");
+				+ language_short + ".traymenu_config");
 		ReferenceCollection.TRAYMENU_HELP = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".traymenu_help");
+				+ language_short + ".traymenu_help");
 		ReferenceCollection.HELP_TITLE = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".help_title");
+				+ language_short + ".help_title");
 		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
-				+ ReferenceCollection.LANGUAGE + ".help_ok");
-
+				+ language_short + ".help_ok");
+	
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
 		log.debug("Startup: Finished Set Captions at "
 				+ end);
-
+	
 	}
 
-	private void loadInitialProperties() {
+	private void startTray() {
 		long start = 0;
 		if (debug)
 			start = System.currentTimeMillis();
-		log.debug("Startup: Set Language at " + start);
-
-		//TODO Config laden
+		log.debug("Startup: Start Tray at " + start);
+	
+		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
+		trayIconPOJO.startTrayIcon();
+	
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Set Language at "
-				+ end);
+		log.debug("Startup: Finished Start Tray at " + end);
+	}
 
+	private void startDatabase() {
+		long start = 0;
+		if (debug) {
+			start = System.currentTimeMillis();
+			log.debug("Startup: Start Database at " + start);
+		}
+
+		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
+				.configure().buildSessionFactory();
+
+		long end = 0;
+		if (debug) {
+			end = System.currentTimeMillis();
+			log
+					.debug("Startup: Finished Start Database at " + end);
+		}
 	}
 
 	private void startMonitor() {
@@ -209,20 +264,5 @@ public class StartUp {
 			end = System.currentTimeMillis();
 		log.debug("Startup: Finished Start Monitor at "
 				+ end);
-	}
-
-	private void startTray() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Start Tray at " + start);
-
-		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
-		trayIconPOJO.startTrayIcon();
-
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Start Tray at " + end);
 	}
 }
