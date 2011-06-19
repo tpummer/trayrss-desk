@@ -62,10 +62,6 @@ public class FeedTableValidator {
 		for (int i = 0; i < rows; i++) {
 			String checkString = (String) (table[i][urlColumn]);
 			valid = valid && checkURL(checkString);
-			if(!valid)JOptionPane.showMessageDialog(null, String.format(
-					ReferenceCollection.config_url_valid_text, checkString, i+1),
-					ReferenceCollection.config_url_valid_title,
-					JOptionPane.ERROR_MESSAGE);
 		}
 
 		return valid;

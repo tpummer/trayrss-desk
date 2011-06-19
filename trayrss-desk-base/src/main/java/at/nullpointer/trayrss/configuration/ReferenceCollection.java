@@ -20,16 +20,15 @@
 package at.nullpointer.trayrss.configuration;
 
 
+import java.awt.TrayIcon;
+
+import org.apache.log4j.Level;
+import org.hibernate.SessionFactory;
+
 import at.nullpointer.trayrss.configuration.feeds.FeedTable;
-import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
 import at.nullpointer.trayrss.gui.tray.Help;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
-
-import java.awt.*;
 
 /**
  * Collection of all references
@@ -42,7 +41,7 @@ public class ReferenceCollection {
 	/*
 	 * Configuration
 	 */
-	public static Configuration CONFIGURATION;
+	public static ConfigurationController CONFIGURATION;
 	public static final String CONFIG = "./config.ini";
 	public static final String DE = "de";
 	public static final String DE_LANG = "./lang/de.XML";
@@ -105,59 +104,6 @@ public class ReferenceCollection {
 	public static String HELP_TITLE = "Help";
 	public static Help HELP_WINDOW;
 	public static String HELP_OK = "Ok";
-	
-	/*
-	 * Configuration Window
-	 */
-	public static ConfigFrame CONFIG_WINDOW;
-	
-	public static String CONFIG_TITLE = "Configuration";
-	
-	public static String CONFIG_TIMEFRAMESLABEL;
-	public static String CONFIG_TIMEFRAMES_VALUE;
-	public static String CONFIG_MONITORINGDAYSLABEL;
-	public static String CONFIG_MONITORINGDAYSMO;
-	public static String CONFIG_MONITORINGDAYSMO_VALUE;
-	public static String CONFIG_MONITORINGDAYSWE;
-	public static String CONFIG_MONITORINGDAYSWE_VALUE;
-	public static String CONFIG_MONITORINGDAYSFR;
-	public static String CONFIG_MONITORINGDAYSFR_VALUE;
-	public static String CONFIG_MONITORINGDAYSSA;
-	public static String CONFIG_MONITORINGDAYSSA_VALUE;
-	public static String CONFIG_MONITORINGDAYSTH;
-	public static String CONFIG_MONITORINGDAYSTH_VALUE;
-	public static String CONFIG_MONITORINGDAYSTU;
-	public static String CONFIG_MONITORINGDAYSTU_VALUE;
-	public static String CONFIG_MONITORINGDAYSSU;
-	public static String CONFIG_MONITORINGDAYSSU_VALUE;
-	public static String CONFIG_VACATIONSTARTLABEL;
-	public static String CONFIG_VACATIONLABEL;
-	public static String CONFIG_VACATIONENDLABEL;
-	public static String CONFIG_VACATION_START_VALUE;
-	public static String CONFIG_VACATION_END_VALUE;
-	public static String CONFIG_TIMEFRAMESPANEL_BORDER_TITLE;
-	public static String CONFIG_FEEDSPANEL_BORDER_TITLE;
-	
-	public static String CONFIG_SAVEBUTTON_TEXT;
-	public static String CONFIG_ADDBUTTON_TEXT;
-	public static String CONFIG_DELETEBUTTON_TEXT;
-	public static String CONFIG_CANCELBUTTON_TEXT;
-	
-	public static String CONFIG_MAINCONFIGPANEL_BORDER_TITLE;
-	public static String CONFIG_DISPLAYCOUNTLABEL;
-	public static String CONFIG_DISPLAYTIMELABEL;
-	public static Object[] CONFIG_TABLE_HEADER;
-	public static String CONFIG_LANGUAGESELECTORLABEL;
-	public static String CONFIG_LANGUAGESELECTORFIELD;
-	
-	public static String config_url_valid_title;
-	public static String config_url_valid_text;
-	public static String config_vacation_valid_title;
-	public static String config_vacation_valid_text;
-	public static String config_long_valid_text;
-	public static String config_long_valid_title;
-	public static String config_timeframe_valid_text;
-	public static String config_timeframe_valid_title;
 	
 	public static FeedTable FEED_TABLE;
 	public static TrayNotifier TRAYNOTIFIER;

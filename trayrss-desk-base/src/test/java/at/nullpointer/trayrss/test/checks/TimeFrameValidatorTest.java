@@ -19,21 +19,14 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import at.nullpointer.trayrss.checks.TimeFrameValidator;
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TimeFrameValidatorTest {
+import org.junit.Test;
 
-	@Before
-	public void setUp() throws Exception {
-		ReferenceCollection.config_timeframe_valid_title = "titel";
-		ReferenceCollection.config_timeframe_valid_text = "Unkorrektes Zeitfenster in %s";
-	}
+import at.nullpointer.trayrss.checks.TimeFrameValidator;
+
+public class TimeFrameValidatorTest {
 
 	@Test
 	public void testCheckTimeFramesOkEins() {
@@ -111,16 +104,6 @@ public class TimeFrameValidatorTest {
 	public void testCheckTimeFramesFailZeittrennerZweiFehlt() {
 		String input = "0900-1200 10001600";
 		assertFalse(TimeFrameValidator.checkTimeFrames(input));
-	}
-
-	@Test
-	public void testTimeFramesMessageOK() {
-		assertTrue(TimeFrameValidator.timeFramesMessage(TimeFrameValidator.checkTimeFrames("2000-2100"), "feld"));
-	}
-	
-	@Test
-	public void testTimeFramesMessageFail() {
-		assertFalse(TimeFrameValidator.timeFramesMessage(TimeFrameValidator.checkTimeFrames("2000-21a00"), "feld"));
 	}
 
 }

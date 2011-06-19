@@ -60,17 +60,4 @@ public class TimeFrameValidator {
         return !(hour < 0 || hour > 24 || min < 0 || min > 60);
 		}
 
-	public static boolean timeFramesMessage(boolean checkTimeFrames,
-			String field) {
-
-		if (!checkTimeFrames) {
-			JOptionPane.showMessageDialog(null, String.format(
-					ReferenceCollection.config_timeframe_valid_text, field),
-					ReferenceCollection.config_timeframe_valid_title,
-					JOptionPane.ERROR_MESSAGE);
-		}
-
-		return checkTimeFrames;
-	}
-
 }

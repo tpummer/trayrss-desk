@@ -33,7 +33,7 @@ public class FeedTableModel extends AbstractTableModel {
 
 	FeedTable table = ReferenceCollection.FEED_TABLE;
 
-	Object[] columnNames = ReferenceCollection.CONFIG_TABLE_HEADER;
+	Object[] columnNames = {"oi"};//TODO ReferenceCollection.CONFIG_TABLE_HEADER;
 
 	public int getColumnCount() {
 		return columnNames.length;

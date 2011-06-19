@@ -19,9 +19,6 @@
  */
 package at.nullpointer.trayrss.checks;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-
-import javax.swing.*;
 import java.util.Date;
 
 public class DateValidator {
@@ -34,10 +31,6 @@ public class DateValidator {
 		if (end.after(start))
 			return true;
 
-		JOptionPane.showMessageDialog(null,
-				ReferenceCollection.config_vacation_valid_text,
-				ReferenceCollection.config_vacation_valid_title,
-				JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 

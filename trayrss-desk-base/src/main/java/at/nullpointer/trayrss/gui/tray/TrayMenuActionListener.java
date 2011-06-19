@@ -19,15 +19,15 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.Shutdown;
-import at.nullpointer.trayrss.gui.configframe.ConfigFrame;
-
-import java.awt.*;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.apache.log4j.Logger;
+
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.Shutdown;
+import at.nullpointer.trayrss.gui.TrayRssConfigWindow;
 
 public class TrayMenuActionListener implements ActionListener {
 	
@@ -43,7 +43,8 @@ public class TrayMenuActionListener implements ActionListener {
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					new ConfigFrame();
+					TrayRssConfigWindow trayRssConfigWindow = new TrayRssConfigWindow();
+					trayRssConfigWindow.getJFrame().setVisible(true);
 				}
 			});
 			

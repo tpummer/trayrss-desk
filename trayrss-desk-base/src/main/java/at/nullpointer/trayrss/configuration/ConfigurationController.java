@@ -17,34 +17,11 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.test.checks;
+package at.nullpointer.trayrss.configuration;
 
-import at.nullpointer.trayrss.checks.CheckLib;
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-public class CheckLibTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@Test
-	public void testCheckLongOk() {
-		assertTrue(CheckLib.checkLong("1235343"));
-	}
+public class ConfigurationController {
 	
-	@Test
-	public void testCheckLongString() {
-		assertFalse(CheckLib.checkLong("1a235343"));
-	}
-	
-	@Test
-	public void testCheckLongDouble() {
-		assertFalse(CheckLib.checkLong("1235343.23"));
+	public void save(){
+		//TODO ConfigurationModel persistieren
 	}
 }

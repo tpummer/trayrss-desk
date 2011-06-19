@@ -19,22 +19,19 @@
  */
 package at.nullpointer.trayrss.configuration;
 
-import at.nullpointer.trayrss.TrayRSS;
-import at.nullpointer.trayrss.gui.configframe.ConfigFrameCaptions;
-import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
-import at.nullpointer.trayrss.monitor.Monitor;
-import at.nullpointer.trayrss.monitor.TrayNotifier;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.hibernate.cfg.AnnotationConfiguration;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.apache.log4j.Logger;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import at.nullpointer.trayrss.TrayRSS;
+import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
+import at.nullpointer.trayrss.monitor.Monitor;
+import at.nullpointer.trayrss.monitor.TrayNotifier;
 
 /**
  * Prozesses all initial loadings
@@ -97,7 +94,7 @@ public class StartUp {
 			props = new Properties();
 			props.loadFromXML(reader);
 
-			ReferenceCollection.CONFIGURATION = new Configuration(props);
+			ReferenceCollection.CONFIGURATION = new ConfigurationController();
 		} catch (FileNotFoundException e) {
 			log.error("No config file found! - "
 					+ "\n Please reinstall the application!");
@@ -126,8 +123,9 @@ public class StartUp {
 
 		String languagefile = ReferenceCollection.EN_LANG;
 
-		if (ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE))
-			languagefile = ReferenceCollection.DE_LANG;
+		//TODO Language aus Model holen
+		//if (ReferenceCollection.LANGUAGE.equals(ReferenceCollection.DE))
+		//	languagefile = ReferenceCollection.DE_LANG;
 
 		try {
 
@@ -155,6 +153,9 @@ public class StartUp {
 
 		log.debug("Startup: Set Captions at "
 				+ System.currentTimeMillis());
+		
+		//TODO language not hardcoded - from config
+		ReferenceCollection.LANGUAGE = "en";
 
 		ReferenceCollection.TRAYMENU_EXIT = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".traymenu_exit");
@@ -168,8 +169,6 @@ public class StartUp {
 				+ ReferenceCollection.LANGUAGE + ".help_title");
 		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
 				+ ReferenceCollection.LANGUAGE + ".help_ok");
-
-		ConfigFrameCaptions.load(langprops);
 
 		long end = 0;
 		if (debug)
@@ -185,8 +184,7 @@ public class StartUp {
 			start = System.currentTimeMillis();
 		log.debug("Startup: Set Language at " + start);
 
-		ReferenceCollection.CONFIGURATION.load();
-
+		//TODO Config laden
 		long end = 0;
 		if (debug)
 			end = System.currentTimeMillis();

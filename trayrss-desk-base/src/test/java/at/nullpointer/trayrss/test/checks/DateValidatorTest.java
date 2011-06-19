@@ -32,12 +32,6 @@ import static org.junit.Assert.*;
 
 public class DateValidatorTest {
 
-	@Before
-	public void setUp() throws Exception {
-		ReferenceCollection.config_vacation_valid_title = "Enddate before startdate";
-		ReferenceCollection.config_vacation_valid_text = "The end of your vacation is before the start of the vacation! This is not possible.";
-	}
-
 	@Test
 	public void testCheckDatesStartNull(){
 		assertTrue(DateValidator.checkDates(null, new Date()));
