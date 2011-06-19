@@ -57,6 +57,7 @@ public class Feed {
 	@Column(nullable = false)
 	private Boolean monitored;
 	
+	//TODO mappedby
 	@OneToMany
 	private List<News> news = new ArrayList<News>();
 	
