@@ -43,6 +43,7 @@ Changes in 1.1.0
 * altered hibernate.cfg.xml to point to new model
 * changed configmenu button to new ui
 + read properties into model at startup
++ implemented the configurationcontroller
 
 Changes in 1.0.1
 * performance refactoring

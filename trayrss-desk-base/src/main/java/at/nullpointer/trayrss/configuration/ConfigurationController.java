@@ -19,9 +19,18 @@
  */
 package at.nullpointer.trayrss.configuration;
 
-public class ConfigurationController {
+import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+
+/**
+ * <p>Takes the responsability for the ConfigurationModel. Offering save, 
+ * load and reading methods</p>
+ * 
+ * @author Thomas Pummer
+ * @version 1.0
+ */
+public interface ConfigurationController {
 	
-	public void save(){
-		//TODO ConfigurationModel persistieren
-	}
+	public void save(ConfigurationModel configurationModel);
+	public void load();
+	public ConfigurationModel getConfigurationModel();
 }

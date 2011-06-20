@@ -61,51 +61,15 @@ public class StartUp {
 	public StartUp(boolean debug) {
 		this.debug = debug;
 		//TODO debug into RC
-		loadProps();
-		ConfigurationModel configModel = loadInitialProperties();
+		//TODO read Config
+		ReferenceCollection.CONFIGURATION = ConfigurationControllerImpl.getInstance(debug);
+		ReferenceCollection.CONFIGURATION.load();
+		ConfigurationModel configModel = ReferenceCollection.CONFIGURATION.getConfigurationModel();
 		setCaptions(configModel.getLanguage());
 		startTray();
 		startDatabase();
 		startMonitor();
 		log.info("Startup complete.");
-	}
-
-	/**
-	 * <p>Reads all properties into memory</p>
-	 */
-	private void loadProps() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Load Properties at " + start);
-		
-		InputStream reader = null;
-		try {
-	
-			reader = new FileInputStream(ConfigurationConstants.CONFIG);
-	
-			props = new Properties();
-			props.loadFromXML(reader);
-	
-			ReferenceCollection.CONFIGURATION = new ConfigurationController();
-		} catch (FileNotFoundException e) {
-			log.error("No config file found! - "
-					+ "\n Please reinstall the application!");
-			System.exit(0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				reader.close();
-			} catch (Exception e) {
-				log.error("Error closing RSS Stream.");
-			}
-		}
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Load Properites at "
-				+ end);
 	}
 
 	/**
