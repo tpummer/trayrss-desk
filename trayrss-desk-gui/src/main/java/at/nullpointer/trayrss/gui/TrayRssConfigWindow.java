@@ -52,10 +52,11 @@ public class TrayRssConfigWindow {
 	private JTextField txtDisplaycount;
 	private JTextField txtDisplaytime;
 	private JTextField txtTimeframes;
-	private JTable table_1;
+	private JTable tblFeedInfo;
 
 	/**
 	 * Create the application.
+	 * @param configController 
 	 */
 	public TrayRssConfigWindow() {
 		initialize();
@@ -127,11 +128,11 @@ public class TrayRssConfigWindow {
 		JScrollPane scrollPane = new JScrollPane();
 		pnlFeed.add(scrollPane);
 		
-		table_1 = new JTable();
-		table_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table_1.setFillsViewportHeight(true);
-		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table_1.setModel(new DefaultTableModel(
+		tblFeedInfo = new JTable();
+		tblFeedInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblFeedInfo.setFillsViewportHeight(true);
+		tblFeedInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblFeedInfo.setModel(new DefaultTableModel(
 			new Object[][] {
 				{new Long(1), "test", "test", new Integer(3), Boolean.TRUE},
 			},
@@ -156,8 +157,8 @@ public class TrayRssConfigWindow {
 				return columnEditables[column];
 			}
 		});
-		table_1.getColumnModel().getColumn(4).setResizable(false);
-		scrollPane.setViewportView(table_1);
+		tblFeedInfo.getColumnModel().getColumn(4).setResizable(false);
+		scrollPane.setViewportView(tblFeedInfo);
 		
 		JPanel pnlFeedActions = new JPanel();
 		pnlFeed.add(pnlFeedActions);
