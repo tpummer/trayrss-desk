@@ -21,67 +21,51 @@ package at.nullpointer.trayrss.configuration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import at.nullpointer.trayrss.ConfigurationConstants;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
+import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+import at.nullpointer.trayrss.error.ErrorListener;
 
 /**
  * {@docRoot}
  * 
  * @author Thomas Pummer
- * @version 1.0
  *
  */
 public class ConfigurationControllerImpl implements ConfigurationController {
+	
+	private Set<ErrorListener> errorListeners;
 	
 	Logger log = Logger.getLogger(ConfigurationControllerImpl.class);
 	
 	private static ConfigurationControllerImpl instance;
 	
-	//TODO debug to static
-	private Boolean debug = false;
 	private Properties props;
 	
 	private ConfigurationModel configModel;
 	
-	private ConfigurationControllerImpl(Boolean debug){
-		this.debug = debug;
+	private ConfigurationControllerImpl(){
 	}
 	
 	/**
 	 * Gives the singleton instance of the ConfigurationController
 	 * 
-	 * @param debug
 	 * @return
 	 */
-	public static synchronized ConfigurationController getInstance(Boolean debug){
+	public static synchronized ConfigurationController getInstance(){
 		if(instance == null){
-			instance = new ConfigurationControllerImpl(debug);
-		} else {
-			instance.setDebug(debug);
+			instance = new ConfigurationControllerImpl();
 		}
 		return instance;
-	}
-
-	
-	/**
-	 * @return the debug
-	 */
-	public synchronized Boolean getDebug() {
-		return debug;
-	}
-
-	/**
-	 * @param debug the debug to set
-	 */
-	public synchronized void setDebug(Boolean debug) {
-		this.debug = debug;
 	}
 
 	/**
@@ -91,7 +75,35 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	 */
 	@Override
 	public synchronized void save(ConfigurationModel configurationModel) {
-		// TODO Auto-generated method stub
+		props.setProperty(ConfigurationConstants.LANGUAGE, configModel.getLanguage().toString());
+		props.setProperty(ConfigurationConstants.DISPLAYSECOND, configModel.getDisplayTime().toString());
+		props.setProperty(ConfigurationConstants.DISPLAYCOUNT, configModel.getDisplayCount().toString());
+		
+		//timerestriction
+		props.setProperty(ConfigurationConstants.TIMERESTRICTION, configModel.getIsTimeFrameActivated().toString());
+		
+		props.setProperty(ConfigurationConstants.TIMEFRAME, TimeFrameUtil.singleTimeFrameToString(configModel.getTimeFrames()));
+
+		props.setProperty(ConfigurationConstants.TIME_MO, configModel.getIsMondayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_TU, configModel.getIsTuesdayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_WE, configModel.getIsWednesdayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_TH, configModel.getIsThursdayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_FR, configModel.getIsFridayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_SA, configModel.getIsSaturdayEnabled().toString());
+		props.setProperty(ConfigurationConstants.TIME_SU, configModel.getIsSundayEnabled().toString());
+		
+		props.setProperty(ConfigurationConstants.VACATION_START, Long.toString(configModel.getVacationStart().getTime()));
+		props.setProperty(ConfigurationConstants.VACATION_END, Long.toString(configModel.getVacationEnd().getTime()));
+		
+		try {
+			props.storeToXML(new FileOutputStream(ConfigurationConstants.CONFIG),"TrayRSS Configuration");
+		} catch (FileNotFoundException e) {
+			for(ErrorListener listener : errorListeners )
+				listener.addError("Configuration", "Config file not found");
+		} catch (IOException e) {
+			for(ErrorListener listener : errorListeners )
+				listener.addError("Configuration", "IO Error at saving");
+		}
 
 	}
 
@@ -122,10 +134,7 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	 * <p>Reads all properties into memory</p>
 	 */
 	private synchronized Properties loadProps() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Load Properties at " + start);
+		log.debug("Startup: started loading properties file");
 		
 		Properties props = null; 
 		
@@ -138,8 +147,11 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 			props.loadFromXML(reader);
 	
 		} catch (FileNotFoundException e) {
-			log.error("No config file found! - "
-					+ "\n Please reinstall the application!");
+			String errorMsg = "No config file found! - "
+				+ "\n Please reinstall the application!";
+			for(ErrorListener listener : errorListeners )
+				listener.addError("Configuration", errorMsg);
+			log.error(errorMsg);
 			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -150,20 +162,14 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 				log.error("Error closing RSS Stream.");
 			}
 		}
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Load Properites at "
-				+ end);
+		
+		log.debug("Startup: finished reading property file");
 		
 		return props;
 	}
 
 	private synchronized ConfigurationModel loadInitialProperties(Properties props) {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Set Language at " + start);
+		log.debug("Startup: loading Propertys");
 	
 		ConfigurationModel configModel = new ConfigurationModel();
 		
@@ -174,8 +180,9 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		
 		//timerestriction
 		configModel.setIsTimeFrameActivated(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIMERESTRICTION)));
-		//TODO configModel.setTimeFrames(timeFrames)
-		//props.getProperty(ConfigurationConstants.TIMEFRAME);
+		
+		configModel.setTimeFrames(TimeFrameUtil.stringToSingleTimeFrame(props.getProperty(ConfigurationConstants.TIMEFRAME)));
+		
 		configModel.setIsMondayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_MO)));
 		configModel.setIsTuesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_TU)));
 		configModel.setIsWednesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_WE)));
@@ -184,13 +191,37 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		configModel.setIsSaturdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SA)));
 		configModel.setIsSundayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SU)));
 		
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Set Language at "
-				+ end);
+		String vacationStart = props.getProperty(ConfigurationConstants.VACATION_START);
+		if(vacationStart.length() > 0)
+			configModel.setVacationStart(Date.valueOf(vacationStart));
+		
+		String vacationEnd = props.getProperty(ConfigurationConstants.VACATION_END);
+		if(vacationEnd.length() > 0)
+			configModel.setVacationEnd(Date.valueOf(vacationEnd));
+		
+		log.debug("Startup: Finished loading properties");
 		
 		return configModel;
 	
 	}
+
+	
+	/***** Getter // Setter *****/
+	
+	/**
+	 * @return the errorQueue
+	 */
+	public Set<ErrorListener> getErrorListeners() {
+		return errorListeners;
+	}
+
+	/**
+	 * @param errorListeners the errorQueue to set
+	 */
+	public void setErrorListeners(Set<ErrorListener> errorListeners) {
+		this.errorListeners = errorListeners;
+	}
+	
+	
+	
 }

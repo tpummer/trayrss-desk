@@ -53,10 +53,12 @@ public class FeedReaderThread implements Runnable {
 
 	private Feed feedInfo = null;
 	private Long id = null;
+	private Integer displayCount;
 
-	public FeedReaderThread(Feed feedInfo) {
+	public FeedReaderThread(Feed feedInfo, Integer displayCount) {
 		this.feedInfo = feedInfo;
 		this.id = feedInfo.getId();
+		this.displayCount = displayCount;
 	}
 
 	public Long getId() {
@@ -69,7 +71,7 @@ public class FeedReaderThread implements Runnable {
 
 		while (true) {
 
-			if (timeValidation.isAllowed()) {
+			if (timeValidation.isAllowed(ReferenceCollection.CONFIGURATION.getConfigurationModel())) {
 
 				boolean ok = false;
 
@@ -114,7 +116,7 @@ public class FeedReaderThread implements Runnable {
 								+ news.getTitle() + " von " + node.getUri());
 					}
 
-					if (news.getReadCount() < ReferenceCollection.DISPLAY_COUNT) {
+					if (news.getReadCount() < displayCount) {
 						ReferenceCollection.TRAYNOTIFIER.addToNotify(news,
 								feedInfo);
 						news.setLastRead(new Date());

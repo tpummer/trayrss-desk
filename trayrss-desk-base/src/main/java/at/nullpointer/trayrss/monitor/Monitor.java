@@ -19,14 +19,15 @@
  */
 package at.nullpointer.trayrss.monitor;
 
-import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
-import at.nullpointer.trayrss.model.Feed;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
+import at.nullpointer.trayrss.model.Feed;
 
 
 public class Monitor{
@@ -48,8 +49,10 @@ public class Monitor{
 	public void loadFeeds(){
 		
 		List<Feed> feeds = (List<Feed>) feedDao.getFeeds();
+		Integer displayCount = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayCount();
+		
         for (Feed feed : feeds) {
-            FeedReaderThread thread = new FeedReaderThread(feed);
+            FeedReaderThread thread = new FeedReaderThread(feed, displayCount);
             threadExecutor.execute(thread);
             monitoredFeeds.add(thread);
         }

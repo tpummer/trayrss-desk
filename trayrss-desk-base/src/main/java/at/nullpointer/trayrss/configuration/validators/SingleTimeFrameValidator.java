@@ -26,7 +26,6 @@ import at.nullpointer.trayrss.configuration.model.SingleTimeFrame;
 /**
  * <p>This class contains methods to validate a {@link} SingleTimeFrame</p> 
  * @author Thomas Pummer
- * @version 1.0
  */
 //TODO check @link
 public class SingleTimeFrameValidator{

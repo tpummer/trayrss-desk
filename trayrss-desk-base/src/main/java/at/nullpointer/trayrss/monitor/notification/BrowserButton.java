@@ -42,10 +42,11 @@ public class BrowserButton implements ActionListener {
 
 	private Logger log = Logger.getLogger(BrowserButton.class);
 
-	JNotificationPopup popup;
-	PopupManager manager;
-	String url;
-	News node;
+	private JNotificationPopup popup;
+	private PopupManager manager;
+	private String url;
+	private News node;
+	private Integer displayCount;
 
 	/**
 	 * This is a button on the notification where the user can choose to open
@@ -55,14 +56,16 @@ public class BrowserButton implements ActionListener {
 	 * @param manager
 	 * @param url
 	 * @param node
+	 * @param displayCount
 	 */
 	public BrowserButton(Component popup, PopupManager manager, String url,
-			News node) {
+			News node, Integer displayCount) {
 		super();
 		this.popup = (JNotificationPopup) popup;
 		this.manager = manager;
 		this.url = url;
 		this.node = node;
+		this.displayCount = displayCount;
 	}
 
 	/**
@@ -96,7 +99,7 @@ public class BrowserButton implements ActionListener {
 
 				NewsDAO nd = new NewsDAOImpl();
 				News test = nd.getNewsByData(node);
-				test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
+				test.setReadCount(new Long(this.displayCount));
 				nd.save(test);
 
 				manager.dequeuePopup(popup);

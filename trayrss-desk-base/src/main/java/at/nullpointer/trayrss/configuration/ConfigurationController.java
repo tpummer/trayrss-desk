@@ -26,7 +26,6 @@ import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
  * load and reading methods</p>
  * 
  * @author Thomas Pummer
- * @version 1.0
  */
 public interface ConfigurationController {
 	

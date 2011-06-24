@@ -19,7 +19,17 @@
  */
 package at.nullpointer.trayrss.configuration.timeframes;
 
+import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+
+/**
+ * This interface allowes time validation to determinate if the 
+ * configuration allowes monitoring at the current time
+ * 
+ * @author Thomas Pummer
+ *
+ */
 public interface TimeValidation {
-	public boolean isAllowed();
+
+	boolean isAllowed(ConfigurationModel configModel);
 
 }

@@ -21,7 +21,6 @@ package at.nullpointer.trayrss.configuration.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
@@ -87,6 +86,12 @@ public class SingleTimeFrame {
 	public void setEndMin(int endMin) {
 		this.endMin = endMin;
 	}	
+	
+	public String toString(){
+		StringBuilder result = new StringBuilder();
+		result.append(startHour).append(startMin).append("-").append(endHour).append(endMin);
+		return result.toString();
+	}
 	
 
 }

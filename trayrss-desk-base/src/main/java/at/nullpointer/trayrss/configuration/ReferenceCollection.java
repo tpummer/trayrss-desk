@@ -48,8 +48,6 @@ public class ReferenceCollection {
 	public static final String EN = "en";
     public static final String EN_LANG = "./lang/en.XML";
 	public static String LANGUAGE;
-	public static int DISPLAY_COUNT;
-	public static int DISPLAY_SECONDS;
 	
 	/*
 	 * Captions

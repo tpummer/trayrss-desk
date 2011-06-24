@@ -28,11 +28,9 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import at.nullpointer.trayrss.ConfigurationConstants;
 import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
-import at.nullpointer.trayrss.configuration.timeframes.Timeframe;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
@@ -61,8 +59,8 @@ public class StartUp {
 	public StartUp(boolean debug) {
 		this.debug = debug;
 		//TODO debug into RC
-		//TODO read Config
-		ReferenceCollection.CONFIGURATION = ConfigurationControllerImpl.getInstance(debug);
+
+		ReferenceCollection.CONFIGURATION = ConfigurationControllerImpl.getInstance();
 		ReferenceCollection.CONFIGURATION.load();
 		ConfigurationModel configModel = ReferenceCollection.CONFIGURATION.getConfigurationModel();
 		setCaptions(configModel.getLanguage());
@@ -70,45 +68,6 @@ public class StartUp {
 		startDatabase();
 		startMonitor();
 		log.info("Startup complete.");
-	}
-
-	/**
-	 * <p>Initializes the {@link ConfigurationModel}</p>
-	 */
-	private ConfigurationModel loadInitialProperties() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Set Language at " + start);
-	
-		//TODO Config laden
-		ConfigurationModel configModel = new ConfigurationModel();
-		
-		//general
-		configModel.setLanguage(LanguageShortcut.valueOf(props.getProperty(ConfigurationConstants.LANGUAGE).toUpperCase()));
-		configModel.setDisplayTime(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYSECOND)));
-		configModel.setDisplayCount(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYCOUNT)));
-		
-		//timerestriction
-		configModel.setIsTimeFrameActivated(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIMERESTRICTION)));
-		//TODO configModel.setTimeFrames(timeFrames)
-		//props.getProperty(ConfigurationConstants.TIMEFRAME);
-		configModel.setIsMondayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_MO)));
-		configModel.setIsTuesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_TU)));
-		configModel.setIsWednesdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_WE)));
-		configModel.setIsThursdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_TH)));
-		configModel.setIsFridayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_FR)));
-		configModel.setIsSaturdayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SA)));
-		configModel.setIsSundayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SU)));
-		
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Set Language at "
-				+ end);
-		
-		return configModel;
-	
 	}
 
 	

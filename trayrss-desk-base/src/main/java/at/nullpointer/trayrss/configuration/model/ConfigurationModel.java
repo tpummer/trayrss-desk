@@ -29,7 +29,6 @@ import at.nullpointer.trayrss.model.Feed;
  * configuration GUI and the persistence of the configuration.</p>
  * 
  * @author Thomas Pummer
- * @version 1.0
  */
 public class ConfigurationModel {
 	

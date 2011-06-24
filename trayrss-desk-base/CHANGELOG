@@ -44,6 +44,10 @@ Changes in 1.1.0
 * changed configmenu button to new ui
 + read properties into model at startup
 + implemented the configurationcontroller
++ adding a new module to extract the configuraion facilities
+- cleanup startup
++ new implementation of TimeValidation
++ adding interface to prepare an error handling system
 
 Changes in 1.0.1
 * performance refactoring

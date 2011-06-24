@@ -17,7 +17,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss;
+package at.nullpointer.trayrss.configuration;
 
 
 
@@ -26,7 +26,6 @@ package at.nullpointer.trayrss;
  * and variable names in the porperties file</p>
  * 
  * @author Thomas Pummer
- * @version 1.0
  */
 public class ConfigurationConstants {
 	
@@ -34,7 +33,7 @@ public class ConfigurationConstants {
 	 * File Reference
 	 ***********************************************/
 	
-	public static final String CONFIG = "./config.ini";
+	protected static final String CONFIG = "./config.ini";
 	
 	/***********************************************
 	 * property name
@@ -42,25 +41,25 @@ public class ConfigurationConstants {
 	
 	
 	//general
-	public static final String LANGUAGE = "trayrss.lang";
+	protected static final String LANGUAGE = "trayrss.lang";
 	
-	public static final String DISPLAYSECOND = "trayrss.displaysecond";
-	public static final String DISPLAYCOUNT = "trayrss.displaycount";
+	protected static final String DISPLAYSECOND = "trayrss.displaysecond";
+	protected static final String DISPLAYCOUNT = "trayrss.displaycount";
 	
 	// timerestrictions
-	public static final String TIMERESTRICTION = "trayrss.timerestriction";
+	protected static final String TIMERESTRICTION = "trayrss.timerestriction";
 	
-	public static final String TIMEFRAME = "trayrss.timeframe";
+	protected static final String TIMEFRAME = "trayrss.time.timeframe";
 	
-	public static final String TIME_MO = "trayrss.time.mo";
-	public static final String TIME_TU = "trayrss.time.tu";
-	public static final String TIME_WE = "trayrss.time.we";
-	public static final String TIME_TH = "trayrss.time.th";
-	public static final String TIME_FR = "trayrss.time.fr";
-	public static final String TIME_SA = "trayrss.time.sa";
-	public static final String TIME_SU = "trayrss.time.su";
+	protected static final String TIME_MO = "trayrss.time.mo";
+	protected static final String TIME_TU = "trayrss.time.tu";
+	protected static final String TIME_WE = "trayrss.time.we";
+	protected static final String TIME_TH = "trayrss.time.th";
+	protected static final String TIME_FR = "trayrss.time.fr";
+	protected static final String TIME_SA = "trayrss.time.sa";
+	protected static final String TIME_SU = "trayrss.time.su";
 	
-	public static final String VACATION_START = "time.vacationstart";
-	public static final String VACATION_END = "time.vacationend";
+	protected static final String VACATION_START = "trayrss.time.vacationstart";
+	protected static final String VACATION_END = "trayrss.time.vacationend";
 
 }

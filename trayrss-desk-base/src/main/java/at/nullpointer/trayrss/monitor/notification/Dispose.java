@@ -19,35 +19,37 @@
  */
 package at.nullpointer.trayrss.monitor.notification;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
 import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.model.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Dispose implements ActionListener {
 
-	JNotificationPopup popup;
-	PopupManager manager;
-    News node;
+	private JNotificationPopup popup;
+	private PopupManager manager;
+	private News node;
+	private Integer displayCount;
+    
 
-	public Dispose(Component popup, PopupManager manager, News node) {
+	public Dispose(Component popup, PopupManager manager, News node, Integer displayCount) {
 		super();
 		this.popup = (JNotificationPopup) popup;
 		this.manager=manager;
         this.node = node;
+        this.displayCount = displayCount;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
         NewsDAO nd = new NewsDAOImpl();
         News test = nd.getNewsByData(node);
-       test.setReadCount(new Long(ReferenceCollection.DISPLAY_COUNT));
+        test.setReadCount(new Long(this.displayCount));
         nd.save(test);
 	}
 

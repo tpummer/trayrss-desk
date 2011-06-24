@@ -52,6 +52,9 @@ public class TrayNotifier implements Runnable {
 		log.debug("TrayNotifier: notify");
 
 		if (getSize() > 0) {
+			
+			Integer displayCount = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayCount();
+			
 			String title = input.get(0).getNews().getTitle();
 			String name = input.get(0).getFeed().getName();
 			String url = input.get(0).getNews().getUri();
@@ -71,12 +74,12 @@ public class TrayNotifier implements Runnable {
 
 			if(url != null){
 				bread.addActionListener(new BrowserButton(popup, popman, url,
-						node));
+						node, displayCount));
 			} else {
 				bread.setEnabled(false);
 			}
 
-			bstop.addActionListener(new Dispose(popup, popman, node));
+			bstop.addActionListener(new Dispose(popup, popman, node, displayCount));
 			bclose.addActionListener(new Later(popup, popman, node));
 
 			popman.enqueuePopup(popup);
@@ -109,11 +112,13 @@ public class TrayNotifier implements Runnable {
 	public void run() {
 
 		while (true) {
+			Integer displaySeconds = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayTime();
+			
 			popman = new PopupManager(
-					ReferenceCollection.DISPLAY_SECONDS * 1000,
+					displaySeconds * 1000,
 					Corner.LOWER_RIGHT, new Point(30, 100));
 			try {
-				Thread.sleep(ReferenceCollection.DISPLAY_SECONDS * 1000);
+				Thread.sleep(displaySeconds * 1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

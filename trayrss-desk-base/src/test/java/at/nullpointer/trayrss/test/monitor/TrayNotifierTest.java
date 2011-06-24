@@ -19,7 +19,9 @@
  */
 package at.nullpointer.trayrss.test.monitor;
 
+import at.nullpointer.trayrss.configuration.ConfigurationController;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
@@ -59,7 +61,33 @@ public class TrayNotifierTest {
 	}
 
 	@Before
-	public void setUp() throws Exception {	    
+	public void setUp() throws Exception {	 
+		
+		ConfigurationModel model = new ConfigurationModel();
+		model.setDisplayCount(3);
+		ConfigurationController controller = new ConfigurationController() {
+			
+			private ConfigurationModel model;
+			
+			@Override
+			public void save(ConfigurationModel configurationModel) {
+				//mockinsert the model
+				this.model = configurationModel;
+				
+			}
+			
+			@Override
+			public void load() {
+				// mock do nothing
+			}
+			
+			@Override
+			public ConfigurationModel getConfigurationModel() {
+				return model;
+			}
+		};
+		controller.save(model);
+		ReferenceCollection.CONFIGURATION = controller;
 
 		testfeed = new Feed();
 		testfeed.setName("testname");
@@ -70,7 +98,7 @@ public class TrayNotifierTest {
 		testNewsBadUri.setUri("asd");
 		
 		tn.setPopupManager(new PopupManager(
-				ReferenceCollection.DISPLAY_SECONDS * 1000, Corner.LOWER_RIGHT,
+				3 * 1000, Corner.LOWER_RIGHT,
 				new Point(30, 100)));
 
 	}
