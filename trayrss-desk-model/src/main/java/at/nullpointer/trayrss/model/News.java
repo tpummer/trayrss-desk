@@ -35,38 +35,38 @@ import javax.persistence.TemporalType;
 @Entity
 @Table
 public class News {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private String author;
-	
-	@Column (nullable = false)
+
+	@Column(nullable = false)
 	private String title;
-	
+
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date publishedDate;
-	
+
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
-	
+
 	@Column
 	private String uri;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "feed_id")
 	private Feed feed;
-	
+
 	@Column
-    private Date lastRead = new Date();
-	
+	private Date lastRead = new Date();
+
 	@Column
-    private Long readCount = new Long(0);
-    
+	private Long readCount = new Long(0);
+
 	public Long getId() {
 		return id;
 	}
@@ -140,50 +140,59 @@ public class News {
 	}
 
 	@Override
-	public boolean equals(Object o){
-		if (this == o) return true;
-		if (o == null) return false; //TODO Classcomparison
-		
-		if (o instanceof News){
-			News news = (News) o;
-			
-			if(this.author != null && this.author.equals(news.getAuthor())){
-			} else return false;
-			
-			if(this.title != null && this.title.equals(news.getTitle())){
-			} else return false;
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
 
-	        //TODO Hibernate Problem this.date = Timestamp
-			//if(this.publishedDate != null && ((Date)(this.publishedDate)).equals(news.getPublishedDate())){
-	         if(this.publishedDate != null && this.publishedDate.compareTo(news.getPublishedDate()) == 0){
-			} else return false;
-			
-			if(this.uri != null && this.uri.equals(news.getUri())){
-			} else return false;
-			
-			if(this.feed != null && this.feed.equals(news.getFeed())){
-			} else return false;
-			
+		if (o == null)
+			return false;
+
+		if (o instanceof News) {
+			News news = (News) o;
+
+			if (this.author != null && this.author.equals(news.getAuthor())) {
+			} else
+				return false;
+
+			if (this.title != null && this.title.equals(news.getTitle())) {
+			} else
+				return false;
+
+			if (this.publishedDate != null
+					&& this.publishedDate.compareTo(news.getPublishedDate()) == 0) {
+			} else
+				return false;
+
+			if (this.uri != null && this.uri.equals(news.getUri())) {
+			} else
+				return false;
+
+			if (this.feed != null && this.feed.equals(news.getFeed())) {
+			} else
+				return false;
+
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
-		
+
 		int result;
 		result = (author != null ? author.hashCode() : 0);
 		result = 29 * result + (title != null ? title.hashCode() : 0);
-		result = 29 * result + (publishedDate != null ? publishedDate.hashCode() : 0);
-		result = 29 * result + (updatedDate != null ? updatedDate.hashCode() : 0);
-		result = 29 * result + (uri != null ? uri.hashCode() : 0); 
+		result = 29 * result
+				+ (publishedDate != null ? publishedDate.hashCode() : 0);
+		result = 29 * result
+				+ (updatedDate != null ? updatedDate.hashCode() : 0);
+		result = 29 * result + (uri != null ? uri.hashCode() : 0);
 		result = 29 * result + (feed != null ? feed.hashCode() : 0);
-		return result;	
+		return result;
 	}
-	
-	public void increaseReadCount(long summand){
+
+	public void increaseReadCount(long summand) {
 		this.setReadCount(this.getReadCount() + summand);
 	}
 }
