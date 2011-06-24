@@ -5,6 +5,12 @@
 	<artifactId>trayrss-desk</artifactId>
 	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<scm>
+		<connection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</connection>
+		<developerConnection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</developerConnection>
+		<tag>head</tag>
+		<url>http://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</url>
+	</scm>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -27,7 +33,8 @@
 		<module>../trayrss-desk-base</module>
 		<module>../trayrss-desk-gui</module>
 		<module>../trayrss-desk-model</module>
-	</modules>
+		<module>../trayrss-desk-configuration</module>
+	</modules>	
 	<repositories>
 		<repository>
 			<id>standard-repo</id>
