@@ -23,7 +23,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -43,10 +46,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import at.nullpointer.trayrss.configuration.ConfigurationController;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+import at.nullpointer.trayrss.gui.tablemodel.TableColumn;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -58,6 +63,11 @@ public class TrayRssConfigWindow {
 	private JTextField txtTimeframes;
 	private JTable tblFeedInfo;
 	private ConfigurationController configControl;
+	private final Action saveAction = new SaveAction(this);
+	private final Action cancelAction = new CancelAction(this);
+	private final Action addFeedAction = new AddFeedAction(this);
+	private final Action editFeedAction = new EditFeedAction(this);
+	private final Action removeFeedAction = new RemoveFeedAction(this);
 
 	/**
 	 * Create the application.
@@ -132,7 +142,7 @@ public class TrayRssConfigWindow {
 		pnlGeneral.add(verticalGlueBelow);
 		
 		JPanel pnlFeed = new JPanel();
-		tabbedPane.addTab("Feeds", new ImageIcon(TrayRssConfigWindow.class.getResource("/images/feed.png")), pnlFeed, null);
+		tabbedPane.addTab(ConfigurationMessages.getString("config.feeds.tab.title", "Feeds"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/feed.png")), pnlFeed, null);
 		pnlFeed.setLayout(new BoxLayout(pnlFeed, BoxLayout.PAGE_AXIS));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -174,13 +184,19 @@ public class TrayRssConfigWindow {
 		pnlFeed.add(pnlFeedActions);
 		
 		JButton btnAddFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.addfeed", "Add Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnAddFeed.setAction(addFeedAction);
 		pnlFeedActions.add(btnAddFeed);
 		
+		JButton btnEditFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.editfeed", "Edit Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnEditFeed.setAction(editFeedAction);
+		pnlFeedActions.add(btnEditFeed);
+		
 		JButton btnRemoveFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.removefeed", "Remove Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnRemoveFeed.setAction(removeFeedAction);
 		pnlFeedActions.add(btnRemoveFeed);
 		
 		JPanel pnlTimeFrame = new JPanel();
-		tabbedPane.addTab("TimeFrames", new ImageIcon(TrayRssConfigWindow.class.getResource("/images/timeframe.png")), pnlTimeFrame, null);
+		tabbedPane.addTab(ConfigurationMessages.getString("config.timeframes.tab.title", "TimeFrames"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/timeframe.png")), pnlTimeFrame, null);
 		pnlTimeFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel pnlTimeFrameActive = new JPanel();
@@ -270,14 +286,101 @@ public class TrayRssConfigWindow {
 		frmTrayrss.getContentPane().add(saveExitPanel, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton(ConfigurationMessages.getString("config.window.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnSave.setAction(saveAction);
 		saveExitPanel.add(btnSave);
 		
 		JButton btnCancel = new JButton(ConfigurationMessages.getString("config.window.button.cancel", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnCancel.setAction(cancelAction);
 		saveExitPanel.add(btnCancel);
+	}
+	
+	public void addFeedRow(int selectedRow, Long selectedID, String name, String url, Integer intervall, Boolean monitored){
+		DefaultTableModel model = (DefaultTableModel)tblFeedInfo.getModel();
+		
+		Object[] row = {selectedID, name, url, intervall, monitored};
+		
+		if(selectedRow == -1){
+			model.addRow(row);
+		} else {
+			model.removeRow(selectedRow);
+			model.insertRow(selectedRow, row);
+		}
+	}
+	
+	public void removeFeedRow(int selectedRow){
+		DefaultTableModel model = (DefaultTableModel)tblFeedInfo.getModel();
+		
+		model.removeRow(selectedRow);
 	}
 	
 	public JFrame getJFrame(){
 		return this.frmTrayrss;
 	}
 
+	private class SaveAction extends AbstractAction {
+		TrayRssConfigWindow window;
+		
+		public SaveAction(TrayRssConfigWindow window) {
+			super(ConfigurationMessages.getString("config.window.button.save", "Save"));
+			this.window = window;
+		}
+		public void actionPerformed(ActionEvent e) {
+			//TODO Save Configuration
+			System.out.println("SAVE");
+		}
+	}
+	
+	private class CancelAction extends AbstractAction {
+		TrayRssConfigWindow window;
+		
+		public CancelAction(TrayRssConfigWindow window) {
+			super(ConfigurationMessages.getString("config.window.button.cancel", "Cancel"));
+			this.window = window;
+		}
+		public void actionPerformed(ActionEvent e) {
+			this.window.frmTrayrss.dispose();
+		}
+	}
+	
+	private class AddFeedAction extends AbstractAction {
+		TrayRssConfigWindow window;
+		
+		public AddFeedAction(TrayRssConfigWindow window) {
+			super(ConfigurationMessages.getString("config.feeds.button.addfeed", "Add Feed"));
+			this.window = window;
+		}
+		public void actionPerformed(ActionEvent e) {
+			FeedEditorInternalFrame addFeed = new FeedEditorInternalFrame(this.window);
+			addFeed.setVisible(true);
+		}
+	}
+	
+	private class EditFeedAction extends AbstractAction {
+		TrayRssConfigWindow window;
+		
+		public EditFeedAction(TrayRssConfigWindow window) {
+			super(ConfigurationMessages.getString("config.feeds.button.editfeed", "Edit Feed"));
+			this.window = window;
+		}
+		public void actionPerformed(ActionEvent e) {
+			int selectedRow = this.window.tblFeedInfo.getSelectedRow();
+			TableModel model = this.window.tblFeedInfo.getModel();
+			FeedEditorInternalFrame addFeed = new FeedEditorInternalFrame(this.window, selectedRow, model);
+			addFeed.setVisible(true);
+		}
+	}
+	
+	private class RemoveFeedAction extends AbstractAction {
+		TrayRssConfigWindow window;
+		
+		public RemoveFeedAction(TrayRssConfigWindow window) {
+			super(ConfigurationMessages.getString("config.feeds.button.removefeed", "Remove Feed"));
+			this.window = window;
+		}
+		public void actionPerformed(ActionEvent e) {
+			int selectedRow = this.window.tblFeedInfo.getSelectedRow();
+			removeFeedRow(selectedRow);
+		}
+	}
+	
 }

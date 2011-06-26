@@ -20,45 +20,51 @@
 package at.nullpointer.trayrss.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JInternalFrame;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
-public class FeedEditorInternalFrame extends JInternalFrame {
+import at.nullpointer.trayrss.gui.tablemodel.TableColumn;
+
+public class FeedEditorInternalFrame extends JDialog implements WindowListener{
+	private int selectedRow = -1;
+	private Long selectedID = 0L;
 	private JTextField txtFeedName;
 	private JTextField txtFeedUrl;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FeedEditorInternalFrame frame = new FeedEditorInternalFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private TrayRssConfigWindow motherFrame;
+	private final Action cancelAction;
+	private final Action saveAction;
+	public JComboBox cbbMonitorIntervall;
+	private JCheckBox chckbxMonitoringEnabled;
 
 	/**
 	 * Create the frame.
+	 * @param window 
 	 */
-	public FeedEditorInternalFrame() {
+	public FeedEditorInternalFrame(TrayRssConfigWindow window) {
+		this.motherFrame = window;
+		
+		cancelAction = new CancelAction(this);
+		saveAction = new SaveAction(this, this.motherFrame);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setTitle(ConfigurationMessages.getString("config.feedinfo.title", "TrayRSS - Feed Info")); //$NON-NLS-1$ //$NON-NLS-2$
-		setBounds(100, 100, 580, 200);
+		setBounds(100, 100, 468, 265);
 		
 		JPanel feedInfoPanel = new JPanel();
 		getContentPane().add(feedInfoPanel, BorderLayout.CENTER);
@@ -75,7 +81,7 @@ public class FeedEditorInternalFrame extends JInternalFrame {
 		
 		txtFeedName = new JTextField();
 		pnlPosTwo.add(txtFeedName);
-		txtFeedName.setColumns(60);
+		txtFeedName.setColumns(35);
 		
 		JPanel pnlPosThree = new JPanel();
 		feedInfoPanel.add(pnlPosThree);
@@ -88,7 +94,7 @@ public class FeedEditorInternalFrame extends JInternalFrame {
 		
 		txtFeedUrl = new JTextField();
 		pnlPosFour.add(txtFeedUrl);
-		txtFeedUrl.setColumns(60);
+		txtFeedUrl.setColumns(35);
 		
 		JPanel pnlPosFive = new JPanel();
 		feedInfoPanel.add(pnlPosFive);
@@ -96,27 +102,108 @@ public class FeedEditorInternalFrame extends JInternalFrame {
 		JLabel lblMonitorIntervall = new JLabel(ConfigurationMessages.getString("config.feedinfo.monitorIntervall.label", "Monitor Intervall")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlPosFive.add(lblMonitorIntervall);
 		
-		JComboBox cbbMonitorIntervall = new JComboBox();
+		cbbMonitorIntervall = new JComboBox();
 		cbbMonitorIntervall.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "5", "10", "15", "30", "60", "120", "240", "300"}));
 		pnlPosFive.add(cbbMonitorIntervall);
 		
 		JPanel pnlPosSix = new JPanel();
 		feedInfoPanel.add(pnlPosSix);
 		
+		chckbxMonitoringEnabled = new JCheckBox(ConfigurationMessages.getString("config.feedinfo.monitoringEnabled.label", (String) null));
+		pnlPosSix.add(chckbxMonitoringEnabled);
+		
+		JPanel pnlPosSeven = new JPanel();
+		feedInfoPanel.add(pnlPosSeven);
+		
 		JButton btnSaveFeedInfo = new JButton(ConfigurationMessages.getString("config.feedinfo.save.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnSaveFeedInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		pnlPosSix.add(btnSaveFeedInfo);
+		btnSaveFeedInfo.setAction(saveAction);
+		pnlPosSeven.add(btnSaveFeedInfo);
 		
 		JButton btnCancelFeedInfo = new JButton(ConfigurationMessages.getString("config.feedinfo.cancel.button", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnCancelFeedInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		pnlPosSix.add(btnCancelFeedInfo);
+		btnCancelFeedInfo.setAction(cancelAction);
+		pnlPosSeven.add(btnCancelFeedInfo);
 
 	}
 
+	public FeedEditorInternalFrame(TrayRssConfigWindow frmTrayrss, int selectedRow,
+			TableModel model) {
+		this(frmTrayrss);
+		this.selectedRow = selectedRow;
+		this.selectedID = (Long)model.getValueAt(selectedRow, TableColumn.ID);
+		this.txtFeedName.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_NAME)));
+		this.txtFeedUrl.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_URL)));
+		this.cbbMonitorIntervall.setSelectedItem(((Integer)model.getValueAt(selectedRow, TableColumn.INTERVALL)).toString());
+		this.chckbxMonitoringEnabled.setSelected((Boolean) model.getValueAt(selectedRow, TableColumn.MONITORED));
+	}
+
+	public void windowOpened(WindowEvent e) {
+		// not used
+		
+	}
+
+	public void windowClosing(WindowEvent e) {
+		//this.motherFrame.setFocusable(true);
+		this.dispose();
+		
+	}
+
+	public void windowClosed(WindowEvent e) {
+		// not used
+		
+	}
+
+	public void windowIconified(WindowEvent e) {
+		// not used
+		
+	}
+
+	public void windowDeiconified(WindowEvent e) {
+		// not used
+		
+	}
+
+	public void windowActivated(WindowEvent e) {
+		// not used
+		
+	}
+
+	public void windowDeactivated(WindowEvent e) {
+		// not used
+		
+	}
+	
+	private class SaveAction extends AbstractAction {
+		private FeedEditorInternalFrame window;
+		private TrayRssConfigWindow motherFrame;
+		
+		public SaveAction(FeedEditorInternalFrame frame, TrayRssConfigWindow motherFrame) {
+			super(ConfigurationMessages.getString("config.feedinfo.save.button.save", "Save"));
+			this.window = frame;
+			this.motherFrame = motherFrame;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			this.motherFrame.addFeedRow(this.window.selectedRow,
+										this.window.selectedID, 
+						                this.window.txtFeedName.getText(),
+						                this.window.txtFeedUrl.getText(),
+						                Integer.valueOf((String)this.window.cbbMonitorIntervall.getSelectedItem()),
+						                this.window.chckbxMonitoringEnabled.isSelected());
+			
+			window.dispose();
+		}
+	}
+
+	private class CancelAction extends AbstractAction {
+		private JDialog window;
+		
+		public CancelAction(JDialog frame) {
+			super(ConfigurationMessages.getString("config.feedinfo.cancel.button", "Cancel"));
+			this.window = frame;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			window.dispose();
+		}
+	}
 }
