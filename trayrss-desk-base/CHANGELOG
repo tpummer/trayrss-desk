@@ -48,6 +48,7 @@ Changes in 1.1.0
 - cleanup startup
 + new implementation of TimeValidation
 + adding interface to prepare an error handling system
++ connecting configmodel with new ui
 
 Changes in 1.0.1
 * performance refactoring

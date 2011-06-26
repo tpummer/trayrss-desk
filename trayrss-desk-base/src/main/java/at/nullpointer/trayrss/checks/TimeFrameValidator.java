@@ -19,9 +19,6 @@
  */
 package at.nullpointer.trayrss.checks;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-
-import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
