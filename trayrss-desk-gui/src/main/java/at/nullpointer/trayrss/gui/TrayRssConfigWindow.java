@@ -44,6 +44,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import at.nullpointer.trayrss.configuration.ConfigurationController;
+import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+
 import com.toedter.calendar.JDateChooser;
 
 public class TrayRssConfigWindow {
@@ -53,12 +57,15 @@ public class TrayRssConfigWindow {
 	private JTextField txtDisplaytime;
 	private JTextField txtTimeframes;
 	private JTable tblFeedInfo;
+	private ConfigurationController configControl;
 
 	/**
 	 * Create the application.
+	 * 
 	 * @param configController 
 	 */
-	public TrayRssConfigWindow() {
+	public TrayRssConfigWindow(ConfigurationController configControl) {
+		this.configControl = configControl;
 		initialize();
 	}
 
@@ -66,6 +73,8 @@ public class TrayRssConfigWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ConfigurationModel model = this.configControl.getConfigurationModel();
+		
 		frmTrayrss = new JFrame();
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));
 		frmTrayrss.setTitle(ConfigurationMessages.getString("config.window.title", "TrayRSS - Configuration")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -91,7 +100,7 @@ public class TrayRssConfigWindow {
 		
 		txtDisplaycount = new JTextField();
 		pnlDisplayCount.add(txtDisplaycount);
-		txtDisplaycount.setText("DisplayCount");
+		txtDisplaycount.setText(model.getDisplayCount().toString());
 		txtDisplaycount.setColumns(10);
 		
 		JPanel pnlDisplayTime = new JPanel();
@@ -103,7 +112,7 @@ public class TrayRssConfigWindow {
 		
 		txtDisplaytime = new JTextField();
 		txtDisplaytime.setToolTipText(ConfigurationMessages.getString("config.window.displaytime.tooltip", "units are seconds")); //$NON-NLS-1$ //$NON-NLS-2$
-		txtDisplaytime.setText("DisplayTime");
+		txtDisplaytime.setText(model.getDisplayTime().toString());
 		pnlDisplayTime.add(txtDisplaytime);
 		txtDisplaytime.setColumns(10);
 		
@@ -116,6 +125,7 @@ public class TrayRssConfigWindow {
 		
 		JComboBox cbbLanguage = new JComboBox();
 		cbbLanguage.setModel(new DefaultComboBoxModel(new String[] {"de", "en"}));
+		cbbLanguage.setSelectedItem(model.getLanguage().getShortcut());
 		pnlLanguage.add(cbbLanguage);
 		
 		Component verticalGlueBelow = Box.createVerticalGlue();
@@ -179,6 +189,7 @@ public class TrayRssConfigWindow {
 		pnlTimeFrame.add(pnlTimeFrameActive);
 		
 		JCheckBox chckbxActivateTimeframes = new JCheckBox(ConfigurationMessages.getString("config.timeframes.toggle.label", "activate TimeFrames")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxActivateTimeframes.setSelected(model.getIsTimeFrameActivated());
 		chckbxActivateTimeframes.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlTimeFrameActive.add(chckbxActivateTimeframes);
 		
@@ -192,24 +203,31 @@ public class TrayRssConfigWindow {
 		pnlTimeFrameOptions.add(pnlTimeFrameDays);
 		
 		JCheckBox chckbxMonday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.mo.label", "Monday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxMonday.setSelected(model.getIsMondayEnabled());
 		pnlTimeFrameDays.add(chckbxMonday);
 		
 		JCheckBox chckbxTuesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.tu.label", "Tuesday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxTuesday.setSelected(model.getIsTuesdayEnabled());
 		pnlTimeFrameDays.add(chckbxTuesday);
 		
 		JCheckBox chckbxWednesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.we.label", "Wednesday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxWednesday.setSelected(model.getIsWednesdayEnabled());
 		pnlTimeFrameDays.add(chckbxWednesday);
 		
 		JCheckBox chckbxThursday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.th.label", "Thursday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxThursday.setSelected(model.getIsThursdayEnabled());
 		pnlTimeFrameDays.add(chckbxThursday);
 		
 		JCheckBox chckbxFriday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.fr.label", "Friday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxFriday.setSelected(model.getIsFridayEnabled());
 		pnlTimeFrameDays.add(chckbxFriday);
 		
 		JCheckBox chckbxSaturday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.sa.label", "Saturday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxSaturday.setSelected(model.getIsSaturdayEnabled());
 		pnlTimeFrameDays.add(chckbxSaturday);
 		
 		JCheckBox chckbxSunday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.su.label", "Sunday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxSunday.setSelected(model.getIsSundayEnabled());
 		pnlTimeFrameDays.add(chckbxSunday);
 		
 		JPanel pnlTimeFrameFrames = new JPanel();
@@ -219,7 +237,7 @@ public class TrayRssConfigWindow {
 		pnlTimeFrameFrames.add(lblTimeframes);
 		
 		txtTimeframes = new JTextField();
-		txtTimeframes.setText("Timeframes");
+		txtTimeframes.setText(TimeFrameUtil.singleTimeFrameToString(model.getTimeFrames()));
 		pnlTimeFrameFrames.add(txtTimeframes);
 		txtTimeframes.setColumns(10);
 		
@@ -231,6 +249,7 @@ public class TrayRssConfigWindow {
 		
 		JDateChooser dacVacStart = new JDateChooser();
 		dacVacStart.setDateFormatString("dd.MM.yyyy");
+		dacVacStart.setDate(model.getVacationStart());
 		pnlTimeFrameVacation.add(dacVacStart);
 		
 		JLabel lblStart = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -238,6 +257,7 @@ public class TrayRssConfigWindow {
 		
 		JDateChooser dacVacEnd = new JDateChooser();
 		dacVacEnd.setDateFormatString("dd.MM.yyyy");
+		dacVacEnd.setDate(model.getVacationEnd());
 		pnlTimeFrameVacation.add(dacVacEnd);
 		
 		JLabel lblEnd = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.end.label", "End")); //$NON-NLS-1$ //$NON-NLS-2$
