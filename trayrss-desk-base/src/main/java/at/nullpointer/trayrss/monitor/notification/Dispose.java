@@ -23,8 +23,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
-import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
+import at.nullpointer.trayrss.dao.NewsDAO;
+import at.nullpointer.trayrss.dao.NewsDAOImpl;
 import at.nullpointer.trayrss.model.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;

@@ -21,6 +21,8 @@ package at.nullpointer.trayrss.configuration;
 
 import org.apache.log4j.Logger;
 
+import at.nullpointer.trayrss.dao.SessionFactoryRepository;
+
 public class Shutdown {
 	private Logger log = Logger.getLogger(Shutdown.class);
 	
@@ -44,7 +46,7 @@ public class Shutdown {
 	}
 
 	public boolean isAllClosed() {
-		ReferenceCollection.SESSION_FACTORY.close();
+		SessionFactoryRepository.getSessionFactory().close();
 		//boolean monitorThread = ReferenceCollection.MONITOR_THREAD.isAlive();
 		boolean allClosed = true; //&& !monitorThread;
 		log.debug("AllClosed: " + allClosed);

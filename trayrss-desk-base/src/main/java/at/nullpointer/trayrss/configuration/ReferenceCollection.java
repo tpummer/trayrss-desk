@@ -23,9 +23,7 @@ package at.nullpointer.trayrss.configuration;
 import java.awt.TrayIcon;
 
 import org.apache.log4j.Level;
-import org.hibernate.SessionFactory;
 
-import at.nullpointer.trayrss.configuration.feeds.FeedTable;
 import at.nullpointer.trayrss.gui.tray.Help;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
@@ -41,7 +39,6 @@ public class ReferenceCollection {
 	/*
 	 * Configuration
 	 */
-	public static ConfigurationController CONFIGURATION;
 	
 	public static final String DE = "de";
 	public static final String DE_LANG = "./lang/de.XML";
@@ -94,7 +91,6 @@ public class ReferenceCollection {
 	 * Monitor
 	 */
 	public static Monitor MONITOR;
-	public static SessionFactory SESSION_FACTORY;
 	
 	/*
 	 * Help Window
@@ -103,6 +99,5 @@ public class ReferenceCollection {
 	public static Help HELP_WINDOW;
 	public static String HELP_OK = "Ok";
 	
-	public static FeedTable FEED_TABLE;
 	public static TrayNotifier TRAYNOTIFIER;
 }

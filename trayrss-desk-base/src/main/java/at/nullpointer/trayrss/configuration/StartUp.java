@@ -31,6 +31,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import at.nullpointer.trayrss.TrayRSS;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
+import at.nullpointer.trayrss.dao.SessionFactoryRepository;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.monitor.TrayNotifier;
@@ -58,14 +59,14 @@ public class StartUp {
 	 */
 	public StartUp(boolean debug) {
 		this.debug = debug;
-		//TODO debug into RC
+		//TODO remove debug - set logger to debug
 
-		ReferenceCollection.CONFIGURATION = ConfigurationControllerImpl.getInstance();
-		ReferenceCollection.CONFIGURATION.load();
-		ConfigurationModel configModel = ReferenceCollection.CONFIGURATION.getConfigurationModel();
+		startDatabase();
+		ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
+		configControl.load();
+		ConfigurationModel configModel = configControl.getConfigurationModel();
 		setCaptions(configModel.getLanguage());
 		startTray();
-		startDatabase();
 		startMonitor();
 		log.info("Startup complete.");
 	}
@@ -160,8 +161,8 @@ public class StartUp {
 			log.debug("Startup: Start Database at " + start);
 		}
 
-		ReferenceCollection.SESSION_FACTORY = new AnnotationConfiguration()
-				.configure().buildSessionFactory();
+		SessionFactoryRepository.setSessionFactory(new AnnotationConfiguration()
+				.configure().buildSessionFactory());
 
 		long end = 0;
 		if (debug) {

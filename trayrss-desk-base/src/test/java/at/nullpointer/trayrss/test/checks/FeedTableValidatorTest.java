@@ -24,36 +24,33 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import at.nullpointer.trayrss.checks.FeedTableValidator;
+import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 
 public class FeedTableValidatorTest {
 
 	@Test
 	public void testCheckURLFalse() {
-		Object[] eins = {null, null, "test", null, null};
+		String erg = "test";
 		
-		Object[][] test = {eins};
-		assertFalse(FeedTableValidator.checkURL(test, 2));
+		assertFalse(FeedTableValidator.checkURL(erg));
 		
 		
 	}
 	
 	@Test
 	public void testCheckURLValidUrl() {
-		Object[] eins = {null, null, "http://god.sprossenwanne.at", null, null};
+		String erg = "http://god.sprossenwanne.at";
 		
-		Object[][] test = {eins};
-		assertFalse(FeedTableValidator.checkURL(test, 2));
+		assertFalse(FeedTableValidator.checkURL(erg));
 		
 		
 	}
 	
 	@Test
 	public void testCheckURLValidFeed() {
-		Object[] eins = {null, null, "http://www.nullpointer.at/feed/", null, null};
+		String erg = "http://www.nullpointer.at/feed/";
 		
-		Object[][] test = {eins};
-		assertTrue(FeedTableValidator.checkURL(test, 2));
+		assertTrue(FeedTableValidator.checkURL(erg));
 		
 	}
 }

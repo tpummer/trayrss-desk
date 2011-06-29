@@ -25,8 +25,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.FeedDAOImpl;
+import at.nullpointer.trayrss.dao.FeedDAOImpl;
 import at.nullpointer.trayrss.model.Feed;
 
 
@@ -49,7 +50,7 @@ public class Monitor{
 	public void loadFeeds(){
 		
 		List<Feed> feeds = (List<Feed>) feedDao.getFeeds();
-		Integer displayCount = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayCount();
+		Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayCount();
 		
         for (Feed feed : feeds) {
             FeedReaderThread thread = new FeedReaderThread(feed, displayCount);

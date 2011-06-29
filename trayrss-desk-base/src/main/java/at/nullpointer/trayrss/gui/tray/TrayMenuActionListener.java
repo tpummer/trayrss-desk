@@ -43,7 +43,7 @@ public class TrayMenuActionListener implements ActionListener {
 		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					TrayRssConfigWindow trayRssConfigWindow = new TrayRssConfigWindow(ReferenceCollection.CONFIGURATION);
+					TrayRssConfigWindow trayRssConfigWindow = new TrayRssConfigWindow();
 					trayRssConfigWindow.getJFrame().setVisible(true);
 				}
 			});

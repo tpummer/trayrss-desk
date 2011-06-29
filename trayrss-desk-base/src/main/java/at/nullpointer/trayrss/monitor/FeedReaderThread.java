@@ -19,13 +19,14 @@
  */
 package at.nullpointer.trayrss.monitor;
 
+import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import at.nullpointer.trayrss.configuration.feeds.NewsDAO;
-import at.nullpointer.trayrss.configuration.feeds.NewsDAOImpl;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidation;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
+import at.nullpointer.trayrss.dao.NewsDAO;
+import at.nullpointer.trayrss.dao.NewsDAOImpl;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -71,7 +72,7 @@ public class FeedReaderThread implements Runnable {
 
 		while (true) {
 
-			if (timeValidation.isAllowed(ReferenceCollection.CONFIGURATION.getConfigurationModel())) {
+			if (timeValidation.isAllowed(ConfigurationControllerImpl.getInstance().getConfigurationModel())) {
 
 				boolean ok = false;
 

@@ -19,6 +19,7 @@
  */
 package at.nullpointer.trayrss.monitor;
 
+import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
@@ -53,7 +54,7 @@ public class TrayNotifier implements Runnable {
 
 		if (getSize() > 0) {
 			
-			Integer displayCount = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayCount();
+			Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayCount();
 			
 			String title = input.get(0).getNews().getTitle();
 			String name = input.get(0).getFeed().getName();
@@ -112,7 +113,7 @@ public class TrayNotifier implements Runnable {
 	public void run() {
 
 		while (true) {
-			Integer displaySeconds = ReferenceCollection.CONFIGURATION.getConfigurationModel().getDisplayTime();
+			Integer displaySeconds = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayTime();
 			
 			popman = new PopupManager(
 					displaySeconds * 1000,

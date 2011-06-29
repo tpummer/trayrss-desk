@@ -20,6 +20,7 @@
 package at.nullpointer.trayrss.test.monitor;
 
 import at.nullpointer.trayrss.configuration.ConfigurationController;
+import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.model.Feed;
@@ -65,29 +66,8 @@ public class TrayNotifierTest {
 		
 		ConfigurationModel model = new ConfigurationModel();
 		model.setDisplayCount(3);
-		ConfigurationController controller = new ConfigurationController() {
-			
-			private ConfigurationModel model;
-			
-			@Override
-			public void save(ConfigurationModel configurationModel) {
-				//mockinsert the model
-				this.model = configurationModel;
-				
-			}
-			
-			@Override
-			public void load() {
-				// mock do nothing
-			}
-			
-			@Override
-			public ConfigurationModel getConfigurationModel() {
-				return model;
-			}
-		};
-		controller.save(model);
-		ReferenceCollection.CONFIGURATION = controller;
+		ConfigurationControllerImpl controller = (ConfigurationControllerImpl) ConfigurationControllerImpl.getInstance();
+		controller.setConfigurationModel(model);
 
 		testfeed = new Feed();
 		testfeed.setName("testname");
