@@ -19,22 +19,18 @@
  */
 package at.nullpointer.trayrss.dao;
 
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.model.Feed;
 
 import java.util.Collection;
 
-public interface NewsDAO {
-	
-	public Collection<News> getNews();
+public interface FeedDAO {
 
-	public News findNewsById(Long id);
+	public Collection<Feed> getFeeds();
 
-	public void save(News news);
+	public Feed findFeedById(Long id);
+
+	public void save(Feed feed);
 	
 	public void deleteById(Long id);
-
-	public News getNewsByData(News news);
-
-	public void deleteOlderThanTwoMonth(Long id);
 
 }
