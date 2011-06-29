@@ -50,6 +50,15 @@ Changes in 1.1.0
 + adding interface to prepare an error handling system
 + connecting configmodel with new ui
 * connected new ui elements
+* validation of feed url integrated in new ui
+- removed obsolet classes: COuntManager, DBCleaner, FeedTableModel
+* moved DAO Classes and hibernate configuration to model modul
+* moved FeedTableValidator to gui modul
+- removed configControl, sessionFactory, feedTable from ReferenceCollection
+* refactord time validation
++ configuration now persists
++ TableModel is now generated from config to be placed in the gui
+* gui now loads data from the config and gives data back
 
 Changes in 1.0.1
 * performance refactoring
