@@ -1,7 +1,10 @@
 <projectDescription>
-  <name>trayrss-gui</name>
+  <name>trayrss-desk-gui</name>
   <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
-  <projects/>
+  <projects>
+    <project>trayrss-desk-configuration</project>
+    <project>trayrss-desk-model</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

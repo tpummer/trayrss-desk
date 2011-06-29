@@ -25,7 +25,6 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -197,15 +196,6 @@ public class TrayRssConfigWindow {
 		pnlTimeFrame.add(pnlTimeFrameActive);
 		
 		chckbxActivateTimeframes = new JCheckBox(ConfigurationMessages.getString("config.timeframes.toggle.label", "activate TimeFrames"));
-		chckbxActivateTimeframes.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange() == ItemEvent.SELECTED){
-					//TODO enable
-				} else if(e.getStateChange() == ItemEvent.DESELECTED){
-					//TODO disable
-				}
-			}
-		});
 		chckbxActivateTimeframes.setSelected(model.getIsTimeFrameActivated());
 		chckbxActivateTimeframes.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlTimeFrameActive.add(chckbxActivateTimeframes);
@@ -293,6 +283,11 @@ public class TrayRssConfigWindow {
 		JButton btnCancel = new JButton(ConfigurationMessages.getString("config.window.button.cancel", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnCancel.setAction(cancelAction);
 		saveExitPanel.add(btnCancel);
+		
+		
+		chckbxActivateTimeframes.addItemListener(new ActivateTimeItemListener(this));
+		
+		this.setTimeEnabled(chckbxActivateTimeframes.isSelected());
 	}
 	
 	public void addFeedRow(int selectedRow, Long selectedID, String name, String url, Long intervall, Boolean monitored){
@@ -406,6 +401,21 @@ public class TrayRssConfigWindow {
 		model.setVacationEnd(this.dacVacEnd.getDate());
 		
 		this.configControl.save(model);
+	}
+
+	public void setTimeEnabled(boolean b) {
+		this.chckbxMonday.setEnabled(b);
+		this.chckbxTuesday.setEnabled(b);
+		this.chckbxWednesday.setEnabled(b);
+		this.chckbxThursday.setEnabled(b);
+		this.chckbxFriday.setEnabled(b);
+		this.chckbxSaturday.setEnabled(b);
+		this.chckbxSunday.setEnabled(b);
+		
+		this.txtTimeframes.setEnabled(b);
+		this.dacVacEnd.setEnabled(b);
+		this.dacVacStart.setEnabled(b);
+		
 	}
 	
 }
