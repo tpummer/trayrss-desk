@@ -24,6 +24,8 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -49,9 +51,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import at.nullpointer.trayrss.configuration.ConfigurationController;
+import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
-import at.nullpointer.trayrss.gui.tablemodel.TableColumn;
+import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -68,14 +72,25 @@ public class TrayRssConfigWindow {
 	private final Action addFeedAction = new AddFeedAction(this);
 	private final Action editFeedAction = new EditFeedAction(this);
 	private final Action removeFeedAction = new RemoveFeedAction(this);
+	private JComboBox cbbLanguage;
+	private JCheckBox chckbxActivateTimeframes;
+	private JCheckBox chckbxMonday;
+	private JCheckBox chckbxTuesday;
+	private JCheckBox chckbxWednesday;
+	private JCheckBox chckbxThursday;
+	private JCheckBox chckbxFriday;
+	private JCheckBox chckbxSaturday;
+	private JCheckBox chckbxSunday;
+	private JDateChooser dacVacStart;
+	private JDateChooser dacVacEnd;
 
 	/**
 	 * Create the application.
 	 * 
 	 * @param configController 
 	 */
-	public TrayRssConfigWindow(ConfigurationController configControl) {
-		this.configControl = configControl;
+	public TrayRssConfigWindow() {
+		this.configControl = ConfigurationControllerImpl.getInstance();
 		initialize();
 	}
 
@@ -133,7 +148,7 @@ public class TrayRssConfigWindow {
 		JLabel lblLanguage = new JLabel(ConfigurationMessages.getString("config.general.language.label", "Language"));
 		pnlLanguage.add(lblLanguage);
 		
-		JComboBox cbbLanguage = new JComboBox();
+		cbbLanguage = new JComboBox();
 		cbbLanguage.setModel(new DefaultComboBoxModel(new String[] {"de", "en"}));
 		cbbLanguage.setSelectedItem(model.getLanguage().getShortcut());
 		pnlLanguage.add(cbbLanguage);
@@ -152,31 +167,8 @@ public class TrayRssConfigWindow {
 		tblFeedInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		tblFeedInfo.setFillsViewportHeight(true);
 		tblFeedInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblFeedInfo.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Long(1), "test", "test", new Integer(3), Boolean.TRUE},
-			},
-			new String[] {
-					ConfigurationMessages.getString("config.feeds.table.column.id", "Id"),//"Id", 
-					ConfigurationMessages.getString("config.feeds.table.column.feedname", "Feed Name"),//"Feed Name", 
-					ConfigurationMessages.getString("config.feeds.table.column.feedurl", "Feed Url"),//"Feed Url", 
-					ConfigurationMessages.getString("config.feeds.table.column.intervall", "Intervall"),//"Intervall", 
-					ConfigurationMessages.getString("config.feeds.table.column.monitored", "Monitored")//"Monitored"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Long.class, String.class, String.class, Integer.class, Boolean.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		
+		tblFeedInfo.setModel(TableModelFactory.getTableModel(model.getFeeds()));
 		tblFeedInfo.getColumnModel().getColumn(4).setResizable(false);
 		scrollPane.setViewportView(tblFeedInfo);
 		
@@ -204,7 +196,16 @@ public class TrayRssConfigWindow {
 		fl_pnlTimeFrameActive.setAlignment(FlowLayout.LEFT);
 		pnlTimeFrame.add(pnlTimeFrameActive);
 		
-		JCheckBox chckbxActivateTimeframes = new JCheckBox(ConfigurationMessages.getString("config.timeframes.toggle.label", "activate TimeFrames")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxActivateTimeframes = new JCheckBox(ConfigurationMessages.getString("config.timeframes.toggle.label", "activate TimeFrames"));
+		chckbxActivateTimeframes.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED){
+					//TODO enable
+				} else if(e.getStateChange() == ItemEvent.DESELECTED){
+					//TODO disable
+				}
+			}
+		});
 		chckbxActivateTimeframes.setSelected(model.getIsTimeFrameActivated());
 		chckbxActivateTimeframes.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlTimeFrameActive.add(chckbxActivateTimeframes);
@@ -218,31 +219,31 @@ public class TrayRssConfigWindow {
 		JPanel pnlTimeFrameDays = new JPanel();
 		pnlTimeFrameOptions.add(pnlTimeFrameDays);
 		
-		JCheckBox chckbxMonday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.mo.label", "Monday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxMonday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.mo.label", "Monday"));
 		chckbxMonday.setSelected(model.getIsMondayEnabled());
 		pnlTimeFrameDays.add(chckbxMonday);
 		
-		JCheckBox chckbxTuesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.tu.label", "Tuesday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxTuesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.tu.label", "Tuesday"));
 		chckbxTuesday.setSelected(model.getIsTuesdayEnabled());
 		pnlTimeFrameDays.add(chckbxTuesday);
 		
-		JCheckBox chckbxWednesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.we.label", "Wednesday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxWednesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.we.label", "Wednesday"));
 		chckbxWednesday.setSelected(model.getIsWednesdayEnabled());
 		pnlTimeFrameDays.add(chckbxWednesday);
 		
-		JCheckBox chckbxThursday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.th.label", "Thursday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxThursday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.th.label", "Thursday"));
 		chckbxThursday.setSelected(model.getIsThursdayEnabled());
 		pnlTimeFrameDays.add(chckbxThursday);
 		
-		JCheckBox chckbxFriday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.fr.label", "Friday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxFriday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.fr.label", "Friday"));
 		chckbxFriday.setSelected(model.getIsFridayEnabled());
 		pnlTimeFrameDays.add(chckbxFriday);
 		
-		JCheckBox chckbxSaturday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.sa.label", "Saturday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxSaturday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.sa.label", "Saturday"));
 		chckbxSaturday.setSelected(model.getIsSaturdayEnabled());
 		pnlTimeFrameDays.add(chckbxSaturday);
 		
-		JCheckBox chckbxSunday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.su.label", "Sunday")); //$NON-NLS-1$ //$NON-NLS-2$
+		chckbxSunday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.su.label", "Sunday"));
 		chckbxSunday.setSelected(model.getIsSundayEnabled());
 		pnlTimeFrameDays.add(chckbxSunday);
 		
@@ -263,7 +264,7 @@ public class TrayRssConfigWindow {
 		JLabel lblVacation = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.label", "Vacation")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblVacation);
 		
-		JDateChooser dacVacStart = new JDateChooser();
+		dacVacStart = new JDateChooser();
 		dacVacStart.setDateFormatString("dd.MM.yyyy");
 		dacVacStart.setDate(model.getVacationStart());
 		pnlTimeFrameVacation.add(dacVacStart);
@@ -271,7 +272,7 @@ public class TrayRssConfigWindow {
 		JLabel lblStart = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblStart);
 		
-		JDateChooser dacVacEnd = new JDateChooser();
+		dacVacEnd = new JDateChooser();
 		dacVacEnd.setDateFormatString("dd.MM.yyyy");
 		dacVacEnd.setDate(model.getVacationEnd());
 		pnlTimeFrameVacation.add(dacVacEnd);
@@ -294,7 +295,7 @@ public class TrayRssConfigWindow {
 		saveExitPanel.add(btnCancel);
 	}
 	
-	public void addFeedRow(int selectedRow, Long selectedID, String name, String url, Integer intervall, Boolean monitored){
+	public void addFeedRow(int selectedRow, Long selectedID, String name, String url, Long intervall, Boolean monitored){
 		DefaultTableModel model = (DefaultTableModel)tblFeedInfo.getModel();
 		
 		Object[] row = {selectedID, name, url, intervall, monitored};
@@ -325,8 +326,8 @@ public class TrayRssConfigWindow {
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {
-			//TODO Save Configuration
-			System.out.println("SAVE");
+			this.window.saveConfig();
+			this.window.frmTrayrss.dispose();
 		}
 	}
 	
@@ -381,6 +382,30 @@ public class TrayRssConfigWindow {
 			int selectedRow = this.window.tblFeedInfo.getSelectedRow();
 			removeFeedRow(selectedRow);
 		}
+	}
+
+	public void saveConfig() {
+		ConfigurationModel model = this.configControl.getConfigurationModel();
+		
+		model.setDisplayCount(Integer.valueOf(this.txtDisplaycount.getText()));
+		model.setDisplayTime(Integer.valueOf(this.txtDisplaytime.getText()));
+		model.setLanguage(LanguageShortcut.valueOf(((String)this.cbbLanguage.getSelectedItem()).toUpperCase()));
+
+		model.setFeeds(TableModelFactory.retrieveFeeds(this.tblFeedInfo.getModel()));
+		
+		model.setIsTimeFrameActivated(this.chckbxActivateTimeframes.isSelected());
+		model.setIsMondayEnabled(this.chckbxMonday.isSelected());
+		model.setIsTuesdayEnabled(this.chckbxTuesday.isSelected());
+		model.setIsWednesdayEnabled(this.chckbxWednesday.isSelected());
+		model.setIsThursdayEnabled(this.chckbxThursday.isSelected());
+		model.setIsFridayEnabled(this.chckbxFriday.isSelected());
+		model.setIsSaturdayEnabled(this.chckbxSaturday.isSelected());
+		model.setIsSundayEnabled(this.chckbxSunday.isSelected());
+		model.setTimeFrames(TimeFrameUtil.stringToSingleTimeFrame(this.txtTimeframes.getText()));
+		model.setVacationStart(this.dacVacStart.getDate());
+		model.setVacationEnd(this.dacVacEnd.getDate());
+		
+		this.configControl.save(model);
 	}
 	
 }

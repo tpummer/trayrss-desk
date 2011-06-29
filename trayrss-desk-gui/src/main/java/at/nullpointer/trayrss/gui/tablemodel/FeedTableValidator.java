@@ -19,20 +19,37 @@
  */
 package at.nullpointer.trayrss.gui.tablemodel;
 
-/**
- * This class holds the references for the column index of the
- * feed table model
- * 
- * @author Thomas Pummer
- *
- */
-public class TableColumn {
-	public static final int COLUMN_COUNT = 5;
-	
-	public final static int ID = 0;
-	public final static int FEED_NAME = 1;
-	public final static int FEED_URL = 2;
-	public final static int INTERVALL = 3;
-	public final static int MONITORED = 4;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
+
+public class FeedTableValidator {
+
+	public static boolean checkURL(String url) {
+
+		URL test;
+
+		try {
+			test = new URL(url);
+		} catch (MalformedURLException e) {
+			return false;
+		}
+
+		SyndFeedInput input = new SyndFeedInput();
+		try {
+			input.build(new XmlReader(test));
+		} catch (IllegalArgumentException e) {
+			return false;
+		} catch (FeedException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
 }

@@ -35,10 +35,12 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumn;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
@@ -132,7 +134,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		this.selectedID = (Long)model.getValueAt(selectedRow, TableColumn.ID);
 		this.txtFeedName.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_NAME)));
 		this.txtFeedUrl.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_URL)));
-		this.cbbMonitorIntervall.setSelectedItem(((Integer)model.getValueAt(selectedRow, TableColumn.INTERVALL)).toString());
+		this.cbbMonitorIntervall.setSelectedItem(((Long)model.getValueAt(selectedRow, TableColumn.INTERVALL)).toString());
 		this.chckbxMonitoringEnabled.setSelected((Boolean) model.getValueAt(selectedRow, TableColumn.MONITORED));
 	}
 
@@ -183,14 +185,21 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			this.motherFrame.addFeedRow(this.window.selectedRow,
-										this.window.selectedID, 
-						                this.window.txtFeedName.getText(),
-						                this.window.txtFeedUrl.getText(),
-						                Integer.valueOf((String)this.window.cbbMonitorIntervall.getSelectedItem()),
-						                this.window.chckbxMonitoringEnabled.isSelected());
 			
-			window.dispose();
+			//Check URL
+			if(FeedTableValidator.checkURL(this.window.txtFeedUrl.getText())){
+				this.motherFrame.addFeedRow(this.window.selectedRow,
+						this.window.selectedID, 
+		                this.window.txtFeedName.getText(),
+		                this.window.txtFeedUrl.getText(),
+		                Long.valueOf((String)this.window.cbbMonitorIntervall.getSelectedItem()),
+		                this.window.chckbxMonitoringEnabled.isSelected());
+
+				window.dispose();
+			} else {
+				//TODO Errorconcept
+				JOptionPane.showMessageDialog(this.window, "Not a valid feed url", "URL Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
