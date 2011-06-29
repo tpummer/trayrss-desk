@@ -25,8 +25,7 @@ import java.awt.TrayIcon;
 import org.apache.log4j.Level;
 
 import at.nullpointer.trayrss.gui.tray.Help;
-import at.nullpointer.trayrss.monitor.Monitor;
-import at.nullpointer.trayrss.monitor.TrayNotifier;
+import at.nullpointer.trayrss.notification.TrayNotifier;
 
 /**
  * Collection of all references
@@ -73,11 +72,6 @@ public class ReferenceCollection {
 	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
 	
 	/*
-	 * Notification Messages
-	 */
-	public static final String notification_read_error_uri = "Error reading URL";
-	
-	/*
 	 * Tray
 	 */
 	
@@ -86,11 +80,6 @@ public class ReferenceCollection {
 	public static String TRAYMENU_MONITOR = "Check Feeds manually";
 	public static String TRAYMENU_CONFIG = "Configuration";
 	public static String TRAYMENU_HELP = "Help";
-
-	/*
-	 * Monitor
-	 */
-	public static Monitor MONITOR;
 	
 	/*
 	 * Help Window
@@ -99,5 +88,4 @@ public class ReferenceCollection {
 	public static Help HELP_WINDOW;
 	public static String HELP_OK = "Ok";
 	
-	public static TrayNotifier TRAYNOTIFIER;
 }

@@ -25,7 +25,8 @@ import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
-import at.nullpointer.trayrss.monitor.TrayNotifier;
+import at.nullpointer.trayrss.notification.TrayNotifier;
+
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;

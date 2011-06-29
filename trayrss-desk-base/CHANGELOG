@@ -59,6 +59,14 @@ Changes in 1.1.0
 + configuration now persists
 + TableModel is now generated from config to be placed in the gui
 * gui now loads data from the config and gives data back
++ timerestrictions are now disabled on the gui if not activated
+- removed debug var, and set root logginglevel
++ if duplicated news item was found, it will be cleard now
+* moved notification to new modul
++ added listener to config to recognice when a change happens
+* moved monitor to a new modul
+* fixed a bug when feed is removed from database while feedentry is in process
++ added a Repository that contains the SessionFactory
 
 Changes in 1.0.1
 * performance refactoring

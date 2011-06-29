@@ -23,7 +23,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -34,7 +36,7 @@ import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.dao.SessionFactoryRepository;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.monitor.Monitor;
-import at.nullpointer.trayrss.monitor.TrayNotifier;
+import at.nullpointer.trayrss.notification.TrayNotifier;
 
 /**
  * Prozesses all initial loadings
@@ -48,8 +50,6 @@ public class StartUp {
 	
 	Properties props = new Properties();
 	Properties langprops = new Properties();
-	
-	boolean debug = false;
 
 	/**
 	 * Prozesses all initial loadings
@@ -58,8 +58,8 @@ public class StartUp {
 	 *            switches the logger to debug mode
 	 */
 	public StartUp(boolean debug) {
-		this.debug = debug;
-		//TODO remove debug - set logger to debug
+		if(debug)
+			Logger.getRootLogger().setLevel(ReferenceCollection.LOG_LEVEL_DEBUG);
 
 		startDatabase();
 		ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
@@ -79,8 +79,7 @@ public class StartUp {
 	 */
 	private void setCaptions(LanguageShortcut lang) {
 	
-		log.debug("Startup: Load Languagefile at "
-				+ System.currentTimeMillis());
+		log.debug("Startup: Load Captions started");
 		InputStream reader = null;
 	
 		//TODO Sprache auf neues Konzept umstellen
@@ -130,63 +129,44 @@ public class StartUp {
 				+ language_short + ".help_title");
 		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
 				+ language_short + ".help_ok");
-	
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Set Captions at "
-				+ end);
+
+		log.debug("Startup: Finished Set Captions");
 	
 	}
 
 	private void startTray() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Start Tray at " + start);
+		log.debug("Startup: Start Tray");
 	
 		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
 		trayIconPOJO.startTrayIcon();
 	
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Start Tray at " + end);
+		log.debug("Startup: Finished Start Tray");
 	}
 
 	private void startDatabase() {
-		long start = 0;
-		if (debug) {
-			start = System.currentTimeMillis();
-			log.debug("Startup: Start Database at " + start);
-		}
+			log.debug("Startup: Start Database");
 
 		SessionFactoryRepository.setSessionFactory(new AnnotationConfiguration()
 				.configure().buildSessionFactory());
 
-		long end = 0;
-		if (debug) {
-			end = System.currentTimeMillis();
-			log
-					.debug("Startup: Finished Start Database at " + end);
-		}
+		log.debug("Startup: Finished Start Database");
+
 	}
 
 	private void startMonitor() {
-		long start = 0;
-		if (debug)
-			start = System.currentTimeMillis();
-		log.debug("Startup: Start Monitor at " + start);
+		log.debug("Startup: Start Monitor");
 
-		ReferenceCollection.TRAYNOTIFIER = new TrayNotifier();
-		new Thread(ReferenceCollection.TRAYNOTIFIER).start();
+		TrayNotifier trayNotifier = new TrayNotifier();
+		new Thread(trayNotifier).start();
 
-		ReferenceCollection.MONITOR = new Monitor();
+		Monitor.setTrayNotifier(trayNotifier);
+		Monitor monitor = Monitor.getInstance();
+		
+		Set<ChangeListener> listener = new HashSet<ChangeListener>();
+		listener.add(monitor);
+		listener.add(trayNotifier);
+		ConfigurationControllerImpl.getInstance().setChangeListener(listener);
 
-		long end = 0;
-		if (debug)
-			end = System.currentTimeMillis();
-		log.debug("Startup: Finished Start Monitor at "
-				+ end);
+		log.debug("Startup: Finished Start Monitor");
 	}
 }

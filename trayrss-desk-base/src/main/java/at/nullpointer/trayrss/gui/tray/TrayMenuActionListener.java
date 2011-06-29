@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.Shutdown;
 import at.nullpointer.trayrss.gui.TrayRssConfigWindow;
+import at.nullpointer.trayrss.monitor.Monitor;
 
 public class TrayMenuActionListener implements ActionListener {
 	
@@ -35,8 +36,8 @@ public class TrayMenuActionListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
-			ReferenceCollection.MONITOR.stopAll(2);
-			ReferenceCollection.MONITOR.loadFeeds();
+			Monitor.getInstance().stopAll(2);
+			Monitor.getInstance().loadFeeds();
 			ReferenceCollection.TRAY_ICON.displayMessage("Useraction", "Handmade Monitoringintervall", 
 					TrayIcon.MessageType.INFO);
 			
