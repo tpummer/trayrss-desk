@@ -27,28 +27,31 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
-	
+
 	private Logger log = Logger.getLogger(NewsDAOImpl.class);
 
 	public void deleteById(Long id) {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
 		Transaction tx = session.beginTransaction();
-		
+
 		session.delete(session.load(News.class, id));
-		
+
 		tx.commit();
 		session.close();
 
 	}
 
 	public News findNewsById(Long id) {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
 		Transaction tx = session.beginTransaction();
 		News news = (News) session.get(News.class, id);
 
@@ -59,10 +62,11 @@ public class NewsDAOImpl implements NewsDAO {
 	}
 
 	public Collection<News> getNews() {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select n from News n");
-		List<News> news = (List<News>)query.list();
+		List<News> news = (List<News>) query.list();
 
 		tx.commit();
 		session.close();
@@ -70,60 +74,84 @@ public class NewsDAOImpl implements NewsDAO {
 		return news;
 	}
 
-	public void save(News news) {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
+	public void save(News news) throws SQLException {
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
 		Transaction tx = session.beginTransaction();
-		
-		if(news.getId() != null && session.load(News.class, news.getId()) != null){
-			session.update(news);
+
+		FeedDAO feedDao = new FeedDAOImpl();
+		if (news.getId() != null
+				&& session.load(News.class, news.getId()) != null) {
+			if(feedDao.findFeedById(news.getFeed().getId()) != null)
+				session.update(news);
 		} else {
-			session.save(news);
-	
+			if(feedDao.findFeedById(news.getFeed().getId()) != null)
+				session.save(news);
+
 		}
-		
+
 		tx.commit();
 		session.close();
 
 	}
 
 	public News getNewsByData(News news) {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
 		Transaction tx = session.beginTransaction();
-		
-		Query query = session.createQuery("select n from News n where n.uri = :uri")
-					  .setParameter("uri", news.getUri());
+
+		Query query = session.createQuery(
+				"select n from News n where n.uri = :uri").setParameter("uri",
+				news.getUri());
 		News erg = null;
 		try {
-			erg = (News)query.uniqueResult();
+			erg = (News) query.uniqueResult();
 		} catch (HibernateException e) {
-			log.error(news.getTitle()+ " at "+news.getUri()+" has a duplicated entry!");
-			log.debug(e.toString());
+			log.error(news.getTitle() + " at " + news.getUri()
+					+ " has a duplicated entry!");
 			log.debug(query.getQueryString());
+			List<News> list = query.list();
+			for (News dupe : list) {
+				if (erg == null) {
+					erg = dupe;
+				} else {
+					if (dupe.getLastRead().after(erg.getLastRead())) {
+						deleteById(erg.getId());
+						erg = dupe;
+						log.debug("removed duplicated news with id"
+								+ erg.getId());
+					} else {
+						deleteById(dupe.getId());
+						log.debug("removed duplicated news with id"
+								+ news.getId());
+					}
+				}
+			}
 		}
-		
+
 		tx.commit();
 		session.close();
-		
+
 		return erg;
-		
+
 	}
 
-
 	public void deleteOlderThanTwoMonth(Long id) {
-		Session session = SessionFactoryRepository.getSessionFactory().openSession();
-		
-		
+		Session session = SessionFactoryRepository.getSessionFactory()
+				.openSession();
+
 		Transaction tx = session.beginTransaction();
-		
+
 		Calendar now = GregorianCalendar.getInstance();
 		now.add(Calendar.MONTH, -2);
-			
+
 		String hqlN = "delete from News n where feed_id = :id and UPDATEDDATE < :date";
-		
-		Query queryN = session.createQuery(hqlN).setLong("id", id).setDate("date", now.getTime());
-		
+
+		Query queryN = session.createQuery(hqlN).setLong("id", id)
+				.setDate("date", now.getTime());
+
 		queryN.executeUpdate();
-		
+
 		tx.commit();
 		session.close();
 	}
