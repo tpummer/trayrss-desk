@@ -24,7 +24,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -33,7 +34,10 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+import at.nullpointer.trayrss.dao.FeedDAO;
+import at.nullpointer.trayrss.dao.FeedDAOImpl;
 import at.nullpointer.trayrss.error.ErrorListener;
+import at.nullpointer.trayrss.model.Feed;
 
 /**
  * {@docRoot}
@@ -73,11 +77,19 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	 * 
 	 * @param configurationModel the config to save 
 	 */
-	@Override
 	public synchronized void save(ConfigurationModel configurationModel) {
+		
+		//general
 		props.setProperty(ConfigurationConstants.LANGUAGE, configModel.getLanguage().toString());
 		props.setProperty(ConfigurationConstants.DISPLAYSECOND, configModel.getDisplayTime().toString());
 		props.setProperty(ConfigurationConstants.DISPLAYCOUNT, configModel.getDisplayCount().toString());
+		
+		//Feed
+		FeedDAO feedDao = new FeedDAOImpl();
+		Set<Feed> feeds = configModel.getFeeds();
+		for(Feed feed : feeds){
+			feedDao.save(feed);
+		}
 		
 		//timerestriction
 		props.setProperty(ConfigurationConstants.TIMERESTRICTION, configModel.getIsTimeFrameActivated().toString());
@@ -92,8 +104,12 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		props.setProperty(ConfigurationConstants.TIME_SA, configModel.getIsSaturdayEnabled().toString());
 		props.setProperty(ConfigurationConstants.TIME_SU, configModel.getIsSundayEnabled().toString());
 		
-		props.setProperty(ConfigurationConstants.VACATION_START, Long.toString(configModel.getVacationStart().getTime()));
-		props.setProperty(ConfigurationConstants.VACATION_END, Long.toString(configModel.getVacationEnd().getTime()));
+		Date vacationStart = configModel.getVacationStart();
+		Date vacationEnd = configModel.getVacationEnd();
+		if(vacationStart != null)
+			props.setProperty(ConfigurationConstants.VACATION_START, Long.toString(configModel.getVacationStart().getTime()));
+		if(vacationEnd != null)
+			props.setProperty(ConfigurationConstants.VACATION_END, Long.toString(configModel.getVacationEnd().getTime()));
 		
 		try {
 			props.storeToXML(new FileOutputStream(ConfigurationConstants.CONFIG),"TrayRSS Configuration");
@@ -110,10 +126,9 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	/**
 	 * <p>preloads the configuration from the filesystem</p>
 	 */
-	@Override
 	public synchronized void load() {
-		Properties loadProps = loadProps();
-		this.configModel = loadInitialProperties(loadProps);
+		this.props = loadProps();
+		this.configModel = loadInitialProperties(this.props);
 
 	}
 
@@ -122,12 +137,19 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	 * 
 	 * @return configModel
 	 */
-	@Override
 	public synchronized ConfigurationModel getConfigurationModel() {
 		if(this.configModel == null){
 			loadProps();
 		}
 		return configModel;
+	}
+	
+	/**
+	 * Method to enter a Mock Model
+	 * @param model
+	 */
+	public synchronized void setConfigurationModel(ConfigurationModel model){
+		this.configModel = model;
 	}
 	
 	/**
@@ -178,6 +200,10 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		configModel.setDisplayTime(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYSECOND)));
 		configModel.setDisplayCount(Integer.valueOf(props.getProperty(ConfigurationConstants.DISPLAYCOUNT)));
 		
+		//feed
+		FeedDAO feedDAO = new FeedDAOImpl();
+		configModel.setFeeds(new HashSet<Feed>(feedDAO.getFeeds()));
+		
 		//timerestriction
 		configModel.setIsTimeFrameActivated(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIMERESTRICTION)));
 		
@@ -192,12 +218,18 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		configModel.setIsSundayEnabled(Boolean.valueOf(props.getProperty(ConfigurationConstants.TIME_SU)));
 		
 		String vacationStart = props.getProperty(ConfigurationConstants.VACATION_START);
-		if(vacationStart.length() > 0)
-			configModel.setVacationStart(Date.valueOf(vacationStart));
+		if(vacationStart.length() > 0){
+				Date date = new Date();
+				date.setTime(Long.valueOf(vacationStart));
+				configModel.setVacationStart(date);
+		}
 		
 		String vacationEnd = props.getProperty(ConfigurationConstants.VACATION_END);
-		if(vacationEnd.length() > 0)
-			configModel.setVacationEnd(Date.valueOf(vacationEnd));
+		if(vacationEnd.length() > 0){
+				Date date = new Date();
+				date.setTime(Long.valueOf(vacationEnd));
+				configModel.setVacationEnd(date);
+	}
 		
 		log.debug("Startup: Finished loading properties");
 		

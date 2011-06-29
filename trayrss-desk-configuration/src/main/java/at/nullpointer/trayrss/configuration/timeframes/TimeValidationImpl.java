@@ -91,7 +91,22 @@ public class TimeValidationImpl implements TimeValidation {
 	 * @return
 	 */
 	private boolean isNotAtVacation(Calendar now, Date start, Date end) {
-		return start.after(now.getTime()) || end.before(now.getTime());
+		
+		boolean startAfterNow = true;
+		
+		if(start != null){
+			startAfterNow = start.after(now.getTime());
+		}
+		
+		if(!startAfterNow){
+			if(end != null){
+				if(!end.before(now.getTime())){
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 	/**
