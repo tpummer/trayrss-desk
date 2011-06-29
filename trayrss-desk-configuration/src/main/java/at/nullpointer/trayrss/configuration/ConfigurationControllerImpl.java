@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Properties;
@@ -48,6 +49,8 @@ import at.nullpointer.trayrss.model.Feed;
 public class ConfigurationControllerImpl implements ConfigurationController {
 	
 	private Set<ErrorListener> errorListeners;
+	
+	private Set<ChangeListener> changeListener;
 	
 	Logger log = Logger.getLogger(ConfigurationControllerImpl.class);
 	
@@ -86,9 +89,14 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		
 		//Feed
 		FeedDAO feedDao = new FeedDAOImpl();
+		Collection<Feed> oldFeeds = feedDao.getFeeds();
 		Set<Feed> feeds = configModel.getFeeds();
 		for(Feed feed : feeds){
 			feedDao.save(feed);
+			oldFeeds.remove(feed);
+		}
+		for(Feed feed : oldFeeds){
+			feedDao.deleteById(feed.getId());
 		}
 		
 		//timerestriction
@@ -120,7 +128,34 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 			for(ErrorListener listener : errorListeners )
 				listener.addError("Configuration", "IO Error at saving");
 		}
+		
+		notifyAllListeners();
 
+	}
+
+	private void notifyAllListeners() {
+		
+		NotifyThread notifyAll = new NotifyThread();
+		
+		notifyAll.setChangeListener(changeListener);
+		
+		notifyAll.run();
+		
+	}
+	
+	class NotifyThread extends Thread{
+		private Set<ChangeListener> listener;
+		
+		public void setChangeListener(Set<ChangeListener> listener){
+			this.listener = listener;
+		}
+		
+		@Override
+		public void run() {
+			for(ChangeListener single : this.listener){
+				single.notifyChange();
+			}
+		}
 	}
 
 	/**
@@ -253,6 +288,14 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	public void setErrorListeners(Set<ErrorListener> errorListeners) {
 		this.errorListeners = errorListeners;
 	}
+
+	@Override
+	public void setChangeListener(Set<ChangeListener> listener) {
+		this.changeListener = listener;
+		
+	}
+	
+	
 	
 	
 	

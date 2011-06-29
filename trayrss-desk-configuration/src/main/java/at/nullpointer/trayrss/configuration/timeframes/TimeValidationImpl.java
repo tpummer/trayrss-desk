@@ -54,6 +54,9 @@ public class TimeValidationImpl implements TimeValidation {
 		boolean allowed = configModel.getIsTimeFrameActivated();
 		
 		log.debug("User wants to restrict the time: " + allowed);
+		
+		// Stop check if time restrictions are not enabled
+		if(!allowed) return true;
 
 		if (allowed) {
 			// Time Check
