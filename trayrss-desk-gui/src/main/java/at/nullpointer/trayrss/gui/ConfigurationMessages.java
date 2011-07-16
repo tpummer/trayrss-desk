@@ -20,6 +20,7 @@
 package at.nullpointer.trayrss.gui;
 
 import java.beans.Beans;
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -38,10 +39,11 @@ public class ConfigurationMessages {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final String BUNDLE_NAME = "at.nullpointer.trayrss.gui.configurationmessages"; //$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE = loadBundle();
+	private static Locale LOCALE = new Locale("en"); 
+	private static ResourceBundle RESOURCE_BUNDLE = loadBundle();
 	public static String TrayRssConfigWindow_frmTrayrss_title;
-	private static ResourceBundle loadBundle() {
-		return ResourceBundle.getBundle(BUNDLE_NAME);
+	public static ResourceBundle loadBundle() {
+		return ResourceBundle.getBundle(BUNDLE_NAME, LOCALE);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -55,5 +57,10 @@ public class ConfigurationMessages {
 		} catch (MissingResourceException e) {
 			return defaultValue;
 		}
+	}
+	
+	public static void chanceLocale(Locale locale){
+		LOCALE = locale;
+		RESOURCE_BUNDLE = loadBundle();
 	}
 }

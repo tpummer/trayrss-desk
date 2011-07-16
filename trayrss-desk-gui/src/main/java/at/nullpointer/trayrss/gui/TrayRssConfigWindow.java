@@ -24,7 +24,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
+import java.util.Locale;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -99,6 +99,7 @@ public class TrayRssConfigWindow {
 	 */
 	private void initialize() {
 		ConfigurationModel model = this.configControl.getConfigurationModel();
+		ConfigurationMessages.chanceLocale(new Locale(model.getLanguage().getShortcut()));
 		
 		frmTrayrss = new JFrame();
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));
