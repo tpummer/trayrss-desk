@@ -41,7 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
-import at.nullpointer.trayrss.gui.tablemodel.TableColumn;
+import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	private int selectedRow = -1;
@@ -131,11 +131,11 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 			TableModel model) {
 		this(frmTrayrss);
 		this.selectedRow = selectedRow;
-		this.selectedID = (Long)model.getValueAt(selectedRow, TableColumn.ID);
-		this.txtFeedName.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_NAME)));
-		this.txtFeedUrl.setText(String.valueOf(model.getValueAt(selectedRow, TableColumn.FEED_URL)));
-		this.cbbMonitorIntervall.setSelectedItem(((Long)model.getValueAt(selectedRow, TableColumn.INTERVALL)).toString());
-		this.chckbxMonitoringEnabled.setSelected((Boolean) model.getValueAt(selectedRow, TableColumn.MONITORED));
+		this.selectedID = (Long)model.getValueAt(selectedRow, TableColumnUtil.ID);
+		this.txtFeedName.setText(String.valueOf(model.getValueAt(selectedRow, TableColumnUtil.FEED_NAME)));
+		this.txtFeedUrl.setText(String.valueOf(model.getValueAt(selectedRow, TableColumnUtil.FEED_URL)));
+		this.cbbMonitorIntervall.setSelectedItem(((Long)model.getValueAt(selectedRow, TableColumnUtil.INTERVALL)).toString());
+		this.chckbxMonitoringEnabled.setSelected((Boolean) model.getValueAt(selectedRow, TableColumnUtil.MONITORED));
 	}
 
 	public void windowOpened(WindowEvent e) {

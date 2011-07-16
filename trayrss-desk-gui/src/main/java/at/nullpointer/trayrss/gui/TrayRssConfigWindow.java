@@ -54,6 +54,7 @@ import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
 
 import com.toedter.calendar.JDateChooser;
@@ -168,8 +169,11 @@ public class TrayRssConfigWindow {
 		tblFeedInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		tblFeedInfo.setModel(TableModelFactory.getTableModel(model.getFeeds()));
-		tblFeedInfo.getColumnModel().getColumn(4).setResizable(false);
 		scrollPane.setViewportView(tblFeedInfo);
+		tblFeedInfo.getTableHeader().setReorderingAllowed(false);
+		tblFeedInfo.getTableHeader().setResizingAllowed(false);
+		int tablewidth = tblFeedInfo.getPreferredScrollableViewportSize().width;
+		TableColumnUtil.setColumnsSize(tblFeedInfo.getColumnModel(), tablewidth);
 		
 		JPanel pnlFeedActions = new JPanel();
 		pnlFeed.add(pnlFeedActions);

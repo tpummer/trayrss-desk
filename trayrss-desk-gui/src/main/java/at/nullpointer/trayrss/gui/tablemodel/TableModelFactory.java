@@ -19,9 +19,7 @@
  */
 package at.nullpointer.trayrss.gui.tablemodel;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,7 +48,7 @@ public class TableModelFactory {
 				public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
-			};		
+			};
 		
 		for(Feed feed: feeds){
 			tableModel.addRow(feedToObjectRow(feed));
@@ -73,13 +71,13 @@ public class TableModelFactory {
 
 	private static Object[] feedToObjectRow(Feed feed) {
 		
-		Object [] result = new Object[TableColumn.COLUMN_COUNT];
+		Object [] result = new Object[TableColumnUtil.COLUMN_COUNT];
 		
-		result[TableColumn.ID] = feed.getId();
-		result[TableColumn.FEED_NAME] = feed.getName();
-		result[TableColumn.FEED_URL] = feed.getUrl();
-		result[TableColumn.INTERVALL] = feed.getIntervall();
-		result[TableColumn.MONITORED] = feed.getMonitored();
+		result[TableColumnUtil.ID] = feed.getId();
+		result[TableColumnUtil.FEED_NAME] = feed.getName();
+		result[TableColumnUtil.FEED_URL] = feed.getUrl();
+		result[TableColumnUtil.INTERVALL] = feed.getIntervall();
+		result[TableColumnUtil.MONITORED] = feed.getMonitored();
 		
 		return result;
 	}
@@ -92,16 +90,16 @@ public class TableModelFactory {
 		Set<Feed> result = new HashSet<Feed>();
 		for(int row = 0; row < rowCount; row++){
 			Feed erg = null;
-			Long valueAt = (Long) dtm.getValueAt(row, TableColumn.ID);
+			Long valueAt = (Long) dtm.getValueAt(row, TableColumnUtil.ID);
 			if(valueAt != 0)
 				erg = feedDao.findFeedById(valueAt);
 			else
 				erg = new Feed();
 			
-			erg.setName((String) dtm.getValueAt(row, TableColumn.FEED_NAME));
-			erg.setUrl((String) dtm.getValueAt(row, TableColumn.FEED_URL));
-			erg.setIntervall((Long) dtm.getValueAt(row, TableColumn.INTERVALL));
-			erg.setMonitored((Boolean) dtm.getValueAt(row, TableColumn.MONITORED));
+			erg.setName((String) dtm.getValueAt(row, TableColumnUtil.FEED_NAME));
+			erg.setUrl((String) dtm.getValueAt(row, TableColumnUtil.FEED_URL));
+			erg.setIntervall((Long) dtm.getValueAt(row, TableColumnUtil.INTERVALL));
+			erg.setMonitored((Boolean) dtm.getValueAt(row, TableColumnUtil.MONITORED));
 			
 			Date noAction = new Date(0);
 			erg.setLastAction(noAction);
