@@ -22,6 +22,7 @@ package at.nullpointer.trayrss.gui.tray;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 
@@ -38,7 +39,12 @@ public class Help extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel helpIcon = new JLabel();
-		helpIcon.setIcon(new ImageIcon(ReferenceCollection.ICON_HELP));
+		ImageIcon imageIcon = new ImageIcon(Help.class.getResource(ReferenceCollection.ICON_HELP.substring(1))); // load the image to a imageIcon
+		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) imageIcon = new ImageIcon(ReferenceCollection.ICON_HELP);
+		Image image = imageIcon.getImage(); // transform it 
+	    Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+	    imageIcon = new ImageIcon(newimg);  // transform it back
+		helpIcon.setIcon(imageIcon);
 		this.getContentPane().add(helpIcon, BorderLayout.WEST);
 		
 		JLabel helpMsg = new JLabel("<html><center>" + ReferenceCollection.TRAYRSS_APP_TITLE + "<br/>"+

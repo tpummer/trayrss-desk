@@ -47,8 +47,7 @@ public class IconChanger {
 				 TrayRSS.class.getResource(icon.substring(1)));
 		
 		
-		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage("."+
-				icon);
+		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage(icon);
 		
 		trayIcon.setImage(image);
 	}
@@ -64,8 +63,7 @@ public class IconChanger {
 				 TrayRSS.class.getResource(ReferenceCollection.ICON_NORMAL.substring(1)));
 		
 		
-		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage("."+
-				ReferenceCollection.ICON_NORMAL);
+		if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null")) image = Toolkit.getDefaultToolkit().getImage(ReferenceCollection.ICON_NORMAL);
 		return new TrayIcon(image, ReferenceCollection.TRAYRSS_APP_TITLE, popup);
 	}
 

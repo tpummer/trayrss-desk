@@ -25,6 +25,8 @@
 Changes in 1.2.0
 * column size of the feed table rearranged to the needed space
 * locale in configuration is now used to set langauge of the resource bundle
++ added new splash screen, help image and icon
++ maven-property for versioning
  
 Changes in 1.1.0
 * splitting the project into submodules

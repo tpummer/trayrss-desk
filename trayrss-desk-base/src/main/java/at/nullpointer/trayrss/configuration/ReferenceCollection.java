@@ -25,7 +25,6 @@ import java.awt.TrayIcon;
 import org.apache.log4j.Level;
 
 import at.nullpointer.trayrss.gui.tray.Help;
-import at.nullpointer.trayrss.notification.TrayNotifier;
 
 /**
  * Collection of all references
@@ -56,11 +55,8 @@ public class ReferenceCollection {
 	 * Icons
 	 */
 	
-	public static final String ICON_NORMAL = "./img/icons/rssTrayIcon.PNG";
-	public static final String ICON_WARN = "./img/icons/rssTrayIconWarn.PNG";
-	public static final String ICON_NEW = "./img/icons/rssTrayIconWarn.PNG";
-	
-	public static final String ICON_HELP = "./img/rssTrayHelp.PNG";
+	public static final String ICON_NORMAL = "./img/icons/rss-icon.png";
+	public static final String ICON_HELP = "./img/trayrss.png";
 	
 	/*
 	 * Logger
