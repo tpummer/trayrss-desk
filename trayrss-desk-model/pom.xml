@@ -6,16 +6,16 @@
 	<parent>
 		<artifactId>trayrss-desk</artifactId>
 		<groupId>at.nullpointer</groupId>
-		<version>1.1.0</version>
+		<version>1.2.0-SNAPSHOT</version>
 		<relativePath>../trayrss-desk/pom.xml</relativePath>
 	</parent>
 	<groupId>at.nullpointer</groupId>
 	<artifactId>trayrss-desk-model</artifactId>
-	<version>1.1.0</version>
 	<name>trayrss-desk-model</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<trayrss-parent-version>1.2.0-SNAPSHOT</trayrss-parent-version>
 	</properties>
 	<dependencies>
 		<dependency>
