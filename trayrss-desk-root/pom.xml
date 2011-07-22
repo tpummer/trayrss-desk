@@ -16,12 +16,12 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>../trayrss-desk-base</module>
-		<module>../trayrss-desk-gui</module>
-		<module>../trayrss-desk-model</module>
-		<module>../trayrss-desk-configuration</module>
-		<module>../trayrss-desk-monitor</module>
-		<module>../trayrss-desk-notification</module>
+		<module>trayrss-desk-base</module>
+		<module>trayrss-desk-gui</module>
+		<module>trayrss-desk-model</module>
+		<module>trayrss-desk-configuration</module>
+		<module>trayrss-desk-monitor</module>
+		<module>trayrss-desk-notification</module>
 	</modules>	
 	<repositories>
 		<repository>

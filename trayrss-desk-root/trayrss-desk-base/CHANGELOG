@@ -27,6 +27,7 @@ Changes in 1.2.0
 * locale in configuration is now used to set langauge of the resource bundle
 + added new splash screen, help image and icon
 + maven-property for versioning
+* moved projects into root
  
 Changes in 1.1.0
 * splitting the project into submodules
