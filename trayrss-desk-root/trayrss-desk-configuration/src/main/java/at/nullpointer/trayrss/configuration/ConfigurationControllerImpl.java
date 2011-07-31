@@ -271,6 +271,12 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		return configModel;
 	
 	}
+	
+	private void notifyAllErrorListener(String title, String text){
+		for(ErrorListener el :errorListeners){
+			el.addError(title, text);
+		}
+	}
 
 	
 	/***** Getter // Setter *****/
@@ -289,7 +295,6 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 		this.errorListeners = errorListeners;
 	}
 
-	@Override
 	public void setChangeListener(Set<ChangeListener> listener) {
 		this.changeListener = listener;
 		

@@ -19,8 +19,14 @@
  */
 package at.nullpointer.trayrss.error;
 
+import javax.swing.Icon;
+import javax.swing.JComponent;
+
 public interface ErrorListener {
 
-	void addError(String where, String what);
+	void addError(String title, String text);
+	void addError(String title, String text, int messageType);
+	void addError(JComponent where, String title, String text, int messageType);
+	void addError(JComponent where, String title, String text, int messageType, Icon icon);
 
 }

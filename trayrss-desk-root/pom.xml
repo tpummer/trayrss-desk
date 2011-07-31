@@ -22,6 +22,7 @@
 		<module>trayrss-desk-configuration</module>
 		<module>trayrss-desk-monitor</module>
 		<module>trayrss-desk-notification</module>
+		<module>trayrss-desk-error</module>
 	</modules>	
 	<repositories>
 		<repository>

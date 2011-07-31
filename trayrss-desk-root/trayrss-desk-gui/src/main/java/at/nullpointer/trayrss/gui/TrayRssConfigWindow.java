@@ -54,6 +54,7 @@ import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
+import at.nullpointer.trayrss.error.JOptionPaneErrorListener;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
 
@@ -352,6 +353,7 @@ public class TrayRssConfigWindow {
 		}
 		public void actionPerformed(ActionEvent e) {
 			FeedEditorInternalFrame addFeed = new FeedEditorInternalFrame(this.window);
+			addFeed.registerErrorListener(new JOptionPaneErrorListener());
 			addFeed.setVisible(true);
 		}
 	}
@@ -367,6 +369,7 @@ public class TrayRssConfigWindow {
 			int selectedRow = this.window.tblFeedInfo.getSelectedRow();
 			TableModel model = this.window.tblFeedInfo.getModel();
 			FeedEditorInternalFrame addFeed = new FeedEditorInternalFrame(this.window, selectedRow, model);
+			addFeed.registerErrorListener(new JOptionPaneErrorListener());
 			addFeed.setVisible(true);
 		}
 	}

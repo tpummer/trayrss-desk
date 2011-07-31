@@ -45,7 +45,6 @@ public class TimeValidationImpl implements TimeValidation {
 	/**
 	 * This method is used to determinate if the configuration allowes monitoring at the current time
 	 */
-	@Override
 	public boolean isAllowed(ConfigurationModel configModel) {
 
 		Calendar now = new GregorianCalendar();

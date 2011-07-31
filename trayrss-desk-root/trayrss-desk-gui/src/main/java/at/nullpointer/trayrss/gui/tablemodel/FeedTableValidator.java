@@ -52,4 +52,13 @@ public class FeedTableValidator {
 
 		return true;
 	}
+
+	public static boolean checkName(String text) {
+		boolean result = true;
+		result = result && text != null;
+		if(result){
+			result = result && text.replaceAll(" ", "").length() > 0;
+		}
+		return result;
+	}
 }

@@ -22,12 +22,11 @@ package at.nullpointer.trayrss.configuration;
 
 import java.awt.TrayIcon;
 
-import org.apache.log4j.Level;
-
 import at.nullpointer.trayrss.gui.tray.Help;
 
 /**
  * Collection of all references
+ * TODO make class unused
  * 
  * @author thefake
  *
@@ -57,15 +56,6 @@ public class ReferenceCollection {
 	
 	public static final String ICON_NORMAL = "./img/icons/rss-icon.png";
 	public static final String ICON_HELP = "./img/trayrss.png";
-	
-	/*
-	 * Logger
-	 */
-	
-	//public static Logger LOG;
-	// ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
-	public static final Level LOG_LEVEL = Level.INFO;
-	public static final Level LOG_LEVEL_DEBUG = Level.DEBUG;
 	
 	/*
 	 * Tray

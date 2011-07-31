@@ -111,6 +111,7 @@ public class BrowserButton implements ActionListener {
 				manager.dequeuePopup(popup);
 
 			} catch (URISyntaxException e1) {
+				//TODO setting new error concept with new notification
 				JOptionPane.showMessageDialog(null,
 						notification_read_error_uri,
 						notification_read_error_uri, JOptionPane.ERROR_MESSAGE);

@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
@@ -59,7 +60,7 @@ public class StartUp {
 	 */
 	public StartUp(boolean debug) {
 		if(debug)
-			Logger.getRootLogger().setLevel(ReferenceCollection.LOG_LEVEL_DEBUG);
+			Logger.getRootLogger().setLevel(Level.DEBUG);
 
 		startDatabase();
 		ConfigurationController configControl = ConfigurationControllerImpl.getInstance();

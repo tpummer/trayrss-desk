@@ -28,6 +28,9 @@ Changes in 1.2.0
 + added new splash screen, help image and icon
 + maven-property for versioning
 * moved projects into root
++ new errorlisteners to display error messages
+* added errorlistener for feedname
+* added errorlistener for feedurl
  
 Changes in 1.1.0
 * splitting the project into submodules

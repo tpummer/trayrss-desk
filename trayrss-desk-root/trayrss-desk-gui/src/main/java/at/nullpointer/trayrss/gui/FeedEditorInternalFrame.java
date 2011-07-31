@@ -21,9 +21,10 @@ package at.nullpointer.trayrss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -32,18 +33,23 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import at.nullpointer.trayrss.error.ErrorListener;
+import at.nullpointer.trayrss.error.ErrorType;
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int selectedRow = -1;
 	private Long selectedID = 0L;
 	private JTextField txtFeedName;
@@ -53,10 +59,13 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	private final Action saveAction;
 	public JComboBox cbbMonitorIntervall;
 	private JCheckBox chckbxMonitoringEnabled;
+	
+	private Set<ErrorListener> errorListener = new TreeSet<ErrorListener>();
 
 	/**
 	 * Create the frame.
 	 * @param window 
+	 * @wbp.parser.constructor
 	 */
 	public FeedEditorInternalFrame(TrayRssConfigWindow window) {
 		this.motherFrame = window;
@@ -175,6 +184,10 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	}
 	
 	private class SaveAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private FeedEditorInternalFrame window;
 		private TrayRssConfigWindow motherFrame;
 		
@@ -188,6 +201,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 			
 			//Check URL
 			if(FeedTableValidator.checkURL(this.window.txtFeedUrl.getText())){
+				if(FeedTableValidator.checkName(this.window.txtFeedName.getText())){
 				this.motherFrame.addFeedRow(this.window.selectedRow,
 						this.window.selectedID, 
 		                this.window.txtFeedName.getText(),
@@ -196,14 +210,30 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		                this.window.chckbxMonitoringEnabled.isSelected());
 
 				window.dispose();
+				} else {
+					notifyAllErrorListener(this.window.rootPane, ConfigurationMessages.getString("error.feedinfo.name", "Feed Name Error"), 
+																 ConfigurationMessages.getString("error.feedinfo.name.text", "No empty feed name allowed"), ErrorType.ERROR_MESSAGE);
+				}
 			} else {
-				//TODO Errorconcept
-				JOptionPane.showMessageDialog(this.window, "Not a valid feed url", "URL Error", JOptionPane.ERROR_MESSAGE);
+				notifyAllErrorListener(this.window.rootPane, ConfigurationMessages.getString("error.feedinfo.url", "URL Error"), 
+						                                     ConfigurationMessages.getString("error.feedinfo.url.text", "Not a valid feed url"), ErrorType.ERROR_MESSAGE);
 			}
+		}
+
+		private void notifyAllErrorListener(JComponent where,
+				String title, String text, int errorType) {
+			for(ErrorListener e : errorListener){
+				e.addError(where, title, text, errorType);
+			}
+			
 		}
 	}
 
 	private class CancelAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private JDialog window;
 		
 		public CancelAction(JDialog frame) {
@@ -214,5 +244,13 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		public void actionPerformed(ActionEvent e) {
 			window.dispose();
 		}
+	}
+	
+	/*
+	 * getter / setter
+	 */
+	
+	public void registerErrorListener(ErrorListener e){
+		this.errorListener.add(e);
 	}
 }
