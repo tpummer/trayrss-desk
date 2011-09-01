@@ -107,7 +107,6 @@ public class Monitor implements ChangeListener{
 		
 	}
 
-	@Override
 	public void notifyChange() {
 		feedChanged();
 		

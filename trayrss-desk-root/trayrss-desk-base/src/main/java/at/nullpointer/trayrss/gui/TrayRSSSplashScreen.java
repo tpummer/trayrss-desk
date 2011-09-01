@@ -19,9 +19,7 @@
  */
 package at.nullpointer.trayrss.gui;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-
-import java.awt.*;
+import java.awt.SplashScreen;
 
 import org.apache.log4j.Logger;
 

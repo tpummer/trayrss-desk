@@ -19,27 +19,28 @@
  */
 package at.nullpointer.trayrss.test.monitor;
 
-import at.nullpointer.trayrss.configuration.ConfigurationController;
+import static org.junit.Assert.assertEquals;
+
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.PopupManager;
-
-import java.awt.*;
-
-import static org.junit.Assert.assertEquals;
 
 public class TrayNotifierTest {
 	private Logger log = Logger.getLogger(TrayNotifierTest.class);

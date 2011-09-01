@@ -19,13 +19,13 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import at.nullpointer.trayrss.checks.CheckLib;
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import at.nullpointer.trayrss.checks.CheckLib;
 
 public class CheckLibTest {
 

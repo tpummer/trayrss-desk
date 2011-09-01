@@ -19,16 +19,17 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import at.nullpointer.trayrss.checks.DateValidator;
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import at.nullpointer.trayrss.checks.DateValidator;
 
 public class DateValidatorTest {
 

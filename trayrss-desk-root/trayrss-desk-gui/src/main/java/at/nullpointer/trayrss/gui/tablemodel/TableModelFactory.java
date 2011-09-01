@@ -39,7 +39,7 @@ public class TableModelFactory {
 				Class[] columnTypes = new Class[] {
 					Long.class, String.class, String.class, Long.class, Boolean.class
 				};
-				public Class getColumnClass(int columnIndex) {
+				public Class<?> getColumnClass(int columnIndex) {
 					return columnTypes[columnIndex];
 				}
 				boolean[] columnEditables = new boolean[] {
