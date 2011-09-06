@@ -50,7 +50,7 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	
 	private Set<ErrorListener> errorListeners;
 	
-	private Set<ChangeListener> changeListener;
+	private Set<ChangeListener> changeListener = new HashSet<ChangeListener>();
 	
 	Logger log = Logger.getLogger(ConfigurationControllerImpl.class);
 	
@@ -294,10 +294,9 @@ public class ConfigurationControllerImpl implements ConfigurationController {
 	public void setErrorListeners(Set<ErrorListener> errorListeners) {
 		this.errorListeners = errorListeners;
 	}
-
-	public void setChangeListener(Set<ChangeListener> listener) {
-		this.changeListener = listener;
-		
+	
+	public void addChangeListener(ChangeListener listener){
+		this.changeListener.add(listener);
 	}
 	
 	

@@ -23,9 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -36,8 +34,7 @@ import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.dao.SessionFactoryRepository;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
-import at.nullpointer.trayrss.messages.ConfigurationMessages;
-import at.nullpointer.trayrss.messages.ErrorMessages;
+import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.TrayNotifier;
@@ -78,8 +75,11 @@ public class StartUp {
 
 	
 	private void initializeMessages() {
-		Messages.registerMessageResolver(Messages.CONFIG, ConfigurationMessages.getInstance());
-		Messages.registerMessageResolver(Messages.ERROR, ErrorMessages.getInstance());
+		Messages.registerMessageResolver(Messages.CONFIG, new MessageResolverImpl("at.nullpointer.trayrss.messages.configurationmessages"));
+		Messages.registerMessageResolver(Messages.ERROR, new MessageResolverImpl("at.nullpointer.trayrss.messages.errormessages"));
+		
+		ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
+		configContr.addChangeListener(new MessageLanguageSwitcher());
 		
 	}
 
@@ -174,10 +174,9 @@ public class StartUp {
 		Monitor.setTrayNotifier(trayNotifier);
 		Monitor monitor = Monitor.getInstance();
 		
-		Set<ChangeListener> listener = new HashSet<ChangeListener>();
-		listener.add(monitor);
-		listener.add(trayNotifier);
-		ConfigurationControllerImpl.getInstance().setChangeListener(listener);
+		ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
+		configContr.addChangeListener(monitor);
+		configContr.addChangeListener(trayNotifier);
 
 		log.debug("Startup: Finished Start Monitor");
 	}

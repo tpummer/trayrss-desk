@@ -57,7 +57,7 @@ import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
 import at.nullpointer.trayrss.error.JOptionPaneErrorListener;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
-import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
 
 import com.toedter.calendar.JDateChooser;
@@ -102,7 +102,7 @@ public class TrayRssConfigWindow {
 	 */
 	private void initialize() {
 		ConfigurationModel model = this.configControl.getConfigurationModel();
-		Messages.getMessageResolver(Messages.CONFIG).chanceLocale(new Locale(model.getLanguage().getShortcut()));
+		//Messages.getMessageResolver(Messages.CONFIG).chanceLocale(new Locale(model.getLanguage().getShortcut()));
 		
 		frmTrayrss = new JFrame();
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));

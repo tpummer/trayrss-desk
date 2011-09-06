@@ -17,21 +17,31 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.configuration;
+package at.nullpointer.trayrss.messages;
 
-import at.nullpointer.trayrss.messages.Messages;
+import java.util.Locale;
 
-public class MessageLanguageSwitcher implements ChangeListener {
-	
-	public MessageLanguageSwitcher(){
-		this.notifyChange();
-	}
+import junit.framework.TestCase;
+
+public class MessageResolverImplTest extends TestCase {
+
+	public static MessageResolver mr;
 
 	@Override
-	public void notifyChange() {
-		Messages.setLanguage(ConfigurationControllerImpl.getInstance()
-				.getConfigurationModel().getLanguage().getShortcut());
+	protected void setUp() throws Exception {
+		mr = new MessageResolverImpl("at.nullpointer.trayrss.messages.testmessages");
+		super.setUp();
+	}
 
+	public void testGetString() {
+		String erg = mr.getString("test", "testname");
+		assertEquals("test eng", erg);
+	}
+
+	public void testChanceLocale() {
+		mr.chanceLocale(new Locale("de"));
+		String erg = mr.getString("test", "testname");
+		assertEquals("test ger", erg);
 	}
 
 }

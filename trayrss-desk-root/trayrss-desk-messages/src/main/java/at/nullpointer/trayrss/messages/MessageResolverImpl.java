@@ -24,27 +24,26 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class ConfigurationMessages implements MessageResolver {
+public class MessageResolverImpl implements MessageResolver {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private ConfigurationMessages() {
-		// do not instantiate
+	public MessageResolverImpl(String bundleName) {
+		this.bundleName = bundleName;
+		this.resourceBundle = loadBundle();
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Bundle access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final String BUNDLE_NAME = "at.nullpointer.trayrss.messages.configurationmessages"; //$NON-NLS-1$
-	private static MessageResolver instance = null;
+	private String bundleName = "at.nullpointer.trayrss.messages.configurationmessages"; //$NON-NLS-1$
 	private static Locale LOCALE = new Locale("en"); 
-	private static ResourceBundle RESOURCE_BUNDLE = loadBundle();
-	public static String TrayRssConfigWindow_frmTrayrss_title;
-	public static ResourceBundle loadBundle() {
-		return ResourceBundle.getBundle(BUNDLE_NAME, LOCALE);
+	private ResourceBundle resourceBundle;
+	private ResourceBundle loadBundle() {
+		return ResourceBundle.getBundle(bundleName, LOCALE);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -53,7 +52,7 @@ public class ConfigurationMessages implements MessageResolver {
 	////////////////////////////////////////////////////////////////////////////
 	public String getString(String key, String defaultValue) {
 		try {
-			ResourceBundle bundle = Beans.isDesignTime() ? loadBundle() : RESOURCE_BUNDLE;
+			ResourceBundle bundle = Beans.isDesignTime() ? loadBundle() : this.resourceBundle;
 			return bundle.getString(key);
 		} catch (MissingResourceException e) {
 			return defaultValue;
@@ -62,13 +61,6 @@ public class ConfigurationMessages implements MessageResolver {
 	
 	public void chanceLocale(Locale locale){
 		LOCALE = locale;
-		RESOURCE_BUNDLE = loadBundle();
-	}
-	
-	public static MessageResolver getInstance(){
-		if(instance == null){
-			instance = new ConfigurationMessages();
-		}
-		return instance;
+		resourceBundle = loadBundle();
 	}
 }

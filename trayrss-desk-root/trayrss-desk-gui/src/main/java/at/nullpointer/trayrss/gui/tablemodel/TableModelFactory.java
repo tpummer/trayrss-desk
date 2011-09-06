@@ -28,7 +28,7 @@ import javax.swing.table.TableModel;
 
 import at.nullpointer.trayrss.dao.FeedDAO;
 import at.nullpointer.trayrss.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.model.Feed;
 

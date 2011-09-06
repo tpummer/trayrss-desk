@@ -19,8 +19,6 @@
  */
 package at.nullpointer.trayrss.configuration;
 
-import java.util.Set;
-
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 
 /**
@@ -34,5 +32,5 @@ public interface ConfigurationController {
 	public void save(ConfigurationModel configurationModel);
 	public void load();
 	public ConfigurationModel getConfigurationModel();
-	public void setChangeListener(Set<ChangeListener> listener);
+	public void addChangeListener(ChangeListener listener);
 }
