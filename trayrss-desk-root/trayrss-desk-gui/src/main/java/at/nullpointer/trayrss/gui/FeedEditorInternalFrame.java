@@ -44,6 +44,7 @@ import at.nullpointer.trayrss.error.ErrorListener;
 import at.nullpointer.trayrss.error.ErrorType;
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
+import at.nullpointer.trayrss.messages.ConfigurationMessages;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	/**

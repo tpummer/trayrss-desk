@@ -57,6 +57,7 @@ import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
 import at.nullpointer.trayrss.error.JOptionPaneErrorListener;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
+import at.nullpointer.trayrss.messages.ConfigurationMessages;
 
 import com.toedter.calendar.JDateChooser;
 

@@ -17,7 +17,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.gui;
+package at.nullpointer.trayrss.messages;
 
 import java.beans.Beans;
 import java.util.Locale;
