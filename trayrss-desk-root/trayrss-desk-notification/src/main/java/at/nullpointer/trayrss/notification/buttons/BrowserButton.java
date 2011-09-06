@@ -34,13 +34,14 @@ import org.apache.log4j.Logger;
 
 import at.nullpointer.trayrss.dao.NewsDAO;
 import at.nullpointer.trayrss.dao.NewsDAOImpl;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.model.News;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
 public class BrowserButton implements ActionListener {
 
-	public static final String notification_read_error_uri = "Error reading URL";
+	private static final String ERROR_BUTTON_URI = "error.button.notification_read_error_uri";
 
 	private Logger log = Logger.getLogger(BrowserButton.class);
 
@@ -91,8 +92,8 @@ public class BrowserButton implements ActionListener {
 					log.debug("Pressing [Read] Button, uri should be open now.");
 				} catch (IOException e2) {
 					JOptionPane.showMessageDialog(null,
-							notification_read_error_uri,
-							notification_read_error_uri,
+							Messages.getMessageResolver(Messages.ERROR).getString(ERROR_BUTTON_URI, "Error reading Feed"),
+							Messages.getMessageResolver(Messages.ERROR).getString(ERROR_BUTTON_URI, "Error reading Feed"),
 							JOptionPane.ERROR_MESSAGE);
 					log.debug("Pressing [Read] Button IOException");
 					log.error(e2.getMessage());
@@ -113,8 +114,8 @@ public class BrowserButton implements ActionListener {
 			} catch (URISyntaxException e1) {
 				//TODO setting new error concept with new notification
 				JOptionPane.showMessageDialog(null,
-						notification_read_error_uri,
-						notification_read_error_uri, JOptionPane.ERROR_MESSAGE);
+						Messages.getMessageResolver(Messages.ERROR).getString(ERROR_BUTTON_URI, "Error reading Feed"),
+						Messages.getMessageResolver(Messages.ERROR).getString(ERROR_BUTTON_URI, "Error reading Feed"), JOptionPane.ERROR_MESSAGE);
 				log.debug("Pressing [Read] Button URISyntaxException");
 				log.error(e1.getMessage());
 				e1.printStackTrace();

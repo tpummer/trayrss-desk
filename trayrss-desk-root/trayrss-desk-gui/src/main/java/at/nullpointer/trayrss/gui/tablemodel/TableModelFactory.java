@@ -29,6 +29,7 @@ import javax.swing.table.TableModel;
 import at.nullpointer.trayrss.dao.FeedDAO;
 import at.nullpointer.trayrss.dao.FeedDAOImpl;
 import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.model.Feed;
 
 public class TableModelFactory {
@@ -60,11 +61,11 @@ public class TableModelFactory {
 
 	private static Object[] getHeader() {
 		String[] result = new String[] {
-				ConfigurationMessages.getString("config.feeds.table.column.id", "Id"),//"Id", 
-				ConfigurationMessages.getString("config.feeds.table.column.feedname", "Feed Name"),//"Feed Name", 
-				ConfigurationMessages.getString("config.feeds.table.column.feedurl", "Feed Url"),//"Feed Url", 
-				ConfigurationMessages.getString("config.feeds.table.column.intervall", "Intervall"),//"Intervall", 
-				ConfigurationMessages.getString("config.feeds.table.column.monitored", "Monitored")//"Monitored"
+				Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.table.column.id", "Id"),//"Id", 
+				Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.table.column.feedname", "Feed Name"),//"Feed Name", 
+				Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.table.column.feedurl", "Feed Url"),//"Feed Url", 
+				Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.table.column.intervall", "Intervall"),//"Intervall", 
+				Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.table.column.monitored", "Monitored")//"Monitored"
 		};
 		return result;
 	}

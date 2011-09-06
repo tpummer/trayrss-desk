@@ -58,6 +58,7 @@ import at.nullpointer.trayrss.error.JOptionPaneErrorListener;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.gui.tablemodel.TableModelFactory;
 import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.Messages;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -101,11 +102,11 @@ public class TrayRssConfigWindow {
 	 */
 	private void initialize() {
 		ConfigurationModel model = this.configControl.getConfigurationModel();
-		ConfigurationMessages.chanceLocale(new Locale(model.getLanguage().getShortcut()));
+		Messages.getMessageResolver(Messages.CONFIG).chanceLocale(new Locale(model.getLanguage().getShortcut()));
 		
 		frmTrayrss = new JFrame();
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));
-		frmTrayrss.setTitle(ConfigurationMessages.getString("config.window.title", "TrayRSS - Configuration")); //$NON-NLS-1$ //$NON-NLS-2$
+		frmTrayrss.setTitle(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.title", "TrayRSS - Configuration")); //$NON-NLS-1$ //$NON-NLS-2$
 		frmTrayrss.setBounds(100, 100, 551, 473);
 		frmTrayrss.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -113,7 +114,7 @@ public class TrayRssConfigWindow {
 		frmTrayrss.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel pnlGeneral = new JPanel();
-		tabbedPane.addTab(ConfigurationMessages.getString("config.general.tab.title", "General"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/general.png")), pnlGeneral, null);
+		tabbedPane.addTab(Messages.getMessageResolver(Messages.CONFIG).getString("config.general.tab.title", "General"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/general.png")), pnlGeneral, null);
 		pnlGeneral.setLayout(new BoxLayout(pnlGeneral, BoxLayout.PAGE_AXIS));
 		
 		Component verticalGlueAbove = Box.createVerticalGlue();
@@ -123,7 +124,7 @@ public class TrayRssConfigWindow {
 		pnlGeneral.add(pnlDisplayCount);
 		pnlDisplayCount.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblDisplayCount = new JLabel(ConfigurationMessages.getString("config.general.displaycount.label", "Display Count"));
+		JLabel lblDisplayCount = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.general.displaycount.label", "Display Count"));
 		pnlDisplayCount.add(lblDisplayCount);
 		
 		txtDisplaycount = new JTextField();
@@ -135,11 +136,11 @@ public class TrayRssConfigWindow {
 		pnlGeneral.add(pnlDisplayTime);
 		pnlDisplayTime.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblDisplayTime = new JLabel(ConfigurationMessages.getString("config.general.displaytime.label", "Display Time"));
+		JLabel lblDisplayTime = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.general.displaytime.label", "Display Time"));
 		pnlDisplayTime.add(lblDisplayTime);
 		
 		txtDisplaytime = new JTextField();
-		txtDisplaytime.setToolTipText(ConfigurationMessages.getString("config.window.displaytime.tooltip", "units are seconds")); //$NON-NLS-1$ //$NON-NLS-2$
+		txtDisplaytime.setToolTipText(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.displaytime.tooltip", "units are seconds")); //$NON-NLS-1$ //$NON-NLS-2$
 		txtDisplaytime.setText(model.getDisplayTime().toString());
 		pnlDisplayTime.add(txtDisplaytime);
 		txtDisplaytime.setColumns(10);
@@ -148,7 +149,7 @@ public class TrayRssConfigWindow {
 		pnlGeneral.add(pnlLanguage);
 		pnlLanguage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblLanguage = new JLabel(ConfigurationMessages.getString("config.general.language.label", "Language"));
+		JLabel lblLanguage = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.general.language.label", "Language"));
 		pnlLanguage.add(lblLanguage);
 		
 		cbbLanguage = new JComboBox();
@@ -160,7 +161,7 @@ public class TrayRssConfigWindow {
 		pnlGeneral.add(verticalGlueBelow);
 		
 		JPanel pnlFeed = new JPanel();
-		tabbedPane.addTab(ConfigurationMessages.getString("config.feeds.tab.title", "Feeds"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/feed.png")), pnlFeed, null);
+		tabbedPane.addTab(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.tab.title", "Feeds"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/feed.png")), pnlFeed, null);
 		pnlFeed.setLayout(new BoxLayout(pnlFeed, BoxLayout.PAGE_AXIS));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -181,20 +182,20 @@ public class TrayRssConfigWindow {
 		JPanel pnlFeedActions = new JPanel();
 		pnlFeed.add(pnlFeedActions);
 		
-		JButton btnAddFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.addfeed", "Add Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnAddFeed = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.addfeed", "Add Feed")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnAddFeed.setAction(addFeedAction);
 		pnlFeedActions.add(btnAddFeed);
 		
-		JButton btnEditFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.editfeed", "Edit Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnEditFeed = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.editfeed", "Edit Feed")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnEditFeed.setAction(editFeedAction);
 		pnlFeedActions.add(btnEditFeed);
 		
-		JButton btnRemoveFeed = new JButton(ConfigurationMessages.getString("config.feeds.button.removefeed", "Remove Feed")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnRemoveFeed = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.removefeed", "Remove Feed")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnRemoveFeed.setAction(removeFeedAction);
 		pnlFeedActions.add(btnRemoveFeed);
 		
 		JPanel pnlTimeFrame = new JPanel();
-		tabbedPane.addTab(ConfigurationMessages.getString("config.timeframes.tab.title", "TimeFrames"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/timeframe.png")), pnlTimeFrame, null);
+		tabbedPane.addTab(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.tab.title", "TimeFrames"), new ImageIcon(TrayRssConfigWindow.class.getResource("/images/timeframe.png")), pnlTimeFrame, null);
 		pnlTimeFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel pnlTimeFrameActive = new JPanel();
@@ -202,52 +203,52 @@ public class TrayRssConfigWindow {
 		fl_pnlTimeFrameActive.setAlignment(FlowLayout.LEFT);
 		pnlTimeFrame.add(pnlTimeFrameActive);
 		
-		chckbxActivateTimeframes = new JCheckBox(ConfigurationMessages.getString("config.timeframes.toggle.label", "activate TimeFrames"));
+		chckbxActivateTimeframes = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.toggle.label", "activate TimeFrames"));
 		chckbxActivateTimeframes.setSelected(model.getIsTimeFrameActivated());
 		chckbxActivateTimeframes.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlTimeFrameActive.add(chckbxActivateTimeframes);
 		
 		JPanel pnlTimeFrameOptions = new JPanel();
 		pnlTimeFrameOptions.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		pnlTimeFrameOptions.setBorder(new TitledBorder(null, ConfigurationMessages.getString("config.timeframes.border.label", "Time Options"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlTimeFrameOptions.setBorder(new TitledBorder(null, Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.border.label", "Time Options"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlTimeFrame.add(pnlTimeFrameOptions);
 		pnlTimeFrameOptions.setLayout(new BoxLayout(pnlTimeFrameOptions, BoxLayout.PAGE_AXIS));
 		
 		JPanel pnlTimeFrameDays = new JPanel();
 		pnlTimeFrameOptions.add(pnlTimeFrameDays);
 		
-		chckbxMonday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.mo.label", "Monday"));
+		chckbxMonday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.mo.label", "Monday"));
 		chckbxMonday.setSelected(model.getIsMondayEnabled());
 		pnlTimeFrameDays.add(chckbxMonday);
 		
-		chckbxTuesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.tu.label", "Tuesday"));
+		chckbxTuesday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.tu.label", "Tuesday"));
 		chckbxTuesday.setSelected(model.getIsTuesdayEnabled());
 		pnlTimeFrameDays.add(chckbxTuesday);
 		
-		chckbxWednesday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.we.label", "Wednesday"));
+		chckbxWednesday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.we.label", "Wednesday"));
 		chckbxWednesday.setSelected(model.getIsWednesdayEnabled());
 		pnlTimeFrameDays.add(chckbxWednesday);
 		
-		chckbxThursday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.th.label", "Thursday"));
+		chckbxThursday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.th.label", "Thursday"));
 		chckbxThursday.setSelected(model.getIsThursdayEnabled());
 		pnlTimeFrameDays.add(chckbxThursday);
 		
-		chckbxFriday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.fr.label", "Friday"));
+		chckbxFriday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.fr.label", "Friday"));
 		chckbxFriday.setSelected(model.getIsFridayEnabled());
 		pnlTimeFrameDays.add(chckbxFriday);
 		
-		chckbxSaturday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.sa.label", "Saturday"));
+		chckbxSaturday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.sa.label", "Saturday"));
 		chckbxSaturday.setSelected(model.getIsSaturdayEnabled());
 		pnlTimeFrameDays.add(chckbxSaturday);
 		
-		chckbxSunday = new JCheckBox(ConfigurationMessages.getString("config.timeframes.checkbox.su.label", "Sunday"));
+		chckbxSunday = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.checkbox.su.label", "Sunday"));
 		chckbxSunday.setSelected(model.getIsSundayEnabled());
 		pnlTimeFrameDays.add(chckbxSunday);
 		
 		JPanel pnlTimeFrameFrames = new JPanel();
 		pnlTimeFrameOptions.add(pnlTimeFrameFrames);
 		
-		JLabel lblTimeframes = new JLabel(ConfigurationMessages.getString("config.timeframes.timeframes.label", "Timeframes")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblTimeframes = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.timeframes.label", "Timeframes")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameFrames.add(lblTimeframes);
 		
 		txtTimeframes = new JTextField();
@@ -258,7 +259,7 @@ public class TrayRssConfigWindow {
 		JPanel pnlTimeFrameVacation = new JPanel();
 		pnlTimeFrameOptions.add(pnlTimeFrameVacation);
 		
-		JLabel lblVacation = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.label", "Vacation")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblVacation = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.vacation.label", "Vacation")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblVacation);
 		
 		dacVacStart = new JDateChooser();
@@ -266,7 +267,7 @@ public class TrayRssConfigWindow {
 		dacVacStart.setDate(model.getVacationStart());
 		pnlTimeFrameVacation.add(dacVacStart);
 		
-		JLabel lblStart = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblStart = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.vacation.start.label", "Start")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblStart);
 		
 		dacVacEnd = new JDateChooser();
@@ -274,7 +275,7 @@ public class TrayRssConfigWindow {
 		dacVacEnd.setDate(model.getVacationEnd());
 		pnlTimeFrameVacation.add(dacVacEnd);
 		
-		JLabel lblEnd = new JLabel(ConfigurationMessages.getString("config.timeframes.vacation.end.label", "End")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblEnd = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.timeframes.vacation.end.label", "End")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlTimeFrameVacation.add(lblEnd);
 		
 		Component verticalGlue = Box.createVerticalGlue();
@@ -283,11 +284,11 @@ public class TrayRssConfigWindow {
 		JPanel saveExitPanel = new JPanel();
 		frmTrayrss.getContentPane().add(saveExitPanel, BorderLayout.SOUTH);
 		
-		JButton btnSave = new JButton(ConfigurationMessages.getString("config.window.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnSave = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnSave.setAction(saveAction);
 		saveExitPanel.add(btnSave);
 		
-		JButton btnCancel = new JButton(ConfigurationMessages.getString("config.window.button.cancel", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnCancel = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.button.cancel", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnCancel.setAction(cancelAction);
 		saveExitPanel.add(btnCancel);
 		
@@ -324,7 +325,7 @@ public class TrayRssConfigWindow {
 		TrayRssConfigWindow window;
 		
 		public SaveAction(TrayRssConfigWindow window) {
-			super(ConfigurationMessages.getString("config.window.button.save", "Save"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.button.save", "Save"));
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -337,7 +338,7 @@ public class TrayRssConfigWindow {
 		TrayRssConfigWindow window;
 		
 		public CancelAction(TrayRssConfigWindow window) {
-			super(ConfigurationMessages.getString("config.window.button.cancel", "Cancel"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.window.button.cancel", "Cancel"));
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -349,7 +350,7 @@ public class TrayRssConfigWindow {
 		TrayRssConfigWindow window;
 		
 		public AddFeedAction(TrayRssConfigWindow window) {
-			super(ConfigurationMessages.getString("config.feeds.button.addfeed", "Add Feed"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.addfeed", "Add Feed"));
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -363,7 +364,7 @@ public class TrayRssConfigWindow {
 		TrayRssConfigWindow window;
 		
 		public EditFeedAction(TrayRssConfigWindow window) {
-			super(ConfigurationMessages.getString("config.feeds.button.editfeed", "Edit Feed"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.editfeed", "Edit Feed"));
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -379,7 +380,7 @@ public class TrayRssConfigWindow {
 		TrayRssConfigWindow window;
 		
 		public RemoveFeedAction(TrayRssConfigWindow window) {
-			super(ConfigurationMessages.getString("config.feeds.button.removefeed", "Remove Feed"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.feeds.button.removefeed", "Remove Feed"));
 			this.window = window;
 		}
 		public void actionPerformed(ActionEvent e) {

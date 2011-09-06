@@ -24,13 +24,13 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class ConfigurationMessages implements MessageResolver {
+public class ErrorMessages implements MessageResolver {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private ConfigurationMessages() {
+	private ErrorMessages() {
 		// do not instantiate
 	}
 	////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ public class ConfigurationMessages implements MessageResolver {
 	// Bundle access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final String BUNDLE_NAME = "at.nullpointer.trayrss.messages.configurationmessages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "at.nullpointer.trayrss.messages.errormessages"; //$NON-NLS-1$
 	private static MessageResolver instance = null;
 	private static Locale LOCALE = new Locale("en"); 
 	private static ResourceBundle RESOURCE_BUNDLE = loadBundle();
@@ -67,7 +67,7 @@ public class ConfigurationMessages implements MessageResolver {
 	
 	public static MessageResolver getInstance(){
 		if(instance == null){
-			instance = new ConfigurationMessages();
+			instance = new ErrorMessages();
 		}
 		return instance;
 	}

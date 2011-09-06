@@ -127,6 +127,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-messages</artifactId>
+			<version>${trayrss-parent-version}</version>
+		</dependency>
 	</dependencies>
 	<modules>
 	</modules>

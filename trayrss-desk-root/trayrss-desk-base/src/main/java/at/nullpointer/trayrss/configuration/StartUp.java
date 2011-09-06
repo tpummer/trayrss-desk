@@ -36,6 +36,9 @@ import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.dao.SessionFactoryRepository;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
+import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.ErrorMessages;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.TrayNotifier;
 
@@ -66,6 +69,7 @@ public class StartUp {
 		ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
 		configControl.load();
 		ConfigurationModel configModel = configControl.getConfigurationModel();
+		initializeMessages();
 		setCaptions(configModel.getLanguage());
 		startTray();
 		startMonitor();
@@ -73,6 +77,13 @@ public class StartUp {
 	}
 
 	
+	private void initializeMessages() {
+		Messages.registerMessageResolver(Messages.CONFIG, ConfigurationMessages.getInstance());
+		Messages.registerMessageResolver(Messages.ERROR, ErrorMessages.getInstance());
+		
+	}
+
+
 	/**
 	 * <p>preloads the captions of the tray menu</p>
 	 * 

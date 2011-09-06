@@ -45,6 +45,7 @@ import at.nullpointer.trayrss.error.ErrorType;
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
 import at.nullpointer.trayrss.messages.ConfigurationMessages;
+import at.nullpointer.trayrss.messages.Messages;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	/**
@@ -75,7 +76,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		saveAction = new SaveAction(this, this.motherFrame);
 		
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setTitle(ConfigurationMessages.getString("config.feedinfo.title", "TrayRSS - Feed Info")); //$NON-NLS-1$ //$NON-NLS-2$
+		setTitle(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.title", "TrayRSS - Feed Info")); //$NON-NLS-1$ //$NON-NLS-2$
 		setBounds(100, 100, 468, 265);
 		
 		JPanel feedInfoPanel = new JPanel();
@@ -85,7 +86,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		JPanel pnlPosOne = new JPanel();
 		feedInfoPanel.add(pnlPosOne);
 		
-		JLabel lblFeedName = new JLabel(ConfigurationMessages.getString("config.feedinfo.feedName.label", "Feed Name")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblFeedName = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.feedName.label", "Feed Name")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlPosOne.add(lblFeedName);
 		
 		JPanel pnlPosTwo = new JPanel();
@@ -98,7 +99,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		JPanel pnlPosThree = new JPanel();
 		feedInfoPanel.add(pnlPosThree);
 		
-		JLabel lblFeedUrl = new JLabel(ConfigurationMessages.getString("config.feedinfo.feedUrl.label", "Feed URL")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblFeedUrl = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.feedUrl.label", "Feed URL")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlPosThree.add(lblFeedUrl);
 		
 		JPanel pnlPosFour = new JPanel();
@@ -111,7 +112,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		JPanel pnlPosFive = new JPanel();
 		feedInfoPanel.add(pnlPosFive);
 		
-		JLabel lblMonitorIntervall = new JLabel(ConfigurationMessages.getString("config.feedinfo.monitorIntervall.label", "Monitor Intervall")); //$NON-NLS-1$ //$NON-NLS-2$
+		JLabel lblMonitorIntervall = new JLabel(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.monitorIntervall.label", "Monitor Intervall")); //$NON-NLS-1$ //$NON-NLS-2$
 		pnlPosFive.add(lblMonitorIntervall);
 		
 		cbbMonitorIntervall = new JComboBox();
@@ -121,17 +122,17 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		JPanel pnlPosSix = new JPanel();
 		feedInfoPanel.add(pnlPosSix);
 		
-		chckbxMonitoringEnabled = new JCheckBox(ConfigurationMessages.getString("config.feedinfo.monitoringEnabled.label", (String) null));
+		chckbxMonitoringEnabled = new JCheckBox(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.monitoringEnabled.label", (String) null));
 		pnlPosSix.add(chckbxMonitoringEnabled);
 		
 		JPanel pnlPosSeven = new JPanel();
 		feedInfoPanel.add(pnlPosSeven);
 		
-		JButton btnSaveFeedInfo = new JButton(ConfigurationMessages.getString("config.feedinfo.save.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnSaveFeedInfo = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.save.button.save", "Save")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnSaveFeedInfo.setAction(saveAction);
 		pnlPosSeven.add(btnSaveFeedInfo);
 		
-		JButton btnCancelFeedInfo = new JButton(ConfigurationMessages.getString("config.feedinfo.cancel.button", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnCancelFeedInfo = new JButton(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.cancel.button", "Cancel")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnCancelFeedInfo.setAction(cancelAction);
 		pnlPosSeven.add(btnCancelFeedInfo);
 
@@ -193,7 +194,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		private TrayRssConfigWindow motherFrame;
 		
 		public SaveAction(FeedEditorInternalFrame frame, TrayRssConfigWindow motherFrame) {
-			super(ConfigurationMessages.getString("config.feedinfo.save.button.save", "Save"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.save.button.save", "Save"));
 			this.window = frame;
 			this.motherFrame = motherFrame;
 		}
@@ -212,12 +213,12 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 
 				window.dispose();
 				} else {
-					notifyAllErrorListener(this.window.rootPane, ConfigurationMessages.getString("error.feedinfo.name", "Feed Name Error"), 
-																 ConfigurationMessages.getString("error.feedinfo.name.text", "No empty feed name allowed"), ErrorType.ERROR_MESSAGE);
+					notifyAllErrorListener(this.window.rootPane, Messages.getMessageResolver(Messages.CONFIG).getString("error.feedinfo.name", "Feed Name Error"), 
+							Messages.getMessageResolver(Messages.CONFIG).getString("error.feedinfo.name.text", "No empty feed name allowed"), ErrorType.ERROR_MESSAGE);
 				}
 			} else {
-				notifyAllErrorListener(this.window.rootPane, ConfigurationMessages.getString("error.feedinfo.url", "URL Error"), 
-						                                     ConfigurationMessages.getString("error.feedinfo.url.text", "Not a valid feed url"), ErrorType.ERROR_MESSAGE);
+				notifyAllErrorListener(this.window.rootPane, Messages.getMessageResolver(Messages.CONFIG).getString("error.feedinfo.url", "URL Error"), 
+						Messages.getMessageResolver(Messages.CONFIG).getString("error.feedinfo.url.text", "Not a valid feed url"), ErrorType.ERROR_MESSAGE);
 			}
 		}
 
@@ -238,7 +239,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		private JDialog window;
 		
 		public CancelAction(JDialog frame) {
-			super(ConfigurationMessages.getString("config.feedinfo.cancel.button", "Cancel"));
+			super(Messages.getMessageResolver(Messages.CONFIG).getString("config.feedinfo.cancel.button", "Cancel"));
 			this.window = frame;
 		}
 		
