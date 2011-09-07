@@ -32,6 +32,8 @@ Changes in 1.2.0
 * added errorlistener for feedname
 * added errorlistener for feedurl
 + added new messagemodule
+* updated captions to use new message module
+* model classes make use of apache common lang equalbuilder and hashcodebuilder
  
 Changes in 1.1.0
 * splitting the project into submodules
