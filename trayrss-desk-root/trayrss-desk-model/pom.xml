@@ -6,14 +6,14 @@
 	<parent>
 		<artifactId>trayrss-desk</artifactId>
 		<groupId>at.nullpointer</groupId>
-		<version>1.2.0</version>
+		<version>1.3.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>trayrss-desk-model</artifactId>
 	<name>trayrss-desk-model</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<trayrss-parent-version>1.2.0</trayrss-parent-version>
+		<trayrss-parent-version>1.3.0-SNAPSHOT</trayrss-parent-version>
 	</properties>
 	<dependencies>
 		<dependency>
