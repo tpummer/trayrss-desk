@@ -19,11 +19,17 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
+import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
-
-import javax.swing.*;
-
-import java.awt.*;
+import at.nullpointer.trayrss.messages.Messages;
 
 
 public class Help extends JFrame {
@@ -35,7 +41,7 @@ public class Help extends JFrame {
 
 	public Help(){
 		ReferenceCollection.HELP_WINDOW = this;
-		this.setTitle(ReferenceCollection.HELP_TITLE);
+		this.setTitle(Messages.getMessageResolver(Messages.GUI).getString("help.frame.caption", "Help"));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel helpIcon = new JLabel();
@@ -53,10 +59,10 @@ public class Help extends JFrame {
 		this.getContentPane().add(helpMsg, BorderLayout.CENTER);
 		
 		JButton helpOkButton = new JButton();
-		helpOkButton.setText(ReferenceCollection.HELP_OK);
+		helpOkButton.setText(Messages.getMessageResolver(Messages.GUI).getString("help.button.caption", "OK"));
 		helpOkButton.setSelected(true);
-		helpOkButton.setToolTipText("Closes the help window");
-		helpOkButton.setName(ReferenceCollection.HELP_OK);
+		helpOkButton.setToolTipText(Messages.getMessageResolver(Messages.GUI).getString("help.tooltip.text", "Closes the help window"));
+		helpOkButton.setName(Messages.getMessageResolver(Messages.GUI).getString("help.button.caption", "OK"));
 		
 		HelpActionListener helpAction = new HelpActionListener();
 		helpOkButton.addActionListener(helpAction);

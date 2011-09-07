@@ -21,6 +21,7 @@ package at.nullpointer.trayrss.gui.tray;
 
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import at.nullpointer.trayrss.messages.Messages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,7 @@ import java.awt.event.ActionListener;
 public class HelpActionListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals(ReferenceCollection.HELP_OK)){
+		if(e.getActionCommand().equals(Messages.getMessageResolver(Messages.GUI).getString("help.button.caption", "OK"))){
 			ReferenceCollection.HELP_WINDOW.dispose();
 			
 		}

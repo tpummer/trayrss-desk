@@ -72,4 +72,15 @@ public class TrayIconPOJO {
 		}
 	}
 
+	public void refreshTrayIcon() {
+		if (SystemTray.isSupported()) {
+			SystemTray tray=SystemTray.getSystemTray();
+			
+			tray.remove(ReferenceCollection.TRAY_ICON);
+			
+			startTrayIcon();
+		}
+		
+	}
+
 }

@@ -32,6 +32,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 @Table
 public class News {
@@ -141,55 +144,36 @@ public class News {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-
-		if (o == null)
-			return false;
-
-		if (o instanceof News) {
-			News news = (News) o;
-
-			if (this.author != null && this.author.equals(news.getAuthor())) {
-			} else
-				return false;
-
-			if (this.title != null && this.title.equals(news.getTitle())) {
-			} else
-				return false;
-
-			if (this.publishedDate != null
-					&& this.publishedDate.compareTo(news.getPublishedDate()) == 0) {
-			} else
-				return false;
-
-			if (this.uri != null && this.uri.equals(news.getUri())) {
-			} else
-				return false;
-
-			if (this.feed != null && this.feed.equals(news.getFeed())) {
-			} else
-				return false;
-
-			return true;
-		} else {
+		if (o == null) {
 			return false;
 		}
+		if (o == this) {
+			return true;
+		}
+		if (o.getClass() != getClass()) {
+			return false;
+		}
+		News news = (News) o;
+		return new EqualsBuilder()
+				.append(author, news.author)
+				.append(title, news.title)
+				.append(uri, news.uri)
+				.append(feed, news.feed)
+				.isEquals() && (this.publishedDate != null && 
+								this.publishedDate.compareTo(news.getPublishedDate()) == 0);
+		
 	}
 
 	@Override
 	public int hashCode() {
-
-		int result;
-		result = (author != null ? author.hashCode() : 0);
-		result = 29 * result + (title != null ? title.hashCode() : 0);
-		result = 29 * result
-				+ (publishedDate != null ? publishedDate.hashCode() : 0);
-		result = 29 * result
-				+ (updatedDate != null ? updatedDate.hashCode() : 0);
-		result = 29 * result + (uri != null ? uri.hashCode() : 0);
-		result = 29 * result + (feed != null ? feed.hashCode() : 0);
-		return result;
+		return new HashCodeBuilder(17, 37)
+		.append(author)
+		.append(title)
+		.append(publishedDate)
+		.append(updatedDate)
+		.append(uri)
+		.append(feed)
+		.toHashCode();
 	}
 
 	public void increaseReadCount(long summand) {

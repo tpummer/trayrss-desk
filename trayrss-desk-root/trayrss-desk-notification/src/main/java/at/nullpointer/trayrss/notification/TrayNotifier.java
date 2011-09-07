@@ -33,6 +33,7 @@ import org.apache.log4j.Logger;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.buttons.BrowserButton;
@@ -72,11 +73,11 @@ public class TrayNotifier implements Runnable, ChangeListener {
 
 				JNotificationPopup popup = null;
 
-				bread = new JButton("Read");
+				bread = new JButton(Messages.getMessageResolver(Messages.NOTIFICATION).getString("notification.button.read", "Read"));
 
-				bstop = new JButton("Stop");
+				bstop = new JButton(Messages.getMessageResolver(Messages.NOTIFICATION).getString("notification.button.stop", "Stop"));
 
-				bclose = new JButton("Later");
+				bclose = new JButton(Messages.getMessageResolver(Messages.NOTIFICATION).getString("notification.button.later", "Later"));
 
 				popup = new JNotificationPopup(
 						createComponent(title, name, url));

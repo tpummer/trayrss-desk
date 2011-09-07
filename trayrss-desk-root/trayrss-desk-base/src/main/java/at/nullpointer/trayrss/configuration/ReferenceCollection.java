@@ -33,45 +33,13 @@ import at.nullpointer.trayrss.gui.tray.Help;
  */
 public class ReferenceCollection {
 	
-	/*
-	 * Configuration
-	 */
-	
-	public static final String DE = "de";
-	public static final String DE_LANG = "./lang/de.XML";
-	public static final String EN = "en";
-    public static final String EN_LANG = "./lang/en.XML";
-	public static String LANGUAGE;
-	
-	/*
-	 * Captions
-	 */
 	
 	public static String TRAYRSS_APP_TITLE;
-
-	
-	/*
-	 * Icons
-	 */
 	
 	public static final String ICON_NORMAL = "./img/icons/rss-icon.png";
 	public static final String ICON_HELP = "./img/trayrss.png";
 	
-	/*
-	 * Tray
-	 */
-	
 	public static TrayIcon TRAY_ICON;
-	public static String TRAYMENU_EXIT = "Exit";
-	public static String TRAYMENU_MONITOR = "Check Feeds manually";
-	public static String TRAYMENU_CONFIG = "Configuration";
-	public static String TRAYMENU_HELP = "Help";
-	
-	/*
-	 * Help Window
-	 */
-	public static String HELP_TITLE = "Help";
 	public static Help HELP_WINDOW;
-	public static String HELP_OK = "Ok";
 	
 }

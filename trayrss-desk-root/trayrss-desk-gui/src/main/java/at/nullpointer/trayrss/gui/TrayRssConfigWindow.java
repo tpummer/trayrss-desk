@@ -102,7 +102,6 @@ public class TrayRssConfigWindow {
 	 */
 	private void initialize() {
 		ConfigurationModel model = this.configControl.getConfigurationModel();
-		//Messages.getMessageResolver(Messages.CONFIG).chanceLocale(new Locale(model.getLanguage().getShortcut()));
 		
 		frmTrayrss = new JFrame();
 		frmTrayrss.setIconImage(Toolkit.getDefaultToolkit().getImage(TrayRssConfigWindow.class.getResource("/images/rss-icon.png")));

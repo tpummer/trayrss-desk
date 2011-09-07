@@ -19,29 +19,27 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 
-import java.awt.*;
+import at.nullpointer.trayrss.messages.Messages;
 
 
 public class TrayMenu extends PopupMenu {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4671463948924491627L;
+	private static final long serialVersionUID = 1L;
 
 	public TrayMenu() {
 
 
-		MenuItem monitorItem = new MenuItem(ReferenceCollection.TRAYMENU_MONITOR);
+		MenuItem monitorItem = new MenuItem(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.monitor", "Check Feeds manually"));
 		this.add(monitorItem);
-		MenuItem configItem = new MenuItem(ReferenceCollection.TRAYMENU_CONFIG);
+		MenuItem configItem = new MenuItem(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.config", "Configuration"));
 		this.add(configItem);
-		MenuItem helpItem = new MenuItem(ReferenceCollection.TRAYMENU_HELP);
+		MenuItem helpItem = new MenuItem(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.help", "Help"));
 		this.add(helpItem);
 
-		MenuItem exitItem = new MenuItem(ReferenceCollection.TRAYMENU_EXIT);
+		MenuItem exitItem = new MenuItem(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.exit", "Exit"));
 		this.add(exitItem);
 		
 		this.addActionListener(new TrayMenuActionListener());

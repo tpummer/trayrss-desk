@@ -19,9 +19,6 @@
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
-
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,8 +27,8 @@ public class TrayIconActionListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
-		ReferenceCollection.TRAY_ICON.displayMessage("Action Event",
-				"An Action Event Has Been Performed!",
-				TrayIcon.MessageType.INFO);
+//TODO		ReferenceCollection.TRAY_ICON.displayMessage("Action Event",
+//				"An Action Event Has Been Performed!",
+//				TrayIcon.MessageType.INFO);
 	}
 }

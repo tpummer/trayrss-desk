@@ -33,6 +33,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 @Table(name = "Feeds")
 public class Feed {
@@ -118,46 +121,33 @@ public class Feed {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null)
-			return false;
-
-		if (o instanceof Feed) {
-			Feed feed = (Feed) o;
-
-			if (this.url != null) {
-				if (!this.url.equals(feed.getUrl()))
-					return false;
-			}
-			if (this.name != null) {
-				if (!this.name.equals(feed.getName()))
-					return false;
-			}
-			if (this.lastAction != null) {
-				if (!this.lastAction.equals(feed.getLastAction()))
-					return false;
-			}
-			if (this.intervall != null) {
-				if (!this.intervall.equals(feed.getIntervall()))
-					return false;
-			}
-			return true;
-		} else {
+		if (o == null) {
 			return false;
 		}
+		if (o == this) {
+			return true;
+		}
+		if (o.getClass() != getClass()) {
+			return false;
+		}
+		Feed feed = (Feed) o;
+		return new EqualsBuilder()
+				.append(url, feed.url)
+				.append(name, feed.name)
+				.append(lastAction, feed.lastAction)
+				.append(intervall, feed.intervall)
+				.isEquals();
 
 	}
 
 	@Override
 	public int hashCode() {
-		int result;
-		result = (url != null ? url.hashCode() : 0);
-		result = 29 * result + (name != null ? name.hashCode() : 0);
-		result = 29 * result + (lastAction != null ? lastAction.hashCode() : 0);
-		result = 29 * result + (intervall != null ? intervall.hashCode() : 0);
-		result = 29 * result + (news != null ? news.hashCode() : 0);
-		return result;
+		return new HashCodeBuilder(17, 37)
+				.append(url)
+				.append(name)
+				.append(lastAction)
+				.append(intervall)
+				.toHashCode();
 	}
 
 }

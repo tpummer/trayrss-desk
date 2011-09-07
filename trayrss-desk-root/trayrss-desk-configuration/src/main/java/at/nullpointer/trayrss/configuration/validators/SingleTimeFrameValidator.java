@@ -24,14 +24,13 @@ import java.util.Calendar;
 import at.nullpointer.trayrss.configuration.model.SingleTimeFrame;
 
 /**
- * <p>This class contains methods to validate a {@link} SingleTimeFrame</p> 
+ * <p>This class contains methods to validate a {@link SingleTimeFrame}</p> 
  * @author Thomas Pummer
  */
-//TODO check @link
 public class SingleTimeFrameValidator{
 	
 	/**
-	 * validateSingleTimeFrame is used to validate if a date matches a {@link} SingleTimeFrame</p>
+	 * validateSingleTimeFrame is used to validate if a date matches a {@link SingleTimeFrame}</p>
 	 * @param stf
 	 * @param now
 	 * @return

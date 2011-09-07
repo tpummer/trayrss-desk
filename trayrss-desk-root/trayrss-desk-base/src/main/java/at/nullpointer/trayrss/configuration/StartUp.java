@@ -19,22 +19,15 @@
  */
 package at.nullpointer.trayrss.configuration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import at.nullpointer.trayrss.TrayRSS;
-import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
-import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.dao.SessionFactoryRepository;
+import at.nullpointer.trayrss.gui.tray.TrayIconChangeListener;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
-import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.TrayNotifier;
@@ -65,9 +58,7 @@ public class StartUp {
 		startDatabase();
 		ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
 		configControl.load();
-		ConfigurationModel configModel = configControl.getConfigurationModel();
 		initializeMessages();
-		setCaptions(configModel.getLanguage());
 		startTray();
 		startMonitor();
 		log.info("Startup complete.");
@@ -75,75 +66,12 @@ public class StartUp {
 
 	
 	private void initializeMessages() {
-		Messages.registerMessageResolver(Messages.CONFIG, new MessageResolverImpl("at.nullpointer.trayrss.messages.configurationmessages"));
-		Messages.registerMessageResolver(Messages.ERROR, new MessageResolverImpl("at.nullpointer.trayrss.messages.errormessages"));
+		
+		Messages.setup(ConfigurationControllerImpl.getInstance().getConfigurationModel().getLanguage().getShortcut());
 		
 		ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
 		configContr.addChangeListener(new MessageLanguageSwitcher());
 		
-	}
-
-
-	/**
-	 * <p>preloads the captions of the tray menu</p>
-	 * 
-	 * @param lang of type LanguageShortcut
-	 */
-	private void setCaptions(LanguageShortcut lang) {
-	
-		log.debug("Startup: Load Captions started");
-		InputStream reader = null;
-	
-		//TODO Sprache auf neues Konzept umstellen
-		String languagefile = ReferenceCollection.EN_LANG;
-	
-		if (lang.getShortcut().equals(ReferenceCollection.DE))
-			languagefile = ReferenceCollection.DE_LANG;
-	
-		try {
-	
-			reader = TrayRSS.class.getResourceAsStream(languagefile
-					.substring(1));
-	
-			if (ReferenceCollection.TRAYRSS_APP_TITLE.equals("TrayRSS null"))
-				reader = new FileInputStream(languagefile);
-	
-			langprops = new Properties();
-			langprops.loadFromXML(reader);
-		} catch (FileNotFoundException e) {
-			log.error("No config file found! - "
-					+ "\n Please reinstall the application!");
-			System.exit(0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				reader.close();
-			} catch (Exception e) {
-				log.error("Error closing RSS Stream.");
-			}
-		}
-	
-		log.debug("Startup: Set Captions at "
-				+ System.currentTimeMillis());
-		
-		String language_short = lang.getShortcut(); 
-	
-		ReferenceCollection.TRAYMENU_EXIT = langprops.getProperty("trayrss."
-				+ language_short + ".traymenu_exit");
-		ReferenceCollection.TRAYMENU_MONITOR = langprops.getProperty("trayrss."
-				+ language_short + ".traymenu_monitor");
-		ReferenceCollection.TRAYMENU_CONFIG = langprops.getProperty("trayrss."
-				+ language_short + ".traymenu_config");
-		ReferenceCollection.TRAYMENU_HELP = langprops.getProperty("trayrss."
-				+ language_short + ".traymenu_help");
-		ReferenceCollection.HELP_TITLE = langprops.getProperty("trayrss."
-				+ language_short + ".help_title");
-		ReferenceCollection.HELP_OK = langprops.getProperty("trayrss."
-				+ language_short + ".help_ok");
-
-		log.debug("Startup: Finished Set Captions");
-	
 	}
 
 	private void startTray() {
@@ -151,6 +79,7 @@ public class StartUp {
 	
 		TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
 		trayIconPOJO.startTrayIcon();
+		ConfigurationControllerImpl.getInstance().addChangeListener(new TrayIconChangeListener());
 	
 		log.debug("Startup: Finished Start Tray");
 	}

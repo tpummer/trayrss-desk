@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.Shutdown;
 import at.nullpointer.trayrss.gui.TrayRssConfigWindow;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 
 public class TrayMenuActionListener implements ActionListener {
@@ -35,13 +36,15 @@ public class TrayMenuActionListener implements ActionListener {
 	private Logger log = Logger.getLogger(TrayIconActionListener.class);
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_MONITOR)){
+		if(e.getActionCommand().equals(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.monitor", "Check Feeds manually"))){
 			Monitor.getInstance().stopAll(2);
 			Monitor.getInstance().loadFeeds();
-			ReferenceCollection.TRAY_ICON.displayMessage("Useraction", "Handmade Monitoringintervall", 
+			ReferenceCollection.TRAY_ICON.displayMessage(
+					Messages.getMessageResolver(Messages.GUI).getString("trayicon.monitor.action.title", "Useraction"), 
+					Messages.getMessageResolver(Messages.GUI).getString("trayicon.monitor.action.text", "Handmade Monitoringintervall"),
 					TrayIcon.MessageType.INFO);
 			
-		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_CONFIG)){
+		}else if(e.getActionCommand().equals(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.config", "Configuration"))){
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					TrayRssConfigWindow trayRssConfigWindow = new TrayRssConfigWindow();
@@ -49,14 +52,14 @@ public class TrayMenuActionListener implements ActionListener {
 				}
 			});
 			
-		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_HELP)){
+		}else if(e.getActionCommand().equals(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.help", "Help"))){
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					new Help();
 				}
 			});
 			
-		}else if(e.getActionCommand().equals(ReferenceCollection.TRAYMENU_EXIT)){
+		}else if(e.getActionCommand().equals(Messages.getMessageResolver(Messages.GUI).getString("traymenu.command.exit", "Exit"))){
 			Shutdown shutdown = new Shutdown();
 			shutdown.now();
 			System.exit(0);

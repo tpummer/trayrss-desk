@@ -22,6 +22,7 @@ package at.nullpointer.trayrss.messages;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 /**
  * Cache for {@link MessageResolver}
@@ -31,9 +32,16 @@ import java.util.Map;
  */
 public class Messages {
 	
+	private static Logger log = Logger.getLogger(Messages.class);
+	
+	private static final String MESSAGES_ERRORMESSAGES = "at.nullpointer.trayrss.messages.errormessages";
+	private static final String MESSAGES_CONFIGURATIONMESSAGES = "at.nullpointer.trayrss.messages.configurationmessages";
+	private static final String MESSAGES_NOTIFICATIONMESSAGES = "at.nullpointer.trayrss.messages.notificationmessages";
+	private static final String MESSAGES_GUIMESSAGES = "at.nullpointer.trayrss.messages.guimessages";
 	public static final String CONFIG = "config";
-
 	public static final String ERROR = "error";
+	public static final String NOTIFICATION = "notification";
+	public static final String GUI = "gui";
 	
 	public static Map<String, MessageResolver> messageResolverMap = new HashMap<String, MessageResolver>();
 	
@@ -46,10 +54,20 @@ public class Messages {
 	}
 
 	public static void setLanguage(String language) {
+		log.debug("changing language to: "+language);
 		for(String key : messageResolverMap.keySet()){
 			MessageResolver mr = messageResolverMap.get(key);
 			mr.chanceLocale(new Locale(language));
 		}
+		
+	}
+	
+	public static void setup(String language){
+		registerMessageResolver(Messages.CONFIG, new MessageResolverImpl(MESSAGES_CONFIGURATIONMESSAGES));
+		registerMessageResolver(Messages.ERROR, new MessageResolverImpl(MESSAGES_ERRORMESSAGES));
+		registerMessageResolver(Messages.NOTIFICATION, new MessageResolverImpl(MESSAGES_NOTIFICATIONMESSAGES));
+		registerMessageResolver(Messages.GUI, new MessageResolverImpl(MESSAGES_GUIMESSAGES));
+		setLanguage(language);
 		
 	}
 	
