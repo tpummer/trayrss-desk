@@ -36,6 +36,7 @@ import org.junit.Test;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
+import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.TrayNotifier;
@@ -54,6 +55,7 @@ public class TrayNotifierTest {
 	public static void setUpBeforeClass() throws Exception {
 		SystemTray tray = SystemTray.getSystemTray();
 
+		Messages.setup("en");
 		
 		PopupMenu popup = new PopupMenu();
 		Image image = Toolkit.getDefaultToolkit().getImage("tray.gif");
