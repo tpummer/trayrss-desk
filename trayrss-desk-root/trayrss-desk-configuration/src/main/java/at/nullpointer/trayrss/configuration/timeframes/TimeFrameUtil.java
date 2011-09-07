@@ -19,8 +19,8 @@
  */
 package at.nullpointer.trayrss.configuration.timeframes;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import at.nullpointer.trayrss.configuration.model.SingleTimeFrame;
 
@@ -40,7 +40,7 @@ public class TimeFrameUtil {
 	 */
 	public static Set<SingleTimeFrame> stringToSingleTimeFrame(String frameString) {
 		
-		Set<SingleTimeFrame> result = new TreeSet<SingleTimeFrame>();
+		Set<SingleTimeFrame> result = new HashSet<SingleTimeFrame>();
 		
 		String[] splitted = frameString.trim().split(" |;");
 		

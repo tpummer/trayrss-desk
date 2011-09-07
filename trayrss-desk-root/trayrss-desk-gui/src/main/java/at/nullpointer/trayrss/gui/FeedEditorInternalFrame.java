@@ -23,8 +23,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -44,7 +44,6 @@ import at.nullpointer.trayrss.error.ErrorListener;
 import at.nullpointer.trayrss.error.ErrorType;
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 import at.nullpointer.trayrss.gui.tablemodel.TableColumnUtil;
-import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
 
 public class FeedEditorInternalFrame extends JDialog implements WindowListener{
@@ -62,7 +61,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 	public JComboBox cbbMonitorIntervall;
 	private JCheckBox chckbxMonitoringEnabled;
 	
-	private Set<ErrorListener> errorListener = new TreeSet<ErrorListener>();
+	private Set<ErrorListener> errorListener = new HashSet<ErrorListener>();
 
 	/**
 	 * Create the frame.
