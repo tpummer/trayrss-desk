@@ -194,9 +194,6 @@
 							<Version>${project.version}</Version>
 						</manifestEntries>
 					</archive>
-					<filters>
-						<filter>src/assemble/filter.properties</filter>
-					</filters>
 					<descriptors>
 						<descriptor>src/assemble/distribution.xml</descriptor>
 					</descriptors>

@@ -40,7 +40,7 @@ public class MessageResolverImpl implements MessageResolver {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private String bundleName = "at.nullpointer.trayrss.messages.configurationmessages"; //$NON-NLS-1$
-	private static Locale LOCALE = new Locale("en"); 
+	private static Locale LOCALE = Locale.ENGLISH; 
 	private ResourceBundle resourceBundle;
 	private ResourceBundle loadBundle() {
 		return ResourceBundle.getBundle(bundleName, LOCALE);

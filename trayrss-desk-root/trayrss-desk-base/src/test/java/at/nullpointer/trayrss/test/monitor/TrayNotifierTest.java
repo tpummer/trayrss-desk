@@ -43,77 +43,78 @@ import at.nullpointer.trayrss.notification.TrayNotifier;
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.PopupManager;
 
+//TODO Mocking
 public class TrayNotifierTest {
-	private Logger log = Logger.getLogger(TrayNotifierTest.class);
+	// private Logger log = Logger.getLogger(TrayNotifierTest.class);
 	
-	final TrayNotifier tn = new TrayNotifier();
-	Feed testfeed;
-	News testnews, testNewsBadUri;
-	static TrayIcon trayIcon;
+	// final TrayNotifier tn = new TrayNotifier();
+	// Feed testfeed;
+	// News testnews, testNewsBadUri;
+	// static TrayIcon trayIcon;
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		SystemTray tray = SystemTray.getSystemTray();
+	// @BeforeClass
+	// public static void setUpBeforeClass() throws Exception {
+		// SystemTray tray = SystemTray.getSystemTray();
 
-		Messages.setup("en");
+		// Messages.setup("en");
 		
-		PopupMenu popup = new PopupMenu();
-		Image image = Toolkit.getDefaultToolkit().getImage("tray.gif");
-		 trayIcon = new TrayIcon(image, "Tray Demo", popup);
+		// PopupMenu popup = new PopupMenu();
+		// Image image = Toolkit.getDefaultToolkit().getImage("tray.gif");
+		 // trayIcon = new TrayIcon(image, "Tray Demo", popup);
 
-		 tray.add(trayIcon);
-		 ReferenceCollection.TRAY_ICON = trayIcon;
-	}
+		 // tray.add(trayIcon);
+		 // ReferenceCollection.TRAY_ICON = trayIcon;
+	// }
 
-	@Before
-	public void setUp() throws Exception {	 
+	// @Before
+	// public void setUp() throws Exception {	 
 		
-		ConfigurationModel model = new ConfigurationModel();
-		model.setDisplayCount(3);
-		ConfigurationControllerImpl controller = (ConfigurationControllerImpl) ConfigurationControllerImpl.getInstance();
-		controller.setConfigurationModel(model);
+		// ConfigurationModel model = new ConfigurationModel();
+		// model.setDisplayCount(3);
+		// ConfigurationControllerImpl controller = (ConfigurationControllerImpl) ConfigurationControllerImpl.getInstance();
+		// controller.setConfigurationModel(model);
 
-		testfeed = new Feed();
-		testfeed.setName("testname");
-		testnews = new News();
-		testnews.setTitle("testtitle");
-		testNewsBadUri = new News();
-		testNewsBadUri.setTitle("Bad URL");
-		testNewsBadUri.setUri("asd");
+		// testfeed = new Feed();
+		// testfeed.setName("testname");
+		// testnews = new News();
+		// testnews.setTitle("testtitle");
+		// testNewsBadUri = new News();
+		// testNewsBadUri.setTitle("Bad URL");
+		// testNewsBadUri.setUri("asd");
 		
-		tn.setPopupManager(new PopupManager(
-				3 * 1000, Corner.LOWER_RIGHT,
-				new Point(30, 100)));
+		// tn.setPopupManager(new PopupManager(
+				// 3 * 1000, Corner.LOWER_RIGHT,
+				// new Point(30, 100)));
 
-	}
+	// }
 
-	@Test
-	public void testNotifyNewsFeed() throws InterruptedException {
-		tn.addToNotify(testnews, testfeed);
-		int size = tn.getSize();
-		log.debug(size);
-		tn.notifyNews();
-		assertEquals(size - 1, tn.getSize());
-		log.debug(tn.getSize());
-		Thread.sleep(10000);
+	// @Test
+	// public void testNotifyNewsFeed() throws InterruptedException {
+		// tn.addToNotify(testnews, testfeed);
+		// int size = tn.getSize();
+		// log.debug(size);
+		// tn.notifyNews();
+		// assertEquals(size - 1, tn.getSize());
+		// log.debug(tn.getSize());
+		// Thread.sleep(10000);
 		
-	}
+	// }
 
-	@Test
-	public void testAddToNotify() {
-		int size = tn.getSize();
-		log.debug(size);
-		tn.addToNotify(testnews, testfeed);
-		log.debug(tn.getSize());
-		assertEquals(size + 1, tn.getSize());
+	// @Test
+	// public void testAddToNotify() {
+		// int size = tn.getSize();
+		// log.debug(size);
+		// tn.addToNotify(testnews, testfeed);
+		// log.debug(tn.getSize());
+		// assertEquals(size + 1, tn.getSize());
 		
-	}
+	// }
 	
-	@Test
-	public void testNotifyNewsFeedBadUri() throws InterruptedException{
-		tn.addToNotify(testNewsBadUri, testfeed);
-		tn.notifyNews();
-		Thread.sleep(10000);
-	}
+	// @Test
+	// public void testNotifyNewsFeedBadUri() throws InterruptedException{
+		// tn.addToNotify(testNewsBadUri, testfeed);
+		// tn.notifyNews();
+		// Thread.sleep(10000);
+	// }
 
 }
