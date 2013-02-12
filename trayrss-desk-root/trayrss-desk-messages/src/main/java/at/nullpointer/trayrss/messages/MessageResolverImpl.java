@@ -33,6 +33,7 @@ public class MessageResolverImpl implements MessageResolver {
 	public MessageResolverImpl(String bundleName) {
 		this.bundleName = bundleName;
 		this.resourceBundle = loadBundle();
+		LOCALE = Locale.ENGLISH;
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
