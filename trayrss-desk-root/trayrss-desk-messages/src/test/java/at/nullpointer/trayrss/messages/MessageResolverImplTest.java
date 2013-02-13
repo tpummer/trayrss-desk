@@ -36,7 +36,7 @@ public class MessageResolverImplTest {
 
 
     @Before
-    protected void setUp()
+    public void setUp()
             throws Exception {
 
         messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
