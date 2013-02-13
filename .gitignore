@@ -7,3 +7,6 @@ trayrss-desk-root/trayrss-desk-error/target
 trayrss-desk-root/trayrss-desk-configuration/target
 trayrss-desk-root/trayrss-desk-base/target
 trayrss-desk-root/trayrss-desk-base/logs/
+.classpath
+.settings
+.project
