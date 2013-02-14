@@ -15,28 +15,18 @@
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-model</artifactId>
-			<version>${trayrss-parent-version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-configuration</artifactId>
-			<version>${trayrss-parent-version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.rome</groupId>
 			<artifactId>rome</artifactId>
-			<version>1.0.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-notification</artifactId>
-			<version>${trayrss-parent-version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

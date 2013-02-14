@@ -13,28 +13,18 @@
   	<dependency>
   		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-model</artifactId>
-  		<version>${trayrss-parent-version}</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
   	</dependency>
   	<dependency>
 			<groupId>de.jutzig</groupId>
 			<artifactId>jnotification</artifactId>
-			<version>0.3</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
   	<dependency>
   		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-configuration</artifactId>
-  		<version>${trayrss-parent-version}</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-messages</artifactId>
-  		<version>${trayrss-parent-version}</version>
   	</dependency>
   </dependencies>
 </project>

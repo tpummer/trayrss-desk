@@ -1,12 +1,6 @@
-trayrss-desk-root/trayrss-desk-monitor/target
-trayrss-desk-root/trayrss-desk-model/target
-trayrss-desk-root/trayrss-desk-messages/target
-trayrss-desk-root/trayrss-desk-notification/target
-trayrss-desk-root/trayrss-desk-gui/target
-trayrss-desk-root/trayrss-desk-error/target
-trayrss-desk-root/trayrss-desk-configuration/target
-trayrss-desk-root/trayrss-desk-base/target
 trayrss-desk-root/trayrss-desk-base/logs/
 .classpath
 .settings
 .project
+bin
+target
