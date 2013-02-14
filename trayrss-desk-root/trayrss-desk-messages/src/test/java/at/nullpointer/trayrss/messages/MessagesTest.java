@@ -36,6 +36,11 @@ public class MessagesTest {
     private static MessageResolver messageResolver;
 
 
+    /**
+     * set up the MessageResolver for the tests
+     * 
+     * @throws Exception
+     */
     @Before
     public void setUp()
             throws Exception {
@@ -52,8 +57,8 @@ public class MessagesTest {
 
         try {
             Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
-        } catch ( Throwable t ) {
-            fail( "Register Message Resolver failed: " + t.getMessage() );
+        } catch ( Exception e ) { // NOPMD
+            fail( "Register Message Resolver failed: " + e.getMessage() );
         }
     }
 
