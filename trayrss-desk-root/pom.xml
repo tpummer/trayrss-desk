@@ -6,10 +6,10 @@
 	<version>1.3.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<scm>
-		<connection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</connection>
-		<developerConnection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</developerConnection>
+		<connection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trayrss-desk/trunk</connection>
+		<developerConnection>scm:svn:https://trayrss.svn.sourceforge.net/svnroot/trayrss/trayrss-desk/trunk/</developerConnection>
 		<tag>head</tag>
-		<url>http://trayrss.svn.sourceforge.net/svnroot/trayrss/trunk</url>
+		<url>https://trayrss.svn.sourceforge.net/svnroot/trayrss/trayrss-desk/trunk/</url>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
@@ -119,7 +119,13 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
-		</dependencies>
+		<dependency>
+		    <groupId>org.easymock</groupId>
+		    <artifactId>easymock</artifactId>
+		    <version>3.1</version>
+		    <scope>test</scope>
+    	</dependency>
+	  </dependencies>
 	</dependencyManagement>
 	<modules>
 		<module>trayrss-desk-base</module>

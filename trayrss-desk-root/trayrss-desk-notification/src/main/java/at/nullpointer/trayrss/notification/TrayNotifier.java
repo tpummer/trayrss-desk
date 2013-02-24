@@ -14,16 +14,14 @@
  */
 package at.nullpointer.trayrss.notification;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.log4j.Logger;
@@ -46,13 +44,22 @@ public class TrayNotifier
 
     private Logger log = Logger.getLogger( TrayNotifier.class );
 
+    @Getter
     ArrayList<Notification> input = new ArrayList<Notification>();
+
+    private JNotificationPopupFactory jNotificationPopupFactory;
 
     @Setter
     private static PopupManager popupManager;
     private static JButton bread;
     private static JButton bstop;
     private static JButton bclose;
+
+
+    public TrayNotifier( JNotificationPopupFactory jNotificationPopupFactory ) {
+
+        this.jNotificationPopupFactory = jNotificationPopupFactory;
+    }
 
 
     public void notifyNews() {
@@ -83,8 +90,16 @@ public class TrayNotifier
                 bclose = new JButton( Messages.getMessageResolver( Messages.NOTIFICATION ).getString(
                         "notification.button.later", "Later" ) );
 
-                popup = new JNotificationPopup( createComponent( title, name, url ) );
+                popup = jNotificationPopupFactory.createPopup( title, name );
                 popup.setAnimator( new FadeIn( popup, 2000 ) );
+
+                JPanel buttonPanel = new JPanel( new GridLayout( 1, 3 ) );
+
+                buttonPanel.add( bread );
+                buttonPanel.add( bstop );
+                buttonPanel.add( bclose );
+
+                ( (JPanel)popup.getComponent() ).add( buttonPanel );
 
                 if ( url != null ) {
                     bread.addActionListener( new BrowserButton( popup, popupManager, url, node, displayCount ) );
@@ -136,27 +151,6 @@ public class TrayNotifier
             }
             this.notifyNews();
         }
-
-    }
-
-
-    private static Component createComponent( String title, String feedName, String url ) {
-
-        JPanel panel = new JPanel( new GridLayout( 2, 1 ) );
-        JLabel ltitel = new JLabel();
-        ltitel.setText( "<html><b>" + title + "</b></html>" );
-        panel.add( ltitel );
-
-        JPanel buttonPanel = new JPanel( new GridLayout( 1, 3 ) );
-
-        buttonPanel.add( bread );
-        buttonPanel.add( bstop );
-        buttonPanel.add( bclose );
-
-        panel.add( buttonPanel );
-
-        panel.setBorder( new TitledBorder( feedName ) );
-        return panel;
 
     }
 
