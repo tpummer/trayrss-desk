@@ -201,7 +201,7 @@ public class FeedEditorInternalFrame extends JDialog implements WindowListener{
 		public void actionPerformed(ActionEvent e) {
 			
 			//Check URL
-			if(FeedTableValidator.checkURL(this.window.txtFeedUrl.getText())){
+			if(FeedTableValidator.checkName(this.window.txtFeedUrl.getText())){
 				if(FeedTableValidator.checkName(this.window.txtFeedName.getText())){
 				this.motherFrame.addFeedRow(this.window.selectedRow,
 						this.window.selectedID, 

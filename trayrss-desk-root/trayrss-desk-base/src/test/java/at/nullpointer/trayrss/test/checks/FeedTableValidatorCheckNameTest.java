@@ -27,22 +27,22 @@ import org.junit.runners.Parameterized.Parameters;
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 
 /**
- * Function under Test: {@link FeedTableValidator#checkUrl(String)}
+ * Function under Test: {@link FeedTableValidator#checkName(String)}
  * 
  * @author Thomas Pummer
  * 
  */
 @RunWith( Parameterized.class )
-public class FeedTableValidatorCheckUrlTest {
+public class FeedTableValidatorCheckNameTest {
 
     /**
      * Description of the Testcase
      */
     private String description;
     /**
-     * URL under test
+     * name under test
      */
-    private String url;
+    private String name;
     /**
      * Expected result
      */
@@ -50,43 +50,43 @@ public class FeedTableValidatorCheckUrlTest {
 
 
     /**
-     * Makes a parameterized test possible for {@link FeedTableValidator#checkUrl(String)}
+     * Makes a parameterized test possible for {@link FeedTableValidator#checkName(String)}
      * 
      * @param description
-     * @param url
+     * @param name
      * @param expectedResult
      */
-    public FeedTableValidatorCheckUrlTest( String description, String url, Boolean expectedResult ) {
+    public FeedTableValidatorCheckNameTest( String description, String name, Boolean expectedResult ) {
 
         super();
         this.description = description;
-        this.url = url;
+        this.name = name;
         this.expectedResult = expectedResult;
     }
 
 
     /**
-     * Parameters for the test of {@link FeedTableValidator#checkUrl(String)}
+     * Parameters for the test of {@link FeedTableValidator#checkName(String)}
      * 
      * @return
      */
     @Parameters
     public static Collection<Object[]> data() {
 
-        Object[][] data = new Object[][] { { "URL should be wrong", "t\\est", Boolean.FALSE },
-                { "Valid URL should not be detected as a Feed", "http://www.google.com", Boolean.FALSE },
-                { "Feed-URL should be valid", "http://www.nullpointer.at/feed/", Boolean.TRUE } };
+        Object[][] data = new Object[][] { { "Valid", "t\\est", Boolean.TRUE },
+                { "Valid with space", "tes t", Boolean.TRUE }, { "Invalid 0 size string", "", Boolean.FALSE },
+                { "Invalid space string", "    ", Boolean.FALSE }, { "Invalid null string", null, Boolean.FALSE } };
         return Arrays.asList( data );
     }
 
 
     /**
-     * Tests {@link FeedTableValidator#checkUrl(String)}
+     * Tests {@link FeedTableValidator#checkName(String)}
      */
     @Test
     public void testCheckURL() {
 
-        assertEquals( description, FeedTableValidator.checkUrl( url ), expectedResult );
+        assertEquals( description, FeedTableValidator.checkName( name ), expectedResult );
 
     }
 }

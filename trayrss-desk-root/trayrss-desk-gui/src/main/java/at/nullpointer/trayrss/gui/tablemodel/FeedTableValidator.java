@@ -42,7 +42,7 @@ public final class FeedTableValidator {
      * @param url
      * @return true/false
      */
-    public static boolean checkURL( String url ) {
+    public static boolean checkUrl( String url ) {
 
         URL test;
 
@@ -76,7 +76,7 @@ public final class FeedTableValidator {
     public static boolean checkName( String text ) {
 
         boolean result = false;
-        if ( !text.isEmpty() ) {
+        if ( text != null && !text.isEmpty() ) {
             String textWithoutSpaces = text.replaceAll( " ", "" );
             result = !textWithoutSpaces.isEmpty();
         }

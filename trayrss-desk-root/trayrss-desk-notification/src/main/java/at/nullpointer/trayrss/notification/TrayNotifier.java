@@ -47,6 +47,9 @@ public class TrayNotifier
     @Getter
     ArrayList<Notification> input = new ArrayList<Notification>();
 
+    /**
+     * Instance of {@link JNotificationPopupFactory}
+     */
     private JNotificationPopupFactory jNotificationPopupFactory;
 
     @Setter
@@ -56,6 +59,11 @@ public class TrayNotifier
     private static JButton bclose;
 
 
+    /**
+     * Creates an Instance of {@link TrayNotifier}
+     * 
+     * @param jNotificationPopupFactory sets the Factory that creates {@link JNotificationPopup}
+     */
     public TrayNotifier( JNotificationPopupFactory jNotificationPopupFactory ) {
 
         this.jNotificationPopupFactory = jNotificationPopupFactory;
@@ -68,7 +76,7 @@ public class TrayNotifier
 
             log.debug( "TrayNotifier: notify" );
 
-            if ( input.size() > 0 ) {
+            if ( !input.isEmpty() ) {
 
                 Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel()
                         .getDisplayCount();
