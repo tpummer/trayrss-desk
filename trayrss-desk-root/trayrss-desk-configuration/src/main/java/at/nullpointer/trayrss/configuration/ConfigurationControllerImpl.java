@@ -1,21 +1,16 @@
 /*
-    TrayRSS - simply notification of feed information
-    (c) 2009-2011 TrayRSS Developement Team
-    visit the project at http://trayrss.nullpointer.at/
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+ * TrayRSS - simply notification of feed information (c) 2009-2011 TrayRSS Developement Team visit the project at
+ * http://trayrss.nullpointer.at/
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package at.nullpointer.trayrss.configuration;
 
@@ -47,311 +42,314 @@ import at.nullpointer.trayrss.model.Feed;
  * @author Thomas Pummer
  * 
  */
-public class ConfigurationControllerImpl implements ConfigurationController {
+public class ConfigurationControllerImpl
+        implements ConfigurationController {
 
-	private Set<ErrorListener> errorListeners;
+    private Set<ErrorListener> errorListeners;
 
-	private Set<ChangeListener> changeListener = new HashSet<ChangeListener>();
+    private Set<ChangeListener> changeListener = new HashSet<ChangeListener>();
 
-	Logger log = Logger.getLogger(ConfigurationControllerImpl.class);
+    Logger log = Logger.getLogger( ConfigurationControllerImpl.class );
 
-	private static ConfigurationControllerImpl instance;
+    private static ConfigurationControllerImpl instance;
 
-	private Properties props;
+    private Properties props;
 
-	private ConfigurationModel configModel;
+    private ConfigurationModel configModel;
 
-	private ConfigurationControllerImpl() {
-	}
 
-	/**
-	 * Gives the singleton instance of the ConfigurationController
-	 * 
-	 * @return
-	 */
-	public static synchronized ConfigurationController getInstance() {
-		if (instance == null) {
-			instance = new ConfigurationControllerImpl();
-		}
-		return instance;
-	}
+    private ConfigurationControllerImpl() {
 
-	/**
-	 * <p>
-	 * stores the given model to a file
-	 * </p>
-	 * 
-	 * @param configurationModel
-	 *            the config to save
-	 */
-	public synchronized void save(ConfigurationModel configurationModel) {
+    }
 
-		// general
-		props.setProperty(ConfigurationConstants.LANGUAGE, configModel
-				.getLanguage().toString());
-		props.setProperty(ConfigurationConstants.DISPLAYSECOND, configModel
-				.getDisplayTime().toString());
-		props.setProperty(ConfigurationConstants.DISPLAYCOUNT, configModel
-				.getDisplayCount().toString());
 
-		// Feed
-		FeedDAO feedDao = new FeedDAOImpl();
-		Collection<Feed> oldFeeds = feedDao.getFeeds();
-		Set<Feed> feeds = configModel.getFeeds();
-		for (Feed feed : feeds) {
-			feedDao.save(feed);
-			oldFeeds.remove(feed);
-		}
-		for (Feed feed : oldFeeds) {
-			feedDao.deleteById(feed.getId());
-		}
+    /**
+     * Gives the singleton instance of the ConfigurationController
+     * 
+     * @return
+     */
+    public static synchronized ConfigurationController getInstance() {
 
-		// timerestriction
-		props.setProperty(ConfigurationConstants.TIMERESTRICTION, configModel
-				.getIsTimeFrameActivated().toString());
+        if ( instance == null ) {
+            instance = new ConfigurationControllerImpl();
+        }
+        return instance;
+    }
 
-		props.setProperty(ConfigurationConstants.TIMEFRAME, TimeFrameUtil
-				.singleTimeFrameToString(configModel.getTimeFrames()));
 
-		props.setProperty(ConfigurationConstants.TIME_MO, configModel
-				.getIsMondayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_TU, configModel
-				.getIsTuesdayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_WE, configModel
-				.getIsWednesdayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_TH, configModel
-				.getIsThursdayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_FR, configModel
-				.getIsFridayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_SA, configModel
-				.getIsSaturdayEnabled().toString());
-		props.setProperty(ConfigurationConstants.TIME_SU, configModel
-				.getIsSundayEnabled().toString());
+    /**
+     * <p>
+     * stores the given model to a file
+     * </p>
+     * 
+     * @param configurationModel the config to save
+     */
+    public synchronized void save( ConfigurationModel configurationModel ) {
 
-		Date vacationStart = configModel.getVacationStart();
-		Date vacationEnd = configModel.getVacationEnd();
-		if (vacationStart != null)
-			props.setProperty(ConfigurationConstants.VACATION_START,
-					Long.toString(configModel.getVacationStart().getTime()));
-		if (vacationEnd != null)
-			props.setProperty(ConfigurationConstants.VACATION_END,
-					Long.toString(configModel.getVacationEnd().getTime()));
+        // general
+        props.setProperty( ConfigurationConstants.LANGUAGE, configModel.getLanguage().toString() );
+        props.setProperty( ConfigurationConstants.DISPLAYSECOND, configModel.getDisplayTime().toString() );
+        props.setProperty( ConfigurationConstants.DISPLAYCOUNT, configModel.getDisplayCount().toString() );
 
-		try {
-			props.storeToXML(
-					new FileOutputStream(ConfigurationConstants.CONFIG),
-					"TrayRSS Configuration");
-		} catch (FileNotFoundException e) {
-			for (ErrorListener listener : errorListeners)
-				listener.addError(
-						Messages.getMessageResolver(Messages.ERROR).getString(
-								"error.config.load.title", "Configuration"),
-						Messages.getMessageResolver(Messages.ERROR).getString(
-								"error.config.load.filenotfound",
-								"Config file not found"));
-		} catch (IOException e) {
-			for (ErrorListener listener : errorListeners)
-				listener.addError(
-						Messages.getMessageResolver(Messages.ERROR).getString(
-								"error.config.load.title", "Configuration"),
-						Messages.getMessageResolver(Messages.ERROR).getString(
-								"error.config.load.ioerror",
-								"IO Error at saving"));
-		}
+        // Feed
+        FeedDAO feedDao = new FeedDAOImpl();
+        Collection<Feed> oldFeeds = feedDao.getFeeds();
+        Set<Feed> feeds = configModel.getFeeds();
+        for ( Feed feed : feeds ) {
+            feedDao.save( feed );
+            oldFeeds.remove( feed );
+        }
+        for ( Feed feed : oldFeeds ) {
+            feedDao.deleteById( feed.getId() );
+        }
 
-		notifyAllListeners();
+        // timerestriction
+        props.setProperty( ConfigurationConstants.TIMERESTRICTION, configModel.getIsTimeFrameActivated().toString() );
 
-	}
+        props.setProperty( ConfigurationConstants.TIMEFRAME,
+                TimeFrameUtil.singleTimeFrameToString( configModel.getTimeFrames() ) );
 
-	private void notifyAllListeners() {
+        props.setProperty( ConfigurationConstants.TIME_MO, configModel.getIsMondayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_TU, configModel.getIsTuesdayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_WE, configModel.getIsWednesdayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_TH, configModel.getIsThursdayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_FR, configModel.getIsFridayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_SA, configModel.getIsSaturdayEnabled().toString() );
+        props.setProperty( ConfigurationConstants.TIME_SU, configModel.getIsSundayEnabled().toString() );
 
-		NotifyThread notifyAll = new NotifyThread();
+        Date vacationStart = configModel.getVacationStart();
+        Date vacationEnd = configModel.getVacationEnd();
+        if ( vacationStart != null )
+            props.setProperty( ConfigurationConstants.VACATION_START,
+                    Long.toString( configModel.getVacationStart().getTime() ) );
+        if ( vacationEnd != null )
+            props.setProperty( ConfigurationConstants.VACATION_END,
+                    Long.toString( configModel.getVacationEnd().getTime() ) );
 
-		notifyAll.setChangeListener(changeListener);
+        try {
+            props.storeToXML( new FileOutputStream( ConfigurationConstants.CONFIG ), "TrayRSS Configuration" );
+        } catch ( FileNotFoundException e ) {
+            for ( ErrorListener listener : errorListeners )
+                listener.addError(
+                        Messages.getMessageResolver( Messages.ERROR ).getString( "error.config.load.title",
+                                "Configuration" ),
+                        Messages.getMessageResolver( Messages.ERROR ).getString( "error.config.load.filenotfound",
+                                "Config file not found" ) );
+        } catch ( IOException e ) {
+            for ( ErrorListener listener : errorListeners )
+                listener.addError(
+                        Messages.getMessageResolver( Messages.ERROR ).getString( "error.config.load.title",
+                                "Configuration" ),
+                        Messages.getMessageResolver( Messages.ERROR ).getString( "error.config.load.ioerror",
+                                "IO Error at saving" ) );
+        }
 
-		notifyAll.run();
+        notifyAllListeners();
 
-	}
+    }
 
-	class NotifyThread extends Thread {
-		private Set<ChangeListener> listener;
 
-		public void setChangeListener(Set<ChangeListener> listener) {
-			this.listener = listener;
-		}
+    private void notifyAllListeners() {
 
-		@Override
-		public void run() {
-			for (ChangeListener single : this.listener) {
-				single.notifyChange();
-			}
-		}
-	}
+        NotifyThread notifyAll = new NotifyThread();
 
-	/**
-	 * <p>
-	 * preloads the configuration from the filesystem
-	 * </p>
-	 */
-	public synchronized void load() {
-		this.props = loadProps();
-		this.configModel = loadInitialProperties(this.props);
+        notifyAll.setChangeListener( changeListener );
 
-	}
+        notifyAll.run();
 
-	/**
-	 * <p>
-	 * returns the actual configuration
-	 * </p>
-	 * 
-	 * @return configModel
-	 */
-	public synchronized ConfigurationModel getConfigurationModel() {
-		if (this.configModel == null) {
-			loadProps();
-		}
-		return configModel;
-	}
+    }
 
-	/**
-	 * Method to enter a Mock Model
-	 * 
-	 * @param model
-	 */
-	public synchronized void setConfigurationModel(ConfigurationModel model) {
-		this.configModel = model;
-	}
+    class NotifyThread
+            extends Thread {
 
-	/**
-	 * <p>
-	 * Reads all properties into memory
-	 * </p>
-	 */
-	private synchronized Properties loadProps() {
-		log.debug("Startup: started loading properties file");
+        private Set<ChangeListener> listener;
 
-		Properties props = null;
 
-		InputStream reader = null;
-		try {
+        public void setChangeListener( Set<ChangeListener> listener ) {
 
-			reader = new FileInputStream(ConfigurationConstants.CONFIG);
+            this.listener = listener;
+        }
 
-			props = new Properties();
-			props.loadFromXML(reader);
 
-		} catch (FileNotFoundException e) {
-			String errorMsg = Messages.getMessageResolver(Messages.ERROR)
-					.getString(
-							"error.config.general.filenotfound",
-							"No config file found! - "
-									+ "\n Please reinstall the application!");
-			for (ErrorListener listener : errorListeners)
-				listener.addError("Configuration", errorMsg);
-			log.error(errorMsg);
-			System.exit(0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				reader.close();
-			} catch (Exception e) {
-				log.error("Error closing RSS Stream.");
-			}
-		}
+        @Override
+        public void run() {
 
-		log.debug("Startup: finished reading property file");
+            for ( ChangeListener single : this.listener ) {
+                single.notifyChange();
+            }
+        }
+    }
 
-		return props;
-	}
 
-	private synchronized ConfigurationModel loadInitialProperties(
-			Properties props) {
-		log.debug("Startup: loading Propertys");
+    /**
+     * <p>
+     * preloads the configuration from the filesystem
+     * </p>
+     */
+    public synchronized void load() {
 
-		ConfigurationModel configModel = new ConfigurationModel();
+        this.props = loadProps();
+        this.configModel = loadInitialProperties( this.props );
 
-		// general
-		configModel.setLanguage(LanguageShortcut.valueOf(props.getProperty(
-				ConfigurationConstants.LANGUAGE).toUpperCase()));
-		configModel.setDisplayTime(Integer.valueOf(props
-				.getProperty(ConfigurationConstants.DISPLAYSECOND)));
-		configModel.setDisplayCount(Integer.valueOf(props
-				.getProperty(ConfigurationConstants.DISPLAYCOUNT)));
+    }
 
-		// feed
-		FeedDAO feedDAO = new FeedDAOImpl();
-		configModel.setFeeds(new HashSet<Feed>(feedDAO.getFeeds()));
 
-		// timerestriction
-		configModel.setIsTimeFrameActivated(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIMERESTRICTION)));
+    /**
+     * <p>
+     * returns the actual configuration
+     * </p>
+     * 
+     * @return configModel
+     */
+    public synchronized ConfigurationModel getConfigurationModel() {
 
-		configModel.setTimeFrames(TimeFrameUtil.stringToSingleTimeFrame(props
-				.getProperty(ConfigurationConstants.TIMEFRAME)));
+        if ( this.configModel == null ) {
+            loadProps();
+        }
+        return configModel;
+    }
 
-		configModel.setIsMondayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_MO)));
-		configModel.setIsTuesdayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_TU)));
-		configModel.setIsWednesdayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_WE)));
-		configModel.setIsThursdayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_TH)));
-		configModel.setIsFridayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_FR)));
-		configModel.setIsSaturdayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_SA)));
-		configModel.setIsSundayEnabled(Boolean.valueOf(props
-				.getProperty(ConfigurationConstants.TIME_SU)));
 
-		String vacationStart = props
-				.getProperty(ConfigurationConstants.VACATION_START);
-		if (vacationStart.length() > 0) {
-			Date date = new Date();
-			date.setTime(Long.valueOf(vacationStart));
-			configModel.setVacationStart(date);
-		}
+    /**
+     * Method to enter a Mock Model
+     * 
+     * @param model
+     */
+    public synchronized void setConfigurationModel( ConfigurationModel model ) {
 
-		String vacationEnd = props
-				.getProperty(ConfigurationConstants.VACATION_END);
-		if (vacationEnd.length() > 0) {
-			Date date = new Date();
-			date.setTime(Long.valueOf(vacationEnd));
-			configModel.setVacationEnd(date);
-		}
+        this.configModel = model;
+    }
 
-		log.debug("Startup: Finished loading properties");
 
-		return configModel;
+    /**
+     * <p>
+     * Reads all properties into memory
+     * </p>
+     */
+    private synchronized Properties loadProps() {
 
-	}
+        log.debug( "Startup: started loading properties file" );
 
-	private void notifyAllErrorListener(String title, String text) {
-		for (ErrorListener el : errorListeners) {
-			el.addError(title, text);
-		}
-	}
+        Properties props = null;
 
-	/***** Getter // Setter *****/
+        InputStream reader = null;
+        try {
 
-	/**
-	 * @return the errorQueue
-	 */
-	public Set<ErrorListener> getErrorListeners() {
-		return errorListeners;
-	}
+            reader = new FileInputStream( ConfigurationConstants.CONFIG );
 
-	/**
-	 * @param errorListeners
-	 *            the errorQueue to set
-	 */
-	public void setErrorListeners(Set<ErrorListener> errorListeners) {
-		this.errorListeners = errorListeners;
-	}
+            props = new Properties();
+            props.loadFromXML( reader );
 
-	public void addChangeListener(ChangeListener listener) {
-		this.changeListener.add(listener);
-	}
+        } catch ( FileNotFoundException e ) {
+            String errorMsg = Messages.getMessageResolver( Messages.ERROR ).getString(
+                    "error.config.general.filenotfound",
+                    "No config file found! - " + "\n Please reinstall the application!" );
+            for ( ErrorListener listener : errorListeners )
+                listener.addError( "Configuration", errorMsg );
+            log.error( errorMsg );
+            System.exit( 0 );
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch ( Exception e ) {
+                log.error( "Error closing RSS Stream." );
+            }
+        }
+
+        log.debug( "Startup: finished reading property file" );
+
+        return props;
+    }
+
+
+    private synchronized ConfigurationModel loadInitialProperties( Properties props ) {
+
+        log.debug( "Startup: loading Propertys" );
+
+        ConfigurationModel configModel = new ConfigurationModel();
+
+        // general
+        configModel.setLanguage( LanguageShortcut.valueOf( props.getProperty( ConfigurationConstants.LANGUAGE )
+                .toUpperCase() ) );
+        configModel.setDisplayTime( Integer.valueOf( props.getProperty( ConfigurationConstants.DISPLAYSECOND ) ) );
+        configModel.setDisplayCount( Integer.valueOf( props.getProperty( ConfigurationConstants.DISPLAYCOUNT ) ) );
+
+        // databaselocation
+        configModel.setDatabaseLocation( props.getProperty( ConfigurationConstants.DATABASE_LOCATION ) );
+
+        // feed
+        FeedDAO feedDAO = new FeedDAOImpl();
+        configModel.setFeeds( new HashSet<Feed>( feedDAO.getFeeds() ) );
+
+        // timerestriction
+        configModel.setIsTimeFrameActivated( Boolean.valueOf( props
+                .getProperty( ConfigurationConstants.TIMERESTRICTION ) ) );
+
+        configModel.setTimeFrames( TimeFrameUtil.stringToSingleTimeFrame( props
+                .getProperty( ConfigurationConstants.TIMEFRAME ) ) );
+
+        configModel.setIsMondayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_MO ) ) );
+        configModel.setIsTuesdayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_TU ) ) );
+        configModel.setIsWednesdayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_WE ) ) );
+        configModel.setIsThursdayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_TH ) ) );
+        configModel.setIsFridayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_FR ) ) );
+        configModel.setIsSaturdayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_SA ) ) );
+        configModel.setIsSundayEnabled( Boolean.valueOf( props.getProperty( ConfigurationConstants.TIME_SU ) ) );
+
+        String vacationStart = props.getProperty( ConfigurationConstants.VACATION_START );
+        if ( vacationStart.length() > 0 ) {
+            Date date = new Date();
+            date.setTime( Long.valueOf( vacationStart ) );
+            configModel.setVacationStart( date );
+        }
+
+        String vacationEnd = props.getProperty( ConfigurationConstants.VACATION_END );
+        if ( vacationEnd.length() > 0 ) {
+            Date date = new Date();
+            date.setTime( Long.valueOf( vacationEnd ) );
+            configModel.setVacationEnd( date );
+        }
+
+        log.debug( "Startup: Finished loading properties" );
+
+        return configModel;
+
+    }
+
+
+    private void notifyAllErrorListener( String title, String text ) {
+
+        for ( ErrorListener el : errorListeners ) {
+            el.addError( title, text );
+        }
+    }
+
+
+    /***** Getter // Setter *****/
+
+    /**
+     * @return the errorQueue
+     */
+    public Set<ErrorListener> getErrorListeners() {
+
+        return errorListeners;
+    }
+
+
+    /**
+     * @param errorListeners the errorQueue to set
+     */
+    public void setErrorListeners( Set<ErrorListener> errorListeners ) {
+
+        this.errorListeners = errorListeners;
+    }
+
+
+    public void addChangeListener( ChangeListener listener ) {
+
+        this.changeListener.add( listener );
+    }
 
 }

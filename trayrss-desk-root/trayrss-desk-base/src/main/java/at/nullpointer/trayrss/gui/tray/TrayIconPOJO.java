@@ -1,86 +1,84 @@
 /*
-    TrayRSS - simply notification of feed information
-    (c) 2009-2011 TrayRSS Developement Team
-    visit the project at http://trayrss.nullpointer.at/
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+ * TrayRSS - simply notification of feed information (c) 2009-2011 TrayRSS Developement Team visit the project at
+ * http://trayrss.nullpointer.at/
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package at.nullpointer.trayrss.gui.tray;
 
-import at.nullpointer.trayrss.configuration.ReferenceCollection;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+
+import lombok.Getter;
+import lombok.Setter;
 import at.nullpointer.trayrss.monitor.IconChanger;
-
-import java.awt.*;
-
-
 
 /**
  * Prepares the TrayIcon
  * 
- * @author thefake
- *
+ * @author Thomas Pummer
+ * 
  */
 public class TrayIconPOJO {
-	private TrayIcon trayIcon;
 
-	public TrayIconPOJO() {
-		super();
-	}
+    /**
+     * TrayIcon
+     */
+    @Getter
+    @Setter
+    private TrayIcon trayIcon;
 
-	public TrayIcon getTrayIcon() {
-		return trayIcon;
-	}
 
-	public void setTrayIcon(TrayIcon trayIcon) {
-		this.trayIcon = trayIcon;
-	}
-	
-	public void startTrayIcon() {
-		if (SystemTray.isSupported()) {
-			SystemTray tray=SystemTray.getSystemTray();
+    /**
+     * Starts up the TrayIcon
+     */
+    public void startTrayIcon() {
 
-			trayIcon = IconChanger.createTrayIcon(new TrayMenu());
+        if ( SystemTray.isSupported() ) {
+            final SystemTray tray = SystemTray.getSystemTray();
 
-			trayIcon.setImageAutoSize(true);
-			trayIcon.addActionListener(new TrayIconActionListener());
-			trayIcon.addMouseListener(new TrayIconMouseListener());
-			
-			ReferenceCollection.TRAY_ICON = trayIcon;
+            trayIcon = IconChanger.createTrayIcon( new TrayMenu( trayIcon ) );
 
-			try {
-				tray.add(trayIcon);
-			} catch (AWTException e) {
-				System.err.println("TrayIcon could not be added.");
-			}
-		}
+            trayIcon.setImageAutoSize( true );
+            trayIcon.addActionListener( new TrayIconActionListener() );
+            trayIcon.addMouseListener( new TrayIconMouseListener() );
 
-		else {
-			System.err.println("Systray not supported!");
-			System.exit(1);
-		}
-	}
+            try {
+                tray.add( trayIcon );
+            } catch ( AWTException e ) {
+                System.err.println( "TrayIcon could not be added." );
+            }
+        }
 
-	public void refreshTrayIcon() {
-		if (SystemTray.isSupported()) {
-			SystemTray tray=SystemTray.getSystemTray();
-			
-			tray.remove(ReferenceCollection.TRAY_ICON);
-			
-			startTrayIcon();
-		}
-		
-	}
+        else {
+            System.err.println( "Systray not supported!" );
+            System.exit( 1 );
+        }
+    }
+
+
+    /**
+     * refreshes the TrayIcon
+     */
+    public void refreshTrayIcon() {
+
+        if ( SystemTray.isSupported() ) {
+            final SystemTray tray = SystemTray.getSystemTray();
+
+            tray.remove( trayIcon );
+
+            startTrayIcon();
+        }
+
+    }
 
 }

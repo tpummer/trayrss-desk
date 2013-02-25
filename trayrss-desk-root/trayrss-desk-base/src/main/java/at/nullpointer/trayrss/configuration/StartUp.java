@@ -36,10 +36,15 @@ import at.nullpointer.trayrss.notification.TrayNotifier;
  */
 public class StartUp {
 
-    Logger log = Logger.getLogger( StartUp.class );
+    /**
+     * Logger
+     */
+    private Logger log = Logger.getLogger( StartUp.class );
 
-    Properties props = new Properties();
-    Properties langprops = new Properties();
+    /**
+     * Properties
+     */
+    private Properties props = new Properties();
 
 
     /**
@@ -47,13 +52,14 @@ public class StartUp {
      * 
      * @param debug switches the logger to debug mode
      */
-    public StartUp( boolean debug ) {
+    public StartUp( final boolean debug ) {
 
-        if ( debug )
+        if ( debug ) {
             Logger.getRootLogger().setLevel( Level.DEBUG );
+        }
 
         startDatabase();
-        ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
+        final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
         configControl.load();
         initializeMessages();
         startTray();
@@ -66,7 +72,7 @@ public class StartUp {
 
         Messages.setup( ConfigurationControllerImpl.getInstance().getConfigurationModel().getLanguage().getShortcut() );
 
-        ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
+        final ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
         configContr.addChangeListener( new MessageLanguageSwitcher() );
 
     }
@@ -76,7 +82,7 @@ public class StartUp {
 
         log.debug( "Startup: Start Tray" );
 
-        TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
+        final TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
         trayIconPOJO.startTrayIcon();
         ConfigurationControllerImpl.getInstance().addChangeListener( new TrayIconChangeListener() );
 
@@ -99,14 +105,14 @@ public class StartUp {
 
         log.debug( "Startup: Start Monitor" );
 
-        JNotificationPopupFactory jNotificationPopupFactory = new JNotificationPopupFactory();
-        TrayNotifier trayNotifier = new TrayNotifier( jNotificationPopupFactory );
+        final JNotificationPopupFactory jNotificationPopupFactory = new JNotificationPopupFactory();
+        final TrayNotifier trayNotifier = new TrayNotifier( jNotificationPopupFactory );
         new Thread( trayNotifier ).start();
 
         Monitor.setTrayNotifier( trayNotifier );
-        Monitor monitor = Monitor.getInstance();
+        final Monitor monitor = Monitor.getInstance();
 
-        ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
+        final ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
         configContr.addChangeListener( monitor );
         configContr.addChangeListener( trayNotifier );
 
