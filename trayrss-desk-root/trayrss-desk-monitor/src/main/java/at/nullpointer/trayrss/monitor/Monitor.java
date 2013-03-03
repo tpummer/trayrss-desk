@@ -29,9 +29,9 @@ import org.hibernate.PropertyNotFoundException;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
-import at.nullpointer.trayrss.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.model.Feed;
 import at.nullpointer.trayrss.notification.TrayNotifier;
+import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 
 public class Monitor implements ChangeListener{
@@ -63,10 +63,10 @@ public class Monitor implements ChangeListener{
 	
 	public void loadFeeds(){
 		
-		List<Feed> feeds = (List<Feed>) feedDao.getFeeds();
+		List<FeedEntity> feeds = (List<FeedEntity>) feedDao.getFeeds();
 		Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayCount();
 		
-        for (Feed feed : feeds) {
+        for (FeedEntity feed : feeds) {
             FeedReaderThread thread = new FeedReaderThread(feed, displayCount, this.trayNotifier);
             threadExecutor.execute(thread);
             monitoredFeeds.add(thread);

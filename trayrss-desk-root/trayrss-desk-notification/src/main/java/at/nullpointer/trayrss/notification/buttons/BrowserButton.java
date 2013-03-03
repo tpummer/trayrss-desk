@@ -32,10 +32,10 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
-import at.nullpointer.trayrss.dao.NewsDAO;
-import at.nullpointer.trayrss.dao.NewsDAOImpl;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.persistence.dao.NewsDAO;
+import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
@@ -48,7 +48,7 @@ public class BrowserButton implements ActionListener {
 	private JNotificationPopup popup;
 	private PopupManager manager;
 	private String url;
-	private News node;
+	private NewsEntity node;
 	private Integer displayCount;
 
 	/**
@@ -62,7 +62,7 @@ public class BrowserButton implements ActionListener {
 	 * @param displayCount
 	 */
 	public BrowserButton(Component popup, PopupManager manager, String url,
-			News node, Integer displayCount) {
+			NewsEntity node, Integer displayCount) {
 		super();
 		this.popup = (JNotificationPopup) popup;
 		this.manager = manager;
@@ -101,7 +101,7 @@ public class BrowserButton implements ActionListener {
 				}
 
 				NewsDAO nd = new NewsDAOImpl();
-				News test = nd.getNewsByData(node);
+				NewsEntity test = nd.getNewsByData(node);
 				test.setReadCount(new Long(this.displayCount));
 				try {
 					nd.save(test);

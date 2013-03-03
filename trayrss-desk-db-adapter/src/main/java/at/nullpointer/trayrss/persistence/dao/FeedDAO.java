@@ -17,19 +17,19 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.dao;
+package at.nullpointer.trayrss.persistence.dao;
 
-import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 import java.util.Collection;
 
 public interface FeedDAO {
 
-	public Collection<Feed> getFeeds();
+	public Collection<FeedEntity> getFeeds();
 
-	public Feed findFeedById(Long id);
+	public FeedEntity findFeedById(Long id);
 
-	public void save(Feed feed);
+	public void save(FeedEntity feed);
 	
 	public void deleteById(Long id);
 

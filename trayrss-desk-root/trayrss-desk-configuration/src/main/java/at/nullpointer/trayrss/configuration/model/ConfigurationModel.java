@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.Set;
 
 import lombok.Data;
-import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 /**
  * <p>
@@ -45,7 +45,7 @@ public class ConfigurationModel {
     /**
      * Actual Set of Feeds
      */
-    private Set<Feed> feeds;
+    private Set<FeedEntity> feeds;
     /**
      * Marker for TimeFrame activated
      */

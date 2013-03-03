@@ -15,8 +15,8 @@
 package at.nullpointer.trayrss.notification;
 
 import lombok.Data;
-import at.nullpointer.trayrss.model.Feed;
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 
 /**
  * A container for an Item to be displayed
@@ -28,13 +28,13 @@ import at.nullpointer.trayrss.model.News;
 public class Notification {
 
     /**
-     * {@link Feed} where the {@link News} is from
+     * {@link FeedEntity} where the {@link NewsEntity} is from
      */
-    private Feed feed;
+    private FeedEntity feed;
 
     /**
-     * {@link News} to be displayed
+     * {@link NewsEntity} to be displayed
      */
-    private News news;
+    private NewsEntity news;
 
 }

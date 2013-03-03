@@ -19,9 +19,9 @@
  */
 package at.nullpointer.trayrss.notification.buttons;
 
-import at.nullpointer.trayrss.dao.NewsDAO;
-import at.nullpointer.trayrss.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.persistence.dao.NewsDAO;
+import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
@@ -38,9 +38,9 @@ public class Later implements ActionListener {
 
 	JNotificationPopup popup;
 	PopupManager manager;
-	News node;
+	NewsEntity node;
 
-	public Later(Component popup, PopupManager manager, News node) {
+	public Later(Component popup, PopupManager manager, NewsEntity node) {
 		super();
 		this.popup = (JNotificationPopup) popup;
 		this.manager = manager;
@@ -50,7 +50,7 @@ public class Later implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
 		NewsDAO nd = new NewsDAOImpl();
-		News test = nd.getNewsByData(node);
+		NewsEntity test = nd.getNewsByData(node);
 		test.setReadCount(test.getReadCount() - 1);
 		try {
 			nd.save(test);

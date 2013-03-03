@@ -17,7 +17,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.model;
+package at.nullpointer.trayrss.persistence.model;
 
 import java.util.Date;
 
@@ -37,7 +37,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
 @Table
-public class News {
+public class NewsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +62,7 @@ public class News {
 
 	@ManyToOne
 	@JoinColumn(name = "feed_id")
-	private Feed feed;
+	private FeedEntity feed;
 
 	@Column
 	private Date lastRead = new Date();
@@ -118,11 +118,11 @@ public class News {
 		this.uri = uri;
 	}
 
-	public Feed getFeed() {
+	public FeedEntity getFeed() {
 		return feed;
 	}
 
-	public void setFeed(Feed feed) {
+	public void setFeed(FeedEntity feed) {
 		this.feed = feed;
 	}
 
@@ -153,7 +153,7 @@ public class News {
 		if (o.getClass() != getClass()) {
 			return false;
 		}
-		News news = (News) o;
+		NewsEntity news = (NewsEntity) o;
 		return new EqualsBuilder()
 				.append(author, news.author)
 				.append(title, news.title)

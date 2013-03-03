@@ -17,9 +17,9 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.dao;
+package at.nullpointer.trayrss.persistence.dao;
 
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -42,18 +42,18 @@ public class NewsDAOImpl implements NewsDAO {
 				.openSession();
 		Transaction tx = session.beginTransaction();
 
-		session.delete(session.load(News.class, id));
+		session.delete(session.load(NewsEntity.class, id));
 
 		tx.commit();
 		session.close();
 
 	}
 
-	public News findNewsById(Long id) {
+	public NewsEntity findNewsById(Long id) {
 		Session session = SessionFactoryRepository.getSessionFactory()
 				.openSession();
 		Transaction tx = session.beginTransaction();
-		News news = (News) session.get(News.class, id);
+		NewsEntity news = (NewsEntity) session.get(NewsEntity.class, id);
 
 		tx.commit();
 		session.close();
@@ -61,12 +61,12 @@ public class NewsDAOImpl implements NewsDAO {
 		return news;
 	}
 
-	public Collection<News> getNews() {
+	public Collection<NewsEntity> getNews() {
 		Session session = SessionFactoryRepository.getSessionFactory()
 				.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select n from News n");
-		List<News> news = (List<News>) query.list();
+		List<NewsEntity> news = (List<NewsEntity>) query.list();
 
 		tx.commit();
 		session.close();
@@ -74,14 +74,14 @@ public class NewsDAOImpl implements NewsDAO {
 		return news;
 	}
 
-	public void save(News news) throws SQLException {
+	public void save(NewsEntity news) throws SQLException {
 		Session session = SessionFactoryRepository.getSessionFactory()
 				.openSession();
 		Transaction tx = session.beginTransaction();
 
 		FeedDAO feedDao = new FeedDAOImpl();
 		if (news.getId() != null
-				&& session.load(News.class, news.getId()) != null) {
+				&& session.load(NewsEntity.class, news.getId()) != null) {
 			if(feedDao.findFeedById(news.getFeed().getId()) != null)
 				session.update(news);
 		} else {
@@ -95,7 +95,7 @@ public class NewsDAOImpl implements NewsDAO {
 
 	}
 
-	public News getNewsByData(News news) {
+	public NewsEntity getNewsByData(NewsEntity news) {
 		Session session = SessionFactoryRepository.getSessionFactory()
 				.openSession();
 		Transaction tx = session.beginTransaction();
@@ -103,15 +103,15 @@ public class NewsDAOImpl implements NewsDAO {
 		Query query = session.createQuery(
 				"select n from News n where n.uri = :uri").setParameter("uri",
 				news.getUri());
-		News erg = null;
+		NewsEntity erg = null;
 		try {
-			erg = (News) query.uniqueResult();
+			erg = (NewsEntity) query.uniqueResult();
 		} catch (HibernateException e) {
 			log.error(news.getTitle() + " at " + news.getUri()
 					+ " has a duplicated entry!");
 			log.debug(query.getQueryString());
-			List<News> list = query.list();
-			for (News dupe : list) {
+			List<NewsEntity> list = query.list();
+			for (NewsEntity dupe : list) {
 				if (erg == null) {
 					erg = dupe;
 				} else {

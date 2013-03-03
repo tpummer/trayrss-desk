@@ -31,13 +31,13 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidation;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
-import at.nullpointer.trayrss.dao.FeedDAO;
-import at.nullpointer.trayrss.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.dao.NewsDAO;
-import at.nullpointer.trayrss.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.model.Feed;
-import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.TrayNotifier;
+import at.nullpointer.trayrss.persistence.dao.FeedDAO;
+import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
+import at.nullpointer.trayrss.persistence.dao.NewsDAO;
+import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -55,12 +55,12 @@ public class FeedReaderThread implements Runnable {
 
 	private Logger log = Logger.getLogger(FeedReaderThread.class);
 
-	private Feed feedInfo = null;
+	private FeedEntity feedInfo = null;
 	private Long id = null;
 	private Integer displayCount;
 	private TrayNotifier trayNotifier;
 
-	public FeedReaderThread(Feed feedInfo, Integer displayCount,
+	public FeedReaderThread(FeedEntity feedInfo, Integer displayCount,
 			TrayNotifier trayNotifier) {
 		this.feedInfo = feedInfo;
 		this.id = feedInfo.getId();
@@ -106,11 +106,11 @@ public class FeedReaderThread implements Runnable {
 
 				for (SyndEntryImpl node : content) {
 
-					News news = prepareNode(node);
+					NewsEntity news = prepareNode(node);
 
 					NewsDAO newsDao = new NewsDAOImpl();
 
-					News test = newsDao.getNewsByData(news);
+					NewsEntity test = newsDao.getNewsByData(news);
 
 					if (test != null && test.equals(news)) {
 						news = test;
@@ -170,9 +170,9 @@ public class FeedReaderThread implements Runnable {
 
 	}
 
-	private News prepareNode(SyndEntryImpl node) {
+	private NewsEntity prepareNode(SyndEntryImpl node) {
 
-		News news = new News();
+		NewsEntity news = new NewsEntity();
 		news.setAuthor(node.getAuthor());
 		news.setTitle(node.getTitle());
 		news.setPublishedDate(node.getPublishedDate());

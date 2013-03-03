@@ -17,25 +17,21 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.dao;
+package at.nullpointer.trayrss.persistence.dao;
 
-import at.nullpointer.trayrss.model.News;
+import org.hibernate.SessionFactory;
 
-import java.sql.SQLException;
-import java.util.Collection;
-
-public interface NewsDAO {
+public class SessionFactoryRepository {
 	
-	public Collection<News> getNews();
+	private static SessionFactory sessionFac;
 
-	public News findNewsById(Long id);
+	public static void setSessionFactory(SessionFactory sessionFactory) {
+		sessionFac = sessionFactory;
 
-	public void save(News news) throws SQLException;
-	
-	public void deleteById(Long id);
+	}
 
-	public News getNewsByData(News news);
-
-	public void deleteOlderThanTwoMonth(Long id);
+	public static SessionFactory getSessionFactory() {
+		return sessionFac;
+	}
 
 }

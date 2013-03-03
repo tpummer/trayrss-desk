@@ -26,10 +26,10 @@ import org.junit.Test;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.model.Feed;
-import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.JNotificationPopupFactory;
 import at.nullpointer.trayrss.notification.TrayNotifier;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 import de.jutzig.jnotification.animation.Animator;
@@ -50,11 +50,11 @@ public class TrayNotifierTest {
     /**
      * Feed
      */
-    private Feed testfeed;
+    private FeedEntity testfeed;
     /**
      * News-Items
      */
-    private News testnews;
+    private NewsEntity testnews;
 
 
     /**
@@ -90,9 +90,9 @@ public class TrayNotifierTest {
         ConfigurationControllerImpl controller = (ConfigurationControllerImpl)ConfigurationControllerImpl.getInstance();
         controller.setConfigurationModel( model );
 
-        testfeed = new Feed();
+        testfeed = new FeedEntity();
         testfeed.setName( "testname" );
-        testnews = new News();
+        testnews = new NewsEntity();
         testnews.setTitle( "testtitle" );
 
         PopupManager popupManger = EasyMock.createMock( PopupManager.class );

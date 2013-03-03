@@ -20,13 +20,13 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import at.nullpointer.trayrss.dao.SessionFactoryRepository;
 import at.nullpointer.trayrss.gui.tray.TrayIconChangeListener;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.JNotificationPopupFactory;
 import at.nullpointer.trayrss.notification.TrayNotifier;
+import at.nullpointer.trayrss.persistence.dao.SessionFactoryRepository;
 
 /**
  * Prozesses all initial loadings

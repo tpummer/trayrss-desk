@@ -26,9 +26,9 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import at.nullpointer.trayrss.dao.NewsDAO;
-import at.nullpointer.trayrss.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.model.News;
+import at.nullpointer.trayrss.persistence.dao.NewsDAO;
+import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
@@ -38,10 +38,10 @@ public class Dispose implements ActionListener {
 
 	private JNotificationPopup popup;
 	private PopupManager manager;
-	private News node;
+	private NewsEntity node;
 	private Integer displayCount;
 
-	public Dispose(Component popup, PopupManager manager, News node,
+	public Dispose(Component popup, PopupManager manager, NewsEntity node,
 			Integer displayCount) {
 		super();
 		this.popup = (JNotificationPopup) popup;
@@ -53,7 +53,7 @@ public class Dispose implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
 		NewsDAO nd = new NewsDAOImpl();
-		News test = nd.getNewsByData(node);
+		NewsEntity test = nd.getNewsByData(node);
 		test.setReadCount(new Long(this.displayCount));
 		try {
 			nd.save(test);

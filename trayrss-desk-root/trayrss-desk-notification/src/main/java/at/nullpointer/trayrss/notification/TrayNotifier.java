@@ -29,11 +29,11 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.model.Feed;
-import at.nullpointer.trayrss.model.News;
 import at.nullpointer.trayrss.notification.buttons.BrowserButton;
 import at.nullpointer.trayrss.notification.buttons.Dispose;
 import at.nullpointer.trayrss.notification.buttons.Later;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
@@ -85,7 +85,7 @@ public class TrayNotifier
                 String name = input.get( 0 ).getFeed().getName();
                 String url = input.get( 0 ).getNews().getUri();
 
-                News node = input.get( 0 ).getNews();
+                NewsEntity node = input.get( 0 ).getNews();
 
                 JNotificationPopup popup = null;
 
@@ -129,7 +129,7 @@ public class TrayNotifier
     }
 
 
-    public void addToNotify( News news, Feed feed ) {
+    public void addToNotify( NewsEntity news, FeedEntity feed ) {
 
         log.debug( "TrayNotifier: addToNotify" );
 

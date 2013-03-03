@@ -21,7 +21,7 @@ package at.nullpointer.trayrss.configuration;
 
 import org.apache.log4j.Logger;
 
-import at.nullpointer.trayrss.dao.SessionFactoryRepository;
+import at.nullpointer.trayrss.persistence.dao.SessionFactoryRepository;
 
 public class Shutdown {
 	private Logger log = Logger.getLogger(Shutdown.class);

@@ -30,11 +30,11 @@ import org.apache.log4j.Logger;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
 import at.nullpointer.trayrss.configuration.timeframes.TimeFrameUtil;
-import at.nullpointer.trayrss.dao.FeedDAO;
-import at.nullpointer.trayrss.dao.FeedDAOImpl;
 import at.nullpointer.trayrss.error.ErrorListener;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.persistence.dao.FeedDAO;
+import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 /**
  * 
@@ -93,13 +93,13 @@ public class ConfigurationControllerImpl
 
         // Feed
         FeedDAO feedDao = new FeedDAOImpl();
-        Collection<Feed> oldFeeds = feedDao.getFeeds();
-        Set<Feed> feeds = configModel.getFeeds();
-        for ( Feed feed : feeds ) {
+        Collection<FeedEntity> oldFeeds = feedDao.getFeeds();
+        Set<FeedEntity> feeds = configModel.getFeeds();
+        for ( FeedEntity feed : feeds ) {
             feedDao.save( feed );
             oldFeeds.remove( feed );
         }
-        for ( Feed feed : oldFeeds ) {
+        for ( FeedEntity feed : oldFeeds ) {
             feedDao.deleteById( feed.getId() );
         }
 
@@ -281,7 +281,7 @@ public class ConfigurationControllerImpl
 
         // feed
         FeedDAO feedDAO = new FeedDAOImpl();
-        configModel.setFeeds( new HashSet<Feed>( feedDAO.getFeeds() ) );
+        configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
 
         // timerestriction
         configModel.setIsTimeFrameActivated( Boolean.valueOf( props

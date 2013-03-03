@@ -17,7 +17,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
-package at.nullpointer.trayrss.dao;
+package at.nullpointer.trayrss.persistence.dao;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,16 +26,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 public class FeedDAOImpl implements FeedDAO {
 
-	public Feed findFeedById(Long id) {
+	public FeedEntity findFeedById(Long id) {
 		
 		Session session = SessionFactoryRepository.getSessionFactory().openSession();
 		
 		Transaction tx = session.beginTransaction();
-		Feed feed = (Feed) session.get(Feed.class, id);
+		FeedEntity feed = (FeedEntity) session.get(FeedEntity.class, id);
 
 		tx.commit();
 		session.close();
@@ -44,12 +44,12 @@ public class FeedDAOImpl implements FeedDAO {
 
 	}
 
-	public Collection<Feed> getFeeds() {
+	public Collection<FeedEntity> getFeeds() {
 		Session session = SessionFactoryRepository.getSessionFactory().openSession();
 		
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("select f from Feed f");
-		List<Feed> feeds = (List<Feed>)query.list();
+		List<FeedEntity> feeds = (List<FeedEntity>)query.list();
 
 		tx.commit();
 		session.close();
@@ -57,14 +57,14 @@ public class FeedDAOImpl implements FeedDAO {
 		return feeds;
 	}
 
-	public void save(Feed feed) {
+	public void save(FeedEntity feed) {
 		
 		Session session = SessionFactoryRepository.getSessionFactory().openSession();
 		
 
 		Transaction tx = session.beginTransaction();
 		
-		if(feed.getId() != null && session.load(Feed.class, feed.getId()) != null){
+		if(feed.getId() != null && session.load(FeedEntity.class, feed.getId()) != null){
 			session.update(feed);
 		} else {
 			session.save(feed);

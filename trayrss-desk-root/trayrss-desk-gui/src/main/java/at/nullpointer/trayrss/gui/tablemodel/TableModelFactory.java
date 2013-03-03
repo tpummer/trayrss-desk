@@ -26,15 +26,15 @@ import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import at.nullpointer.trayrss.dao.FeedDAO;
-import at.nullpointer.trayrss.dao.FeedDAOImpl;
 import at.nullpointer.trayrss.messages.MessageResolverImpl;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.model.Feed;
+import at.nullpointer.trayrss.persistence.dao.FeedDAO;
+import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
+import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 public class TableModelFactory {
 
-	public static DefaultTableModel getTableModel(Set<Feed> feeds){
+	public static DefaultTableModel getTableModel(Set<FeedEntity> feeds){
 		
 		DefaultTableModel tableModel = new DefaultTableModel(getHeader(), 0){
 				Class[] columnTypes = new Class[] {
@@ -51,7 +51,7 @@ public class TableModelFactory {
 				}
 			};
 		
-		for(Feed feed: feeds){
+		for(FeedEntity feed: feeds){
 			tableModel.addRow(feedToObjectRow(feed));
 		}
 		
@@ -70,7 +70,7 @@ public class TableModelFactory {
 		return result;
 	}
 
-	private static Object[] feedToObjectRow(Feed feed) {
+	private static Object[] feedToObjectRow(FeedEntity feed) {
 		
 		Object [] result = new Object[TableColumnUtil.COLUMN_COUNT];
 		
@@ -83,19 +83,19 @@ public class TableModelFactory {
 		return result;
 	}
 
-	public static Set<Feed> retrieveFeeds(TableModel model) {
+	public static Set<FeedEntity> retrieveFeeds(TableModel model) {
 		DefaultTableModel dtm = (DefaultTableModel) model;
 		int rowCount = dtm.getRowCount();
 		FeedDAO feedDao = new FeedDAOImpl();
 		
-		Set<Feed> result = new HashSet<Feed>();
+		Set<FeedEntity> result = new HashSet<FeedEntity>();
 		for(int row = 0; row < rowCount; row++){
-			Feed erg = null;
+			FeedEntity erg = null;
 			Long valueAt = (Long) dtm.getValueAt(row, TableColumnUtil.ID);
 			if(valueAt != 0)
 				erg = feedDao.findFeedById(valueAt);
 			else
-				erg = new Feed();
+				erg = new FeedEntity();
 			
 			erg.setName((String) dtm.getValueAt(row, TableColumnUtil.FEED_NAME));
 			erg.setUrl((String) dtm.getValueAt(row, TableColumnUtil.FEED_URL));
