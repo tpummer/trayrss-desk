@@ -6,7 +6,7 @@
     <version>1.3.0-SNAPSHOT</version>
   </parent>
   <artifactId>trayrss-desk-db-adapter</artifactId>
-	<name>trayrss-desk-model</name>
+	<name>trayrss-desk-db-adapter</name>
 	<url>http://trayrss.nullpointer.at</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
