@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-model</artifactId>
+			<artifactId>trayrss-desk-db-adapter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>

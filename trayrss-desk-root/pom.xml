@@ -96,17 +96,17 @@
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-model</artifactId>
-			<version>${trayrss-parent-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-monitor</artifactId>
 			<version>${trayrss-parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-notification</artifactId>
+			<version>${trayrss-parent-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-db-adapter</artifactId>
 			<version>${trayrss-parent-version}</version>
 		</dependency>
 		<dependency>
@@ -136,7 +136,12 @@
 		<module>trayrss-desk-notification</module>
 		<module>trayrss-desk-error</module>
     <module>trayrss-desk-messages</module>
-  </modules>	
+	<module>../trayrss-desk-common</module>
+	<module>../trayrss-desk-db-adapter</module>
+    <module>../trayrss-desk-domain</module>
+	<module>../trayrss-desk-gui</module>
+	<module>../trayrss-desk-service</module>
+	</modules>	
 	<repositories>
 		<repository>
 			<id>standard-repo</id>
