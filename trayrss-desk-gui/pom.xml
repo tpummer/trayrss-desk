@@ -6,4 +6,38 @@
     <version>1.3.0-SNAPSHOT</version>
   </parent>
   <artifactId>trayrss-desk-gui-fx</artifactId>
+  <properties>
+  	<trayrss-parent-version>1.3.0-SNAPSHOT</trayrss-parent-version>
+  </properties>
+    <dependencies>
+  	<dependency>
+  		<groupId>at.nullpointer</groupId>
+  		<artifactId>trayrss-desk-db-adapter</artifactId>
+  	</dependency>
+  	<dependency>
+			<groupId>de.jutzig</groupId>
+			<artifactId>jnotification</artifactId>
+		</dependency>
+  	<dependency>
+  		<groupId>at.nullpointer</groupId>
+  		<artifactId>trayrss-desk-configuration</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>at.nullpointer</groupId>
+  		<artifactId>trayrss-desk-messages</artifactId>
+  	</dependency>
+  	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+	</dependency>
+		<dependency>
+		    <groupId>org.testng</groupId>
+		    <artifactId>testng</artifactId>
+		    <scope>test</scope>
+		</dependency>
+  	<dependency>
+  		<groupId>org.easymock</groupId>
+  		<artifactId>easymock</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

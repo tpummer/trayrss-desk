@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-notification</artifactId>
+			<artifactId>trayrss-desk-gui-fx</artifactId>
 		</dependency>
 	</dependencies>
 </project>

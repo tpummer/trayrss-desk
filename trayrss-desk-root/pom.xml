@@ -107,12 +107,27 @@
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-notification</artifactId>
+			<artifactId>trayrss-desk-common</artifactId>
 			<version>${trayrss-parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-db-adapter</artifactId>
+			<version>${trayrss-parent-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-domain</artifactId>
+			<version>${trayrss-parent-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-gui-fx</artifactId>
+			<version>${trayrss-parent-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-service</artifactId>
 			<version>${trayrss-parent-version}</version>
 		</dependency>
 		<dependency>
@@ -138,7 +153,6 @@
 		<module>trayrss-desk-gui</module>
 		<module>trayrss-desk-configuration</module>
 		<module>trayrss-desk-monitor</module>
-		<module>trayrss-desk-notification</module>
 		<module>trayrss-desk-error</module>
     <module>trayrss-desk-messages</module>
 	<module>../trayrss-desk-common</module>

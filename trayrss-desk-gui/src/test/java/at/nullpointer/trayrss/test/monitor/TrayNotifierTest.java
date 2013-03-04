@@ -14,14 +14,13 @@
  */
 package at.nullpointer.trayrss.test.monitor;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.swing.JPanel;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
@@ -71,7 +70,7 @@ public class TrayNotifierTest {
     /**
      * Setup the Notifier and Test News for each Test
      */
-    @Before
+    @BeforeTest
     public void setUp() {
 
         JNotificationPopup popupMock = EasyMock.createMock( JNotificationPopup.class );
@@ -104,13 +103,13 @@ public class TrayNotifierTest {
     /**
      * Tests if a Feed get notified and removed from queue
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testNotifyNewsFeed() {
 
         tn.addToNotify( testnews, testfeed );
         int size = tn.getInput().size();
         tn.notifyNews();
-        assertEquals( size - 1, tn.getInput().size() );
+        Assert.assertEquals( size - 1, tn.getInput().size() );
 
     }
 
@@ -118,12 +117,12 @@ public class TrayNotifierTest {
     /**
      * Tests if a Feed get edded to queue
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testAddToNotify() {
 
         int size = tn.getInput().size();
         tn.addToNotify( testnews, testfeed );
-        assertEquals( size + 1, tn.getInput().size() );
+        Assert.assertEquals( size + 1, tn.getInput().size() );
 
     }
 
