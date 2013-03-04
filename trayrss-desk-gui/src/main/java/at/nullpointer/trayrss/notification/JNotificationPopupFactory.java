@@ -35,8 +35,7 @@ public class JNotificationPopupFactory {
      * 
      * @param title
      * @param name
-     * @param url
-     * @return
+     * @return A JNotificationPopup
      */
     public JNotificationPopup createPopup( final String title, final String name ) {
 

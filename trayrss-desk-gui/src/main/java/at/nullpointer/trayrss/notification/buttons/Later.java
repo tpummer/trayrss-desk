@@ -47,6 +47,10 @@ public class Later implements ActionListener {
 		this.node = node;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		manager.dequeuePopup(popup);
 		NewsDAO nd = new NewsDAOImpl();

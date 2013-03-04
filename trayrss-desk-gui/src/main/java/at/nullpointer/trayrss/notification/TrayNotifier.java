@@ -50,7 +50,7 @@ public class TrayNotifier
     /**
      * Instance of {@link JNotificationPopupFactory}
      */
-    private JNotificationPopupFactory jNotificationPopupFactory;
+    private final JNotificationPopupFactory jNotificationPopupFactory;
 
     @Setter
     private static PopupManager popupManager;
@@ -64,7 +64,7 @@ public class TrayNotifier
      * 
      * @param jNotificationPopupFactory sets the Factory that creates {@link JNotificationPopup}
      */
-    public TrayNotifier( JNotificationPopupFactory jNotificationPopupFactory ) {
+    public TrayNotifier( final JNotificationPopupFactory jNotificationPopupFactory ) {
 
         this.jNotificationPopupFactory = jNotificationPopupFactory;
     }
@@ -121,7 +121,9 @@ public class TrayNotifier
                 popupManager.enqueuePopup( popup );
 
                 input.remove( 0 );
-                log.debug( "Title: " + title + " Name:" + name + " URI:" + url );
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Title: " + title + " Name:" + name + " URI:" + url );
+                }
             } else {
                 log.debug( "Nothing found to notify!" );
             }
@@ -133,22 +135,25 @@ public class TrayNotifier
 
         log.debug( "TrayNotifier: addToNotify" );
 
-        Notification notifi = new Notification();
+        final Notification notifi = new Notification();
         notifi.setFeed( feed );
         notifi.setNews( news );
 
         input.add( notifi );
-        log.debug( "TrayNotifier: " + notifi.getFeed().getName() );
-        log.debug( "TrayNotifier: " + notifi.getNews().getTitle() );
-        log.debug( "TrayNotifier: Size " + input.size() );
-        log.debug( "-----------------------------------------------" );
+        if ( log.isDebugEnabled() ) {
+            log.debug( "TrayNotifier: " + notifi.getFeed().getName() );
+            log.debug( "TrayNotifier: " + notifi.getNews().getTitle() );
+            log.debug( "TrayNotifier: Size " + input.size() );
+            log.debug( "-----------------------------------------------" );
+        }
     }
 
 
     public void run() {
 
         while ( true ) {
-            Integer displaySeconds = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayTime();
+            final Integer displaySeconds = ConfigurationControllerImpl.getInstance().getConfigurationModel()
+                    .getDisplayTime();
 
             popupManager = new PopupManager( displaySeconds * 1000, Corner.LOWER_RIGHT, new Point( 30, 100 ) );
             try {
