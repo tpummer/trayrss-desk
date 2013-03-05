@@ -15,9 +15,17 @@
   		<artifactId>trayrss-desk-db-adapter</artifactId>
   	</dependency>
   	<dependency>
-			<groupId>de.jutzig</groupId>
-			<artifactId>jnotification</artifactId>
-		</dependency>
+  		<groupId>at.nullpointer</groupId>
+  		<artifactId>trayrss-desk-error</artifactId>
+  	</dependency>
+  	<dependency>
+		<groupId>de.jutzig</groupId>
+		<artifactId>jnotification</artifactId>
+	</dependency>
+    <dependency>
+		<groupId>com.toedter</groupId>
+		<artifactId>jcalendar</artifactId>
+	</dependency>
   	<dependency>
   		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-configuration</artifactId>
@@ -43,5 +51,9 @@
   		<groupId>org.easymock</groupId>
   		<artifactId>easymock</artifactId>
   	</dependency>
+	<dependency>
+		<groupId>net.java.dev.rome</groupId>
+		<artifactId>rome</artifactId>
+	</dependency>
   </dependencies>
 </project>

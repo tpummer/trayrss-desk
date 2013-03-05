@@ -25,12 +25,24 @@ import lombok.Data;
 @Data
 public class Notification {
 
+    /**
+     * Title of the News
+     */
     private String title;
 
+    /**
+     * Name of the Feed
+     */
     private String feedName;
 
+    /**
+     * Uri of the news
+     */
     private String uri;
 
+    /**
+     * Key of the newsitem in the database
+     */
     private Long newsId;
 
 }
