@@ -39,10 +39,20 @@ import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 import de.jutzig.jnotification.animation.FadeIn;
 
+/**
+ * The TrayNotifier implements {@link Runnable} and manages to display the notifications. It finishes the notification
+ * creation and adds the notifiactions to the queue
+ * 
+ * @author Thomas Pummer
+ * 
+ */
 public class TrayNotifier
         implements Runnable, ChangeListener {
 
-    private Logger log = Logger.getLogger( TrayNotifier.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( TrayNotifier.class );
 
     @Getter
     ArrayList<Notification> input = new ArrayList<Notification>();
@@ -74,18 +84,17 @@ public class TrayNotifier
 
         synchronized ( input ) {
 
-            log.debug( "TrayNotifier: notify" );
+            LOG.debug( "TrayNotifier: notify" );
 
             if ( !input.isEmpty() ) {
 
                 Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel()
                         .getDisplayCount();
 
-                String title = input.get( 0 ).getNews().getTitle();
-                String name = input.get( 0 ).getFeed().getName();
-                String url = input.get( 0 ).getNews().getUri();
-
-                NewsEntity node = input.get( 0 ).getNews();
+                String title = input.get( 0 ).getTitle();
+                String name = input.get( 0 ).getFeedName();
+                String url = input.get( 0 ).getUri();
+                Long newsId = input.get( 0 ).getNewsId();
 
                 JNotificationPopup popup = null;
 
@@ -110,22 +119,22 @@ public class TrayNotifier
                 ( (JPanel)popup.getComponent() ).add( buttonPanel );
 
                 if ( url != null ) {
-                    bread.addActionListener( new BrowserButton( popup, popupManager, url, node, displayCount ) );
+                    bread.addActionListener( new BrowserButton( popup, popupManager, url, newsId, displayCount ) );
                 } else {
                     bread.setEnabled( false );
                 }
 
-                bstop.addActionListener( new Dispose( popup, popupManager, node, displayCount ) );
-                bclose.addActionListener( new Later( popup, popupManager, node ) );
+                bstop.addActionListener( new Dispose( popup, popupManager, newsId, displayCount ) );
+                bclose.addActionListener( new Later( popup, popupManager, newsId ) );
 
                 popupManager.enqueuePopup( popup );
 
                 input.remove( 0 );
-                if ( log.isDebugEnabled() ) {
-                    log.debug( "Title: " + title + " Name:" + name + " URI:" + url );
+                if ( LOG.isDebugEnabled() ) {
+                    LOG.debug( "Title: " + title + " Name:" + name + " URI:" + url );
                 }
             } else {
-                log.debug( "Nothing found to notify!" );
+                LOG.debug( "Nothing found to notify!" );
             }
         }
     }
@@ -133,18 +142,20 @@ public class TrayNotifier
 
     public void addToNotify( NewsEntity news, FeedEntity feed ) {
 
-        log.debug( "TrayNotifier: addToNotify" );
+        LOG.debug( "TrayNotifier: addToNotify" );
 
         final Notification notifi = new Notification();
-        notifi.setFeed( feed );
-        notifi.setNews( news );
+        notifi.setFeedName( feed.getName() );
+        notifi.setNewsId( news.getId() );
+        notifi.setTitle( news.getTitle() );
+        notifi.setUri( news.getUri() );
 
         input.add( notifi );
-        if ( log.isDebugEnabled() ) {
-            log.debug( "TrayNotifier: " + notifi.getFeed().getName() );
-            log.debug( "TrayNotifier: " + notifi.getNews().getTitle() );
-            log.debug( "TrayNotifier: Size " + input.size() );
-            log.debug( "-----------------------------------------------" );
+        if ( LOG.isDebugEnabled() ) {
+            LOG.debug( "TrayNotifier: " + notifi.getFeedName() );
+            LOG.debug( "TrayNotifier: " + notifi.getTitle() );
+            LOG.debug( "TrayNotifier: Size " + input.size() );
+            LOG.debug( "-----------------------------------------------" );
         }
     }
 

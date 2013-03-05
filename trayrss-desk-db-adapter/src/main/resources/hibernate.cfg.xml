@@ -23,7 +23,7 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
     
     <mapping package="at.nullpointer.trayrss.model"/>
-    <mapping class="at.nullpointer.trayrss.model.News"/>
-    <mapping class="at.nullpointer.trayrss.model.Feed"/>
+    <mapping class="at.nullpointer.trayrss.persistence.model.NewsEntity"/>
+    <mapping class="at.nullpointer.trayrss.persistence.model.FeedEntity"/>
   </session-factory>
 </hibernate-configuration>
