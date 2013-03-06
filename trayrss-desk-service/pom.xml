@@ -6,4 +6,36 @@
     <version>1.3.0-SNAPSHOT</version>
   </parent>
   <artifactId>trayrss-desk-service</artifactId>
+  <dependencies>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-db-adapter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-messages</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.rome</groupId>
+			<artifactId>rome</artifactId>
+		</dependency>
+  	<dependency>
+		<groupId>de.jutzig</groupId>
+		<artifactId>jnotification</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.easymock</groupId>
+		<artifactId>easymock</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.testng</groupId>
+		<artifactId>testng</artifactId>
+	</dependency>
+	</dependencies>
 </project>
+
+	

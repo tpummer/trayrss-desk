@@ -65,14 +65,6 @@
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-configuration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-monitor</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-gui-fx</artifactId>
 		</dependency>
 		<dependency>
@@ -82,6 +74,10 @@
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-db-adapter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-service</artifactId>
 		</dependency>
 	</dependencies>
 	<modules>

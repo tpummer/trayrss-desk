@@ -82,22 +82,7 @@
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-configuration</artifactId>
-			<version>${trayrss-parent-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-error</artifactId>
-			<version>${trayrss-parent-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-messages</artifactId>
-			<version>${trayrss-parent-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-monitor</artifactId>
 			<version>${trayrss-parent-version}</version>
 		</dependency>
 		<dependency>
@@ -145,10 +130,7 @@
 	</dependencyManagement>
 	<modules>
 		<module>trayrss-desk-base</module>
-		<module>trayrss-desk-configuration</module>
-		<module>trayrss-desk-monitor</module>
-		<module>trayrss-desk-error</module>
-    <module>trayrss-desk-messages</module>
+    	<module>trayrss-desk-messages</module>
 	<module>../trayrss-desk-common</module>
 	<module>../trayrss-desk-db-adapter</module>
     <module>../trayrss-desk-domain</module>

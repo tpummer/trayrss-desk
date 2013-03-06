@@ -15,10 +15,6 @@
   		<artifactId>trayrss-desk-db-adapter</artifactId>
   	</dependency>
   	<dependency>
-  		<groupId>at.nullpointer</groupId>
-  		<artifactId>trayrss-desk-error</artifactId>
-  	</dependency>
-  	<dependency>
 		<groupId>de.jutzig</groupId>
 		<artifactId>jnotification</artifactId>
 	</dependency>
@@ -28,16 +24,16 @@
 	</dependency>
   	<dependency>
   		<groupId>at.nullpointer</groupId>
-  		<artifactId>trayrss-desk-configuration</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-messages</artifactId>
   	</dependency>
   	<dependency>
   		<groupId>at.nullpointer</groupId>
   		<artifactId>trayrss-desk-domain</artifactId>
   	</dependency>
+  	<dependency>
+			<groupId>at.nullpointer</groupId>
+			<artifactId>trayrss-desk-service</artifactId>
+	</dependency>
   	<dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
