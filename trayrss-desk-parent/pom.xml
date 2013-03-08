@@ -124,12 +124,12 @@
 	  </dependencies>
 	</dependencyManagement>
 	<modules>
-	<module>../trayrss-desk-base</module>
 	<module>../trayrss-desk-common</module>
+	<module>../trayrss-desk-domain</module>
 	<module>../trayrss-desk-db-adapter</module>
-    <module>../trayrss-desk-domain</module>
 	<module>../trayrss-desk-gui</module>
 	<module>../trayrss-desk-service</module>
+	<module>../trayrss-desk-base</module>
 	</modules>	
 	<repositories>
 		<repository>
