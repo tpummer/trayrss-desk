@@ -5,7 +5,7 @@
     <artifactId>trayrss-desk</artifactId>
     <version>1.3.0-SNAPSHOT</version>
   </parent>
-  <artifactId>trayrss-desk-gui-fx</artifactId>
+  <artifactId>trayrss-desk-gui</artifactId>
   <properties>
   	<trayrss-parent-version>1.3.0-SNAPSHOT</trayrss-parent-version>
   </properties>
