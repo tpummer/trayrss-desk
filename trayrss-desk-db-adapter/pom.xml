@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>at.nullpointer</groupId>
-    <artifactId>trayrss-desk</artifactId>
+    <artifactId>trayrss-desk-parent</artifactId>
     <version>1.3.0-SNAPSHOT</version>
   </parent>
   <artifactId>trayrss-desk-db-adapter</artifactId>
