@@ -14,77 +14,46 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.checks.TimeFrameValidator;
 
 /**
- * Function under Test: {@link TimeFrameValidatorCheckTimeframesTest#checkTimeFrames(String)}
+ * Function under Test: {@link TimeFrameValidator#checkTimeFrames(String)}
  * 
  * @author Thomas Pummer
  * 
  */
-@RunWith( Parameterized.class )
+
 public class TimeFrameValidatorCheckTimeframesTest {
 
     /**
-     * Description of the Testcase
-     */
-    private String description;
-    /**
-     * URL under test
-     */
-    private String timeframes;
-    /**
-     * Expected result
-     */
-    private Boolean expectedResult;
-
-
-    /**
-     * Makes a parameterized test possible for {@link TimeFrameValidatorCheckTimeframesTest#checkTimeFrames(String)}
+     * Tests {@link TimeFrameValidator#checkTimeFrames(String)}
      * 
      * @param description
      * @param timeframes
      * @param expectedResult
      */
-    public TimeFrameValidatorCheckTimeframesTest( String description, String timeframes, Boolean expectedResult ) {
+    @Test( groups = { "unit" }, dataProvider = "checkTimeFramesParameter" )
+    public void testCheckTimeframes( final String description, final String timeframes, final Boolean expectedResult ) {
 
-        super();
-        this.description = description;
-        this.timeframes = timeframes;
-        this.expectedResult = expectedResult;
-    }
-
-
-    /**
-     * Tests {@link TimeFrameValidatorCheckTimeframesTest#checkTimeFrames(String)}
-     */
-    @Test
-    public void testCheckURL() {
-
-        assertEquals( description, TimeFrameValidator.checkTimeFrames( timeframes ), expectedResult );
+        Assert.assertEquals( Boolean.valueOf( TimeFrameValidator.checkTimeFrames( timeframes ) ), expectedResult,
+                description );
 
     }
 
 
     /**
-     * Parameters for the test of {@link TimeFrameValidatorCheckTimeframesTest#checkTimeFrames(String)}
+     * Parameters for the test of {@link TimeFrameValidator#checkTimeFrames(String)}
      * 
-     * @return
+     * @return parameters of test: Object[][] of String description, String timeframe, Boolean result
      */
-    @Parameters
-    public static Collection<Object[]> data() {
+    @DataProvider( name = "checkTimeFramesParameter" )
+    public Object[][] data() {
 
-        Object[][] data = new Object[][] { { "One valid Timeframe", "1000-1600", Boolean.TRUE },
+        final Object[][] data = new Object[][] { { "One valid Timeframe", "1000-1600", Boolean.TRUE },
                 { "Two valid Timeframes", "1000-1600 1730-2059", Boolean.TRUE },
                 { "Timeframe with invalid letter", "10a00-1600", Boolean.FALSE },
                 { "Timeframe with invalid first number", "2500-1600", Boolean.FALSE },
@@ -97,7 +66,7 @@ public class TimeFrameValidatorCheckTimeframesTest {
                 { "Timeframe with invalid seperator", "1000a1600", Boolean.FALSE },
                 { "Timeframe with missing seperator", "10001600", Boolean.FALSE },
                 { "Two Timeframe with missing seperator in the second frame", "0900-1200 10001600", Boolean.FALSE } };
-        return Arrays.asList( data );
+        return data;
     }
 
 }

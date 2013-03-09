@@ -14,15 +14,9 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 
@@ -32,61 +26,34 @@ import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
  * @author Thomas Pummer
  * 
  */
-@RunWith( Parameterized.class )
 public class FeedTableValidatorCheckUrlTest {
 
     /**
-     * Description of the Testcase
-     */
-    private String description;
-    /**
-     * URL under test
-     */
-    private String url;
-    /**
-     * Expected result
-     */
-    private Boolean expectedResult;
-
-
-    /**
-     * Makes a parameterized test possible for {@link FeedTableValidator#checkUrl(String)}
+     * Tests {@link FeedTableValidator#checkUrl(String)}
      * 
      * @param description
      * @param url
      * @param expectedResult
      */
-    public FeedTableValidatorCheckUrlTest( String description, String url, Boolean expectedResult ) {
+    @Test( groups = { "unit" }, dataProvider = "checkUrlParameter" )
+    public void testCheckURL( final String description, final String url, final Boolean expectedResult ) {
 
-        super();
-        this.description = description;
-        this.url = url;
-        this.expectedResult = expectedResult;
+        Assert.assertEquals( Boolean.valueOf( FeedTableValidator.checkUrl( url ) ), expectedResult, description );
+
     }
 
 
     /**
      * Parameters for the test of {@link FeedTableValidator#checkUrl(String)}
      * 
-     * @return
+     * @return parameters of test: Object[][] of String description, String Url, Boolean result
      */
-    @Parameters
-    public static Collection<Object[]> data() {
+    @DataProvider( name = "checkUrlParameter" )
+    public Object[][] data() {
 
-        Object[][] data = new Object[][] { { "URL should be wrong", "t\\est", Boolean.FALSE },
+        final Object[][] data = new Object[][] { { "URL should be wrong", "t\\est", Boolean.FALSE },
                 { "Valid URL should not be detected as a Feed", "http://www.google.com", Boolean.FALSE },
                 { "Feed-URL should be valid", "http://www.nullpointer.at/feed/", Boolean.TRUE } };
-        return Arrays.asList( data );
-    }
-
-
-    /**
-     * Tests {@link FeedTableValidator#checkUrl(String)}
-     */
-    @Test
-    public void testCheckURL() {
-
-        assertEquals( description, FeedTableValidator.checkUrl( url ), expectedResult );
-
+        return data;
     }
 }

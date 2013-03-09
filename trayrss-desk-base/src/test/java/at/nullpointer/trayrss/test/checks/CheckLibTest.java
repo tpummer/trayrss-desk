@@ -14,10 +14,8 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.checks.CheckLib;
 
@@ -32,30 +30,30 @@ public class CheckLibTest {
     /**
      * Tests Number {@link CheckLib#checkLong(String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testCheckLongOk() {
 
-        assertTrue( "Checks if '1235343' can be parsed as long", CheckLib.checkLong( "1235343" ) );
+        Assert.assertTrue( CheckLib.checkLong( "1235343" ), "Checks if '1235343' can be parsed as long" );
     }
 
 
     /**
      * Error Test String {@link CheckLib#checkLong(String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testCheckLongString() {
 
-        assertFalse( "Checks if '1a235343' can not be parsed as long", CheckLib.checkLong( "1a235343" ) );
+        Assert.assertFalse( CheckLib.checkLong( "1a235343" ), "Checks if '1a235343' can not be parsed as long" );
     }
 
 
     /**
      * Error Test Dezimal {@link CheckLib#checkLong(String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testCheckLongDouble() {
 
-        assertFalse( "Checks if '1235343.23' can not be parsed as long", CheckLib.checkLong( "1235343.23" ) );
-        assertFalse( "Checks if '1235343,23' can not be parsed as long", CheckLib.checkLong( "1235343,23" ) );
+        Assert.assertFalse( CheckLib.checkLong( "1235343.23" ), "Checks if '1235343.23' can not be parsed as long" );
+        Assert.assertFalse( CheckLib.checkLong( "1235343,23" ), "Checks if '1235343,23' can not be parsed as long" );
     }
 }

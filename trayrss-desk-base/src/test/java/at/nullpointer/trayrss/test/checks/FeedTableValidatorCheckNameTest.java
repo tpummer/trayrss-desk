@@ -14,15 +14,9 @@
  */
 package at.nullpointer.trayrss.test.checks;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
 
@@ -32,61 +26,34 @@ import at.nullpointer.trayrss.gui.tablemodel.FeedTableValidator;
  * @author Thomas Pummer
  * 
  */
-@RunWith( Parameterized.class )
 public class FeedTableValidatorCheckNameTest {
-
-    /**
-     * Description of the Testcase
-     */
-    private String description;
-    /**
-     * name under test
-     */
-    private String name;
-    /**
-     * Expected result
-     */
-    private Boolean expectedResult;
-
-
-    /**
-     * Makes a parameterized test possible for {@link FeedTableValidator#checkName(String)}
-     * 
-     * @param description
-     * @param name
-     * @param expectedResult
-     */
-    public FeedTableValidatorCheckNameTest( String description, String name, Boolean expectedResult ) {
-
-        super();
-        this.description = description;
-        this.name = name;
-        this.expectedResult = expectedResult;
-    }
-
 
     /**
      * Parameters for the test of {@link FeedTableValidator#checkName(String)}
      * 
-     * @return
+     * @return parameters of test: Object[][] of String description, String Name, Boolean result
      */
-    @Parameters
-    public static Collection<Object[]> data() {
+    @DataProvider( name = "checkNameDataProvider" )
+    public Object[][] data() {
 
-        Object[][] data = new Object[][] { { "Valid", "t\\est", Boolean.TRUE },
+        final Object[][] data = new Object[][] { { "Valid", "t\\est", Boolean.TRUE },
                 { "Valid with space", "tes t", Boolean.TRUE }, { "Invalid 0 size string", "", Boolean.FALSE },
                 { "Invalid space string", "    ", Boolean.FALSE }, { "Invalid null string", null, Boolean.FALSE } };
-        return Arrays.asList( data );
+        return data;
     }
 
 
     /**
      * Tests {@link FeedTableValidator#checkName(String)}
+     * 
+     * @param description
+     * @param name
+     * @param expectedResult
      */
-    @Test
-    public void testCheckURL() {
+    @Test( groups = { "unit" }, dataProvider = "checkNameDataProvider" )
+    public void testCheckName( final String description, final String name, final Boolean expectedResult ) {
 
-        assertEquals( description, FeedTableValidator.checkName( name ), expectedResult );
+        Assert.assertEquals( Boolean.valueOf( FeedTableValidator.checkName( name ) ), expectedResult, description );
 
     }
 }

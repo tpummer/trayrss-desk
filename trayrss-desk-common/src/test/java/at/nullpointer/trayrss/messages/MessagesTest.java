@@ -14,13 +14,11 @@
  */
 package at.nullpointer.trayrss.messages;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 /**
  * Class under test {@link Messages}
@@ -39,11 +37,9 @@ public class MessagesTest {
     /**
      * set up the MessageResolver for the tests
      * 
-     * @throws Exception
      */
-    @Before
-    public void setUp()
-            throws Exception {
+    @BeforeTest
+    public void setUp() {
 
         messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
     }
@@ -52,13 +48,13 @@ public class MessagesTest {
     /**
      * Test {@link Messages#registerMessageResolver(String, MessageResolver)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testRegisterMessageResolver() {
 
         try {
             Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
         } catch ( Exception e ) { // NOPMD
-            fail( "Register Message Resolver failed: " + e.getMessage() );
+            Assert.fail( "Register Message Resolver failed: " + e.getMessage() );
         }
     }
 
@@ -66,12 +62,12 @@ public class MessagesTest {
     /**
      * Test {@link Messages#getMessageResolver(String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testGetMessageResolver() {
 
         Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
         final MessageResolver mrresolved = Messages.getMessageResolver( Messages.CONFIG );
-        assertEquals( "Try to get messageResolver that was registerd first.", messageResolver, mrresolved );
+        Assert.assertEquals( mrresolved, messageResolver, "Try to get messageResolver that was registerd first." );
 
     }
 
@@ -79,7 +75,7 @@ public class MessagesTest {
     /**
      * Test {@link Messages#setLanguage(String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testSetLanguage() {
 
         Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
@@ -87,8 +83,8 @@ public class MessagesTest {
         final MessageResolver retrievedMessageResollver = Messages.getMessageResolver( Messages.CONFIG );
         final String erg = retrievedMessageResollver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
                 MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE );
-        assertEquals( "Try to get the german String by setting the language in Messages.",
-                MessageResolverTestStrings.MESSAGE_RESULT_GER, erg );
+        Assert.assertEquals( erg, MessageResolverTestStrings.MESSAGE_RESULT_GER,
+                "Try to get the german String by setting the language in Messages." );
     }
 
 }

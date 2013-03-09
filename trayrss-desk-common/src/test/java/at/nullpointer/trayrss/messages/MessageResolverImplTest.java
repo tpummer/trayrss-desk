@@ -14,12 +14,11 @@
  */
 package at.nullpointer.trayrss.messages;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * Class under test {@link MessageResolverImpl}
@@ -35,9 +34,12 @@ public class MessageResolverImplTest {
     private static MessageResolver messageResolver;
 
 
-    @Before
-    public void setUp()
-            throws Exception {
+    /**
+     * Setup of the MessageResolver
+     * 
+     */
+    @BeforeMethod
+    public void setUp() {
 
         messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
     }
@@ -46,38 +48,37 @@ public class MessageResolverImplTest {
     /**
      * Tests {@link MessageResolver#getString(String, String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testGetString() {
 
-        assertEquals( "Try to retrieve a message", MessageResolverTestStrings.MESSAGE_RESULT_ENG,
-                messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
-                        MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
+        Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_ENG,
+                "Try to retrieve a message" );
     }
 
 
     /**
      * Tests fallback of {@link MessageResolver#getString(String, String)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testGetNonExistingString() {
 
-        assertEquals( "Try to retrieve a message, that should not exist.",
-                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE, messageResolver.getString(
-                        MessageResolverTestStrings.MESSAGE_TEST_ID_FAIL,
-                        MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
+        Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID_FAIL,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE,
+                "Try to retrieve a message, that should not exist." );
     }
 
 
     /**
      * Tests {@link MessageResolver#chanceLocale(Locale)}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testChanceLocale() {
 
         messageResolver.chanceLocale( Locale.GERMANY );
-        assertEquals( "Try to retrieve a localized message.", MessageResolverTestStrings.MESSAGE_RESULT_GER,
-                messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
-                        MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
+        Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_GER,
+                "Try to retrieve a localized message." );
     }
 
 
@@ -85,7 +86,7 @@ public class MessageResolverImplTest {
      * Determinates if a new {@link MessageResolverImpl} is affected by a locale change of an other
      * {@link MessageResolverImpl}
      */
-    @Test
+    @Test( groups = { "unit" } )
     public void testMultiMessageResolverImpl() {
 
         final MessageResolver messageResolverTwo = new MessageResolverImpl(
@@ -93,15 +94,15 @@ public class MessageResolverImplTest {
         messageResolver.chanceLocale( Locale.GERMANY );
         final MessageResolver messageResolverThree = new MessageResolverImpl(
                 "at.nullpointer.trayrss.messages.testmessages" );
-        assertEquals( "Validate the localization change of the messageResolver.",
-                MessageResolverTestStrings.MESSAGE_RESULT_GER, messageResolver.getString(
-                        MessageResolverTestStrings.MESSAGE_TEST_ID, MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
-        assertEquals( "Validate that there was no change of the localization of messageResolverTwo.",
-                MessageResolverTestStrings.MESSAGE_RESULT_ENG, messageResolverTwo.getString(
-                        MessageResolverTestStrings.MESSAGE_TEST_ID, MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
-        assertEquals( "Validate that a new messageResolverThree has the initial localization.",
-                MessageResolverTestStrings.MESSAGE_RESULT_ENG, messageResolverThree.getString(
-                        MessageResolverTestStrings.MESSAGE_TEST_ID, MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ) );
+        Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_GER,
+                "Validate the localization change of the messageResolver." );
+        Assert.assertEquals( messageResolverTwo.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_ENG,
+                "Validate that there was no change of the localization of messageResolverTwo." );
+        Assert.assertEquals( messageResolverThree.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
+                MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_ENG,
+                "Validate that a new messageResolverThree has the initial localization." );
     }
 
 }
