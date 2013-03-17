@@ -7,8 +7,9 @@
     <property name="hibernate.connection.driver_class">
       org.hsqldb.jdbcDriver
     </property>
+    <!-- jdbc:hsqldb:file:./data/feeds;shutdown=true-->
     <property name="hibernate.connection.url">
-      jdbc:hsqldb:file:./data/feeds;shutdown=true
+      jdbc:hsqldb:file:${user.home}/TrayRSS/data/feeds;shutdown=true
     </property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password"/>
