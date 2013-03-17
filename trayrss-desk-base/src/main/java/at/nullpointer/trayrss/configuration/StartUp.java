@@ -58,9 +58,10 @@ public class StartUp {
             Logger.getRootLogger().setLevel( Level.DEBUG );
         }
 
-        startDatabase();
         final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
         configControl.load();
+        startDatabase();
+        configControl.loadFeeds();
         initializeMessages();
         startTray();
         startMonitor();

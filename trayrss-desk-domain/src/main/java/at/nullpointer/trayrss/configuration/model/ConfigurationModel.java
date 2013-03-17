@@ -94,5 +94,9 @@ public class ConfigurationModel {
      * database Location
      */
     private String databaseLocation;
+    /**
+     * log Location
+     */
+    private String logLocation;
 
 }

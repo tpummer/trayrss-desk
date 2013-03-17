@@ -141,6 +141,11 @@
 						</manifest>
 						<manifestEntries>
 							<Version>${project.version}</Version>
+							<Implementation-Version>
+								${project.version}-${buildNumber}
+							</Implementation-Version>
+							<SplashScreen-Image>img/trayrss.png</SplashScreen-Image>
+							<Class-Path>.</Class-Path>
 						</manifestEntries>
 					</archive>
 					<descriptors>
@@ -185,6 +190,7 @@
 								${project.version}-${buildNumber}
 							</Implementation-Version>
 							<SplashScreen-Image>img/trayrss.png</SplashScreen-Image>
+							<Class-Path>.</Class-Path>
 						</manifestEntries>
 					</archive>
 				</configuration>

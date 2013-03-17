@@ -25,6 +25,7 @@
 			<includes>
 				<include>CHANGELOG</include>
 				<include>README</include>
+				<include>log4j.properties</include>
 			</includes>
 			<filtered>true</filtered>
 		</fileSet>

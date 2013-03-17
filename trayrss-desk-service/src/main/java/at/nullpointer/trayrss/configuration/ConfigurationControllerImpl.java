@@ -91,6 +91,9 @@ public class ConfigurationControllerImpl
         props.setProperty( ConfigurationConstants.DISPLAYSECOND, configModel.getDisplayTime().toString() );
         props.setProperty( ConfigurationConstants.DISPLAYCOUNT, configModel.getDisplayCount().toString() );
 
+        // databaselocation
+        props.setProperty( ConfigurationConstants.DATABASE_LOCATION, configModel.getDatabaseLocation().toString() );
+
         // Feed
         FeedDAO feedDao = new FeedDAOImpl();
         Collection<FeedEntity> oldFeeds = feedDao.getFeeds();
@@ -279,10 +282,6 @@ public class ConfigurationControllerImpl
         // databaselocation
         configModel.setDatabaseLocation( props.getProperty( ConfigurationConstants.DATABASE_LOCATION ) );
 
-        // feed
-        FeedDAO feedDAO = new FeedDAOImpl();
-        configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
-
         // timerestriction
         configModel.setIsTimeFrameActivated( Boolean.valueOf( props
                 .getProperty( ConfigurationConstants.TIMERESTRICTION ) ) );
@@ -350,6 +349,17 @@ public class ConfigurationControllerImpl
     public void addChangeListener( ChangeListener listener ) {
 
         this.changeListener.add( listener );
+    }
+
+
+    /**
+     * @see ConfigurationController#loadFeeds()
+     */
+    public void loadFeeds() {
+
+        FeedDAO feedDAO = new FeedDAOImpl();
+        configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
+
     }
 
 }
