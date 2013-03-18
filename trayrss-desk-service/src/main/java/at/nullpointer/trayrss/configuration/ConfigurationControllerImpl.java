@@ -366,7 +366,7 @@ public class ConfigurationControllerImpl
 
         log.debug( "Load Feed Data" );
 
-        FeedDAO feedDAO = new FeedDAOImpl();
+        final FeedDAO feedDAO = new FeedDAOImpl();
         configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
 
         log.debug( "Load Feed Data finished" );
@@ -381,16 +381,19 @@ public class ConfigurationControllerImpl
 
         boolean result = false;
 
-        String userHome = System.getProperty( "user.home" );
-        log.debug( "User Home Directory: " + userHome );
+        if ( log.isDebugEnabled() ) {
+            log.debug( "User Home Directory: " + ConfigurationConstants.CONFIG_USER );
+        }
 
-        File configFile = new File( ConfigurationConstants.CONFIG_USER );
+        final File configFile = new File( ConfigurationConstants.CONFIG_USER );
 
         if ( configFile.exists() ) {
             result = true;
         }
 
-        log.debug( "Config File exists: " + result );
+        if ( log.isDebugEnabled() ) {
+            log.debug( "Config File exists: " + result );
+        }
 
         return result;
     }
@@ -402,21 +405,22 @@ public class ConfigurationControllerImpl
     public void copyConfigToUserDir() {
 
         log.debug( "Start to Copy the config File into the User directory" );
-        File defaultConfigFile = new File( ConfigurationConstants.CONFIG_STANDARD );
-        File userConfigFile = new File( ConfigurationConstants.CONFIG_USER );
 
-        FileReader in;
-        FileWriter out;
+        final File defaultConfigFile = new File( ConfigurationConstants.CONFIG_STANDARD );
+        final File userConfigFile = new File( ConfigurationConstants.CONFIG_USER );
+
+        FileReader defaultFileReader;
+        FileWriter userFileWriter;
         try {
-            in = new FileReader( defaultConfigFile );
-            out = new FileWriter( userConfigFile );
-            int c;
+            defaultFileReader = new FileReader( defaultConfigFile );
+            userFileWriter = new FileWriter( userConfigFile );
+            int character;
 
-            while ( ( c = in.read() ) != -1 )
-                out.write( c );
+            while ( ( character = defaultFileReader.read() ) != -1 )
+                userFileWriter.write( character );
 
-            in.close();
-            out.close();
+            defaultFileReader.close();
+            userFileWriter.close();
         } catch ( FileNotFoundException e ) {
             log.error( "Standard configuration not found!" );
             log.error( e.getMessage() );
