@@ -24,9 +24,35 @@ package at.nullpointer.trayrss.configuration;
 public final class ConfigurationConstants {
 
     /**
+     * Filename of the configuration
+     */
+    private static final String CONFIG_FILENAME = "config.ini";
+
+    /**
+     * Config base dir
+     */
+    private static final String CONFIG_BASEDIR = "TrayRSS";
+
+    /**
+     * Config User dir
+     */
+    private static final String CONFIG_USERDIR = System.getProperty( "user.home" );
+
+    /**
+     * Directory Delimiter
+     */
+    private static final String DIR_DELIMITER = "\\";
+
+    /**
      * Location of the configuration
      */
-    public static final String CONFIG = "./config.ini";
+    public static final String CONFIG_STANDARD = "./" + CONFIG_FILENAME;
+
+    /**
+     * Location of the configuration in user dir
+     */
+    public static final String CONFIG_USER = CONFIG_USERDIR + DIR_DELIMITER + CONFIG_BASEDIR + DIR_DELIMITER
+            + CONFIG_FILENAME;
 
     /**
      * Matcher for the language

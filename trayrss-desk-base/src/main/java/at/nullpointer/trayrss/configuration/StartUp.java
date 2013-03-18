@@ -59,23 +59,37 @@ public class StartUp {
         }
 
         final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
+
+        if ( !configControl.isConfigInUserDir() ) {
+            configControl.copyConfigToUserDir();
+        }
+
         configControl.load();
+
         startDatabase();
+
         configControl.loadFeeds();
+
         initializeMessages();
+
         startTray();
+
         startMonitor();
+
         log.info( "Startup complete." );
     }
 
 
     private void initializeMessages() {
 
+        log.debug( "Load Messages" );
+
         Messages.setup( ConfigurationControllerImpl.getInstance().getConfigurationModel().getLanguage().getShortcut() );
 
         final ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
         configContr.addChangeListener( new MessageLanguageSwitcher() );
 
+        log.debug( "Messages loaded" );
     }
 
 

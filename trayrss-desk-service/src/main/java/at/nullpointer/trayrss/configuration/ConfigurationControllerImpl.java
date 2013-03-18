@@ -14,9 +14,12 @@
  */
 package at.nullpointer.trayrss.configuration;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -130,7 +133,7 @@ public class ConfigurationControllerImpl
                     Long.toString( configModel.getVacationEnd().getTime() ) );
 
         try {
-            props.storeToXML( new FileOutputStream( ConfigurationConstants.CONFIG ), "TrayRSS Configuration" );
+            props.storeToXML( new FileOutputStream( ConfigurationConstants.CONFIG_USER ), "TrayRSS Configuration" );
         } catch ( FileNotFoundException e ) {
             for ( ErrorListener listener : errorListeners )
                 listener.addError(
@@ -191,8 +194,12 @@ public class ConfigurationControllerImpl
      */
     public synchronized void load() {
 
+        log.debug( "Load configuration properties" );
+
         this.props = loadProps();
         this.configModel = loadInitialProperties( this.props );
+
+        log.debug( "Configuration properties loaded" );
 
     }
 
@@ -238,7 +245,7 @@ public class ConfigurationControllerImpl
         InputStream reader = null;
         try {
 
-            reader = new FileInputStream( ConfigurationConstants.CONFIG );
+            reader = new FileInputStream( ConfigurationConstants.CONFIG_USER );
 
             props = new Properties();
             props.loadFromXML( reader );
@@ -357,8 +364,66 @@ public class ConfigurationControllerImpl
      */
     public void loadFeeds() {
 
+        log.debug( "Load Feed Data" );
+
         FeedDAO feedDAO = new FeedDAOImpl();
         configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
+
+        log.debug( "Load Feed Data finished" );
+
+    }
+
+
+    /**
+     * @see ConfigurationController#isConfigInUserDir()
+     */
+    public boolean isConfigInUserDir() {
+
+        boolean result = false;
+
+        String userHome = System.getProperty( "user.home" );
+        log.debug( "User Home Directory: " + userHome );
+
+        File configFile = new File( ConfigurationConstants.CONFIG_USER );
+
+        if ( configFile.exists() ) {
+            result = true;
+        }
+
+        log.debug( "Config File exists: " + result );
+
+        return result;
+    }
+
+
+    /**
+     * @see ConfigurationController#copyConfigToUserDir()
+     */
+    public void copyConfigToUserDir() {
+
+        log.debug( "Start to Copy the config File into the User directory" );
+        File defaultConfigFile = new File( ConfigurationConstants.CONFIG_STANDARD );
+        File userConfigFile = new File( ConfigurationConstants.CONFIG_USER );
+
+        FileReader in;
+        FileWriter out;
+        try {
+            in = new FileReader( defaultConfigFile );
+            out = new FileWriter( userConfigFile );
+            int c;
+
+            while ( ( c = in.read() ) != -1 )
+                out.write( c );
+
+            in.close();
+            out.close();
+        } catch ( FileNotFoundException e ) {
+            log.error( "Standard configuration not found!" );
+            log.error( e.getMessage() );
+        } catch ( IOException e ) {
+            log.error( "Could not copy the configuration to the user directory!" );
+            log.error( e.getMessage() );
+        }
 
     }
 
