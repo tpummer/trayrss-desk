@@ -20,6 +20,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import at.nullpointer.trayrss.configuration.file.ConfigurationFileService;
+import at.nullpointer.trayrss.configuration.file.ConfigurationFileServiceImpl;
 import at.nullpointer.trayrss.gui.tray.TrayIconChangeListener;
 import at.nullpointer.trayrss.gui.tray.TrayIconPOJO;
 import at.nullpointer.trayrss.messages.Messages;
@@ -58,11 +60,14 @@ public class StartUp {
             Logger.getRootLogger().setLevel( Level.DEBUG );
         }
 
-        final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
+        // Copy configuration file in user directory
+        final ConfigurationFileService configurationFileService = new ConfigurationFileServiceImpl();
 
-        if ( !configControl.isConfigInUserDir() ) {
-            configControl.copyConfigToUserDir();
+        if ( !configurationFileService.isConfigInUserDir() ) {
+            configurationFileService.copyConfigToUserDir();
         }
+
+        final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
 
         configControl.load();
 

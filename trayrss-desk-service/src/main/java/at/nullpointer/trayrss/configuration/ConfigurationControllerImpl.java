@@ -14,12 +14,9 @@
  */
 package at.nullpointer.trayrss.configuration;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -163,27 +160,6 @@ public class ConfigurationControllerImpl
 
         notifyAll.run();
 
-    }
-
-    class NotifyThread
-            extends Thread {
-
-        private Set<ChangeListener> listener;
-
-
-        public void setChangeListener( Set<ChangeListener> listener ) {
-
-            this.listener = listener;
-        }
-
-
-        @Override
-        public void run() {
-
-            for ( ChangeListener single : this.listener ) {
-                single.notifyChange();
-            }
-        }
     }
 
 
@@ -370,64 +346,6 @@ public class ConfigurationControllerImpl
         configModel.setFeeds( new HashSet<FeedEntity>( feedDAO.getFeeds() ) );
 
         log.debug( "Load Feed Data finished" );
-
-    }
-
-
-    /**
-     * @see ConfigurationController#isConfigInUserDir()
-     */
-    public boolean isConfigInUserDir() {
-
-        boolean result = false;
-
-        if ( log.isDebugEnabled() ) {
-            log.debug( "User Home Directory: " + ConfigurationConstants.CONFIG_USER );
-        }
-
-        final File configFile = new File( ConfigurationConstants.CONFIG_USER );
-
-        if ( configFile.exists() ) {
-            result = true;
-        }
-
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Config File exists: " + result );
-        }
-
-        return result;
-    }
-
-
-    /**
-     * @see ConfigurationController#copyConfigToUserDir()
-     */
-    public void copyConfigToUserDir() {
-
-        log.debug( "Start to Copy the config File into the User directory" );
-
-        final File defaultConfigFile = new File( ConfigurationConstants.CONFIG_STANDARD );
-        final File userConfigFile = new File( ConfigurationConstants.CONFIG_USER );
-
-        FileReader defaultFileReader;
-        FileWriter userFileWriter;
-        try {
-            defaultFileReader = new FileReader( defaultConfigFile );
-            userFileWriter = new FileWriter( userConfigFile );
-            int character;
-
-            while ( ( character = defaultFileReader.read() ) != -1 )
-                userFileWriter.write( character );
-
-            defaultFileReader.close();
-            userFileWriter.close();
-        } catch ( FileNotFoundException e ) {
-            log.error( "Standard configuration not found!" );
-            log.error( e.getMessage() );
-        } catch ( IOException e ) {
-            log.error( "Could not copy the configuration to the user directory!" );
-            log.error( e.getMessage() );
-        }
 
     }
 
