@@ -26,6 +26,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import at.nullpointer.trayrss.persistence.SessionFactoryRepository;
 import at.nullpointer.trayrss.persistence.model.NewsEntity;
 
 public class NewsDAOImpl
@@ -36,7 +37,7 @@ public class NewsDAOImpl
 
     public void deleteById( Long id ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         session.delete( session.load( NewsEntity.class, id ) );
@@ -49,7 +50,7 @@ public class NewsDAOImpl
 
     public NewsEntity findNewsById( Long id ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         NewsEntity news = (NewsEntity)session.get( NewsEntity.class, id );
 
@@ -62,7 +63,7 @@ public class NewsDAOImpl
 
     public Collection<NewsEntity> getNews() {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery( "select n from NewsEntity n" );
         List<NewsEntity> news = (List<NewsEntity>)query.list();
@@ -77,7 +78,7 @@ public class NewsDAOImpl
     public void save( NewsEntity news )
             throws SQLException {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         FeedDAO feedDao = new FeedDAOImpl();
@@ -98,7 +99,7 @@ public class NewsDAOImpl
 
     public NewsEntity getNewsByData( NewsEntity news ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery( "select n from NewsEntity n where n.uri = :uri" ).setParameter( "uri",
@@ -136,7 +137,7 @@ public class NewsDAOImpl
 
     public void deleteOlderThanTwoMonth( Long id ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
 

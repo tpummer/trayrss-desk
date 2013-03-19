@@ -21,6 +21,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import at.nullpointer.trayrss.persistence.SessionFactoryRepository;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 public class FeedDAOImpl
@@ -28,7 +29,7 @@ public class FeedDAOImpl
 
     public FeedEntity findFeedById( Long id ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
         FeedEntity feed = (FeedEntity)session.get( FeedEntity.class, id );
@@ -43,7 +44,7 @@ public class FeedDAOImpl
 
     public Collection<FeedEntity> getFeeds() {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery( "select f from FeedEntity f" );
@@ -58,7 +59,7 @@ public class FeedDAOImpl
 
     public void save( FeedEntity feed ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
 
@@ -77,7 +78,7 @@ public class FeedDAOImpl
 
     public void deleteById( Long id ) {
 
-        Session session = SessionFactoryRepository.getSessionFactory().openSession();
+        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
 

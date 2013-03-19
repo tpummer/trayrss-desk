@@ -18,7 +18,6 @@ import java.util.Properties;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 import at.nullpointer.trayrss.configuration.file.ConfigurationFileService;
 import at.nullpointer.trayrss.configuration.file.ConfigurationFileServiceImpl;
@@ -28,7 +27,8 @@ import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.JNotificationPopupFactory;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.dao.SessionFactoryRepository;
+import at.nullpointer.trayrss.persistence.PersistenceAdapter;
+import at.nullpointer.trayrss.persistence.PersistenceAdapterImpl;
 
 /**
  * Prozesses all initial loadings
@@ -114,7 +114,9 @@ public class StartUp {
 
         log.debug( "Startup: Start Database" );
 
-        SessionFactoryRepository.setSessionFactory( new AnnotationConfiguration().configure().buildSessionFactory() );
+        PersistenceAdapter persistenceAdapter = PersistenceAdapterImpl.getInstance();
+
+        persistenceAdapter.start();
 
         log.debug( "Startup: Finished Start Database" );
 
