@@ -31,7 +31,7 @@ public class MessagesTest {
     /**
      * MessageResolver
      */
-    private static MessageResolver messageResolver;
+    private transient MessageResolver messageResolver;
 
 
     /**

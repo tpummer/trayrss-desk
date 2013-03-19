@@ -102,35 +102,37 @@ public class FeedReaderThread
                     e1.printStackTrace();
                 }
 
-                for ( SyndEntryImpl node : content ) {
+                if ( content != null ) {
+                    for ( SyndEntryImpl node : content ) {
 
-                    NewsEntity news = prepareNode( node );
+                        NewsEntity news = prepareNode( node );
 
-                    NewsDAO newsDao = new NewsDAOImpl();
+                        NewsDAO newsDao = new NewsDAOImpl();
 
-                    NewsEntity test = newsDao.getNewsByData( news );
+                        NewsEntity test = newsDao.getNewsByData( news );
 
-                    if ( test != null && test.equals( news ) ) {
-                        news = test;
-                        news.increaseReadCount( 1 );
-                        log.debug( "Feed " + getId() + ": News Eintrag " + news.getTitle() + " von " + node.getUri()
-                                + " wurden aktualisiert!" );
-                    } else {
+                        if ( test != null && test.equals( news ) ) {
+                            news = test;
+                            news.increaseReadCount( 1 );
+                            log.debug( "Feed " + getId() + ": News Eintrag " + news.getTitle() + " von "
+                                    + node.getUri() + " wurden aktualisiert!" );
+                        } else {
 
-                        log.debug( "Feed " + getId() + ": Neuer Newseintrag " + news.getTitle() + " von "
-                                + node.getUri() );
-                    }
-
-                    try {
-                        newsDao.save( news );
-                        if ( news.getReadCount() < displayCount ) {
-                            this.trayNotifier.addToNotify( news, feedInfo );
-                            news.setLastRead( new Date() );
+                            log.debug( "Feed " + getId() + ": Neuer Newseintrag " + news.getTitle() + " von "
+                                    + node.getUri() );
                         }
-                    } catch ( SQLException e ) {
-                        log.error( e.getMessage() );
-                    }
 
+                        try {
+                            newsDao.save( news );
+                            if ( news.getReadCount() < displayCount ) {
+                                this.trayNotifier.addToNotify( news, feedInfo );
+                                news.setLastRead( new Date() );
+                            }
+                        } catch ( SQLException e ) {
+                            log.error( e.getMessage() );
+                        }
+
+                    }
                 }
 
                 ok = true;

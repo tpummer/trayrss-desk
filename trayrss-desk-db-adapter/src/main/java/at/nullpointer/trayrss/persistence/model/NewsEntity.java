@@ -1,24 +1,20 @@
 /*
-    TrayRSS - simply notification of feed information
-    (c) 2009-2011 TrayRSS Developement Team
-    visit the project at http://trayrss.nullpointer.at/
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+ * TrayRSS - simply notification of feed information (c) 2009-2011 TrayRSS Developement Team visit the project at
+ * http://trayrss.nullpointer.at/
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package at.nullpointer.trayrss.persistence.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,151 +28,124 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * Entity of a News Item
+ * 
+ * @author Thomas Pummer
+ * 
+ */
 @Entity
+@Data
 @Table
-public class NewsEntity {
+public class NewsEntity
+        implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7559699508085982831L;
 
-	@Column
-	private String author;
+    /**
+     * Id
+     */
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Long id;
 
-	@Column(nullable = false)
-	private String title;
+    /**
+     * Author
+     */
+    @Column
+    private String author;
 
-	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date publishedDate;
+    /**
+     * Title
+     */
+    @Column( nullable = false )
+    private String title;
 
-	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedDate;
+    /**
+     * Published Date
+     */
+    @Column
+    @Temporal( TemporalType.TIMESTAMP )
+    private Date publishedDate;
 
-	@Column
-	private String uri;
+    /**
+     * Update Date
+     */
+    @Column
+    @Temporal( TemporalType.TIMESTAMP )
+    private Date updatedDate;
 
-	@ManyToOne
-	@JoinColumn(name = "feed_id")
-	private FeedEntity feed;
+    /**
+     * URI to full article
+     */
+    @Column
+    private String uri;
 
-	@Column
-	private Date lastRead = new Date();
+    /**
+     * Feed the News belongs to
+     */
+    @ManyToOne
+    @JoinColumn( name = "feed_id" )
+    private FeedEntity feed;
 
-	@Column
-	private Long readCount = new Long(0);
+    /**
+     * Last apperance in Notification
+     */
+    @Column
+    private Date lastRead = new Date();
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * Read COunt
+     */
+    @Column
+    private Long readCount = new Long( 0 );
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public String getAuthor() {
-		return author;
-	}
+    @Override
+    public boolean equals( Object o ) {
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+        if ( o == null ) {
+            return false;
+        }
+        if ( o == this ) {
+            return true;
+        }
+        if ( o.getClass() != getClass() ) {
+            return false;
+        }
+        NewsEntity news = (NewsEntity)o;
+        return new EqualsBuilder().append( author, news.author ).append( title, news.title ).append( uri, news.uri )
+                .append( feed, news.feed ).isEquals()
+                && ( this.publishedDate != null && this.publishedDate.compareTo( news.getPublishedDate() ) == 0 );
 
-	public String getTitle() {
-		return title;
-	}
+        // @EqualsAndHashCode( exclude = { "id", "monitored", "news" } )
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    }
 
-	public Date getPublishedDate() {
-		return publishedDate;
-	}
 
-	public void setPublishedDate(Date publishedDate) {
-		this.publishedDate = publishedDate;
-	}
+    @Override
+    public int hashCode() {
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+        return new HashCodeBuilder( 17, 37 ).append( author ).append( title ).append( publishedDate )
+                .append( updatedDate ).append( uri ).append( feed ).toHashCode();
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
 
-	public String getUri() {
-		return uri;
-	}
+    /**
+     * Increase the read Count
+     * 
+     * @param summand - the additional count
+     */
+    public void increaseReadCount( long summand ) {
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-
-	public FeedEntity getFeed() {
-		return feed;
-	}
-
-	public void setFeed(FeedEntity feed) {
-		this.feed = feed;
-	}
-
-	public Date getLastRead() {
-		return lastRead;
-	}
-
-	public void setLastRead(Date lastRead) {
-		this.lastRead = lastRead;
-	}
-
-	public Long getReadCount() {
-		return readCount;
-	}
-
-	public void setReadCount(Long readCount) {
-		this.readCount = readCount;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
-		if (o == this) {
-			return true;
-		}
-		if (o.getClass() != getClass()) {
-			return false;
-		}
-		NewsEntity news = (NewsEntity) o;
-		return new EqualsBuilder()
-				.append(author, news.author)
-				.append(title, news.title)
-				.append(uri, news.uri)
-				.append(feed, news.feed)
-				.isEquals() && (this.publishedDate != null && 
-								this.publishedDate.compareTo(news.getPublishedDate()) == 0);
-		
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37)
-		.append(author)
-		.append(title)
-		.append(publishedDate)
-		.append(updatedDate)
-		.append(uri)
-		.append(feed)
-		.toHashCode();
-	}
-
-	public void increaseReadCount(long summand) {
-		this.setReadCount(this.getReadCount() + summand);
-	}
+        this.setReadCount( this.getReadCount() + summand );
+    }
 }

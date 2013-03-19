@@ -158,7 +158,7 @@ public class ConfigurationControllerImpl
 
         notifyAll.setChangeListener( changeListener );
 
-        notifyAll.run();
+        notifyAll.start();
 
     }
 
