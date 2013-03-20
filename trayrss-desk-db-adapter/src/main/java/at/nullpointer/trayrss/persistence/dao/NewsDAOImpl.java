@@ -29,12 +29,23 @@ import org.hibernate.Transaction;
 import at.nullpointer.trayrss.persistence.SessionFactoryRepository;
 import at.nullpointer.trayrss.persistence.model.NewsEntity;
 
+/**
+ * @see NewsDAO
+ * @author Thomas Pummer
+ * 
+ */
 public class NewsDAOImpl
         implements NewsDAO {
 
-    private Logger log = Logger.getLogger( NewsDAOImpl.class );
+    /**
+     * Logger
+     */
+    private final static Logger LOG = Logger.getLogger( NewsDAOImpl.class );
 
 
+    /**
+     * @see NewsDAO
+     */
     public void deleteById( Long id ) {
 
         Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
@@ -48,6 +59,9 @@ public class NewsDAOImpl
     }
 
 
+    /**
+     * @see NewsDAO
+     */
     public NewsEntity findNewsById( Long id ) {
 
         Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
@@ -61,6 +75,9 @@ public class NewsDAOImpl
     }
 
 
+    /**
+     * @see NewsDAO
+     */
     public Collection<NewsEntity> getNews() {
 
         Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
@@ -75,6 +92,9 @@ public class NewsDAOImpl
     }
 
 
+    /**
+     * @see NewsDAO
+     */
     public void save( NewsEntity news )
             throws SQLException {
 
@@ -108,8 +128,8 @@ public class NewsDAOImpl
         try {
             erg = (NewsEntity)query.uniqueResult();
         } catch ( HibernateException e ) {
-            log.error( news.getTitle() + " at " + news.getUri() + " has a duplicated entry!" );
-            log.debug( query.getQueryString() );
+            LOG.error( news.getTitle() + " at " + news.getUri() + " has a duplicated entry!" );
+            LOG.debug( query.getQueryString() );
             List<NewsEntity> list = query.list();
             for ( NewsEntity dupe : list ) {
                 if ( erg == null ) {
@@ -118,10 +138,10 @@ public class NewsDAOImpl
                     if ( dupe.getLastRead().after( erg.getLastRead() ) ) {
                         deleteById( erg.getId() );
                         erg = dupe;
-                        log.debug( "removed duplicated news with id" + erg.getId() );
+                        LOG.debug( "removed duplicated news with id" + erg.getId() );
                     } else {
                         deleteById( dupe.getId() );
-                        log.debug( "removed duplicated news with id" + news.getId() );
+                        LOG.debug( "removed duplicated news with id" + news.getId() );
                     }
                 }
             }
@@ -135,6 +155,9 @@ public class NewsDAOImpl
     }
 
 
+    /**
+     * @see NewsDAO
+     */
     public void deleteOlderThanTwoMonth( Long id ) {
 
         Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();

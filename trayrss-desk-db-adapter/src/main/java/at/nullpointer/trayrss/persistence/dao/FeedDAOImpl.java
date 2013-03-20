@@ -24,17 +24,26 @@ import org.hibernate.Transaction;
 import at.nullpointer.trayrss.persistence.SessionFactoryRepository;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
+/**
+ * @see FeedDAO
+ * 
+ * @author Thomas Pummer
+ * 
+ */
 public class FeedDAOImpl
         implements FeedDAO {
 
+    /**
+     * @see FeedDAO
+     */
     public FeedEntity findFeedById( Long id ) {
 
-        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
+        final Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
-        Transaction tx = session.beginTransaction();
-        FeedEntity feed = (FeedEntity)session.get( FeedEntity.class, id );
+        final Transaction transaction = session.beginTransaction();
+        final FeedEntity feed = (FeedEntity)session.get( FeedEntity.class, id );
 
-        tx.commit();
+        transaction.commit();
         session.close();
 
         return feed;
@@ -42,26 +51,32 @@ public class FeedDAOImpl
     }
 
 
+    /**
+     * @see FeedDAO
+     */
     public Collection<FeedEntity> getFeeds() {
 
-        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
+        final Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery( "select f from FeedEntity f" );
-        List<FeedEntity> feeds = (List<FeedEntity>)query.list();
+        final Transaction transaction = session.beginTransaction();
+        final Query query = session.createQuery( "select f from FeedEntity f" );
+        final List<FeedEntity> feeds = (List<FeedEntity>)query.list();
 
-        tx.commit();
+        transaction.commit();
         session.close();
 
         return feeds;
     }
 
 
-    public void save( FeedEntity feed ) {
+    /**
+     * @see FeedDAO
+     */
+    public void save( final FeedEntity feed ) {
 
-        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
+        final Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
-        Transaction tx = session.beginTransaction();
+        final Transaction transaction = session.beginTransaction();
 
         if ( feed.getId() != null && session.load( FeedEntity.class, feed.getId() ) != null ) {
             session.update( feed );
@@ -70,32 +85,30 @@ public class FeedDAOImpl
 
         }
 
-        tx.commit();
+        transaction.commit();
         session.close();
 
     }
 
 
+    /**
+     * @see FeedDAO
+     */
     public void deleteById( Long id ) {
 
-        Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
+        final Session session = SessionFactoryRepository.getInstance().getSessionFactory().openSession();
 
-        Transaction tx = session.beginTransaction();
+        final Transaction transaction = session.beginTransaction();
 
-        // Object deletedFeed = session.load(Feed.class, id);
-
-        // session.delete(deletedFeed);
-        // session.delete("select f from Feed f where id = "+id.longValue());
-
-        String hqlN = "delete from NewsEntity n where feed_id = " + id.longValue();
-        Query queryN = session.createQuery( hqlN );
+        final String hqlN = "delete from NewsEntity n where feed_id = " + id.longValue();
+        final Query queryN = session.createQuery( hqlN );
         queryN.executeUpdate();
 
-        String hql = "delete from FeedEntity f where id = " + id.longValue();
-        Query query = session.createQuery( hql );
+        final String hql = "delete from FeedEntity f where id = " + id.longValue();
+        final Query query = session.createQuery( hql );
         query.executeUpdate();
 
-        tx.commit();
+        transaction.commit();
         session.close();
 
     }

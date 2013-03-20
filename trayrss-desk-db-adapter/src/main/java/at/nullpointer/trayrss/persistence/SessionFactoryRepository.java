@@ -43,7 +43,7 @@ public final class SessionFactoryRepository {
     /**
      * Returns the Singleton Instance of the {@link SessionFactoryRepository}
      * 
-     * @return
+     * @return Singleton Instance
      */
     public static synchronized SessionFactoryRepository getInstance() {
 
