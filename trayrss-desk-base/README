@@ -1,6 +1,6 @@
 *****************************************************************
 *    RSSTray - simply alerting at new Feed Information          *
-*    Copyright (C) 2009-2011 Thomas Pummer                      *
+*    Copyright (C) 2009-2013 Thomas Pummer                      *
 *    conatct me fake (at) sprossenwanne.at                      *
 *    or visit the project at http://trayrss.sourceforge.net/    *
 *****************************************************************
@@ -8,13 +8,6 @@
 The goal of this tool is to offer the user a fast and cheap way to 
 read news given by an RSS or ATOM Feed by Tray Notifications. To 
 read the news, it will open a browser.
-
-
-Release Information:
-
-Requirements:
-jdom 1.1
-rome 1.0
 
 Installation:
 Just copy the jar file where u want to have it installed.

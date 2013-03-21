@@ -1,5 +1,5 @@
 /*
- * TrayRSS - simply notification of feed information (c) 2009-2011 TrayRSS Developement Team visit the project at
+ * TrayRSS - simply notification of feed information (c) 2009-2013 TrayRSS Developement Team visit the project at
  * http://trayrss.nullpointer.at/
  * 
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
@@ -13,7 +13,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 package at.nullpointer.trayrss.configuration;
-
 
 /**
  * Collection of all references TODO make class unused

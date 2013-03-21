@@ -1,5 +1,5 @@
 /*
- * w TrayRSS - simply notification of feed information (c) 2009-2011 TrayRSS Developement Team visit the project at
+ * w TrayRSS - simply notification of feed information (c) 2009-2013 TrayRSS Developement Team visit the project at
  * http://trayrss.nullpointer.at/
  * 
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
