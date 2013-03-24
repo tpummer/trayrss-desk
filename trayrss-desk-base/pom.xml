@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>trayrss-desk-parent</artifactId>
 		<groupId>at.nullpointer</groupId>
-		<version>1.3.0</version>
+		<version>1.4.0-SNAPSHOT</version>
 		<relativePath>../trayrss-desk-parent</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
