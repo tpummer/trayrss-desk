@@ -22,10 +22,4 @@ package at.nullpointer.trayrss.persistence;
  */
 public interface PersistenceAdapter {
 
-    /**
-     * Shutdown of the Persistence
-     * 
-     * @return true/false
-     */
-    boolean shutdown();
 }

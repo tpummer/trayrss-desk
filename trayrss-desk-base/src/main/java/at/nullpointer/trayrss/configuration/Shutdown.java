@@ -15,9 +15,8 @@
 package at.nullpointer.trayrss.configuration;
 
 import org.apache.log4j.Logger;
-
-import at.nullpointer.trayrss.persistence.PersistenceAdapter;
-import at.nullpointer.trayrss.persistence.PersistenceAdapterImpl;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Shutdown {
 
@@ -40,22 +39,11 @@ public class Shutdown {
         log.info( "Shutdown initiated!" );
         // ReferenceCollection.MONITOR_THREAD.interrupt();
 
-        while ( !isAllClosed() ) {
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
 
-        }
+        context.close();
+
         log.info( "Shutdown completed!" );
     }
 
-
-    public boolean isAllClosed() {
-
-        PersistenceAdapter persistenceAdapter = PersistenceAdapterImpl.getInstance();
-
-        persistenceAdapter.shutdown();
-
-        // boolean monitorThread = ReferenceCollection.MONITOR_THREAD.isAlive();
-        boolean allClosed = true; // && !monitorThread;
-        log.debug( "AllClosed: " + allClosed );
-        return allClosed;
-    }
 }

@@ -16,6 +16,7 @@ package at.nullpointer.trayrss.persistence;
 
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  */
 @Component
 public class PersistenceAdapterImpl
-        implements PersistenceAdapter, InitializingBean {
+        implements PersistenceAdapter, InitializingBean, DisposableBean {
 
     /**
      * Logger
@@ -54,16 +55,6 @@ public class PersistenceAdapterImpl
     public PersistenceAdapterImpl() {
 
         sessionFactoryRepository = SessionFactoryRepository.getInstance();
-    }
-
-
-    /**
-     * @see PersistenceAdapter#shutdown()
-     */
-    public boolean shutdown() {
-
-        sessionFactoryRepository.getSessionFactory().close();
-        return true;
     }
 
 
@@ -135,6 +126,20 @@ public class PersistenceAdapterImpl
             throws Exception {
 
         initHibernate();
+        LOG.debug( "Hibernate ready, SessionFactory ready" );
+
+    }
+
+
+    /**
+     * Closes all connections
+     */
+    @Override
+    public void destroy()
+            throws Exception {
+
+        sessionFactoryRepository.getSessionFactory().close();
+        LOG.debug( "SessionFactory closed" );
 
     }
 
