@@ -16,6 +16,8 @@ package at.nullpointer.trayrss.persistence;
 
 import org.apache.log4j.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 import at.nullpointer.trayrss.persistence.model.NewsEntity;
@@ -26,8 +28,9 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  * @author Thomas Pummer
  * 
  */
+@Component
 public class PersistenceAdapterImpl
-        implements PersistenceAdapter {
+        implements PersistenceAdapter, InitializingBean {
 
     /**
      * Logger
@@ -51,17 +54,6 @@ public class PersistenceAdapterImpl
     public PersistenceAdapterImpl() {
 
         sessionFactoryRepository = SessionFactoryRepository.getInstance();
-    }
-
-
-    /**
-     * @see PersistenceAdapter#start()
-     */
-    public boolean start() {
-
-        initHibernate();
-
-        return true;
     }
 
 
@@ -132,6 +124,18 @@ public class PersistenceAdapterImpl
             instance = new PersistenceAdapterImpl();
         }
         return instance;
+    }
+
+
+    /**
+     * Init the database
+     */
+    @Override
+    public void afterPropertiesSet()
+            throws Exception {
+
+        initHibernate();
+
     }
 
 }

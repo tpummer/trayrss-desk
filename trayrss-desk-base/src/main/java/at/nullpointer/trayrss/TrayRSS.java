@@ -14,7 +14,15 @@
  */
 package at.nullpointer.trayrss;
 
+import javax.inject.Inject;
+
+import lombok.Setter;
+
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.StartUp;
@@ -26,6 +34,7 @@ import at.nullpointer.trayrss.gui.TrayRSSSplashScreen;
  * @author Thomas Pummer
  * 
  */
+@Component
 public final class TrayRSS {
 
     /**
@@ -37,6 +46,20 @@ public final class TrayRSS {
      */
     private static final Logger LOG = Logger.getLogger( TrayRSS.class );
 
+    /**
+     * {@link TrayRSSSplashScreen}
+     */
+    @Inject
+    @Setter
+    private TrayRSSSplashScreen splash;
+
+    /**
+     * {@link StartUp}
+     */
+    @Inject
+    @Setter
+    private StartUp startUp;
+
 
     private TrayRSS() {
 
@@ -44,7 +67,7 @@ public final class TrayRSS {
 
 
     /**
-     * Startup of TrayRSS
+     * Initialization of the Spring Context
      * 
      * @param args
      */
@@ -53,21 +76,31 @@ public final class TrayRSS {
         final Package trayRssPackage = TrayRSS.class.getPackage();
         ReferenceCollection.TRAYRSS_APP_TITLE = "TrayRSS " + trayRssPackage.getImplementationVersion();
 
-        boolean debug = false;
-
         if ( args.length != 0 ) {
             if ( args[ 0 ].equals( "-debug" ) ) {
-                debug = true;
+                Logger.getRootLogger().setLevel( Level.DEBUG );
             } else {
                 System.out.println( "You may start the program within the "
                         + "debug mode by using -debug as parameter." );
             }
         }
 
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+
+        TrayRSS trayRss = context.getBean( TrayRSS.class );
+        trayRss.start( args );
+    }
+
+
+    /**
+     * Startup of TrayRSS
+     * 
+     * @param args
+     */
+    public void start( final String[] args ) {
+
         LOG.debug( "Starting splashscreen" );
-        final TrayRSSSplashScreen splash = new TrayRSSSplashScreen();
         LOG.debug( "Initializing startup routine" );
-        new StartUp( debug );
         splash.endSplashAfterDisplaytime( THREE_SECONDS );
 
     }

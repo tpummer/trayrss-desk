@@ -17,6 +17,7 @@ package at.nullpointer.trayrss.gui;
 import java.awt.SplashScreen;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 /**
  * Offers the management of the SplashScreen
@@ -24,6 +25,7 @@ import org.apache.log4j.Logger;
  * @author thefake
  * 
  */
+@Component
 public class TrayRSSSplashScreen {
 
     private Logger log = Logger.getLogger( TrayRSSSplashScreen.class );

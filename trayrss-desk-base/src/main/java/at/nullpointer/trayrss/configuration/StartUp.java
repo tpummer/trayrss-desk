@@ -16,8 +16,13 @@ package at.nullpointer.trayrss.configuration;
 
 import java.util.Properties;
 
-import org.apache.log4j.Level;
+import javax.inject.Inject;
+
+import lombok.Setter;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 import at.nullpointer.trayrss.configuration.file.ConfigurationFileService;
 import at.nullpointer.trayrss.configuration.file.ConfigurationFileServiceImpl;
@@ -28,7 +33,6 @@ import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.JNotificationPopupFactory;
 import at.nullpointer.trayrss.notification.TrayNotifier;
 import at.nullpointer.trayrss.persistence.PersistenceAdapter;
-import at.nullpointer.trayrss.persistence.PersistenceAdapterImpl;
 
 /**
  * Prozesses all initial loadings
@@ -36,12 +40,18 @@ import at.nullpointer.trayrss.persistence.PersistenceAdapterImpl;
  * @author thefake
  * 
  */
-public class StartUp {
+@Component
+public class StartUp
+        implements InitializingBean {
+
+    @Inject
+    @Setter
+    private PersistenceAdapter persistenceAdapter;
 
     /**
      * Logger
      */
-    private Logger log = Logger.getLogger( StartUp.class );
+    private static final Logger LOG = Logger.getLogger( StartUp.class );
 
     /**
      * Properties
@@ -49,83 +59,34 @@ public class StartUp {
     private Properties props = new Properties();
 
 
-    /**
-     * Prozesses all initial loadings
-     * 
-     * @param debug switches the logger to debug mode
-     */
-    public StartUp( final boolean debug ) {
-
-        if ( debug ) {
-            Logger.getRootLogger().setLevel( Level.DEBUG );
-        }
-
-        // Copy configuration file in user directory
-        final ConfigurationFileService configurationFileService = new ConfigurationFileServiceImpl();
-
-        if ( !configurationFileService.isConfigInUserDir() ) {
-            configurationFileService.copyConfigToUserDir();
-        }
-
-        final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
-
-        configControl.load();
-
-        startDatabase();
-
-        configControl.loadFeeds();
-
-        initializeMessages();
-
-        startTray();
-
-        startMonitor();
-
-        log.info( "Startup complete." );
-    }
-
-
     private void initializeMessages() {
 
-        log.debug( "Load Messages" );
+        LOG.debug( "Load Messages" );
 
         Messages.setup( ConfigurationControllerImpl.getInstance().getConfigurationModel().getLanguage().getShortcut() );
 
         final ConfigurationController configContr = ConfigurationControllerImpl.getInstance();
         configContr.addChangeListener( new MessageLanguageSwitcher() );
 
-        log.debug( "Messages loaded" );
+        LOG.debug( "Messages loaded" );
     }
 
 
     private void startTray() {
 
-        log.debug( "Startup: Start Tray" );
+        LOG.debug( "Startup: Start Tray" );
 
         final TrayIconPOJO trayIconPOJO = new TrayIconPOJO();
         trayIconPOJO.startTrayIcon();
         ConfigurationControllerImpl.getInstance().addChangeListener( new TrayIconChangeListener() );
 
-        log.debug( "Startup: Finished Start Tray" );
-    }
-
-
-    private void startDatabase() {
-
-        log.debug( "Startup: Start Database" );
-
-        PersistenceAdapter persistenceAdapter = PersistenceAdapterImpl.getInstance();
-
-        persistenceAdapter.start();
-
-        log.debug( "Startup: Finished Start Database" );
-
+        LOG.debug( "Startup: Finished Start Tray" );
     }
 
 
     private void startMonitor() {
 
-        log.debug( "Startup: Start Monitor" );
+        LOG.debug( "Startup: Start Monitor" );
 
         final JNotificationPopupFactory jNotificationPopupFactory = new JNotificationPopupFactory();
         final TrayNotifier trayNotifier = new TrayNotifier( jNotificationPopupFactory );
@@ -138,6 +99,35 @@ public class StartUp {
         configContr.addChangeListener( monitor );
         configContr.addChangeListener( trayNotifier );
 
-        log.debug( "Startup: Finished Start Monitor" );
+        LOG.debug( "Startup: Finished Start Monitor" );
     }
+
+
+    @Override
+    public void afterPropertiesSet()
+            throws Exception {
+
+        // Copy configuration file in user directory
+        final ConfigurationFileService configurationFileService = new ConfigurationFileServiceImpl();
+
+        if ( !configurationFileService.isConfigInUserDir() ) {
+            configurationFileService.copyConfigToUserDir();
+        }
+
+        final ConfigurationController configControl = ConfigurationControllerImpl.getInstance();
+
+        configControl.load();
+
+        configControl.loadFeeds();
+
+        initializeMessages();
+
+        startTray();
+
+        startMonitor();
+
+        LOG.info( "Startup complete." );
+
+    }
+
 }

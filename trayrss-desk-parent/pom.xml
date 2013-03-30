@@ -26,6 +26,54 @@
 	</build>
 	<dependencyManagement>
 		<dependencies>
+		<!-- spring -->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-core</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-expression</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-beans</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-aop</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-tx</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jdbc</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-orm</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-test</artifactId>
+		  <version>${org.springframework.version}</version>
+		  <scope>test</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -128,7 +176,12 @@
 		    <version>3.1</version>
 		    <scope>test</scope>
     	</dependency>
-	  </dependencies>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		</dependencies>
 	</dependencyManagement>
 	<modules>
 	<module>../trayrss-desk-common</module>
@@ -168,6 +221,11 @@
 			</snapshots>
 		</repository>
 		<repository>
+		    <id>springsource-repo</id>
+		    <name>SpringSource Repository</name>
+		    <url>http://repo.springsource.org/release</url>
+		</repository>
+		<repository>
 			<id>trayrss-repository</id>
 			<name>TrayRSS Repository</name>
 			<url>http://trayrss.sourceforge.net/repository/</url>
@@ -175,5 +233,6 @@
 	</repositories>
 	<properties>
 		<trayrss-parent-version>1.4.0-SNAPSHOT</trayrss-parent-version>
+		<org.springframework.version>3.2.2.RELEASE</org.springframework.version>
 	</properties>
 </project>
