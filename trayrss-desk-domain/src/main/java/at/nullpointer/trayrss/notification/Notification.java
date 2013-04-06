@@ -36,13 +36,8 @@ public class Notification {
     private String feedName;
 
     /**
-     * Uri of the news
-     */
-    private String uri;
-
-    /**
      * Key of the newsitem in the database
      */
-    private Long newsId;
+    private String newsUri;
 
 }

@@ -21,16 +21,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.persistence.dao.NewsDAO;
-import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.persistence.model.NewsEntity;
+import at.nullpointer.trayrss.persistence.mapper.NewsRepository;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
@@ -43,8 +43,7 @@ public class BrowserButton
 
     private JNotificationPopup popup;
     private PopupManager manager;
-    private String url;
-    private Long newsId;
+    private String newsUrl;
     private Integer displayCount;
 
 
@@ -57,13 +56,12 @@ public class BrowserButton
      * @param node
      * @param displayCount
      */
-    public BrowserButton( Component popup, PopupManager manager, String url, Long newsId, Integer displayCount ) {
+    public BrowserButton( Component popup, PopupManager manager, String newsUrl, Integer displayCount ) {
 
         super();
         this.popup = (JNotificationPopup)popup;
         this.manager = manager;
-        this.url = url;
-        this.newsId = newsId;
+        this.newsUrl = newsUrl;
         this.displayCount = displayCount;
     }
 
@@ -75,12 +73,12 @@ public class BrowserButton
 
         URI uri = null;
 
-        if ( url == null ) {
+        if ( newsUrl == null ) {
             log.error( "Pressing [Read] Button but the url is empty!" );
         } else {
 
             try {
-                uri = new URI( url );
+                uri = new URI( newsUrl );
                 log.debug( "Pressing [Read] Button at uri: " + uri );
                 if ( Desktop.getDesktop() == null ) {
                     log.warn( "Pressing [Read] Button, Desktop not found!" );
@@ -100,14 +98,13 @@ public class BrowserButton
                     e2.printStackTrace();
                 }
 
-                NewsDAO nd = new NewsDAOImpl();
-                NewsEntity test = nd.findNewsById( newsId );
+                ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+                NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+
+                News test = newsRepository.retrieveNews( newsUrl );
                 test.setReadCount( new Long( this.displayCount ) );
-                try {
-                    nd.save( test );
-                } catch ( SQLException se ) {
-                    log.error( se.getMessage() );
-                }
+
+                newsRepository.saveOrUpdate( test );
 
                 manager.dequeuePopup( popup );
 

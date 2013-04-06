@@ -16,10 +16,6 @@ package at.nullpointer.trayrss.configuration;
 
 import java.util.Properties;
 
-import javax.inject.Inject;
-
-import lombok.Setter;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -32,7 +28,6 @@ import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.monitor.Monitor;
 import at.nullpointer.trayrss.notification.JNotificationPopupFactory;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.PersistenceAdapter;
 
 /**
  * Prozesses all initial loadings
@@ -43,10 +38,6 @@ import at.nullpointer.trayrss.persistence.PersistenceAdapter;
 @Component
 public class StartUp
         implements InitializingBean {
-
-    @Inject
-    @Setter
-    private PersistenceAdapter persistenceAdapter;
 
     /**
      * Logger

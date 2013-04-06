@@ -21,14 +21,16 @@ import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.persistence.dao.FeedDAO;
-import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
 
 public class TableModelFactory {
 
-    public static DefaultTableModel getTableModel( Set<FeedEntity> feeds ) {
+    public static DefaultTableModel getTableModel( Set<Feed> feeds ) {
 
         DefaultTableModel tableModel = new DefaultTableModel( getHeader(), 0 ) {
 
@@ -49,7 +51,7 @@ public class TableModelFactory {
             }
         };
 
-        for ( FeedEntity feed : feeds ) {
+        for ( Feed feed : feeds ) {
             tableModel.addRow( feedToObjectRow( feed ) );
         }
 
@@ -75,11 +77,12 @@ public class TableModelFactory {
     }
 
 
-    private static Object[] feedToObjectRow( FeedEntity feed ) {
+    private static Object[] feedToObjectRow( Feed feed ) {
 
         Object[] result = new Object[TableColumnUtil.COLUMN_COUNT];
 
-        result[ TableColumnUtil.ID ] = feed.getId();
+        // TODO FeedID remove
+        result[ TableColumnUtil.ID ] = feed.getUrl();
         result[ TableColumnUtil.FEED_NAME ] = feed.getName();
         result[ TableColumnUtil.FEED_URL ] = feed.getUrl();
         result[ TableColumnUtil.INTERVALL ] = feed.getIntervall();
@@ -89,21 +92,23 @@ public class TableModelFactory {
     }
 
 
-    public static Set<FeedEntity> retrieveFeeds( TableModel model ) {
+    public static Set<Feed> retrieveFeeds( TableModel model ) {
 
         DefaultTableModel dtm = (DefaultTableModel)model;
         int rowCount = dtm.getRowCount();
-        FeedDAO feedDao = new FeedDAOImpl();
 
-        Set<FeedEntity> result = new HashSet<FeedEntity>();
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+
+        Set<Feed> result = new HashSet<Feed>();
         for ( int row = 0; row < rowCount; row++ ) {
-            FeedEntity erg = null;
-            Long valueAt = (Long)dtm.getValueAt( row, TableColumnUtil.ID );
-            if ( valueAt != 0 )
-                erg = feedDao.findFeedById( valueAt );
-            else
-                erg = new FeedEntity();
-
+            Feed erg = null;
+            String valueAt = (String)dtm.getValueAt( row, TableColumnUtil.ID );
+            if ( valueAt != null && valueAt != "" ) {// TODO Apache Commons
+                erg = feedRepository.retrieveFeed( valueAt );
+            } else {
+                erg = new Feed();
+            }
             erg.setName( (String)dtm.getValueAt( row, TableColumnUtil.FEED_NAME ) );
             erg.setUrl( (String)dtm.getValueAt( row, TableColumnUtil.FEED_URL ) );
             erg.setIntervall( (Long)dtm.getValueAt( row, TableColumnUtil.INTERVALL ) );

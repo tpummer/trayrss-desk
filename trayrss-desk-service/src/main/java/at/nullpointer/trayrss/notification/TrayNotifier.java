@@ -28,12 +28,12 @@ import org.apache.log4j.Logger;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
+import at.nullpointer.trayrss.domain.Feed;
+import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.notification.buttons.BrowserButton;
 import at.nullpointer.trayrss.notification.buttons.Dispose;
 import at.nullpointer.trayrss.notification.buttons.Later;
-import at.nullpointer.trayrss.persistence.model.FeedEntity;
-import at.nullpointer.trayrss.persistence.model.NewsEntity;
 import de.jutzig.jnotification.Corner;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
@@ -93,8 +93,7 @@ public class TrayNotifier
 
                 String title = input.get( 0 ).getTitle();
                 String name = input.get( 0 ).getFeedName();
-                String url = input.get( 0 ).getUri();
-                Long newsId = input.get( 0 ).getNewsId();
+                String newsUri = input.get( 0 ).getNewsUri();
 
                 JNotificationPopup popup = null;
 
@@ -118,20 +117,20 @@ public class TrayNotifier
 
                 ( (JPanel)popup.getComponent() ).add( buttonPanel );
 
-                if ( url != null ) {
-                    bread.addActionListener( new BrowserButton( popup, popupManager, url, newsId, displayCount ) );
+                if ( newsUri != null ) {
+                    bread.addActionListener( new BrowserButton( popup, popupManager, newsUri, displayCount ) );
                 } else {
                     bread.setEnabled( false );
                 }
 
-                bstop.addActionListener( new Dispose( popup, popupManager, newsId, displayCount ) );
-                bclose.addActionListener( new Later( popup, popupManager, newsId ) );
+                bstop.addActionListener( new Dispose( popup, popupManager, newsUri, displayCount ) );
+                bclose.addActionListener( new Later( popup, popupManager, newsUri ) );
 
                 popupManager.enqueuePopup( popup );
 
                 input.remove( 0 );
                 if ( LOG.isDebugEnabled() ) {
-                    LOG.debug( "Title: " + title + " Name:" + name + " URI:" + url );
+                    LOG.debug( "Title: " + title + " Name:" + name + " URI:" + newsUri );
                 }
             } else {
                 LOG.debug( "Nothing found to notify!" );
@@ -140,15 +139,14 @@ public class TrayNotifier
     }
 
 
-    public void addToNotify( NewsEntity news, FeedEntity feed ) {
+    public void addToNotify( News news, Feed feed ) {
 
         LOG.debug( "TrayNotifier: addToNotify" );
 
         final Notification notifi = new Notification();
         notifi.setFeedName( feed.getName() );
-        notifi.setNewsId( news.getId() );
+        notifi.setNewsUri( news.getUri() );
         notifi.setTitle( news.getTitle() );
-        notifi.setUri( news.getUri() );
 
         input.add( notifi );
         if ( LOG.isDebugEnabled() ) {

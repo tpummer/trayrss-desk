@@ -17,22 +17,24 @@ package at.nullpointer.trayrss.monitor;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Getter;
+
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidation;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
+import at.nullpointer.trayrss.domain.Feed;
+import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.dao.FeedDAO;
-import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.persistence.dao.NewsDAO;
-import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.persistence.model.FeedEntity;
-import at.nullpointer.trayrss.persistence.model.NewsEntity;
+import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
+import at.nullpointer.trayrss.persistence.mapper.NewsRepository;
+import at.nullpointer.trayrss.service.NewsService;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -51,24 +53,19 @@ public class FeedReaderThread
 
     private Logger log = Logger.getLogger( FeedReaderThread.class );
 
-    private FeedEntity feedInfo = null;
-    private Long id = null;
+    private Feed feedInfo = null;
+    @Getter
+    private String feedUrl = null;
     private Integer displayCount;
     private TrayNotifier trayNotifier;
 
 
-    public FeedReaderThread( FeedEntity feedInfo, Integer displayCount, TrayNotifier trayNotifier ) {
+    public FeedReaderThread( Feed feedInfo, Integer displayCount, TrayNotifier trayNotifier ) {
 
         this.feedInfo = feedInfo;
-        this.id = feedInfo.getId();
+        this.feedUrl = feedInfo.getUrl();
         this.displayCount = displayCount;
         this.trayNotifier = trayNotifier;
-    }
-
-
-    public Long getId() {
-
-        return this.id;
     }
 
 
@@ -105,31 +102,29 @@ public class FeedReaderThread
                 if ( content != null ) {
                     for ( SyndEntryImpl node : content ) {
 
-                        NewsEntity news = prepareNode( node );
+                        News news = prepareNode( node );
 
-                        NewsDAO newsDao = new NewsDAOImpl();
+                        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+                        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+                        NewsService newsService = context.getBean( "newsService", NewsService.class );
 
-                        NewsEntity test = newsDao.getNewsByData( news );
+                        News test = newsRepository.retrieveNews( news.getUri() );
 
                         if ( test != null && test.equals( news ) ) {
                             news = test;
-                            news.increaseReadCount( 1 );
-                            log.debug( "Feed " + getId() + ": News Eintrag " + news.getTitle() + " von "
+                            newsService.increaseReadCount( news, 1 );
+                            log.debug( "Feed " + getFeedUrl() + ": News Eintrag " + news.getTitle() + " von "
                                     + node.getUri() + " wurden aktualisiert!" );
                         } else {
 
-                            log.debug( "Feed " + getId() + ": Neuer Newseintrag " + news.getTitle() + " von "
+                            log.debug( "Feed " + getFeedUrl() + ": Neuer Newseintrag " + news.getTitle() + " von "
                                     + node.getUri() );
                         }
 
-                        try {
-                            newsDao.save( news );
-                            if ( news.getReadCount() < displayCount ) {
-                                this.trayNotifier.addToNotify( news, feedInfo );
-                                news.setLastRead( new Date() );
-                            }
-                        } catch ( SQLException e ) {
-                            log.error( e.getMessage() );
+                        newsRepository.saveOrUpdate( news );
+                        if ( news.getReadCount() < displayCount ) {
+                            this.trayNotifier.addToNotify( news, feedInfo );
+                            news.setLastRead( new Date() );
                         }
 
                     }
@@ -157,8 +152,9 @@ public class FeedReaderThread
 
     private boolean isFeedValid() {
 
-        FeedDAO feedDao = new FeedDAOImpl();
-        if ( feedDao.findFeedById( this.feedInfo.getId() ) == null ) {
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        if ( feedRepository.retrieveFeed( this.feedInfo.getUrl() ) == null ) {
             return false;
         } else {
             return true;
@@ -168,22 +164,23 @@ public class FeedReaderThread
 
     private void deleteOldNews() {
 
-        NewsDAO newsDao = new NewsDAOImpl();
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
 
-        newsDao.deleteOlderThanTwoMonth( feedInfo.getId() );
+        newsRepository.deleteOlderThan( feedInfo.getUrl(), 60 );
 
     }
 
 
-    private NewsEntity prepareNode( SyndEntryImpl node ) {
+    private News prepareNode( SyndEntryImpl node ) {
 
-        NewsEntity news = new NewsEntity();
+        News news = new News();
         news.setAuthor( node.getAuthor() );
         news.setTitle( node.getTitle() );
         news.setPublishedDate( node.getPublishedDate() );
         news.setUpdatedDate( node.getUpdatedDate() );
         news.setUri( node.getUri() );
-        news.setFeed( feedInfo );
+        news.setFeedUrl( feedInfo.getUrl() );
 
         news.setUpdatedDate( new Date() );
         return news;

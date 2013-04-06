@@ -10,7 +10,7 @@
   <dependencies>
 		<dependency>
 			<groupId>at.nullpointer</groupId>
-			<artifactId>trayrss-desk-db-adapter</artifactId>
+			<artifactId>trayrss-desk-persistence</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>at.nullpointer</groupId>

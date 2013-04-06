@@ -21,12 +21,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.hibernate.PropertyNotFoundException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
+import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.dao.FeedDAOImpl;
-import at.nullpointer.trayrss.persistence.model.FeedEntity;
+import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
 
 public class Monitor
         implements ChangeListener {
@@ -46,7 +48,7 @@ public class Monitor
 
     LinkedList<FeedReaderThread> monitoredFeeds;
     ExecutorService threadExecutor;
-    FeedDAOImpl feedDao;
+    FeedRepository feedRepository;
     private static TrayNotifier trayNotifier;
 
 
@@ -54,7 +56,8 @@ public class Monitor
 
         monitoredFeeds = new LinkedList<FeedReaderThread>();
         threadExecutor = Executors.newFixedThreadPool( 20 );
-        feedDao = new FeedDAOImpl();
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        feedRepository = context.getBean( "feedRepository", FeedRepository.class );
 
         loadFeeds();
 
@@ -63,10 +66,10 @@ public class Monitor
 
     public void loadFeeds() {
 
-        List<FeedEntity> feeds = (List<FeedEntity>)feedDao.getFeeds();
+        List<Feed> feeds = (List<Feed>)feedRepository.retrieveFeeds();
         Integer displayCount = ConfigurationControllerImpl.getInstance().getConfigurationModel().getDisplayCount();
 
-        for ( FeedEntity feed : feeds ) {
+        for ( Feed feed : feeds ) {
             FeedReaderThread thread = new FeedReaderThread( feed, displayCount, this.trayNotifier );
             threadExecutor.execute( thread );
             monitoredFeeds.add( thread );

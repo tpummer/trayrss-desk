@@ -12,14 +12,9 @@
   		<groupId>org.projectlombok</groupId>
   		<artifactId>lombok</artifactId>
   	</dependency>
-  	  	<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		  <!-- TODO remove dependency -->
-    <dependency>
-  		<groupId>at.nullpointer</groupId>
-  		<artifactId>trayrss-desk-db-adapter</artifactId>
-  	</dependency>
+  	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+	</dependency>
   </dependencies>
 </project>

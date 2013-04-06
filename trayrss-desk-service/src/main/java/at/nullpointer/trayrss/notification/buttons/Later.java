@@ -17,13 +17,13 @@ package at.nullpointer.trayrss.notification.buttons;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import at.nullpointer.trayrss.persistence.dao.NewsDAO;
-import at.nullpointer.trayrss.persistence.dao.NewsDAOImpl;
-import at.nullpointer.trayrss.persistence.model.NewsEntity;
+import at.nullpointer.trayrss.domain.News;
+import at.nullpointer.trayrss.persistence.mapper.NewsRepository;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
@@ -34,15 +34,15 @@ public class Later
 
     JNotificationPopup popup;
     PopupManager manager;
-    Long newsId;
+    String newsUri;
 
 
-    public Later( Component popup, PopupManager manager, Long newsId ) {
+    public Later( Component popup, PopupManager manager, String newsUri ) {
 
         super();
         this.popup = (JNotificationPopup)popup;
         this.manager = manager;
-        this.newsId = newsId;
+        this.newsUri = newsUri;
     }
 
 
@@ -54,14 +54,12 @@ public class Later
     public void actionPerformed( ActionEvent e ) {
 
         manager.dequeuePopup( popup );
-        NewsDAO nd = new NewsDAOImpl();
-        NewsEntity test = nd.findNewsById( newsId );
+        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+        News test = newsRepository.retrieveNews( newsUri );
         test.setReadCount( test.getReadCount() - 1 );
-        try {
-            nd.save( test );
-        } catch ( SQLException se ) {
-            log.error( se.getMessage() );
-        }
+
+        newsRepository.saveOrUpdate( test );
 
     }
 
