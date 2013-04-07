@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -104,7 +105,7 @@ public class TableModelFactory {
         for ( int row = 0; row < rowCount; row++ ) {
             Feed erg = null;
             String valueAt = (String)dtm.getValueAt( row, TableColumnUtil.ID );
-            if ( valueAt != null && valueAt != "" ) {// TODO Apache Commons
+            if ( StringUtils.isNotEmpty( valueAt ) ) {
                 erg = feedRepository.retrieveFeed( valueAt );
             } else {
                 erg = new Feed();
