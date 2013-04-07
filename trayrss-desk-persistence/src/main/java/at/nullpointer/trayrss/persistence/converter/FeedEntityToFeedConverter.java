@@ -34,7 +34,7 @@ public class FeedEntityToFeedConverter
 
 
     /**
-     * Converts an {@link FeedEntity} to {@link Feed} TODO Sync (maybe within Feed?)
+     * Converts an {@link FeedEntity} to {@link Feed}
      */
     @Override
     @Transactional

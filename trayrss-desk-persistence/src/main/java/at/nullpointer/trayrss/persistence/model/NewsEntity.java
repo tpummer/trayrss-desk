@@ -106,7 +106,7 @@ public class NewsEntity
      * Read COunt
      */
     @Column
-    private Long readCount = new Long( 0 );
+    private Long readCount = Long.valueOf( 0L );
 
 
     /**
@@ -136,6 +136,7 @@ public class NewsEntity
      * 
      * @param summand - the additional count
      */
+    // TODO test case
     public void increaseReadCount( long summand ) {
 
         this.setReadCount( this.getReadCount() + summand );

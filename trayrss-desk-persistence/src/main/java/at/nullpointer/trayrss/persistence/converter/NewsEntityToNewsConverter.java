@@ -20,7 +20,7 @@ public class NewsEntityToNewsConverter
         implements Converter<NewsEntity, News> {
 
     /**
-     * Converts an {@link NewsEntity} to {@link News} TODO Sync (maybe within News?)
+     * Converts an {@link NewsEntity} to {@link News}
      */
     @Override
     @Transactional
