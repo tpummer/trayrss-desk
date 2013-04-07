@@ -44,18 +44,19 @@ public class NewsEntityRepositoryTest
         feedEntity.setLastAction( new Date() );
         feedEntity.setMonitored( false );
         feedEntity.setName( "testName" );
-        feedEntityRepository.saveAndFlush( feedEntity );
 
         NewsEntity newsEntity = new NewsEntity();
         newsEntity.setAuthor( "author" );
-        newsEntity.setFeed( feedEntity );
         newsEntity.setLastRead( new Date() );
         newsEntity.setPublishedDate( new Date() );
         newsEntity.setReadCount( 0L );
         newsEntity.setTitle( "newsTitle" );
         newsEntity.setUpdatedDate( new Date() );
         newsEntity.setUri( "newsUri4" );
-        newsEntityRepository.saveAndFlush( newsEntity );
+
+        feedEntity.addNews( newsEntity );
+
+        feedEntityRepository.saveAndFlush( feedEntity );
 
         FeedEntity findByUrl = feedEntityRepository.findByUrl( "delete" );
         Assert.assertEquals( findByUrl.getNews().size(), 1, "News not found" );

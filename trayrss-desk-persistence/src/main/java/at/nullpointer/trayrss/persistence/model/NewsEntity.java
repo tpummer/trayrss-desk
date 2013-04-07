@@ -29,9 +29,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import lombok.EqualsAndHashCode;
 
 /**
  * Entity of a News Item
@@ -43,6 +41,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Entity
 @Data
 @Table( name = "news" )
+@EqualsAndHashCode( exclude = { "id", "updatedDate", "feed", "lastRead", "readCount" } )
 public class NewsEntity
         implements Serializable {
 
@@ -110,33 +109,25 @@ public class NewsEntity
     private Long readCount = new Long( 0 );
 
 
-    @Override
-    public boolean equals( Object o ) {
+    /**
+     * Adds a {@link FeedEntity} and manages the coherence
+     * 
+     * @param feed
+     */
+    public void setFeed( FeedEntity feed ) {
 
-        if ( o == null ) {
-            return false;
+        this.feed = feed;
+        boolean contains = false;
+        if ( this.feed != null ) {
+            for ( NewsEntity news : this.feed.getNews() ) {
+                if ( news.getUri().equals( this.getUri() ) ) {
+                    contains = true;
+                }
+            }
+            if ( !contains ) {
+                this.feed.getNews().add( this );
+            }
         }
-        if ( o == this ) {
-            return true;
-        }
-        if ( o.getClass() != getClass() ) {
-            return false;
-        }
-        NewsEntity news = (NewsEntity)o;
-        return new EqualsBuilder().append( author, news.author ).append( title, news.title ).append( uri, news.uri )
-                .append( feed, news.feed ).isEquals()
-                && ( this.publishedDate != null && this.publishedDate.compareTo( news.getPublishedDate() ) == 0 );
-
-        // @EqualsAndHashCode( exclude = { "id", "monitored", "news" } )
-
-    }
-
-
-    @Override
-    public int hashCode() {
-
-        return new HashCodeBuilder( 17, 37 ).append( author ).append( title ).append( publishedDate )
-                .append( updatedDate ).append( uri ).append( feed ).toHashCode();
     }
 
 

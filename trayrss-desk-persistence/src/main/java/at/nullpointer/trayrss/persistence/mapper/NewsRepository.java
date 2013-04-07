@@ -114,6 +114,7 @@ public class NewsRepository {
         for ( Iterator<NewsEntity> newsIterator = news.iterator(); newsIterator.hasNext(); ) {
             NewsEntity newsEntity = newsIterator.next();
             if ( newsEntity.getUpdatedDate().before( deadline ) ) {
+                newsEntity.getFeed().getNews().remove( newsEntity );
                 newsEntityRepository.delete( newsEntity );
             }
         }

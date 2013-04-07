@@ -14,6 +14,7 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  * @since 1.4
  * 
  */
+// TODO tests
 @Component( "newsEntityToNewsConverter" )
 public class NewsEntityToNewsConverter
         implements Converter<NewsEntity, News> {

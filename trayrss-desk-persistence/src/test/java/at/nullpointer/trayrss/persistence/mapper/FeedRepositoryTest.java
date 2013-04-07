@@ -15,6 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.domain.Feed;
+import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.persistence.dao.FeedEntityRepository;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
@@ -33,6 +34,10 @@ public class FeedRepositoryTest
     @Inject
     @Setter
     private FeedRepository feedRepository;
+
+    @Inject
+    @Setter
+    private NewsRepository newsRepository;
 
     @Inject
     @Setter
@@ -218,4 +223,66 @@ public class FeedRepositoryTest
         Assert.assertTrue( isStored && oldNotFound, "No valid Feed stored" );
     }
 
+
+    /**
+     * Method under test {@link FeedRepository#delete(String)} and check if the news items linked with the feed are
+     * deleted too
+     */
+    @Test( groups = { "integration" }, dependsOnMethods = { "testSave", "testRetrieveFeed", "testDelete" } )
+    public void testDeleteFeedWithNews() {
+
+        Feed feed = new Feed();
+        feed.setUrl( "testDeleteWith" );
+        feed.setIntervall( 0L );
+        feed.setLastAction( new Date() );
+        feed.setMonitored( false );
+        feed.setName( "testName" );
+        feedRepository.saveOrUpdate( feed );
+
+        News news = new News();
+        news.setAuthor( "author" );
+        news.setFeedUrl( "testDeleteWith" );
+        news.setLastRead( new Date() );
+        news.setPublishedDate( new Date() );
+        news.setReadCount( 0L );
+        news.setTitle( "newsTitle" );
+        news.setUpdatedDate( new Date() );
+        news.setUri( "newsUriWithFeed" );
+        newsRepository.saveOrUpdate( news );
+
+        List<FeedEntity> findAll = feedEntityRepository.findAll();
+        if ( findAll == null ) {
+            Assert.fail( "Nothing stored" );
+        }
+
+        boolean isFeedStored = false;
+        for ( FeedEntity feedEntity : findAll ) {
+            if ( feedEntity.getUrl().equals( "testDeleteWith" ) ) {
+                isFeedStored = true;
+            }
+        }
+        Assert.assertTrue( isFeedStored, "No valid Feed stored" );
+
+        News retrieveNews = newsRepository.retrieveNews( "newsUriWithFeed" );
+        if ( retrieveNews == null ) {
+            Assert.fail( "No News stored" );
+        }
+
+        feedRepository.delete( "testDeleteWith" );
+
+        findAll = feedEntityRepository.findAll();
+
+        boolean isNoLongerStored = true;
+        for ( FeedEntity feedEntity : findAll ) {
+            if ( feedEntity.getUrl().equals( "testDeleteWith" ) ) {
+                isNoLongerStored = false;
+            }
+        }
+        Assert.assertTrue( isNoLongerStored, "Feed stored" );
+
+        News retrieveNewsAfterDeletion = newsRepository.retrieveNews( "newsUriWithFeed" );
+        if ( retrieveNewsAfterDeletion != null ) {
+            Assert.fail( "News stored" );
+        }
+    }
 }

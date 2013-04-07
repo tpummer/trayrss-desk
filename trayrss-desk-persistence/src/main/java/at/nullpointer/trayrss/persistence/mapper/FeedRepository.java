@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.persistence.dao.FeedEntityRepository;
+import at.nullpointer.trayrss.persistence.dao.NewsEntityRepository;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
 /**
@@ -31,6 +32,13 @@ public class FeedRepository {
     @Inject
     @Setter
     private FeedEntityRepository feedEntityRepository;
+
+    /**
+     * NewsEntityRepository
+     */
+    @Inject
+    @Setter
+    private NewsEntityRepository newsEntityRepository;
 
     /**
      * ConversionService
@@ -83,9 +91,9 @@ public class FeedRepository {
     @Transactional
     public void delete( final String feedUrl ) {
 
-        // TODO check if news are deleted
-        FeedEntity feedToDeltee = feedEntityRepository.findByUrl( feedUrl );
-        feedEntityRepository.delete( feedToDeltee );
+        FeedEntity feedToDelete = feedEntityRepository.findByUrl( feedUrl );
+
+        feedEntityRepository.delete( feedToDelete );
 
     }
 

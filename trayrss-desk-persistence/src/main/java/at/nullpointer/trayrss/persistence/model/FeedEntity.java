@@ -43,8 +43,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Entity
-@Table( name = "Feeds" )
-// TODO rename table
+@Table( name = "feeds" )
 @EqualsAndHashCode( exclude = { "id", "monitored", "news" } )
 public class FeedEntity
         implements Serializable {
@@ -97,5 +96,18 @@ public class FeedEntity
      */
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "feed" )
     private Set<NewsEntity> news = new HashSet<NewsEntity>();
+
+
+    /**
+     * Adds a {@link NewsEntity} and manages the coherence for the newsEntity
+     * 
+     * @param newsEntity
+     */
+    public void addNews( NewsEntity newsEntity ) {
+
+        this.news.add( newsEntity );
+        newsEntity.setFeed( this );
+
+    }
 
 }

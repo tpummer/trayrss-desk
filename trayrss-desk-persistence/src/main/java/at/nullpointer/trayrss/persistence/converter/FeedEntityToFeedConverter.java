@@ -23,16 +23,10 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  * @since 1.4
  * 
  */
+// TODO tests
 @Component( "feedEntityToFeedConverter" )
 public class FeedEntityToFeedConverter
         implements Converter<FeedEntity, Feed> {
-
-    // /**
-    // * ConversionService
-    // */
-    // @Inject
-    // @Setter
-    // private ConversionService conversionService;
 
     @Inject
     @Setter
