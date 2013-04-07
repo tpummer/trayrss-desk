@@ -5,7 +5,7 @@
     	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     xmlns="http://java.sun.com/xml/ns/persistence">    
     <persistence-unit name="local" transaction-type="RESOURCE_LOCAL" >
-<!--     	<class>at.nullpointer.trayrss.persistence.model.FeedEntity</class> -->
-<!--     	<class>at.nullpointer.trayrss.persistence.model.NewsEntity</class> -->
+    	<class>at.nullpointer.trayrss.persistence.model.FeedEntity</class>
+    	<class>at.nullpointer.trayrss.persistence.model.NewsEntity</class>
     </persistence-unit>
 </persistence>
