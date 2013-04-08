@@ -26,26 +26,36 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
 public class NewsEntityRepositoryTest
         extends AbstractTransactionalTestNGSpringContextTests {
 
+    /**
+     * NewsEntityRepository
+     */
     @Inject
     @Setter
     private NewsEntityRepository newsEntityRepository;
 
+    /**
+     * FeedEntityRepository
+     */
     @Inject
     @Setter
     private FeedEntityRepository feedEntityRepository;
 
 
+    /**
+     * Method under Test {@link NewsEntityRepository#saveAndFlush(NewsEntity)} with a {@link NewsEntity} linked to a
+     * {@link FeedEntity}
+     */
     @Test( groups = { "integration" } )
     public void testSaveWithFeed() {
 
-        FeedEntity feedEntity = new FeedEntity();
+        final FeedEntity feedEntity = new FeedEntity();
         feedEntity.setUrl( "delete" );
         feedEntity.setIntervall( 0L );
         feedEntity.setLastAction( new Date() );
         feedEntity.setMonitored( false );
         feedEntity.setName( "testName" );
 
-        NewsEntity newsEntity = new NewsEntity();
+        final NewsEntity newsEntity = new NewsEntity();
         newsEntity.setAuthor( "author" );
         newsEntity.setLastRead( new Date() );
         newsEntity.setPublishedDate( new Date() );
@@ -58,7 +68,7 @@ public class NewsEntityRepositoryTest
 
         feedEntityRepository.saveAndFlush( feedEntity );
 
-        FeedEntity findByUrl = feedEntityRepository.findByUrl( "delete" );
+        final FeedEntity findByUrl = feedEntityRepository.findByUrl( "delete" );
         Assert.assertEquals( findByUrl.getNews().size(), 1, "News not found" );
 
     }

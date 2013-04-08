@@ -31,14 +31,23 @@ import at.nullpointer.trayrss.persistence.model.FeedEntity;
 public class FeedRepositoryTest
         extends AbstractTransactionalTestNGSpringContextTests {
 
+    /**
+     * FeedRepository
+     */
     @Inject
     @Setter
     private FeedRepository feedRepository;
 
+    /**
+     * NewsRepository
+     */
     @Inject
     @Setter
     private NewsRepository newsRepository;
 
+    /**
+     * FeedEntityRepository
+     */
     @Inject
     @Setter
     private FeedEntityRepository feedEntityRepository;

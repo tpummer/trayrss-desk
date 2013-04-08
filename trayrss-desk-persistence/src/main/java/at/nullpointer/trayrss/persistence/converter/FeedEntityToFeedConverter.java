@@ -28,6 +28,9 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
 public class FeedEntityToFeedConverter
         implements Converter<FeedEntity, Feed> {
 
+    /**
+     * NewsEntityToNewsConverter
+     */
     @Inject
     @Setter
     private NewsEntityToNewsConverter newsEntityToNewsConverter;
