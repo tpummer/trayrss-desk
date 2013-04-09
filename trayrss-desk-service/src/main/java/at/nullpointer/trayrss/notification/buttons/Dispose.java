@@ -23,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.domain.News;
-import at.nullpointer.trayrss.persistence.mapper.NewsRepository;
+import at.nullpointer.trayrss.persistence.NewsRepository;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 

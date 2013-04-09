@@ -1,4 +1,4 @@
-package at.nullpointer.trayrss.persistence.mapper;
+package at.nullpointer.trayrss.persistence;
 
 import java.util.Calendar;
 import java.util.Date;

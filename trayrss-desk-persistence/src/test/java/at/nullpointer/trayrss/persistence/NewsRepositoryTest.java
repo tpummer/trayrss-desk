@@ -1,4 +1,4 @@
-package at.nullpointer.trayrss.persistence.mapper;
+package at.nullpointer.trayrss.persistence;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +17,8 @@ import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.domain.News;
+import at.nullpointer.trayrss.persistence.FeedRepository;
+import at.nullpointer.trayrss.persistence.NewsRepository;
 import at.nullpointer.trayrss.persistence.dao.NewsEntityRepository;
 import at.nullpointer.trayrss.persistence.model.NewsEntity;
 

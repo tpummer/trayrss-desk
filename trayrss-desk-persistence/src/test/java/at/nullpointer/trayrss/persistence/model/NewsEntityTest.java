@@ -40,4 +40,31 @@ public class NewsEntityTest {
         Assert.assertEquals( Long.valueOf( LONG_20 ), news.getReadCount(), "ReadCount not increased by -10" );
 
     }
+
+
+    /**
+     * Method under Test {@link NewsEntity#setFeed(FeedEntity)}
+     */
+    @Test( groups = { "unit" } )
+    public void testSetFeed() {
+
+        FeedEntity feed = new FeedEntity();
+        feed.setUrl( "testFeed" );
+
+        NewsEntity newsOne = new NewsEntity();
+        newsOne.setUri( "newsOne" );
+
+        NewsEntity newsTwo = new NewsEntity();
+        newsTwo.setUri( "newsTwo" );
+
+        NewsEntity newsLikeOne = new NewsEntity();
+        newsLikeOne.setUri( "newsOne" );
+
+        newsOne.setFeed( feed );
+        Assert.assertEquals( 1, feed.getNews().size(), "No Feed liked" );
+        newsTwo.setFeed( feed );
+        Assert.assertEquals( 2, feed.getNews().size(), "No additional Feed liked" );
+        newsLikeOne.setFeed( feed );
+        Assert.assertEquals( 2, feed.getNews().size(), "False Feed liked" );
+    }
 }

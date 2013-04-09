@@ -32,8 +32,8 @@ import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
-import at.nullpointer.trayrss.persistence.mapper.NewsRepository;
+import at.nullpointer.trayrss.persistence.FeedRepository;
+import at.nullpointer.trayrss.persistence.NewsRepository;
 import at.nullpointer.trayrss.service.NewsService;
 
 import com.sun.syndication.feed.synd.SyndEntryImpl;

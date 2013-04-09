@@ -27,7 +27,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.messages.Messages;
-import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
+import at.nullpointer.trayrss.persistence.FeedRepository;
 
 public class TableModelFactory {
 

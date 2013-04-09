@@ -28,7 +28,7 @@ import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.notification.TrayNotifier;
-import at.nullpointer.trayrss.persistence.mapper.FeedRepository;
+import at.nullpointer.trayrss.persistence.FeedRepository;
 
 public class Monitor
         implements ChangeListener {
