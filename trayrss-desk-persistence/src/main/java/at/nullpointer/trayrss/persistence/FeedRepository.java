@@ -51,7 +51,7 @@ public class FeedRepository {
     /**
      * Retrieves the feed
      * 
-     * @param string
+     * @param feedUrl
      * @return feed
      */
     @Transactional
