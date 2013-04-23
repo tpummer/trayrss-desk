@@ -19,9 +19,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.persistence.NewsRepository;
 import de.jutzig.jnotification.JNotificationPopup;
@@ -54,8 +53,7 @@ public class Later
     public void actionPerformed( ActionEvent e ) {
 
         manager.dequeuePopup( popup );
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository", NewsRepository.class );
         News test = newsRepository.retrieveNews( newsUri );
         test.setReadCount( test.getReadCount() - 1 );
 

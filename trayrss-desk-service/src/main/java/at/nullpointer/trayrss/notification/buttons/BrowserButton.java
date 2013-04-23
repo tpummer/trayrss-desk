@@ -25,9 +25,8 @@ import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.persistence.NewsRepository;
@@ -98,8 +97,8 @@ public class BrowserButton
                     e2.printStackTrace();
                 }
 
-                ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-                NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+                NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository",
+                        NewsRepository.class );
 
                 News test = newsRepository.retrieveNews( newsUrl );
                 test.setReadCount( new Long( this.displayCount ) );

@@ -22,9 +22,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.messages.Messages;
 import at.nullpointer.trayrss.persistence.FeedRepository;
@@ -35,7 +34,7 @@ public class TableModelFactory {
 
         DefaultTableModel tableModel = new DefaultTableModel( getHeader(), 0 ) {
 
-            Class[] columnTypes = new Class[] { Long.class, String.class, String.class, Long.class, Boolean.class };
+            Class[] columnTypes = new Class[] { String.class, String.class, Long.class, Boolean.class };
 
 
             public Class< ? > getColumnClass( int columnIndex ) {
@@ -43,7 +42,7 @@ public class TableModelFactory {
                 return columnTypes[ columnIndex ];
             }
 
-            boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+            boolean[] columnEditables = new boolean[] { false, false, false, false };
 
 
             public boolean isCellEditable( int row, int column ) {
@@ -64,7 +63,6 @@ public class TableModelFactory {
     private static Object[] getHeader() {
 
         String[] result = new String[] {
-                Messages.getMessageResolver( Messages.CONFIG ).getString( "config.feeds.table.column.id", "Id" ),// "Id",
                 Messages.getMessageResolver( Messages.CONFIG ).getString( "config.feeds.table.column.feedname",
                         "Feed Name" ),// "Feed Name",
                 Messages.getMessageResolver( Messages.CONFIG ).getString( "config.feeds.table.column.feedurl",
@@ -83,7 +81,6 @@ public class TableModelFactory {
         Object[] result = new Object[TableColumnUtil.COLUMN_COUNT];
 
         // TODO FeedID remove
-        result[ TableColumnUtil.ID ] = feed.getUrl();
         result[ TableColumnUtil.FEED_NAME ] = feed.getName();
         result[ TableColumnUtil.FEED_URL ] = feed.getUrl();
         result[ TableColumnUtil.INTERVALL ] = feed.getIntervall();
@@ -98,16 +95,16 @@ public class TableModelFactory {
         DefaultTableModel dtm = (DefaultTableModel)model;
         int rowCount = dtm.getRowCount();
 
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
 
         Set<Feed> result = new HashSet<Feed>();
         for ( int row = 0; row < rowCount; row++ ) {
             Feed erg = null;
-            String valueAt = (String)dtm.getValueAt( row, TableColumnUtil.ID );
+            String valueAt = (String)dtm.getValueAt( row, TableColumnUtil.FEED_URL );
             if ( StringUtils.isNotEmpty( valueAt ) ) {
                 erg = feedRepository.retrieveFeed( valueAt );
-            } else {
+            }
+            if ( erg == null ) {
                 erg = new Feed();
             }
             erg.setName( (String)dtm.getValueAt( row, TableColumnUtil.FEED_NAME ) );

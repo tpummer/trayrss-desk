@@ -50,7 +50,7 @@ public class FeedEditorInternalFrame
 	 */
     private static final long serialVersionUID = 1L;
     private int selectedRow = -1;
-    private Long selectedID = 0L;
+    private String selectedUrl = null;
     private JTextField txtFeedName;
     private JTextField txtFeedUrl;
     private TrayRssConfigWindow motherFrame;
@@ -151,7 +151,7 @@ public class FeedEditorInternalFrame
 
         this( frmTrayrss );
         this.selectedRow = selectedRow;
-        this.selectedID = (Long)model.getValueAt( selectedRow, TableColumnUtil.ID );
+        this.selectedUrl = String.valueOf( model.getValueAt( selectedRow, TableColumnUtil.FEED_URL ) );
         this.txtFeedName.setText( String.valueOf( model.getValueAt( selectedRow, TableColumnUtil.FEED_NAME ) ) );
         this.txtFeedUrl.setText( String.valueOf( model.getValueAt( selectedRow, TableColumnUtil.FEED_URL ) ) );
         this.cbbMonitorIntervall.setSelectedItem( ( (Long)model.getValueAt( selectedRow, TableColumnUtil.INTERVALL ) )
@@ -234,7 +234,7 @@ public class FeedEditorInternalFrame
             // Check URL
             if ( FeedTableValidator.checkName( this.window.txtFeedUrl.getText() ) ) {
                 if ( FeedTableValidator.checkName( this.window.txtFeedName.getText() ) ) {
-                    this.motherFrame.addFeedRow( this.window.selectedRow, this.window.selectedID,
+                    this.motherFrame.addFeedRow( this.window.selectedRow, this.window.selectedUrl,
                             this.window.txtFeedName.getText(), this.window.txtFeedUrl.getText(),
                             Long.valueOf( (String)this.window.cbbMonitorIntervall.getSelectedItem() ),
                             this.window.chckbxMonitoringEnabled.isSelected() );

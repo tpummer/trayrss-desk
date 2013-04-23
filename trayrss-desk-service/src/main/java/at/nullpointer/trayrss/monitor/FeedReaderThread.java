@@ -23,10 +23,9 @@ import java.util.List;
 import lombok.Getter;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidation;
 import at.nullpointer.trayrss.configuration.timeframes.TimeValidationImpl;
 import at.nullpointer.trayrss.domain.Feed;
@@ -104,9 +103,10 @@ public class FeedReaderThread
 
                         News news = prepareNode( node );
 
-                        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-                        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
-                        NewsService newsService = context.getBean( "newsService", NewsService.class );
+                        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository",
+                                NewsRepository.class );
+                        NewsService newsService = ReferenceCollection.context
+                                .getBean( "newsService", NewsService.class );
 
                         News test = newsRepository.retrieveNews( news.getUri() );
 
@@ -152,8 +152,7 @@ public class FeedReaderThread
 
     private boolean isFeedValid() {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
         if ( feedRepository.retrieveFeed( this.feedInfo.getUrl() ) == null ) {
             return false;
         } else {
@@ -164,8 +163,7 @@ public class FeedReaderThread
 
     private void deleteOldNews() {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        NewsRepository newsRepository = context.getBean( "newsRepository", NewsRepository.class );
+        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository", NewsRepository.class );
 
         newsRepository.deleteOlderThan( feedInfo.getUrl(), 60 );
 

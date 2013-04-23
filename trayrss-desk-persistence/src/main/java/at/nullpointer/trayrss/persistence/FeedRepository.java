@@ -7,10 +7,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.persistence.dao.FeedEntityRepository;
@@ -24,6 +26,7 @@ import at.nullpointer.trayrss.persistence.model.FeedEntity;
  * @since 1.4
  */
 @Repository
+@Log4j
 public class FeedRepository {
 
     /**
@@ -49,6 +52,13 @@ public class FeedRepository {
 
 
     /**
+     * FeedEntityToFeedConverter
+     */
+    // @Inject
+    // @Setter
+    // private FeedEntityToFeedConverter feedConverter;
+
+    /**
      * Retrieves the feed
      * 
      * @param feedUrl
@@ -70,13 +80,18 @@ public class FeedRepository {
      * 
      * @return Collection containing all feeds
      */
-    @Transactional
+    @Transactional( readOnly = true )
     public Collection<Feed> retrieveFeeds() {
+
+        log.debug( "We are in the @Transactional Method" );
+        log.debug( "TransactionSynchronizationManager.isActualTransactionActive(): "
+                + TransactionSynchronizationManager.isActualTransactionActive() );
 
         final List<FeedEntity> findAll = feedEntityRepository.findAll();
         final List<Feed> result = new ArrayList<Feed>();
 
         for ( FeedEntity feed : findAll ) {
+
             result.add( conversionService.convert( feed, Feed.class ) );
         }
         return result;

@@ -11,13 +11,12 @@ import lombok.Setter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.domain.News;
-import at.nullpointer.trayrss.persistence.FeedRepository;
-import at.nullpointer.trayrss.persistence.NewsRepository;
 import at.nullpointer.trayrss.persistence.dao.FeedEntityRepository;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
 
@@ -125,7 +124,10 @@ public class FeedRepositoryTest
      * Method under Test {@link FeedRepository#retrieveFeeds()}
      */
     @Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
+    @Transactional
     public void testGetFeeds() {
+
+        System.out.println( "in" );
 
         Feed feed = new Feed();
         feed.setUrl( "test" );
@@ -156,6 +158,8 @@ public class FeedRepositoryTest
                 }
         }
         Assert.assertTrue( oneStored && twoStored, "Not all retrieved" );
+
+        System.out.println( "in" );
     }
 
 

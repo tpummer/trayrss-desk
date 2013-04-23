@@ -28,8 +28,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Entity of a News Item
@@ -39,9 +41,9 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Entity
-@Data
 @Table( name = "news" )
 @EqualsAndHashCode( exclude = { "id", "updatedDate", "feed", "lastRead", "readCount" } )
+@ToString( exclude = { "feed" } )
 public class NewsEntity
         implements Serializable {
 
@@ -55,18 +57,24 @@ public class NewsEntity
      */
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @Getter
+    @Setter
     private Long id;
 
     /**
      * Author
      */
     @Column
+    @Getter
+    @Setter
     private String author;
 
     /**
      * Title
      */
     @Column( nullable = false )
+    @Getter
+    @Setter
     private String title;
 
     /**
@@ -74,6 +82,8 @@ public class NewsEntity
      */
     @Column
     @Temporal( TemporalType.TIMESTAMP )
+    @Getter
+    @Setter
     private Date publishedDate;
 
     /**
@@ -81,12 +91,16 @@ public class NewsEntity
      */
     @Column
     @Temporal( TemporalType.TIMESTAMP )
+    @Getter
+    @Setter
     private Date updatedDate;
 
     /**
      * URI to full article
      */
     @Column( unique = true )
+    @Getter
+    @Setter
     private String uri;
 
     /**
@@ -94,18 +108,23 @@ public class NewsEntity
      */
     @ManyToOne
     @JoinColumn( name = "feed_id" )
+    @Getter
     private FeedEntity feed;
 
     /**
      * Last apperance in Notification
      */
     @Column
+    @Getter
+    @Setter
     private Date lastRead = new Date();
 
     /**
-     * Read COunt
+     * Read Count
      */
     @Column
+    @Getter
+    @Setter
     private Long readCount = Long.valueOf( 0L );
 
 

@@ -21,11 +21,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.hibernate.PropertyNotFoundException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
 import at.nullpointer.trayrss.configuration.ConfigurationControllerImpl;
+import at.nullpointer.trayrss.configuration.ReferenceCollection;
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.notification.TrayNotifier;
 import at.nullpointer.trayrss.persistence.FeedRepository;
@@ -56,8 +55,7 @@ public class Monitor
 
         monitoredFeeds = new LinkedList<FeedReaderThread>();
         threadExecutor = Executors.newFixedThreadPool( 20 );
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
 
         loadFeeds();
 

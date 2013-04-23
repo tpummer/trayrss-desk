@@ -17,7 +17,6 @@ package at.nullpointer.trayrss.configuration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import at.nullpointer.trayrss.configuration.file.ConfigurationFileService;
@@ -36,8 +35,7 @@ import at.nullpointer.trayrss.notification.TrayNotifier;
  * 
  */
 @Component
-public class StartUp
-        implements InitializingBean {
+public class StartUp {
 
     /**
      * Logger
@@ -94,9 +92,10 @@ public class StartUp
     }
 
 
-    @Override
-    public void afterPropertiesSet()
-            throws Exception {
+    /**
+     * Manages the startup
+     */
+    public void start() {
 
         // Copy configuration file in user directory
         final ConfigurationFileService configurationFileService = new ConfigurationFileServiceImpl();

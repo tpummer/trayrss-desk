@@ -26,8 +26,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import at.nullpointer.trayrss.configuration.model.ConfigurationModel;
 import at.nullpointer.trayrss.configuration.model.LanguageShortcut;
@@ -96,8 +94,7 @@ public class ConfigurationControllerImpl
         props.setProperty( ConfigurationConstants.DATABASE_LOCATION, configModel.getDatabaseLocation().toString() );
 
         // Feed
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
         Collection<Feed> oldFeeds = feedRepository.retrieveFeeds();
         Set<Feed> feeds = configModel.getFeeds();
         for ( Feed feed : feeds ) {
@@ -344,8 +341,7 @@ public class ConfigurationControllerImpl
 
         log.debug( "Load Feed Data" );
 
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-        FeedRepository feedRepository = context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
         configModel.setFeeds( new HashSet<Feed>( feedRepository.retrieveFeeds() ) );
 
         log.debug( "Load Feed Data finished" );

@@ -14,15 +14,21 @@
  */
 package at.nullpointer.trayrss.configuration;
 
+import org.springframework.context.ApplicationContext;
+
 /**
  * Collection of all references TODO make class unused
  * 
  * @author thefake
  * 
  */
+// TODO umbaun auf singleton wwwwwwwww
 public class ReferenceCollection {
 
     public static String TRAYRSS_APP_TITLE;
+
+    // TODO notlöstung
+    public static ApplicationContext context;
 
     // public static TrayIcon TRAY_ICON;
 

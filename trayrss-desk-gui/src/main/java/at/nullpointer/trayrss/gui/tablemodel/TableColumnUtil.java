@@ -25,17 +25,15 @@ import javax.swing.table.TableColumnModel;
  */
 public class TableColumnUtil {
 
-    public static final int COLUMN_COUNT = 5;
+    public static final int COLUMN_COUNT = 4;
 
-    public final static int ID = 0;
-    public final static int FEED_NAME = 1;
-    public final static int FEED_URL = 2;
-    public final static int INTERVALL = 3;
-    public final static int MONITORED = 4;
+    public final static int FEED_NAME = 0;
+    public final static int FEED_URL = 1;
+    public final static int INTERVALL = 2;
+    public final static int MONITORED = 3;
 
     // the sum of the column sizes has to be 100 percent
-    public final static int COLUMN_SIZE_PERCENT_ID = 5;
-    public final static int COLUMN_SIZE_PERCENT_FEED_NAME = 33;
+    public final static int COLUMN_SIZE_PERCENT_FEED_NAME = 38;
     public final static int COLUMN_SIZE_PERCENT_FEED_URL = 45;
     public final static int COLUMN_SIZE_PERCENT_INTERVALL = 10;
     public final static int COLUMN_SIZE_PERCENT_MONITORED = 7;
@@ -45,7 +43,6 @@ public class TableColumnUtil {
 
         boolean resizeable = false;
 
-        setColumnSize( cm, ID, COLUMN_SIZE_PERCENT_ID, tablesize, resizeable );
         setColumnSize( cm, FEED_NAME, COLUMN_SIZE_PERCENT_FEED_NAME, tablesize, resizeable );
         setColumnSize( cm, FEED_URL, COLUMN_SIZE_PERCENT_FEED_URL, tablesize, resizeable );
         setColumnSize( cm, INTERVALL, COLUMN_SIZE_PERCENT_INTERVALL, tablesize, resizeable );

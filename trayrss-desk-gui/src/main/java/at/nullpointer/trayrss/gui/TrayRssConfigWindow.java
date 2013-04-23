@@ -328,11 +328,12 @@ public class TrayRssConfigWindow {
     }
 
 
-    public void addFeedRow( int selectedRow, Long selectedID, String name, String url, Long intervall, Boolean monitored ) {
+    public void addFeedRow( int selectedRow, String selectedUrl, String name, String url, Long intervall,
+            Boolean monitored ) {
 
         DefaultTableModel model = (DefaultTableModel)tblFeedInfo.getModel();
 
-        Object[] row = { selectedID, name, url, intervall, monitored };
+        Object[] row = { name, url, intervall, monitored };
 
         if ( selectedRow == -1 ) {
             model.addRow( row );

@@ -20,7 +20,6 @@ import lombok.Setter;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -85,9 +84,9 @@ public final class TrayRSS {
             }
         }
 
-        ApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        ReferenceCollection.context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
 
-        TrayRSS trayRss = context.getBean( TrayRSS.class );
+        TrayRSS trayRss = ReferenceCollection.context.getBean( TrayRSS.class );
         trayRss.start( args );
     }
 
@@ -102,6 +101,8 @@ public final class TrayRSS {
         LOG.debug( "Starting splashscreen" );
         LOG.debug( "Initializing startup routine" );
         splash.endSplashAfterDisplaytime( THREE_SECONDS );
+
+        startUp.start();
 
     }
 

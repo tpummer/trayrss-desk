@@ -13,6 +13,6 @@
 	 http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"> 
     <context:annotation-config /> 
     <context:component-scan base-package="at.nullpointer.trayrss"/>
-    <import resource="classpath:/SpringBeans.xml"/>
+    <import resource="classpath:/persistence-context.xml"/>
   
 </beans>

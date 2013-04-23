@@ -15,8 +15,6 @@
 package at.nullpointer.trayrss.configuration;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Shutdown {
 
@@ -39,9 +37,7 @@ public class Shutdown {
         log.info( "Shutdown initiated!" );
         // ReferenceCollection.MONITOR_THREAD.interrupt();
 
-        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
-
-        context.close();
+        // ( (ConfigurableApplicationContext)ReferenceCollection.context ).close();
 
         log.info( "Shutdown completed!" );
     }

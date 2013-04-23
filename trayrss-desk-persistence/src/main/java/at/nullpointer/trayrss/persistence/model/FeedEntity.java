@@ -31,8 +31,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Entity of a Feed
@@ -41,10 +43,10 @@ import lombok.EqualsAndHashCode;
  * @since 1.3
  * 
  */
-@Data
 @Entity
 @Table( name = "feeds" )
 @EqualsAndHashCode( exclude = { "id", "monitored", "news" } )
+@ToString( exclude = { "news" } )
 public class FeedEntity
         implements Serializable {
 
@@ -58,18 +60,24 @@ public class FeedEntity
      */
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @Getter
+    @Setter
     private Long id;
 
     /**
      * Url of the Feed
      */
     @Column( nullable = false, unique = true )
+    @Getter
+    @Setter
     private String url;
 
     /**
      * Intervall to check
      */
     @Column( nullable = false )
+    @Getter
+    @Setter
     private Long intervall;
 
     /**
@@ -77,24 +85,32 @@ public class FeedEntity
      */
     @Column( nullable = false )
     @Temporal( TemporalType.TIMESTAMP )
+    @Getter
+    @Setter
     private Date lastAction;
 
     /**
      * Name of the Feed
      */
     @Column( nullable = false, unique = true )
+    @Getter
+    @Setter
     private String name;
 
     /**
      * Monitoring is active
      */
     @Column( nullable = false )
+    @Getter
+    @Setter
     private Boolean monitored;
 
     /**
      * News of this feed
      */
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "feed" )
+    @Getter
+    @Setter
     private Set<NewsEntity> news = new HashSet<NewsEntity>();
 
 

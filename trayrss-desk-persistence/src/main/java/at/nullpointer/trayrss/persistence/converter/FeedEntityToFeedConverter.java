@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.domain.News;
@@ -23,7 +22,6 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  * @since 1.4
  * 
  */
-// TODO tests
 @Component( "feedEntityToFeedConverter" )
 public class FeedEntityToFeedConverter
         implements Converter<FeedEntity, Feed> {
@@ -40,7 +38,6 @@ public class FeedEntityToFeedConverter
      * Converts an {@link FeedEntity} to {@link Feed}
      */
     @Override
-    @Transactional
     public Feed convert( FeedEntity source ) {
 
         final Feed target = new Feed();

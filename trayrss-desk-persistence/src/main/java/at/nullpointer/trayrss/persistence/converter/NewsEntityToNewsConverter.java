@@ -2,7 +2,6 @@ package at.nullpointer.trayrss.persistence.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import at.nullpointer.trayrss.domain.News;
 import at.nullpointer.trayrss.persistence.model.FeedEntity;
@@ -15,7 +14,6 @@ import at.nullpointer.trayrss.persistence.model.NewsEntity;
  * @since 1.4
  * 
  */
-// TODO tests
 @Component( "newsEntityToNewsConverter" )
 public class NewsEntityToNewsConverter
         implements Converter<NewsEntity, News> {
@@ -24,7 +22,6 @@ public class NewsEntityToNewsConverter
      * Converts an {@link NewsEntity} to {@link News}
      */
     @Override
-    @Transactional
     public News convert( NewsEntity source ) {
 
         final News target = new News();
