@@ -17,29 +17,30 @@
 	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	 http://www.springframework.org/schema/aop 
 	 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"> 
-	 
-	<tx:annotation-driven />
-	     
-    <context:component-scan base-package="at.nullpointer.trayrss"/>
-
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-	    <property name="converters">
-	        <list>
-	            <bean class="at.nullpointer.trayrss.persistence.converter.FeedEntityToFeedConverter" />
-	            <bean class="at.nullpointer.trayrss.persistence.converter.NewsEntityToNewsConverter" />
-	        </list>
-	    </property>
-	</bean>
     
-    <jpa:repositories base-package="at.nullpointer.trayrss.persistence.dao" />
-    
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+      <property name="persistenceUnitName" value="local"/>
+	  <property name="dataSource" ref="dataSource" />
+      <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true"/>
+                <property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
+				<property name="database" value="H2" />
+            </bean>
+        </property>
+        <property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.show_sql" value="true" />
+			</map>
+		</property>
     </bean>
-	
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-	
-	<import resource="classpath:/h2-context.xml"/>
-<!--     <import resource="classpath:/hsql-context.xml"/> --> 
+    
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:~/TrayRSS/data/h2/feeds" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
   
 </beans>
