@@ -14,6 +14,8 @@
  */
 package at.nullpointer.trayrss.monitor;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
 import org.easymock.EasyMock;
@@ -77,6 +79,7 @@ public class TrayNotifierTest {
         popupMock.setDelegate( EasyMock.isA( RenderDelegate.class ) );
         popupMock.setAnimator( EasyMock.isA( Animator.class ) );
         EasyMock.expect( popupMock.getComponent() ).andReturn( EasyMock.createMock( JPanel.class ) );
+        popupMock.setMinimumSize( new Dimension( 350, 100 ) );
         EasyMock.replay( popupMock );
         JNotificationPopupFactory mock = EasyMock.createMock( JNotificationPopupFactory.class );
         EasyMock.expect( mock.createPopup( "testtitle", "testname" ) ).andReturn( popupMock );
