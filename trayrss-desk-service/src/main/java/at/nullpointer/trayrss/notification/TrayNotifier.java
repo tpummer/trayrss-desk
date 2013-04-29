@@ -55,6 +55,11 @@ public class TrayNotifier
      */
     private static final Logger LOG = Logger.getLogger( TrayNotifier.class );
 
+    /**
+     * Dimension for the minimum size of a jpopup created by the notifier
+     */
+    private static final Dimension MINIMUM_JPOPUP_SIZE = new Dimension( 350, 100 );
+
     @Getter
     ArrayList<Notification> input = new ArrayList<Notification>();
 
@@ -119,7 +124,7 @@ public class TrayNotifier
                 JPanel panel = (JPanel)popup.getComponent();
                 panel.add( buttonPanel );
 
-                popup.setMinimumSize( new Dimension( 350, 100 ) );
+                popup.setMinimumSize( MINIMUM_JPOPUP_SIZE );
 
                 if ( newsUri != null ) {
                     bread.addActionListener( new BrowserButton( popup, popupManager, newsUri, displayCount ) );
