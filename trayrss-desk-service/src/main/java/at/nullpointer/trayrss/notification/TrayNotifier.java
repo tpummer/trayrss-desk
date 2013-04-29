@@ -14,6 +14,7 @@
  */
 package at.nullpointer.trayrss.notification;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -115,7 +116,10 @@ public class TrayNotifier
                 buttonPanel.add( bstop );
                 buttonPanel.add( bclose );
 
-                ( (JPanel)popup.getComponent() ).add( buttonPanel );
+                JPanel panel = (JPanel)popup.getComponent();
+                panel.add( buttonPanel );
+
+                popup.setMinimumSize( new Dimension( 350, 100 ) );
 
                 if ( newsUri != null ) {
                     bread.addActionListener( new BrowserButton( popup, popupManager, newsUri, displayCount ) );
