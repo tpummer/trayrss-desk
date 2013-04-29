@@ -17,6 +17,7 @@ package at.nullpointer.trayrss.monitor;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -124,7 +125,7 @@ public class FeedReaderThread
                         newsRepository.saveOrUpdate( news );
                         if ( news.getReadCount() < displayCount ) {
                             this.trayNotifier.addToNotify( news, feedInfo );
-                            news.setLastRead( new Date() );
+                            news.setLastRead( resetMillisekonds( new Date() ) );
                         }
 
                     }
@@ -175,13 +176,27 @@ public class FeedReaderThread
         News news = new News();
         news.setAuthor( node.getAuthor() );
         news.setTitle( node.getTitle() );
-        news.setPublishedDate( node.getPublishedDate() );
-        news.setUpdatedDate( node.getUpdatedDate() );
+        news.setPublishedDate( resetMillisekonds( node.getPublishedDate() ) );
+        news.setUpdatedDate( resetMillisekonds( node.getUpdatedDate() ) );
         news.setUri( node.getUri() );
         news.setFeedUrl( feedInfo.getUrl() );
 
         news.setUpdatedDate( new Date() );
         return news;
+    }
+
+
+    private Date resetMillisekonds( Date publishedDate ) {
+
+        if ( publishedDate != null ) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime( publishedDate );
+            calendar.set( Calendar.MILLISECOND, 0 );
+            log.debug( "Set time " + publishedDate + " to " + calendar.getTime() );
+            return calendar.getTime();
+        } else {
+            return publishedDate;
+        }
     }
 
 }

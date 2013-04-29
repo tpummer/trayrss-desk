@@ -1,5 +1,7 @@
 package at.nullpointer.trayrss.persistence.converter;
 
+import java.util.Calendar;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +29,22 @@ public class NewsEntityToNewsConverter
         final News target = new News();
 
         target.setAuthor( source.getAuthor() );
-        target.setLastRead( source.getLastRead() );
-        target.setPublishedDate( source.getPublishedDate() );
+
+        Calendar lastRead = Calendar.getInstance();
+        lastRead.setTimeInMillis( source.getLastRead().getTime() );
+        target.setLastRead( lastRead.getTime() );
+
+        Calendar publishedDate = Calendar.getInstance();
+        publishedDate.setTimeInMillis( source.getPublishedDate().getTime() );
+        target.setPublishedDate( publishedDate.getTime() );
+
         target.setReadCount( source.getReadCount() );
         target.setTitle( source.getTitle() );
-        target.setUpdatedDate( source.getUpdatedDate() );
+
+        Calendar updatedDate = Calendar.getInstance();
+        updatedDate.setTimeInMillis( source.getUpdatedDate().getTime() );
+        target.setUpdatedDate( updatedDate.getTime() );
+
         target.setUri( source.getUri() );
 
         final FeedEntity feed = source.getFeed();

@@ -3,8 +3,10 @@ package at.nullpointer.trayrss.domain;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode( exclude = { "updatedDate", "lastRead", "readCount" } )
 public class News {
 
     /**
