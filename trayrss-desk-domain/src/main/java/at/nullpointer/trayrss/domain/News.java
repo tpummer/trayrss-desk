@@ -5,6 +5,13 @@ import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * Represents a single News within a Feed
+ * 
+ * @author Thomas Pummer
+ * @since 1.4
+ * 
+ */
 @Data
 @EqualsAndHashCode( exclude = { "updatedDate", "lastRead", "readCount" } )
 public class News {

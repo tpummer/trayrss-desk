@@ -5,8 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+/**
+ * Represents a Feed
+ * 
+ * @author Thomas Pummer
+ * @since 1.4
+ * 
+ */
 @Data
+@EqualsAndHashCode( exclude = { "monitored", "news" } )
 public class Feed {
 
     /**
