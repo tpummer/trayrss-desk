@@ -38,7 +38,7 @@ public class FeedEntityToFeedConverter
      * Converts an {@link FeedEntity} to {@link Feed}
      */
     @Override
-    public Feed convert( FeedEntity source ) {
+    public Feed convert( final FeedEntity source ) {
 
         final Feed target = new Feed();
 

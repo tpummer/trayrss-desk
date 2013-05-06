@@ -30,18 +30,18 @@ public class NewsEntityToNewsConverter
 
         target.setAuthor( source.getAuthor() );
 
-        Calendar lastRead = Calendar.getInstance();
+        final Calendar lastRead = Calendar.getInstance();
         lastRead.setTimeInMillis( source.getLastRead().getTime() );
         target.setLastRead( lastRead.getTime() );
 
-        Calendar publishedDate = Calendar.getInstance();
+        final Calendar publishedDate = Calendar.getInstance();
         publishedDate.setTimeInMillis( source.getPublishedDate().getTime() );
         target.setPublishedDate( publishedDate.getTime() );
 
         target.setReadCount( source.getReadCount() );
         target.setTitle( source.getTitle() );
 
-        Calendar updatedDate = Calendar.getInstance();
+        final Calendar updatedDate = Calendar.getInstance();
         updatedDate.setTimeInMillis( source.getUpdatedDate().getTime() );
         target.setUpdatedDate( updatedDate.getTime() );
 

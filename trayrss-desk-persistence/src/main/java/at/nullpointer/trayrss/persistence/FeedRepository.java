@@ -12,7 +12,6 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.persistence.dao.FeedEntityRepository;
@@ -83,10 +82,6 @@ public class FeedRepository {
     @Transactional( readOnly = true )
     public Collection<Feed> retrieveFeeds() {
 
-        log.debug( "We are in the @Transactional Method" );
-        log.debug( "TransactionSynchronizationManager.isActualTransactionActive(): "
-                + TransactionSynchronizationManager.isActualTransactionActive() );
-
         final List<FeedEntity> findAll = feedEntityRepository.findAll();
         final List<Feed> result = new ArrayList<Feed>();
 
@@ -106,7 +101,7 @@ public class FeedRepository {
     @Transactional
     public void delete( final String feedUrl ) {
 
-        FeedEntity feedToDelete = feedEntityRepository.findByUrl( feedUrl );
+        final FeedEntity feedToDelete = feedEntityRepository.findByUrl( feedUrl );
 
         feedEntityRepository.delete( feedToDelete );
 

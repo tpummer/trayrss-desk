@@ -7,11 +7,11 @@
 
 The goal of this tool is to offer the user a fast and cheap way to 
 read news given by an RSS or ATOM Feed by Tray Notifications. To 
-read the news, it will open a browser.
+read the details of the news, it will open a browser.
 
 Installation:
-Just copy the jar file where u want to have it installed.
-The configurationfiles will be stored at the same location, so u need
+Just extract the archive where u want to have it installed.
+The configuration files will be stored at the same location, so u need
 to have access to that directory.
 
 

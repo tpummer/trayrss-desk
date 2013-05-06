@@ -155,7 +155,6 @@ public class NewsEntity
      * 
      * @param summand - the additional count
      */
-    // TODO test case
     public void increaseReadCount( long summand ) {
 
         this.setReadCount( this.getReadCount() + summand );

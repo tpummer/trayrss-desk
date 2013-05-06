@@ -18,6 +18,19 @@
  * Updated Function
  - Removed Function
  
+ Changes in 1.4.0
+* 0000165: [gui] The popup is to small to show the text of the buttons (Thomas Pummer) - closed.
+* 0000164: [configuration] Restore configurable datasource configuration from 0000069 (Thomas Pummer) - closed.
++ 0000160: [data access] Change persistence to h2database (Thomas Pummer) - closed.
++ 0000161: [data access] get 50% test coverage in the persistence layer (Thomas Pummer) - closed.
++ 0000162: [data access] Clean dependencies: remove all database objects from non-db modules (Thomas Pummer) - closed.
++ 0000157: [data access] DI in persistence layer (Thomas Pummer) - closed.
++ 0000163: [data access] Persistence Layer should use beans (Thomas Pummer) - closed.
++ 0000159: [data access] the persistence layer should be stoped during the destruction phase (Thomas Pummer) - closed.
++ 0000158: [data access] the persistence layer should be initialized during the construction phase (Thomas Pummer) - closed.
++ 0000156: [planning] Make Jenkins Java 7 ready (Thomas Pummer) - closed.
++ 0000149: [configuration] Java 5 is outdated use Java 7 (Thomas Pummer) - closed.
+ 
 Changes in 1.3.0
 + #69 Let the user choose a save destination for the database 
 + #152-155 Moved Userdata to a new user directory
