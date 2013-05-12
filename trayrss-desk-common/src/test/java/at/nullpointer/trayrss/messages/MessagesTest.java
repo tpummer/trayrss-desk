@@ -53,7 +53,7 @@ public class MessagesTest {
 
         try {
             Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
-        } catch ( Exception e ) { // NOPMD
+        } catch ( Exception e ) { 
             Assert.fail( "Register Message Resolver failed: " + e.getMessage() );
         }
     }

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<ruleset name="TrayRSS ruleset"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+  <description>
+  This ruleset was adopted to the needs of TrayRSS
+  </description>
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/basic.html -->
+  <rule ref="rulesets/java/basic.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/braces.html -->
+  <rule ref="rulesets/java/braces.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/clone.html -->
+  <rule ref="rulesets/java/clone.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/codesize.html -->
+  <rule ref="rulesets/java/codesize.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/comments.html -->
+  <rule ref="rulesets/java/comments.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/controversial.html -->
+  <rule ref="rulesets/java/controversial.xml">
+	<exclude name="AtLeastOneConstructor"/>
+	<exclude name="AvoidFinalLocalVariable"/>
+	<exclude name="DataflowAnomalyAnalysis"/>
+  </rule>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/coupling.html -->
+  <rule ref="rulesets/java/coupling.xml">
+	<exclude name="LawOfDemeter"/>
+  </rule>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/design.html -->
+  <rule ref="rulesets/java/design.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/empty.html -->
+  <rule ref="rulesets/java/empty.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/finalizers.html -->
+  <rule ref="rulesets/java/finalizers.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/imports.html -->
+  <rule ref="rulesets/java/imports.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/j2ee.html -->
+  <rule ref="rulesets/java/j2ee.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/javabeans.html -->
+  <rule ref="rulesets/java/javabeans.xml">
+	<exclude name="BeanMembersShouldSerialize"/>
+  </rule>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/logging-jakarta-commons.html -->
+  <rule ref="rulesets/java/logging-jakarta-commons.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/logging-java.html -->
+  <rule ref="rulesets/java/logging-java.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/naming.html -->
+  <rule ref="rulesets/java/naming.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/optimizations.html -->
+  <rule ref="rulesets/java/optimizations.xml">
+	<exclude name="LocalVariableCouldBeFinal"/>
+  </rule>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/strictexception.html -->
+  <rule ref="rulesets/java/strictexception.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/strings.html -->
+  <rule ref="rulesets/java/strings.xml"/>
+  <rule ref="rulesets/java/codesize.xml/AvoidDuplicateLiterals">
+    <properties>
+        <property name="skipAnnotations" value="true"/>
+    </properties>
+  </rule>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/sunsecure.html -->
+  <rule ref="rulesets/java/sunsecure.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/typeresolution.html -->
+  <rule ref="rulesets/java/typeresolution.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/unnecessary.html -->
+  <rule ref="rulesets/java/unnecessary.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/unusedcode.html -->
+  <rule ref="rulesets/java/unusedcode.xml"/>
+  
+  <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/xml/basic.html -->
+  <rule ref="rulesets/xml/basic.xml"/>
+
+  
+</ruleset>
