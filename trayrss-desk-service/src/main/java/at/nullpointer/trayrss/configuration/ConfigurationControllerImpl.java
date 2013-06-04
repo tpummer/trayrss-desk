@@ -215,15 +215,15 @@ public class ConfigurationControllerImpl
 
         log.debug( "Startup: started loading properties file" );
 
-        Properties props = null;
+        Properties properties = null;
 
         InputStream reader = null;
         try {
 
             reader = new FileInputStream( ConfigurationConstants.CONFIG_USER );
 
-            props = new Properties();
-            props.loadFromXML( reader );
+            properties = new Properties();
+            properties.loadFromXML( reader );
 
         } catch ( FileNotFoundException e ) {
             String errorMsg = Messages.getMessageResolver( Messages.ERROR ).getString(
@@ -236,16 +236,19 @@ public class ConfigurationControllerImpl
         } catch ( IOException e ) {
             e.printStackTrace();
         } finally {
-            try {
-                reader.close();
-            } catch ( Exception e ) {
-                log.error( "Error closing RSS Stream." );
+            if ( reader != null ) {
+                try {
+                    reader.close();
+                } catch ( IOException e ) {
+                    log.error( "Error closing RSS Stream." );
+                }
             }
+
         }
 
         log.debug( "Startup: finished reading property file" );
 
-        return props;
+        return properties;
     }
 
 

@@ -51,11 +51,11 @@ public class MessagesTest {
     @Test( groups = { "unit" } )
     public void testRegisterMessageResolver() {
 
-        try {
-            Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
-        } catch ( Exception e ) { 
-            Assert.fail( "Register Message Resolver failed: " + e.getMessage() );
-        }
+        Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
+
+        Assert.assertEquals( Messages.getMessageResolver( Messages.CONFIG ), messageResolver,
+                "Register Message Resolver failed: " );
+
     }
 
 
