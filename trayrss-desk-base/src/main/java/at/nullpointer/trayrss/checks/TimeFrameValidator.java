@@ -14,44 +14,95 @@
  */
 package at.nullpointer.trayrss.checks;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class TimeFrameValidator {
+/**
+ * Validation of Time Frames
+ * 
+ * @author Thomas Pummer
+ * 
+ * @since 1.1
+ * 
+ */
+public final class TimeFrameValidator {
 
+    /**
+     * Start index of minutes in a TimeFrame String
+     */
+    private static final int MIN_POS_START = 2;
+    /**
+     * End index of minutes in a TimeFrame String
+     */
+    private static final int MIN_POS_END = 4;
+
+    /**
+     * Start index of hours in a TimeFrame String
+     */
+    private static final int HOUR_POS_START = 0;
+    /**
+     * End index of hours in a TimeFrame String
+     */
+    private static final int HOUR_POS_END = 2;
+
+
+    private TimeFrameValidator() {
+
+    }
+
+
+    /**
+     * Checks a String if it contains valid time frames.
+     * 
+     * @param input
+     * @return
+     */
     public static boolean checkTimeFrames( String input ) {
 
         // Splitten
-        String[] splitted = input.trim().split( " " );
+        String[] splitted = seperateTimeFrames( input );
+
+        boolean result = true;
 
         for ( String timeframe : splitted ) {
-            String[] time = timeframe.split( "-" );
-            if ( time.length != 2 ) {
-                return false;
-            }
-            if ( !CheckLib.checkLong( time[ 0 ] ) || !CheckLib.checkLong( time[ 1 ] ) ) {
-                return false;
-            }
-            if ( !checkTime( time[ 0 ] ) || !checkTime( time[ 1 ] ) ) {
-                return false;
-            }
+            String[] time = seperateStartAndBegin( timeframe );
+
+            result = result && time.length == 2;
+            result = result && CheckLib.checkLong( time[ 0 ] ) && CheckLib.checkLong( time[ 1 ] );
+            result = result && checkTime( time[ 0 ] ) && checkTime( time[ 1 ] );
+
         }
-        return true;
+        return result;
+    }
+
+
+    private static String[] seperateStartAndBegin( String timeframe ) {
+
+        return timeframe.split( "-" );
+    }
+
+
+    private static String[] seperateTimeFrames( String input ) {
+
+        return input.trim().split( " " );
     }
 
 
     private static boolean checkTime( String input ) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat( "HHmm" );
+        boolean result = true;
+
+        DateFormat sdf = new SimpleDateFormat( "HHmm" );
         try {
             sdf.parse( input );
         } catch ( ParseException e ) {
-            return false;
+            result = false;
         }
-        int hour = Integer.parseInt( input.substring( 0, 2 ) );
-        int min = Integer.parseInt( input.substring( 2, 4 ) );
+        int hour = Integer.parseInt( input.substring( HOUR_POS_START, HOUR_POS_END ) );
+        int min = Integer.parseInt( input.substring( MIN_POS_START, MIN_POS_END ) );
 
-        return !( hour < 0 || hour > 24 || min < 0 || min > 60 );
+        return result && !( hour < 0 || hour > 24 || min < 0 || min > 60 );
     }
 
 }
