@@ -44,26 +44,30 @@ public final class FeedTableValidator {
      */
     public static boolean checkUrl( String url ) {
 
-        URL test;
+        boolean result = true;
+
+        URL test = null;
 
         try {
             test = new URL( url );
         } catch ( MalformedURLException e ) {
-            return false;
+            result = false;
         }
 
-        SyndFeedInput input = new SyndFeedInput();
-        try {
-            input.build( new XmlReader( test ) );
-        } catch ( IllegalArgumentException e ) {
-            return false;
-        } catch ( FeedException e ) {
-            return false;
-        } catch ( IOException e ) {
-            return false;
+        if ( result ) {
+            SyndFeedInput input = new SyndFeedInput();
+            try {
+                input.build( new XmlReader( test ) );
+            } catch ( IllegalArgumentException e ) {
+                result = false;
+            } catch ( FeedException e ) {
+                result = false;
+            } catch ( IOException e ) {
+                result = false;
+            }
         }
 
-        return true;
+        return result;
     }
 
 
