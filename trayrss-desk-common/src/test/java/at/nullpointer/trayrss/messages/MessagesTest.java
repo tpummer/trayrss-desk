@@ -41,7 +41,7 @@ public class MessagesTest {
     @BeforeTest
     public void setUp() {
 
-        messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
+        this.messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
     }
 
 
@@ -51,9 +51,9 @@ public class MessagesTest {
     @Test( groups = { "unit" } )
     public void testRegisterMessageResolver() {
 
-        Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
+        Messages.registerMessageResolver( Messages.CONFIG, this.messageResolver );
 
-        Assert.assertEquals( Messages.getMessageResolver( Messages.CONFIG ), messageResolver,
+        Assert.assertEquals( Messages.getMessageResolver( Messages.CONFIG ), this.messageResolver,
                 "Register Message Resolver failed: " );
 
     }
@@ -65,9 +65,9 @@ public class MessagesTest {
     @Test( groups = { "unit" } )
     public void testGetMessageResolver() {
 
-        Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
+        Messages.registerMessageResolver( Messages.CONFIG, this.messageResolver );
         final MessageResolver mrresolved = Messages.getMessageResolver( Messages.CONFIG );
-        Assert.assertEquals( mrresolved, messageResolver, "Try to get messageResolver that was registerd first." );
+        Assert.assertEquals( mrresolved, this.messageResolver, "Try to get messageResolver that was registerd first." );
 
     }
 
@@ -78,7 +78,7 @@ public class MessagesTest {
     @Test( groups = { "unit" } )
     public void testSetLanguage() {
 
-        Messages.registerMessageResolver( Messages.CONFIG, messageResolver );
+        Messages.registerMessageResolver( Messages.CONFIG, this.messageResolver );
         Messages.setLanguage( Locale.GERMANY.getLanguage() );
         final MessageResolver retrievedMessageResollver = Messages.getMessageResolver( Messages.CONFIG );
         final String erg = retrievedMessageResollver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
