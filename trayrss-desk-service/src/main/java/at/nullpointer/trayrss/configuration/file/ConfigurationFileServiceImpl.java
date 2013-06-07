@@ -15,10 +15,12 @@
 package at.nullpointer.trayrss.configuration.file;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 import org.apache.log4j.Logger;
 
@@ -72,21 +74,20 @@ public class ConfigurationFileServiceImpl
 
         LOG.debug( "Start to Copy the config File into the User directory" );
 
-        final File defaultConfigFile = new File( ConfigurationConstants.CONFIG_STANDARD );
-        final File userConfigFile = new File( ConfigurationConstants.CONFIG_USER );
-
-        FileReader defaultFileReader;
-        FileWriter userFileWriter;
+        InputStreamReader defaultStreamReader;
+        OutputStreamWriter userStreamWriter;
         try {
-            defaultFileReader = new FileReader( defaultConfigFile );
-            userFileWriter = new FileWriter( userConfigFile );
+            defaultStreamReader = new InputStreamReader( new FileInputStream( ConfigurationConstants.CONFIG_STANDARD ),
+                    "UTF-8" );
+            userStreamWriter = new OutputStreamWriter( new FileOutputStream( ConfigurationConstants.CONFIG_USER ),
+                    "UTF-8" );
             int character;
 
-            while ( ( character = defaultFileReader.read() ) != -1 )
-                userFileWriter.write( character );
+            while ( ( character = defaultStreamReader.read() ) != -1 )
+                userStreamWriter.write( character );
 
-            defaultFileReader.close();
-            userFileWriter.close();
+            defaultStreamReader.close();
+            userStreamWriter.close();
         } catch ( FileNotFoundException e ) {
             LOG.error( "Standard configuration not found!" );
             LOG.error( e.getMessage() );

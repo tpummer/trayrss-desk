@@ -39,7 +39,7 @@ public class Messages {
     public static final String NOTIFICATION = "notification";
     public static final String GUI = "gui";
 
-    public static Map<String, MessageResolver> messageResolverMap = new HashMap<String, MessageResolver>();
+    private static Map<String, MessageResolver> messageResolverMap = new HashMap<String, MessageResolver>();
 
 
     public static void registerMessageResolver( String name, MessageResolver messageResolver ) {

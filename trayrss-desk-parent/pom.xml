@@ -22,6 +22,25 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<includeFilterFile>../qs/TRAYRSS_FindBugs_Filter.xml</includeFilterFile>
+					<effort>Max</effort>
+					<threshold>High</threshold>
+					<failOnError>true</failOnError>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+		    </plugin>
 		</plugins>
 	</build>
 	<dependencyManagement>

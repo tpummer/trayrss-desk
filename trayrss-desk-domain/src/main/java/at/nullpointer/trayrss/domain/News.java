@@ -54,6 +54,6 @@ public class News {
     /**
      * Read Count
      */
-    private Long readCount = new Long( 0 );
+    private Long readCount = Long.valueOf( 0L );
 
 }
