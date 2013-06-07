@@ -28,7 +28,10 @@ import at.nullpointer.trayrss.monitor.Monitor;
 public class TrayMenuActionListener
         implements ActionListener {
 
-    private Logger log = Logger.getLogger( TrayIconActionListener.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( TrayIconActionListener.class );
 
     private TrayIcon trayIcon;
 

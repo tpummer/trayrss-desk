@@ -51,7 +51,10 @@ import com.sun.syndication.io.XmlReader;
 public class FeedReaderThread
         implements Runnable {
 
-    private Logger log = Logger.getLogger( FeedReaderThread.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( FeedReaderThread.class );
 
     private Feed feedInfo = null;
     @Getter
@@ -114,11 +117,11 @@ public class FeedReaderThread
                         if ( test != null && test.equals( news ) ) {
                             news = test;
                             newsService.increaseReadCount( news, 1 );
-                            log.debug( "Feed " + getFeedUrl() + ": News Eintrag " + news.getTitle() + " von "
+                            LOG.debug( "Feed " + getFeedUrl() + ": News Eintrag " + news.getTitle() + " von "
                                     + node.getUri() + " wurden aktualisiert!" );
                         } else {
 
-                            log.debug( "Feed " + getFeedUrl() + ": Neuer Newseintrag " + news.getTitle() + " von "
+                            LOG.debug( "Feed " + getFeedUrl() + ": Neuer Newseintrag " + news.getTitle() + " von "
                                     + node.getUri() );
                         }
 
@@ -133,11 +136,11 @@ public class FeedReaderThread
 
                 ok = true;
                 if ( !ok ) {
-                    log.debug( "FeedReader reads and prints any RSS/Atom feed type." );
-                    log.debug( "The first parameter must be the URL of the feed to read." );
+                    LOG.debug( "FeedReader reads and prints any RSS/Atom feed type." );
+                    LOG.debug( "The first parameter must be the URL of the feed to read." );
                 }
             } else {
-                log.debug( "Not within an allowded Time!" );
+                LOG.debug( "Not within an allowded Time!" );
             }
 
             deleteOldNews();
@@ -145,7 +148,7 @@ public class FeedReaderThread
             try {
                 Thread.sleep( feedInfo.getIntervall() * 1000 * 60 );
             } catch ( InterruptedException e ) {
-                log.debug( "FeedReaderThread interrupted!" );
+                LOG.debug( "FeedReaderThread interrupted!" );
             }
         }
     }
@@ -192,7 +195,7 @@ public class FeedReaderThread
             Calendar calendar = Calendar.getInstance();
             calendar.setTime( publishedDate );
             calendar.set( Calendar.MILLISECOND, 0 );
-            log.debug( "Set time " + publishedDate + " to " + calendar.getTime() );
+            LOG.debug( "Set time " + publishedDate + " to " + calendar.getTime() );
             return calendar.getTime();
         } else {
             return publishedDate;

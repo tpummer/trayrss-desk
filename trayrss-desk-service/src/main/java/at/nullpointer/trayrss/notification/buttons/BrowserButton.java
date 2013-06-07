@@ -38,7 +38,10 @@ public class BrowserButton
 
     private static final String ERROR_BUTTON_URI = "error.button.notification_read_error_uri";
 
-    private Logger log = Logger.getLogger( BrowserButton.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( BrowserButton.class );
 
     private JNotificationPopup popup;
     private PopupManager manager;
@@ -73,18 +76,18 @@ public class BrowserButton
         URI uri = null;
 
         if ( newsUrl == null ) {
-            log.error( "Pressing [Read] Button but the url is empty!" );
+            LOG.error( "Pressing [Read] Button but the url is empty!" );
         } else {
 
             try {
                 uri = new URI( newsUrl );
-                log.debug( "Pressing [Read] Button at uri: " + uri );
+                LOG.debug( "Pressing [Read] Button at uri: " + uri );
                 if ( Desktop.getDesktop() == null ) {
-                    log.warn( "Pressing [Read] Button, Desktop not found!" );
+                    LOG.warn( "Pressing [Read] Button, Desktop not found!" );
                 }
                 try {
                     Desktop.getDesktop().browse( uri );
-                    log.debug( "Pressing [Read] Button, uri should be open now." );
+                    LOG.debug( "Pressing [Read] Button, uri should be open now." );
                 } catch ( IOException e2 ) {
                     JOptionPane.showMessageDialog(
                             null,
@@ -92,8 +95,8 @@ public class BrowserButton
                                     "Error reading Feed" ),
                             Messages.getMessageResolver( Messages.ERROR ).getString( ERROR_BUTTON_URI,
                                     "Error reading Feed" ), JOptionPane.ERROR_MESSAGE );
-                    log.debug( "Pressing [Read] Button IOException" );
-                    log.error( e2.getMessage() );
+                    LOG.debug( "Pressing [Read] Button IOException" );
+                    LOG.error( e2.getMessage() );
                     e2.printStackTrace();
                 }
 
@@ -114,8 +117,8 @@ public class BrowserButton
                                 .getString( ERROR_BUTTON_URI, "Error reading Feed" ),
                         Messages.getMessageResolver( Messages.ERROR )
                                 .getString( ERROR_BUTTON_URI, "Error reading Feed" ), JOptionPane.ERROR_MESSAGE );
-                log.debug( "Pressing [Read] Button URISyntaxException" );
-                log.error( e1.getMessage() );
+                LOG.debug( "Pressing [Read] Button URISyntaxException" );
+                LOG.error( e1.getMessage() );
                 e1.printStackTrace();
             }
 

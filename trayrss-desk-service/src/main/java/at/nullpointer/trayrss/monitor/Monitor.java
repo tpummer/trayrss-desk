@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.hibernate.PropertyNotFoundException;
 
 import at.nullpointer.trayrss.configuration.ChangeListener;
@@ -29,8 +30,13 @@ import at.nullpointer.trayrss.domain.Feed;
 import at.nullpointer.trayrss.notification.TrayNotifier;
 import at.nullpointer.trayrss.persistence.FeedRepository;
 
-public class Monitor
+public final class Monitor
         implements ChangeListener {
+
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( Monitor.class );
 
     private static Monitor instance;
 
@@ -93,7 +99,7 @@ public class Monitor
                                               // tasks
                 // Wait a while for tasks to respond to being cancelled
                 if ( !threadExecutor.awaitTermination( seconds, TimeUnit.SECONDS ) )
-                    System.err.println( "Pool did not terminate" );
+                    LOG.error( "Pool did not terminate" );
             }
         } catch ( InterruptedException ie ) {
             // (Re-)Cancel if current thread also interrupted

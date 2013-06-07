@@ -213,8 +213,8 @@ public class TrayRssConfigWindow {
         pnlTimeFrame.setLayout( new FlowLayout( FlowLayout.CENTER, 5, 5 ) );
 
         JPanel pnlTimeFrameActive = new JPanel();
-        FlowLayout fl_pnlTimeFrameActive = (FlowLayout)pnlTimeFrameActive.getLayout();
-        fl_pnlTimeFrameActive.setAlignment( FlowLayout.LEFT );
+        FlowLayout flPnlTimeFrameActive = (FlowLayout)pnlTimeFrameActive.getLayout();
+        flPnlTimeFrameActive.setAlignment( FlowLayout.LEFT );
         pnlTimeFrame.add( pnlTimeFrameActive );
 
         chckbxActivateTimeframes = new JCheckBox( Messages.getMessageResolver( Messages.CONFIG ).getString(
@@ -489,7 +489,7 @@ public class TrayRssConfigWindow {
     }
 
 
-    public void setTimeEnabled( boolean b ) {
+    public final void setTimeEnabled( boolean b ) {
 
         this.chckbxMonday.setEnabled( b );
         this.chckbxTuesday.setEnabled( b );

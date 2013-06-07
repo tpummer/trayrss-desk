@@ -18,7 +18,10 @@ import org.apache.log4j.Logger;
 
 public class Shutdown {
 
-    private Logger log = Logger.getLogger( Shutdown.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( Shutdown.class );
 
 
     public Shutdown() {
@@ -34,12 +37,12 @@ public class Shutdown {
 
     public void now() {
 
-        log.info( "Shutdown initiated!" );
+        LOG.info( "Shutdown initiated!" );
         // ReferenceCollection.MONITOR_THREAD.interrupt();
 
         // ( (ConfigurableApplicationContext)ReferenceCollection.context ).close();
 
-        log.info( "Shutdown completed!" );
+        LOG.info( "Shutdown completed!" );
     }
 
 }

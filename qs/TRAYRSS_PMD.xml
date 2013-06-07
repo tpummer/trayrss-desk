@@ -72,7 +72,7 @@
   
   <!-- http://pmd.sourceforge.net/pmd-5.0.4/rules/java/strings.html -->
   <rule ref="rulesets/java/strings.xml"/>
-  <rule ref="rulesets/java/codesize.xml/AvoidDuplicateLiterals">
+  <rule ref="rulesets/java/strings.xml/AvoidDuplicateLiterals">
     <properties>
         <property name="skipAnnotations" value="true"/>
     </properties>

@@ -79,7 +79,7 @@ public final class TrayRSS {
             if ( args[ 0 ].equals( "-debug" ) ) {
                 Logger.getRootLogger().setLevel( Level.DEBUG );
             } else {
-                System.out.println( "You may start the program within the "
+                System.out.println( "You may start the program within the " // NOPMD
                         + "debug mode by using -debug as parameter." );
             }
         }

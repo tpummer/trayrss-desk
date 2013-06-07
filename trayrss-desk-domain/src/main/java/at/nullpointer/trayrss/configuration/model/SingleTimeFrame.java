@@ -21,7 +21,10 @@ import org.apache.log4j.Logger;
 
 public class SingleTimeFrame {
 
-    private Logger log = Logger.getLogger( SingleTimeFrame.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( SingleTimeFrame.class );
 
     int startHour, startMin, endHour, endMin;
 
@@ -34,7 +37,7 @@ public class SingleTimeFrame {
             sdf.parse( split[ 0 ] );
             sdf.parse( split[ 1 ] );
         } catch ( ParseException e ) {
-            log.error( "Error parsing Timeframes on Check" );
+            LOG.error( "Error parsing Timeframes on Check" );
         }
         startHour = Integer.parseInt( split[ 0 ].substring( 0, 2 ) );
         startMin = Integer.parseInt( split[ 0 ].substring( 2, 4 ) );

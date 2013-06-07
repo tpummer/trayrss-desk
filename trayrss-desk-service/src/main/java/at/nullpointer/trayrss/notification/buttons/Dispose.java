@@ -29,7 +29,10 @@ import de.jutzig.jnotification.PopupManager;
 public class Dispose
         implements ActionListener {
 
-    private Logger log = Logger.getLogger( Dispose.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( Dispose.class );
 
     private JNotificationPopup popup;
     private PopupManager manager;

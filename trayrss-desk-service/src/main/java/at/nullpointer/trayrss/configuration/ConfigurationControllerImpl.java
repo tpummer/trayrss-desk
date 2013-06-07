@@ -41,14 +41,17 @@ import at.nullpointer.trayrss.persistence.FeedRepository;
  * @author Thomas Pummer
  * 
  */
-public class ConfigurationControllerImpl
+public final class ConfigurationControllerImpl
         implements ConfigurationController {
 
     private Set<ErrorListener> errorListeners;
 
     private Set<ChangeListener> changeListener = new HashSet<ChangeListener>();
 
-    Logger log = Logger.getLogger( ConfigurationControllerImpl.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( ConfigurationControllerImpl.class );
 
     private static ConfigurationControllerImpl instance;
 
@@ -169,12 +172,12 @@ public class ConfigurationControllerImpl
      */
     public synchronized void load() {
 
-        log.debug( "Load configuration properties" );
+        LOG.debug( "Load configuration properties" );
 
         this.props = loadProps();
         this.configModel = loadInitialProperties( this.props );
 
-        log.debug( "Configuration properties loaded" );
+        LOG.debug( "Configuration properties loaded" );
 
     }
 
@@ -213,7 +216,7 @@ public class ConfigurationControllerImpl
      */
     private synchronized Properties loadProps() {
 
-        log.debug( "Startup: started loading properties file" );
+        LOG.debug( "Startup: started loading properties file" );
 
         Properties properties = null;
 
@@ -231,7 +234,7 @@ public class ConfigurationControllerImpl
                     "No config file found! - " + "\n Please reinstall the application!" );
             for ( ErrorListener listener : errorListeners )
                 listener.addError( "Configuration", errorMsg );
-            log.error( errorMsg );
+            LOG.error( errorMsg );
             System.exit( 0 );
         } catch ( IOException e ) {
             e.printStackTrace();
@@ -240,13 +243,13 @@ public class ConfigurationControllerImpl
                 try {
                     reader.close();
                 } catch ( IOException e ) {
-                    log.error( "Error closing RSS Stream." );
+                    LOG.error( "Error closing RSS Stream." );
                 }
             }
 
         }
 
-        log.debug( "Startup: finished reading property file" );
+        LOG.debug( "Startup: finished reading property file" );
 
         return properties;
     }
@@ -254,7 +257,7 @@ public class ConfigurationControllerImpl
 
     private synchronized ConfigurationModel loadInitialProperties( Properties props ) {
 
-        log.debug( "Startup: loading Propertys" );
+        LOG.debug( "Startup: loading Propertys" );
 
         ConfigurationModel configModel = new ConfigurationModel();
 
@@ -296,7 +299,7 @@ public class ConfigurationControllerImpl
             configModel.setVacationEnd( date );
         }
 
-        log.debug( "Startup: Finished loading properties" );
+        LOG.debug( "Startup: Finished loading properties" );
 
         return configModel;
 
@@ -342,12 +345,12 @@ public class ConfigurationControllerImpl
      */
     public void loadFeeds() {
 
-        log.debug( "Load Feed Data" );
+        LOG.debug( "Load Feed Data" );
 
         FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
         configModel.setFeeds( new HashSet<Feed>( feedRepository.retrieveFeeds() ) );
 
-        log.debug( "Load Feed Data finished" );
+        LOG.debug( "Load Feed Data finished" );
 
     }
 

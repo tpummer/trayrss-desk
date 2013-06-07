@@ -26,7 +26,7 @@ public class MessageLanguageSwitcher
 
 
     @Override
-    public void notifyChange() {
+    public final void notifyChange() {
 
         Messages.setLanguage( ConfigurationControllerImpl.getInstance().getConfigurationModel().getLanguage()
                 .getShortcut() );

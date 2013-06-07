@@ -35,7 +35,10 @@ import at.nullpointer.trayrss.configuration.validators.SingleTimeFrameValidator;
 public class TimeValidationImpl
         implements TimeValidation {
 
-    private static Logger log = Logger.getLogger( TimeValidationImpl.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( TimeValidationImpl.class );
 
 
     /**
@@ -48,7 +51,7 @@ public class TimeValidationImpl
         // Checking wanted?
         boolean allowed = configModel.getIsTimeFrameActivated();
 
-        log.debug( "User wants to restrict the time: " + allowed );
+        LOG.debug( "User wants to restrict the time: " + allowed );
 
         // Stop check if time restrictions are not enabled
         if ( !allowed )
@@ -58,7 +61,7 @@ public class TimeValidationImpl
             // Time Check
             allowed = allowed && isWithinTimeFrames( now, configModel.getTimeFrames() );
 
-            log.debug( "Allowed after Timeframecheck: " + allowed );
+            LOG.debug( "Allowed after Timeframecheck: " + allowed );
 
             // Weekday check
             allowed = allowed
@@ -67,12 +70,12 @@ public class TimeValidationImpl
                             configModel.getIsFridayEnabled(), configModel.getIsSaturdayEnabled(),
                             configModel.getIsSundayEnabled() );
 
-            log.debug( "Allowed after Weekcheck: " + allowed );
+            LOG.debug( "Allowed after Weekcheck: " + allowed );
 
             // Vacation Check
             allowed = allowed && isNotAtVacation( now, configModel.getVacationStart(), configModel.getVacationEnd() );
 
-            log.debug( "Allowed after Vacationcheck: " + allowed );
+            LOG.debug( "Allowed after Vacationcheck: " + allowed );
         }
 
         return allowed;

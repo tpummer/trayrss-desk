@@ -20,6 +20,9 @@ import java.awt.TrayIcon;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.log4j.Logger;
+
 import at.nullpointer.trayrss.monitor.IconChanger;
 
 /**
@@ -29,6 +32,11 @@ import at.nullpointer.trayrss.monitor.IconChanger;
  * 
  */
 public class TrayIconPOJO {
+
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( TrayIconPOJO.class );
 
     /**
      * TrayIcon
@@ -55,13 +63,14 @@ public class TrayIconPOJO {
             try {
                 tray.add( trayIcon );
             } catch ( AWTException e ) {
-                System.err.println( "TrayIcon could not be added." );
+                LOG.error( "TrayIcon could not be added." );
             }
         }
 
         else {
-            System.err.println( "Systray not supported!" );
-            System.exit( 1 );
+            LOG.error( "Systray not supported!" );
+            System.err.println( "Systray not supported!" );// NOPMD
+            System.exit( 1 );// NOPMD
         }
     }
 

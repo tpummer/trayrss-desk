@@ -29,7 +29,10 @@ import de.jutzig.jnotification.PopupManager;
 public class Later
         implements ActionListener {
 
-    private Logger log = Logger.getLogger( Later.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( Later.class );
 
     JNotificationPopup popup;
     PopupManager manager;

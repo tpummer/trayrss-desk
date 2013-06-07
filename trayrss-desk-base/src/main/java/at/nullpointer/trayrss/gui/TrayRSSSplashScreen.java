@@ -28,7 +28,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class TrayRSSSplashScreen {
 
-    private Logger log = Logger.getLogger( TrayRSSSplashScreen.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( TrayRSSSplashScreen.class );
 
     private SplashScreen splash;
     private long start;
@@ -46,8 +49,8 @@ public class TrayRSSSplashScreen {
         try {
             this.splash = SplashScreen.getSplashScreen();
         } catch ( NullPointerException e ) {
-            log.warn( "No splash screen found!" );
-            log.debug( "at TrayRSSSplashScreen#TrayRSSSplashScreen()" );
+            LOG.warn( "No splash screen found!" );
+            LOG.debug( "at TrayRSSSplashScreen#TrayRSSSplashScreen()" );
         }
 
         this.start = System.currentTimeMillis();
@@ -67,11 +70,11 @@ public class TrayRSSSplashScreen {
         try {
             show( time > 0 ? time : 0 );
             close();
-            log.debug( "Startup time: " + diff + " Milliseconds" );
-            log.debug( "Splash shown for " + seconds + " Seconds" );
+            LOG.debug( "Startup time: " + diff + " Milliseconds" );
+            LOG.debug( "Splash shown for " + seconds + " Seconds" );
         } catch ( NullPointerException e ) {
-            log.warn( "No splash screen found!" );
-            log.debug( "at TrayRSSSplashScreen#endSplashAfterDisplaytime" );
+            LOG.warn( "No splash screen found!" );
+            LOG.debug( "at TrayRSSSplashScreen#endSplashAfterDisplaytime" );
         }
     }
 
@@ -89,7 +92,7 @@ public class TrayRSSSplashScreen {
             try {
                 Thread.sleep( milliseconds );
             } catch ( InterruptedException e ) {
-                log.debug( "Splash screen not paused!" );
+                LOG.debug( "Splash screen not paused!" );
             }
         }
     }
@@ -101,7 +104,7 @@ public class TrayRSSSplashScreen {
         if ( splash.isVisible() )
             splash.close();
         else
-            log.debug( "No splash screen found to close!" );
+            LOG.debug( "No splash screen found to close!" );
     }
 
 }

@@ -28,7 +28,10 @@ import org.apache.log4j.Logger;
  */
 public class Messages {
 
-    private static Logger log = Logger.getLogger( Messages.class );
+    /**
+     * Logger
+     */
+    private static final Logger LOG = Logger.getLogger( Messages.class );
 
     private static final String MESSAGES_ERRORMESSAGES = "at.nullpointer.trayrss.messages.errormessages";
     private static final String MESSAGES_CONFIGURATIONMESSAGES = "at.nullpointer.trayrss.messages.configurationmessages";
@@ -56,7 +59,7 @@ public class Messages {
 
     public static void setLanguage( String language ) {
 
-        log.debug( "changing language to: " + language );
+        LOG.debug( "changing language to: " + language );
         for ( String key : messageResolverMap.keySet() ) {
             MessageResolver mr = messageResolverMap.get( key );
             mr.chanceLocale( new Locale( language ) );
