@@ -35,8 +35,8 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>findbugs-check</id>
 						<phase>test</phase>
+						<id>findbugs-check</id>
 						<goals>
 							<goal>check</goal>
 						</goals>
@@ -65,6 +65,28 @@
 						<goals>
 							<goal>check</goal>
 							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<configLocation>../qs/TRAYRSS_Checkstyle.xml</configLocation>
+					<consoleOutput>true></consoleOutput>
+					<failOnViolation>true</failOnViolation>
+					<failOnError>false</failOnError>
+					<violationSeverity>error</violationSeverity>
+					<!-- header file location headerLocation -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle-check</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
 						</goals>
 					</execution>
 				</executions>
