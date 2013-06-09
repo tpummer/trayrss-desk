@@ -17,19 +17,61 @@ package at.nullpointer.trayrss.configuration.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import lombok.Data;
+
 import org.apache.log4j.Logger;
 
+/**
+ * Representation of a TimeFrame
+ * 
+ * @author Thomas Pummer
+ * 
+ */
+@Data
 public class SingleTimeFrame {
+
+    /**
+     * The first number with 2 digits
+     */
+    private static final int FIRST_TWO_DIGIT_NUMBER = 10;
 
     /**
      * Logger
      */
     private static final Logger LOG = Logger.getLogger( SingleTimeFrame.class );
 
-    int startHour, startMin, endHour, endMin;
+    /**
+     * Start Hour of the Timeframe
+     */
+    private int startHour;
+    /**
+     * Start Minute of the Timeframe
+     */
+    private int startMin;
+    /**
+     * TimeFrame ends in this hour
+     */
+    private int endHour;
+    /**
+     * End Minute of the Timeframe
+     */
+    private int endMin;
 
 
-    public SingleTimeFrame( String[] split ) {
+    /**
+     * Default Constructor of {@link SingleTimeFrame}. Checks if each part of the timeframe is a valid Date 'HHmm' and
+     * sets field. returns an IllegalArgumentException if split is null or split is not of size 2
+     * 
+     * @param split
+     */
+    public SingleTimeFrame( final String[] split ) {
+
+        if ( split == null ) {
+            throw new IllegalArgumentException( "Argument split in SingleTimeFrame was null." );
+        }
+        if ( split.length != 2 ) {
+            throw new IllegalArgumentException( "Argument split didn't match the valid size of 2." );
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat( "HHmm" );
 
@@ -38,80 +80,40 @@ public class SingleTimeFrame {
             sdf.parse( split[ 1 ] );
         } catch ( ParseException e ) {
             LOG.error( "Error parsing Timeframes on Check" );
+            throw new IllegalArgumentException( e );
         }
-        startHour = Integer.parseInt( split[ 0 ].substring( 0, 2 ) );
-        startMin = Integer.parseInt( split[ 0 ].substring( 2, 4 ) );
-        endHour = Integer.parseInt( split[ 1 ].substring( 0, 2 ) );
-        endMin = Integer.parseInt( split[ 1 ].substring( 2, 4 ) );
+        this.startHour = Integer.parseInt( split[ 0 ].substring( 0, 2 ) );
+        this.startMin = Integer.parseInt( split[ 0 ].substring( 2, 4 ) );
+        this.endHour = Integer.parseInt( split[ 1 ].substring( 0, 2 ) );
+        this.endMin = Integer.parseInt( split[ 1 ].substring( 2, 4 ) );
     }
 
 
-    public int getStartHour() {
-
-        return startHour;
-    }
-
-
-    public void setStartHour( int startHour ) {
-
-        this.startHour = startHour;
-    }
-
-
-    public int getStartMin() {
-
-        return startMin;
-    }
-
-
-    public void setStartMin( int startMin ) {
-
-        this.startMin = startMin;
-    }
-
-
-    public int getEndHour() {
-
-        return endHour;
-    }
-
-
-    public void setEndHour( int endHour ) {
-
-        this.endHour = endHour;
-    }
-
-
-    public int getEndMin() {
-
-        return endMin;
-    }
-
-
-    public void setEndMin( int endMin ) {
-
-        this.endMin = endMin;
-    }
-
-
+    /**
+     * Prints the SingleTimeFrame in HHmm-HHmm
+     */
     public String toString() {
 
         StringBuilder result = new StringBuilder();
-        if ( startHour < 10 )
+        if ( this.startHour < FIRST_TWO_DIGIT_NUMBER ) {
             result.append( 0 );
-        result.append( startHour );
-        if ( startMin < 10 )
+        }
+        result.append( this.startHour );
+        if ( this.startMin < FIRST_TWO_DIGIT_NUMBER ) {
             result.append( 0 );
-        result.append( startMin );
+        }
+        result.append( this.startMin );
 
-        result.append( "-" );
+        result.append( '-' );
 
-        if ( endHour < 10 )
+        if ( this.endHour < FIRST_TWO_DIGIT_NUMBER ) {
             result.append( 0 );
-        result.append( endHour );
-        if ( endMin < 10 )
+        }
+        result.append( this.endHour );
+        if ( this.endMin < FIRST_TWO_DIGIT_NUMBER ) {
             result.append( 0 );
-        result.append( endMin );
+        }
+        result.append( this.endMin );
 
         return result.toString();
     }

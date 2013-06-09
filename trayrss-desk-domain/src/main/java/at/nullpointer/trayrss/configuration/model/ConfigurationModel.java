@@ -26,6 +26,8 @@ import at.nullpointer.trayrss.domain.Feed;
  * </p>
  * 
  * @author Thomas Pummer
+ * 
+ * @since 1.4
  */
 @Data
 public class ConfigurationModel {
