@@ -18,6 +18,14 @@
  * Updated Function
  - Removed Function
  
+ Changes in 1.5.0
++ 0000170: [planning] Add Code coverage tool to the maven build cylce (Thomas Pummer) - closed.
++ 0000140: [planning] Create PMD rules (Thomas Pummer) - closed.
++ 0000141: [planning] Create Checkstyle rules (Thomas Pummer) - closed.
++ 0000142: [planning] Create Findbugs rules (Thomas Pummer) - closed.
++ 0000143: [planning] Create Formatter rules (Thomas Pummer) - closed.
++ 0000167: [business service] Fix all Checkstyle Errors (Thomas Pummer) - closed.
+ 
  Changes in 1.4.0
 * 0000165: [gui] The popup is to small to show the text of the buttons (Thomas Pummer) - closed.
 * 0000164: [configuration] Restore configurable datasource configuration from 0000069 (Thomas Pummer) - closed.
