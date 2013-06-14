@@ -33,9 +33,23 @@ import at.nullpointer.trayrss.persistence.NewsRepository;
 import de.jutzig.jnotification.JNotificationPopup;
 import de.jutzig.jnotification.PopupManager;
 
+/**
+ * Button to open the feed url
+ * 
+ * @author Thomas Pummer
+ * 
+ */
 public class BrowserButton
         implements ActionListener {
 
+    /**
+     * Standard String for the caption of an error on the cation of the browserbutton
+     */
+    private static final String DEFAULT_MSG_ERROR_READING_FEED = "Error reading Feed";
+
+    /**
+     * key for the caption of an error on the cation of the browserbutton
+     */
     private static final String ERROR_BUTTON_URI = "error.button.notification_read_error_uri";
 
     /**
@@ -43,9 +57,21 @@ public class BrowserButton
      */
     private static final Logger LOG = Logger.getLogger( BrowserButton.class );
 
+    /**
+     * {@link JNotificationPopup} the button references to
+     */
     private JNotificationPopup popup;
+    /**
+     * {@link PopupManager} managing the popup the button references to
+     */
     private PopupManager manager;
+    /**
+     * url of the feed news
+     */
     private String newsUrl;
+    /**
+     * displaycount of the feed item
+     */
     private Integer displayCount;
 
 
@@ -54,11 +80,11 @@ public class BrowserButton
      * 
      * @param popup
      * @param manager
-     * @param url
-     * @param node
+     * @param newsUrl
      * @param displayCount
      */
-    public BrowserButton( Component popup, PopupManager manager, String newsUrl, Integer displayCount ) {
+    public BrowserButton( final Component popup, final PopupManager manager, final String newsUrl,
+            final Integer displayCount ) {
 
         super();
         this.popup = (JNotificationPopup)popup;
@@ -71,59 +97,60 @@ public class BrowserButton
     /**
      * Opens the url of an news entry in the browser
      */
-    public void actionPerformed( ActionEvent e ) {
+    public void actionPerformed( ActionEvent event ) {
 
         URI uri = null;
 
-        if ( newsUrl == null ) {
+        if ( this.newsUrl == null ) {
             LOG.error( "Pressing [Read] Button but the url is empty!" );
         } else {
 
             try {
-                uri = new URI( newsUrl );
+                uri = new URI( this.newsUrl );
                 LOG.debug( "Pressing [Read] Button at uri: " + uri );
-                if ( Desktop.getDesktop() == null ) {
-                    LOG.warn( "Pressing [Read] Button, Desktop not found!" );
+                if ( Desktop.isDesktopSupported() ) {
+                    try {
+                        Desktop.getDesktop().browse( uri );
+                        LOG.debug( "Pressing [Read] Button, uri should be open now." );
+                    } catch ( IOException e ) {
+                        printErrorMessage( e );
+
+                        NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
+                                .getBean( "newsRepository", NewsRepository.class );
+
+                        News test = newsRepository.retrieveNews( this.newsUrl );
+                        test.setReadCount( new Long( this.displayCount ) );
+
+                        newsRepository.saveOrUpdate( test );
+                    }
+                } else {
+                    LOG.error( "Pressing [Read] Button, Desktop not found!" );
+                    printErrorMessage( new UnsupportedOperationException(
+                            "Could not access the desktop on the current plattform" ) );
                 }
-                try {
-                    Desktop.getDesktop().browse( uri );
-                    LOG.debug( "Pressing [Read] Button, uri should be open now." );
-                } catch ( IOException e2 ) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            Messages.getMessageResolver( Messages.ERROR ).getString( ERROR_BUTTON_URI,
-                                    "Error reading Feed" ),
-                            Messages.getMessageResolver( Messages.ERROR ).getString( ERROR_BUTTON_URI,
-                                    "Error reading Feed" ), JOptionPane.ERROR_MESSAGE );
-                    LOG.debug( "Pressing [Read] Button IOException" );
-                    LOG.error( e2.getMessage() );
-                    e2.printStackTrace();
-                }
 
-                NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
-                        .getBean( "newsRepository", NewsRepository.class );
+                this.manager.dequeuePopup( this.popup );
 
-                News test = newsRepository.retrieveNews( newsUrl );
-                test.setReadCount( new Long( this.displayCount ) );
-
-                newsRepository.saveOrUpdate( test );
-
-                manager.dequeuePopup( popup );
-
-            } catch ( URISyntaxException e1 ) {
-                // TODO setting new error concept with new notification
-                JOptionPane.showMessageDialog( null,
-                        Messages.getMessageResolver( Messages.ERROR )
-                                .getString( ERROR_BUTTON_URI, "Error reading Feed" ),
-                        Messages.getMessageResolver( Messages.ERROR )
-                                .getString( ERROR_BUTTON_URI, "Error reading Feed" ), JOptionPane.ERROR_MESSAGE );
-                LOG.debug( "Pressing [Read] Button URISyntaxException" );
-                LOG.error( e1.getMessage() );
-                e1.printStackTrace();
+            } catch ( URISyntaxException e ) {
+                printErrorMessage( e );
             }
 
         }
 
+    }
+
+
+    private void printErrorMessage( Exception e ) {
+
+        JOptionPane.showMessageDialog(
+                null,
+                Messages.getMessageResolver( Messages.ERROR ).getString( ERROR_BUTTON_URI,
+                        DEFAULT_MSG_ERROR_READING_FEED ),
+                Messages.getMessageResolver( Messages.ERROR ).getString( ERROR_BUTTON_URI,
+                        DEFAULT_MSG_ERROR_READING_FEED ), JOptionPane.ERROR_MESSAGE );
+        LOG.debug( "Pressing [Read] Button " + e.getClass().getSimpleName() );
+        LOG.error( e.getMessage() );
+        e.printStackTrace();
     }
 
 }
