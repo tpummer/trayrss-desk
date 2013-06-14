@@ -61,7 +61,8 @@ public final class Monitor
 
         monitoredFeeds = new LinkedList<FeedReaderThread>();
         threadExecutor = Executors.newFixedThreadPool( 20 );
-        feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
+        feedRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "feedRepository", FeedRepository.class );
 
         loadFeeds();
 

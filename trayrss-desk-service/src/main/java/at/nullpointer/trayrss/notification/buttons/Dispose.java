@@ -53,7 +53,8 @@ public class Dispose
     public void actionPerformed( ActionEvent e ) {
 
         manager.dequeuePopup( popup );
-        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository", NewsRepository.class );
+        NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "newsRepository", NewsRepository.class );
         News test = newsRepository.retrieveNews( newsUri );
         test.setReadCount( new Long( this.displayCount ) );
 

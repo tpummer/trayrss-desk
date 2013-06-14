@@ -95,7 +95,8 @@ public class TableModelFactory {
         DefaultTableModel dtm = (DefaultTableModel)model;
         int rowCount = dtm.getRowCount();
 
-        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "feedRepository", FeedRepository.class );
 
         Set<Feed> result = new HashSet<Feed>();
         for ( int row = 0; row < rowCount; row++ ) {

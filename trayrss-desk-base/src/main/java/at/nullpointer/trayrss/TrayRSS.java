@@ -73,7 +73,7 @@ public final class TrayRSS {
     public static void main( final String[] args ) {
 
         final Package trayRssPackage = TrayRSS.class.getPackage();
-        ReferenceCollection.TRAYRSS_APP_TITLE = "TrayRSS " + trayRssPackage.getImplementationVersion();
+        ReferenceCollection.getInstance().setTrayrssAppTitle( "TrayRSS " + trayRssPackage.getImplementationVersion() );
 
         if ( args.length != 0 ) {
             if ( args[ 0 ].equals( "-debug" ) ) {
@@ -84,9 +84,9 @@ public final class TrayRSS {
             }
         }
 
-        ReferenceCollection.context = new ClassPathXmlApplicationContext( "SpringBeans.xml" );
+        ReferenceCollection.getInstance().setContext( new ClassPathXmlApplicationContext( "SpringBeans.xml" ) );
 
-        TrayRSS trayRss = ReferenceCollection.context.getBean( TrayRSS.class );
+        TrayRSS trayRss = ReferenceCollection.getInstance().getContext().getBean( TrayRSS.class );
         trayRss.start( args );
     }
 

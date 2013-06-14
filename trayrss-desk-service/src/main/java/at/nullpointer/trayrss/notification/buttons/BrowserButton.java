@@ -100,8 +100,8 @@ public class BrowserButton
                     e2.printStackTrace();
                 }
 
-                NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository",
-                        NewsRepository.class );
+                NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
+                        .getBean( "newsRepository", NewsRepository.class );
 
                 News test = newsRepository.retrieveNews( newsUrl );
                 test.setReadCount( new Long( this.displayCount ) );

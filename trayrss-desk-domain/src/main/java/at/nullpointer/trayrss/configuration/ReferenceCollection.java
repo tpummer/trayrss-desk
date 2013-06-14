@@ -14,6 +14,11 @@
  */
 package at.nullpointer.trayrss.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * Collection of all references
  * 
@@ -25,10 +30,35 @@ package at.nullpointer.trayrss.configuration;
  */
 public final class ReferenceCollection {
 
+    private static ReferenceCollection instance;
+
+
     /**
-     * Application Title to display
+     * Gives the singleton instance of the ConfigurationController
+     * 
+     * @return
      */
-    public static final String TRAYRSS_APP_TITLE = "";
+    public static synchronized ReferenceCollection getInstance() {
+
+        if ( instance == null ) {
+            instance = new ReferenceCollection();
+        }
+        return instance;
+    }
+
+    /**
+     * Application Title to display TODO
+     */
+    @Setter
+    @Getter
+    private String trayrssAppTitle = "";
+
+    /**
+     * Context TODO
+     */
+    @Setter
+    @Getter
+    private ClassPathXmlApplicationContext context;
 
 
     private ReferenceCollection() {

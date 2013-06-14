@@ -45,7 +45,7 @@ public class Help
         JLabel helpIcon = new JLabel();
         ImageIcon imageIcon = new ImageIcon( Help.class.getResource( ICON_HELP.substring( 1 ) ) ); // load the image to
                                                                                                    // a imageIcon
-        if ( ReferenceCollection.TRAYRSS_APP_TITLE.equals( "TrayRSS null" ) )
+        if ( ReferenceCollection.getInstance().getTrayrssAppTitle().equals( "TrayRSS null" ) )
             imageIcon = new ImageIcon( ICON_HELP );
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance( 120, 120, java.awt.Image.SCALE_SMOOTH ); // scale it the smooth way
@@ -53,8 +53,8 @@ public class Help
         helpIcon.setIcon( imageIcon );
         this.getContentPane().add( helpIcon, BorderLayout.WEST );
 
-        JLabel helpMsg = new JLabel( "<html><center>" + ReferenceCollection.TRAYRSS_APP_TITLE + "<br/>"
-                + "<a href=\"http://trayrss.sourceforge.net\">Trayrss</a>"
+        JLabel helpMsg = new JLabel( "<html><center>" + ReferenceCollection.getInstance().getTrayrssAppTitle()
+                + "<br/>" + "<a href=\"http://trayrss.sourceforge.net\">Trayrss</a>"
                 + "<br/>by Thomas Pummer - thefake@users.sourceforge.net</center></html>" );
         this.getContentPane().add( helpMsg, BorderLayout.CENTER );
 

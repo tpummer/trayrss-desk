@@ -107,9 +107,9 @@ public class FeedReaderThread
 
                         News news = prepareNode( node );
 
-                        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository",
-                                NewsRepository.class );
-                        NewsService newsService = ReferenceCollection.context
+                        NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
+                                .getBean( "newsRepository", NewsRepository.class );
+                        NewsService newsService = ReferenceCollection.getInstance().getContext()
                                 .getBean( "newsService", NewsService.class );
 
                         News test = newsRepository.retrieveNews( news.getUri() );
@@ -156,7 +156,8 @@ public class FeedReaderThread
 
     private boolean isFeedValid() {
 
-        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "feedRepository", FeedRepository.class );
         if ( feedRepository.retrieveFeed( this.feedInfo.getUrl() ) == null ) {
             return false;
         } else {
@@ -167,7 +168,8 @@ public class FeedReaderThread
 
     private void deleteOldNews() {
 
-        NewsRepository newsRepository = ReferenceCollection.context.getBean( "newsRepository", NewsRepository.class );
+        NewsRepository newsRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "newsRepository", NewsRepository.class );
 
         newsRepository.deleteOlderThan( feedInfo.getUrl(), 60 );
 

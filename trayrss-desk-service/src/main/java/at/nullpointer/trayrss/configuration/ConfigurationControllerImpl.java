@@ -97,7 +97,8 @@ public final class ConfigurationControllerImpl
         props.setProperty( ConfigurationConstants.DATABASE_LOCATION, configModel.getDatabaseLocation().toString() );
 
         // Feed
-        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "feedRepository", FeedRepository.class );
         Collection<Feed> oldFeeds = feedRepository.retrieveFeeds();
         Set<Feed> feeds = configModel.getFeeds();
         for ( Feed feed : feeds ) {
@@ -347,7 +348,8 @@ public final class ConfigurationControllerImpl
 
         LOG.debug( "Load Feed Data" );
 
-        FeedRepository feedRepository = ReferenceCollection.context.getBean( "feedRepository", FeedRepository.class );
+        FeedRepository feedRepository = ReferenceCollection.getInstance().getContext()
+                .getBean( "feedRepository", FeedRepository.class );
         configModel.setFeeds( new HashSet<Feed>( feedRepository.retrieveFeeds() ) );
 
         LOG.debug( "Load Feed Data finished" );
