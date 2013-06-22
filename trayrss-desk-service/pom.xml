@@ -8,6 +8,21 @@
   </parent>
   <artifactId>trayrss-desk-service</artifactId>
   <dependencies>
+  		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+  
 		<dependency>
 			<groupId>at.nullpointer</groupId>
 			<artifactId>trayrss-desk-persistence</artifactId>
