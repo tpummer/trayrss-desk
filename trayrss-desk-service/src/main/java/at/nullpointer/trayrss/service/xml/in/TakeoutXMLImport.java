@@ -12,31 +12,24 @@
  * You should have received a copy of the GNU General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package at.nullpointer.trayrss.service;
+package at.nullpointer.trayrss.service.xml.in;
 
-import org.springframework.stereotype.Component;
-
-import at.nullpointer.trayrss.domain.News;
+import java.nio.file.Path;
 
 /**
- * @see NewsService
+ * Offers functions for importing a google reader takeout file
  * 
  * @author Thomas Pummer
- * @since 1.4
+ * @since 1.6
  * 
  */
-@Component( "newsService" )
-public class NewsServiceImpl
-        implements NewsService {
+public interface TakeoutXMLImport {
 
     /**
-     * @see NewsService#increaseReadCount(News, int)
+     * Start the import process of a google takeout file
+     * 
+     * @param xmlFile
      */
-    @Override
-    public void increaseReadCount( News news, int increaseNumber ) {
-
-        news.setReadCount( news.getReadCount() + increaseNumber );
-
-    }
+    void importXmlFile( Path xmlFile );
 
 }
