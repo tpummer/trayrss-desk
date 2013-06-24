@@ -1,12 +1,13 @@
 package at.nullpointer.trayrss.service.xml.in;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import lombok.Setter;
 
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -31,13 +32,14 @@ public class TakeoutXMLImportTest
 
     /**
      * Method under test {@link TakeoutXMLImport#importFeedsFromXmlFile(String)}
+     * 
+     * @throws IOException
      */
-    @Test( groups = { "integration" } )
-    public void testImportFeedsFromXMLFileWithNullValue() {
+    @Test( groups = { "integration" }, expectedExceptions = { IllegalArgumentException.class } )
+    public void testImportFeedsFromXMLFileWithNullValue()
+            throws IOException {
 
-        if ( takeoutXMLImport == null ) {
-            Assert.fail();
-        }
+        takeoutXMLImport.importFeedsFromXmlFile( null );
 
     }
 
