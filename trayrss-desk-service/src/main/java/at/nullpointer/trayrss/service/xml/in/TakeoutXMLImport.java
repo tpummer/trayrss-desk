@@ -14,7 +14,10 @@
  */
 package at.nullpointer.trayrss.service.xml.in;
 
-import java.nio.file.Path;
+import java.io.IOException;
+import java.util.List;
+
+import at.nullpointer.trayrss.domain.Feed;
 
 /**
  * Offers functions for importing a google reader takeout file
@@ -29,7 +32,10 @@ public interface TakeoutXMLImport {
      * Start the import process of a google takeout file
      * 
      * @param xmlFile
+     * @return List of Feeds from XML
+     * @throws IOException
      */
-    void importXmlFile( Path xmlFile );
+    List<Feed> importFeedsFromXmlFile( String path )
+            throws IOException;
 
 }

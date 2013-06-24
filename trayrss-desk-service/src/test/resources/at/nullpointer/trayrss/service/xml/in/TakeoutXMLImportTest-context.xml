@@ -11,7 +11,6 @@
      http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
      http://www.springframework.org/schema/jdbc
 	 http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"> 
-    <import resource="classpath:/Spring/SpringBeans.xml"/>
-    <import resource="classpath:/persistence-context.xml"/>
+	<import resource="classpath:/Spring/SpringBeans.xml"/>
   
 </beans>

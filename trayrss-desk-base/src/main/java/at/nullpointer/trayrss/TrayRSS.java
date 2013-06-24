@@ -84,7 +84,7 @@ public final class TrayRSS {
             }
         }
 
-        ReferenceCollection.getInstance().setContext( new ClassPathXmlApplicationContext( "SpringBeans.xml" ) );
+        ReferenceCollection.getInstance().setContext( new ClassPathXmlApplicationContext( "Spring\\SpringBeans.xml" ) );
 
         TrayRSS trayRss = ReferenceCollection.getInstance().getContext().getBean( TrayRSS.class );
         trayRss.start( args );
