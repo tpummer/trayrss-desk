@@ -1,5 +1,11 @@
 package at.nullpointer.trayrss.service;
 
+import javax.inject.Inject;
+
+import lombok.Setter;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,15 +19,23 @@ import at.nullpointer.trayrss.domain.News;
  * @since 1.6
  * 
  */
-public class NewsServiceImplTest {
+@ContextConfiguration
+public class NewsServiceImplTest
+        extends AbstractTestNGSpringContextTests {
+
+    /**
+     * NewsService to test
+     */
+    @Inject
+    @Setter
+    private NewsService newsService;
+
 
     /**
      * Method under test {@link NewsService#increaseReadCount(at.nullpointer.trayrss.domain.News, int)}
      */
     @Test( groups = { "unit" } )
     public void testIncreaseNewsCount() {
-
-        NewsService newsService = new NewsServiceImpl();
 
         News news = new News();
         news.setReadCount( 2L );
