@@ -14,12 +14,10 @@
  */
 package at.nullpointer.trayrss.configuration.model;
 
-import lombok.Getter;
 
 public enum LanguageShortcut {
     DE( "de" ), EN( "en" );
 
-    @Getter
     private final String SHORTCUT;
 
 
