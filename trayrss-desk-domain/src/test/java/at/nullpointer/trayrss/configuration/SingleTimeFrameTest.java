@@ -70,6 +70,10 @@ public class SingleTimeFrameTest {
 
         String[] input = { "0100", "0200" };
         SingleTimeFrame singleTimeFrame = new SingleTimeFrame( input );
+        Assert.assertEquals(singleTimeFrame.getStartHour(), 1);
+        Assert.assertEquals(singleTimeFrame.getStartMin(), 0);
+        Assert.assertEquals(singleTimeFrame.getEndHour(), 2);
+        Assert.assertEquals(singleTimeFrame.getEndMin(), 0);
 
     }
 
