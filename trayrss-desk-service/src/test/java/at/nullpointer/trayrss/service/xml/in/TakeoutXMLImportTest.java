@@ -1,6 +1,8 @@
 package at.nullpointer.trayrss.service.xml.in;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,14 +54,17 @@ public class TakeoutXMLImportTest
      * Method under test {@link TakeoutXMLImport#importFeedsFromXmlFile(String)}
      * 
      * @throws IOException
+     * @throws URISyntaxException
      */
-    @Test( groups = { "integration" }, enabled = false )
+    @Test( groups = { "integration" }, enabled = true )
     public void testImportFeedsFromXMLFileWitEmptyXml()
-            throws IOException {
+            throws IOException, URISyntaxException {
 
         String filename = "empty-example-takeout.xml";
 
-        List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( filename );
+        String fileResource = Paths.get( getClass().getResource( "/" + filename ).toURI() ).toString();
+
+        List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( fileResource );
 
         Assert.assertEquals( importFeedsFromXmlFile.size(), 0 );
 

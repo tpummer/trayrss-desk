@@ -1,6 +1,7 @@
 package at.nullpointer.trayrss.service.xml.in;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,13 +37,15 @@ public class DefaultTakeoutXMLImport
     public List<Feed> importFeedsFromXmlFile( String path )
             throws IOException {
 
+        List<Feed> result = new ArrayList<Feed>();
+
         List<String> loadedLines = Collections.emptyList();
 
-        loadedLines = fileLoader.loadFile( path );
+        loadedLines = this.fileLoader.loadFile( path );
 
         parseXml( loadedLines );
 
-        return null;
+        return result;
 
     }
 

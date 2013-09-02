@@ -4,7 +4,7 @@
         <title>Example for testing only</title>
     </head>
     <body>
-        <outline title="Nullpointer" text="Fun">
+        <outline title="Fun" text="Fun">
             <outline text="Nullpointer" title="Nullpointer" type="rss"
                 xmlUrl="http://www.nullpointer.at/feed/" htmlUrl="http://www.nullpointer.at"/>
         </outline>       
@@ -14,5 +14,7 @@
             <outline text="Standard" title="Standard" type="rss"
                 xmlUrl="http://derstandard.at/?page=rss&ressort=dieStandard" htmlUrl="http://derstandard.at/"/>
         </outline>
+		<outline text="Heise" title="Heise" type="rss"
+                xmlUrl="http://www.heise.de/newsticker/heise-atom.xml" htmlUrl="http://www.heise.de/"/>
     </body>
 </opml>
