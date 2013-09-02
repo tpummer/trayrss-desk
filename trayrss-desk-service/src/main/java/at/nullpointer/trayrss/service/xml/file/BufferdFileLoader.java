@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,8 @@ public class BufferdFileLoader
 
         Path file = Paths.get( path );
 
-        DosFileAttributes attrs = Files.readAttributes( file, DosFileAttributes.class );
+        BasicFileAttributes attrs = Files.readAttributes( file, BasicFileAttributes.class );
+        // DosFileAttributes attrs = Files.readAttributes( file, DosFileAttributes.class );
 
         if ( !attrs.isRegularFile() ) {
             throw new IOException( "could not read file, invalid path" );
