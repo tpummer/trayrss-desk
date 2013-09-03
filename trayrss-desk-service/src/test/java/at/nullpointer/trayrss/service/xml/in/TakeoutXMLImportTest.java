@@ -56,8 +56,8 @@ public class TakeoutXMLImportTest
      * @throws IOException
      * @throws URISyntaxException
      */
-    @Test( groups = { "integration" }, enabled = true )
-    public void testImportFeedsFromXMLFileWitEmptyXml()
+    @Test( groups = { "integration" } )
+    public void testImportFeedsFromXMLFileWithEmptyXml()
             throws IOException, URISyntaxException {
 
         String filename = "empty-example-takeout.xml";
@@ -67,6 +67,27 @@ public class TakeoutXMLImportTest
         List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( fileResource );
 
         Assert.assertEquals( importFeedsFromXmlFile.size(), 0 );
+
+    }
+
+
+    /**
+     * Method under test {@link TakeoutXMLImport#importFeedsFromXmlFile(String)}
+     * 
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test( groups = { "workon" }, enabled = false )
+    public void testImportFeedsFromXMLFile()
+            throws IOException, URISyntaxException {
+
+        String filename = "example-takeout.xml";
+
+        String fileResource = Paths.get( getClass().getResource( "/" + filename ).toURI() ).toString();
+
+        List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( fileResource );
+
+        Assert.assertEquals( importFeedsFromXmlFile.size(), 4 );
 
     }
 

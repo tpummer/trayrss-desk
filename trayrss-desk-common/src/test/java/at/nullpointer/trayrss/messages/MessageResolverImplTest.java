@@ -38,7 +38,7 @@ public class MessageResolverImplTest {
      * Setup of the MessageResolver
      * 
      */
-    @BeforeMethod
+    @BeforeMethod( groups = { "unit" } )
     public void setUp() {
 
         messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );

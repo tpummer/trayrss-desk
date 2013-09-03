@@ -43,7 +43,7 @@ public class FeedEntityToFeedConverterTest
     private NewsEntityToNewsConverter newsConverterMock;
 
 
-    @BeforeMethod
+    @BeforeMethod( groups = { "unit" } )
     public void before() {
 
         newsConverterMock = EasyMock.createMock( NewsEntityToNewsConverter.class );

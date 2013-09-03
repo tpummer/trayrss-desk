@@ -61,7 +61,7 @@ public class TrayNotifierTest {
     /**
      * Sets up the Message context
      */
-    @BeforeClass
+    @BeforeClass( groups = { "unit" } )
     public static void setUpBeforeClass() {
 
         Messages.setup( "en" );
@@ -72,7 +72,7 @@ public class TrayNotifierTest {
     /**
      * Setup the Notifier and Test News for each Test
      */
-    @BeforeTest
+    @BeforeTest( groups = { "unit" } )
     public void setUp() {
 
         JNotificationPopup popupMock = EasyMock.createMock( JNotificationPopup.class );

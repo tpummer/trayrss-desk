@@ -101,7 +101,7 @@ public class FeedEntityTest {
     /**
      * Creates the Entitys for the Tests
      */
-    @BeforeTest
+    @BeforeTest( groups = { "unit" } )
     public void createFeedEntries() {
 
         final NewsEntity news = new NewsEntity();

@@ -38,7 +38,7 @@ public class MessagesTest {
      * set up the MessageResolver for the tests
      * 
      */
-    @BeforeTest
+    @BeforeTest( groups = { "unit" } )
     public void setUp() {
 
         this.messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
