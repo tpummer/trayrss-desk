@@ -17,6 +17,8 @@ package at.nullpointer.trayrss.service.xml.in;
 import java.io.IOException;
 import java.util.List;
 
+import org.jdom2.JDOMException;
+
 import at.nullpointer.trayrss.domain.Feed;
 
 /**
@@ -34,8 +36,9 @@ public interface TakeoutXMLImport {
      * @param xmlFile
      * @return List of Feeds from XML
      * @throws IOException
+     * @throws JDOMException
      */
     List<Feed> importFeedsFromXmlFile( String path )
-            throws IOException;
+            throws IOException, JDOMException;
 
 }

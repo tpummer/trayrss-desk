@@ -1,18 +1,20 @@
 package at.nullpointer.trayrss.service.xml.in;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import lombok.Setter;
 
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.springframework.stereotype.Component;
 
 import at.nullpointer.trayrss.domain.Feed;
-import at.nullpointer.trayrss.service.xml.file.FileLoader;
+import at.nullpointer.trayrss.service.xml.ToXMLConverterService;
 
 /**
  * see {@link TakeoutXMLImport}
@@ -26,33 +28,40 @@ public class DefaultTakeoutXMLImport
         implements TakeoutXMLImport {
 
     /**
-     * FileLoader
+     * ToXMLConverterService
      */
     @Inject
     @Setter
-    private FileLoader fileLoader;
+    private ToXMLConverterService toXMLConverterService;
+
+    /**
+     * {@link FeedElementFactory}
+     */
+    @Inject
+    @Setter
+    private FeedElementFactory feedElementFactory;
 
 
     @Override
     public List<Feed> importFeedsFromXmlFile( String path )
-            throws IOException {
+            throws IOException, JDOMException, NullPointerException {
 
-        List<Feed> result = new ArrayList<Feed>();
+        if ( path == null ) {
+            throw new NullPointerException( "Null path" );
+        }
 
-        List<String> loadedLines = Collections.emptyList();
+        List<Feed> result = new ArrayList<>();
 
-        loadedLines = this.fileLoader.loadFile( path );
+        List<Element> xmlResult = this.toXMLConverterService.parseFile( new File( path ) );
 
-        parseXml( loadedLines );
+        List<FeedElement> extractableXmlResult = feedElementFactory.createList( xmlResult );
+
+        for ( FeedElement feedElement : extractableXmlResult ) {
+            Feed feed = feedElement.getFeed();
+            result.add( feed );
+        }
 
         return result;
-
-    }
-
-
-    private void parseXml( List<String> loadedLines ) {
-
-        // TODO Auto-generated method stub
 
     }
 

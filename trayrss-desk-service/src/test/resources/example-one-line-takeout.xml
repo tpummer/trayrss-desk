@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>Example for testing only</title>
+    </head>
+    <body>
+		<outline text="Heise" title="Heise" type="rss"
+                xmlUrl="http://www.heise.de/newsticker/heise-atom.xml" htmlUrl="http://www.heise.de/"/>
+    </body>
+</opml>

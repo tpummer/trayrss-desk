@@ -150,7 +150,7 @@
 		        <version>2.16</version>
 		        <configuration>
 		          	<groups>unit,integration</groups>
-		          	<!--  //TODO make tests work paralell  -->
+		          	<!--  //TODO make tests work parallel  -->
 		          	<!-- <parallel>methods</parallel> -->
           			<!-- <threadCount>4</threadCount> -->
 		        </configuration>

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import lombok.Setter;
 
+import org.jdom2.JDOMException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -40,10 +41,11 @@ public class TakeoutXMLImportTest
      * Method under test {@link TakeoutXMLImport#importFeedsFromXmlFile(String)}
      * 
      * @throws IOException
+     * @throws JDOMException
      */
-    @Test( groups = { "integration" }, expectedExceptions = { IllegalArgumentException.class } )
+    @Test( groups = { "unit" }, expectedExceptions = { NullPointerException.class } )
     public void testImportFeedsFromXMLFileWithNullValue()
-            throws IOException {
+            throws IOException, JDOMException {
 
         takeoutXMLImport.importFeedsFromXmlFile( null );
 
@@ -55,10 +57,11 @@ public class TakeoutXMLImportTest
      * 
      * @throws IOException
      * @throws URISyntaxException
+     * @throws JDOMException
      */
     @Test( groups = { "integration" } )
     public void testImportFeedsFromXMLFileWithEmptyXml()
-            throws IOException, URISyntaxException {
+            throws IOException, URISyntaxException, JDOMException {
 
         String filename = "empty-example-takeout.xml";
 
@@ -76,10 +79,11 @@ public class TakeoutXMLImportTest
      * 
      * @throws IOException
      * @throws URISyntaxException
+     * @throws JDOMException
      */
-    @Test( groups = { "workon" }, enabled = false )
+    @Test( groups = { "integration" }, enabled = false )
     public void testImportFeedsFromXMLFile()
-            throws IOException, URISyntaxException {
+            throws IOException, URISyntaxException, JDOMException {
 
         String filename = "example-takeout.xml";
 
