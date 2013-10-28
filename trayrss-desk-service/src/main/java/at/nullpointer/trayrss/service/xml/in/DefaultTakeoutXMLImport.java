@@ -2,6 +2,7 @@ package at.nullpointer.trayrss.service.xml.in;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,17 +51,20 @@ public class DefaultTakeoutXMLImport
 
     @Override
     public List<Feed> importFeedsFromXmlFile( String path )
-            throws IOException, JDOMException, NullPointerException {
+            throws IOException, JDOMException {
+
+        List<Feed> result = null;
 
         if ( path == null ) {
-            throw new NullPointerException( "null path" );
+            result = new ArrayList<>();
+        } else {
+
+            List<Element> xmlResult = this.toXMLConverterService.parseFile( new File( path ) );
+
+            List<FeedElement> extractableXmlResult = this.feedElementFactory.createList( xmlResult );
+
+            result = this.feedElementListConverter.convertToFeedList( extractableXmlResult );
         }
-
-        List<Element> xmlResult = this.toXMLConverterService.parseFile( new File( path ) );
-
-        List<FeedElement> extractableXmlResult = feedElementFactory.createList( xmlResult );
-
-        List<Feed> result = feedElementListConverter.convertToFeedList( extractableXmlResult );
 
         return result;
 

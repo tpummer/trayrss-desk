@@ -31,7 +31,7 @@ public class ToXMLConverterServiceTest
 
 
     /**
-     * Method under test {@link ToXMLConverterService#parseFile(String)}
+     * Method under test {@link ToXMLConverterService#parseFile(File)}
      * 
      * @throws JDOMException
      * @throws URISyntaxException
@@ -50,6 +50,13 @@ public class ToXMLConverterServiceTest
     }
 
 
+    /**
+     * Method under test {@link ToXMLConverterService#parseFile(File)}
+     * 
+     * @throws JDOMException
+     * @throws URISyntaxException
+     * @throws IOException
+     */
     @Test( groups = { "integration" } )
     public void testImportFeedsFromXMLFileWithMultiLineXml()
             throws JDOMException, URISyntaxException, IOException {

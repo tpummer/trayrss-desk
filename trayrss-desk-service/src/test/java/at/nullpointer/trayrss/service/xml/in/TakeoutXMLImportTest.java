@@ -43,11 +43,13 @@ public class TakeoutXMLImportTest
      * @throws IOException
      * @throws JDOMException
      */
-    @Test( groups = { "unit" }, expectedExceptions = { NullPointerException.class } )
+    @Test( groups = { "unit" } )
     public void testImportFeedsFromXMLFileWithNullValue()
             throws IOException, JDOMException {
 
-        takeoutXMLImport.importFeedsFromXmlFile( null );
+        List<Feed> result = this.takeoutXMLImport.importFeedsFromXmlFile( null );
+
+        Assert.assertEquals( result.size(), 0 );
 
     }
 
@@ -67,9 +69,9 @@ public class TakeoutXMLImportTest
 
         String fileResource = Paths.get( getClass().getResource( "/" + filename ).toURI() ).toString();
 
-        List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( fileResource );
+        List<Feed> result = this.takeoutXMLImport.importFeedsFromXmlFile( fileResource );
 
-        Assert.assertEquals( importFeedsFromXmlFile.size(), 0 );
+        Assert.assertEquals( result.size(), 0 );
 
     }
 
@@ -89,9 +91,9 @@ public class TakeoutXMLImportTest
 
         String fileResource = Paths.get( getClass().getResource( "/" + filename ).toURI() ).toString();
 
-        List<Feed> importFeedsFromXmlFile = takeoutXMLImport.importFeedsFromXmlFile( fileResource );
+        List<Feed> result = this.takeoutXMLImport.importFeedsFromXmlFile( fileResource );
 
-        Assert.assertEquals( importFeedsFromXmlFile.size(), 4 );
+        Assert.assertEquals( result.size(), 4 );
 
     }
 

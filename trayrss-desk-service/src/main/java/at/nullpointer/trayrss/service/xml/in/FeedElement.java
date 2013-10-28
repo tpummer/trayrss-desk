@@ -4,47 +4,67 @@ import org.jdom2.Element;
 
 import at.nullpointer.trayrss.domain.Feed;
 
+/**
+ * Wrapper for an {@link Element} for easy accessing
+ * 
+ * @author Thomas Pummer
+ * @since 1.6
+ * 
+ */
 public class FeedElement {
 
-    private Element feed;
+    /**
+     * Wrapped element
+     */
+    private final Element feed;
 
 
-    public FeedElement( Element feed ) {
+    /**
+     * Constructor
+     * 
+     * @param feedToWrap
+     */
+    public FeedElement( final Element feedToWrap ) {
 
-        this.feed = feed;
+        this.feed = feedToWrap;
     }
 
 
     protected String getAttributeText() {
 
-        return feed.getAttributeValue( "text" );
+        return this.feed.getAttributeValue( "text" );
     }
 
 
     protected String getAttributeTitle() {
 
-        return feed.getAttributeValue( "title" );
+        return this.feed.getAttributeValue( "title" );
     }
 
 
     protected String getAttributeHtmlUrl() {
 
-        return feed.getAttributeValue( "htmlUrl" );
+        return this.feed.getAttributeValue( "htmlUrl" );
     }
 
 
     protected String getAttributeXmlUrl() {
 
-        return feed.getAttributeValue( "xmlUrl" );
+        return this.feed.getAttributeValue( "xmlUrl" );
     }
 
 
+    /**
+     * Returns a Feed Domain Object
+     * 
+     * @return Feed
+     */
     public Feed getFeed() {
 
         Feed newFeed = new Feed();
 
-        newFeed.setName( getAttributeTitle() );
-        newFeed.setUrl( getAttributeXmlUrl() );
+        newFeed.setName( this.getAttributeTitle() );
+        newFeed.setUrl( this.getAttributeXmlUrl() );
 
         return newFeed;
     }

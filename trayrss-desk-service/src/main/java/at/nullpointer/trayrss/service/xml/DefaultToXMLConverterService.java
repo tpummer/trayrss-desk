@@ -23,7 +23,7 @@ public class DefaultToXMLConverterService
         implements ToXMLConverterService {
 
     @Override
-    public List<Element> parseFile( File file )
+    public List<Element> parseFile( final File file )
             throws JDOMException, IOException {
 
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -35,16 +35,6 @@ public class DefaultToXMLConverterService
 
         // got all xml elements into a list
         List<Element> outlineList = body.getChildren( "outline" );
-
-        // simple iteration to see the result on console
-        for ( int i = 0; i <= outlineList.size() - 1; i++ ) {
-            Element element = outlineList.get( i );
-
-            System.out.println( "title : " + element.getAttributeValue( "title" ) );
-            System.out.println( "text : " + element.getAttributeValue( "text" ) );
-            System.out.println( "xmlUrl : " + element.getAttributeValue( "xmlUrl" ) );
-            System.out.println( "htmlUrl : " + element.getAttributeValue( "htmlUrl" ) );
-        }
 
         return outlineList;
 

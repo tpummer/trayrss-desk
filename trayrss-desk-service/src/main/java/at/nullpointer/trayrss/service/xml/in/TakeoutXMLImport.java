@@ -33,7 +33,7 @@ public interface TakeoutXMLImport {
     /**
      * Start the import process of a google takeout file
      * 
-     * @param xmlFile
+     * @param path
      * @return List of Feeds from XML
      * @throws IOException
      * @throws JDOMException

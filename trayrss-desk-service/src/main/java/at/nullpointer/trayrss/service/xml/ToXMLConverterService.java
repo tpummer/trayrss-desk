@@ -19,12 +19,12 @@ public interface ToXMLConverterService {
     /**
      * parses a list of strings
      * 
-     * @param input
-     * @return
+     * @param file
+     * @return List<Element>
      * @throws IOException
      * @throws JDOMException
      */
-    public List<Element> parseFile( File file )
+    List<Element> parseFile( File file )
             throws JDOMException, IOException;
 
 }

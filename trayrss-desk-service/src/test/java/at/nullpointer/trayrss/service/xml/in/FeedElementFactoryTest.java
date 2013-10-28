@@ -34,13 +34,13 @@ public class FeedElementFactoryTest
 
 
     /**
-     * Method under test {@link FeedElementFactory#createList(String)}
+     * Method under test {@link FeedElementFactory#createList(List)}
      * 
      */
     @Test( groups = { "unit" } )
     public void testCreatonWithNull() {
 
-        List<FeedElement> createList = feedElementFactory.createList( null );
+        List<FeedElement> createList = this.feedElementFactory.createList( null );
 
         Assert.assertEquals( createList.size(), 0, "List not correctly initialized" );
 
@@ -48,13 +48,13 @@ public class FeedElementFactoryTest
 
 
     /**
-     * Method under test {@link FeedElementFactory#createList(String)}
+     * Method under test {@link FeedElementFactory#createList(List)}
      * 
      */
     @Test( groups = { "unit" } )
     public void testCreatonWithListSizeNull() {
 
-        List<FeedElement> createList = feedElementFactory.createList( new ArrayList<Element>() );
+        List<FeedElement> createList = this.feedElementFactory.createList( new ArrayList<Element>() );
 
         Assert.assertEquals( createList.size(), 0, "List not correctly initialized" );
 
@@ -62,7 +62,7 @@ public class FeedElementFactoryTest
 
 
     /**
-     * Method under test {@link FeedElementFactory#createList(String)}
+     * Method under test {@link FeedElementFactory#createList(List)}
      * 
      */
     @Test( groups = { "unit" }, expectedExceptions = { IllegalArgumentException.class } )
@@ -72,13 +72,15 @@ public class FeedElementFactoryTest
 
         listToConvert.add( new Element( "test" ) );
 
-        List<FeedElement> createList = feedElementFactory.createList( listToConvert );
+        this.feedElementFactory.createList( listToConvert );
+
+        Assert.fail( "No Exception occured" );
 
     }
 
 
     /**
-     * Method under test {@link FeedElementFactory#createList(String)}
+     * Method under test {@link FeedElementFactory#createList(List)}
      * 
      */
     @Test( groups = { "unit" } )
@@ -88,7 +90,7 @@ public class FeedElementFactoryTest
 
         listToConvert.add( new Element( "outline" ) );
 
-        List<FeedElement> createList = feedElementFactory.createList( listToConvert );
+        List<FeedElement> createList = this.feedElementFactory.createList( listToConvert );
 
         Assert.assertEquals( createList.size(), 1, "List not correctly created" );
 

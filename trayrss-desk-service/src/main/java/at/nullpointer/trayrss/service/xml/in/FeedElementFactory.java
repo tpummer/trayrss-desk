@@ -6,22 +6,34 @@ import java.util.List;
 import org.jdom2.Element;
 import org.springframework.stereotype.Component;
 
+/**
+ * Provides Methods to create an {@link FeedElement}
+ * 
+ * @author Thomas Pummer
+ * @since 1.6
+ */
 @Component
 public class FeedElementFactory {
 
-    public List<FeedElement> createList( List<Element> elementList )
-            throws IllegalArgumentException {
+    /**
+     * Creates a List containing the given elements
+     * 
+     * @param elementList
+     * @return List<FeedElement>
+     * @throws IllegalArgumentException
+     */
+    public List<FeedElement> createList( final List<Element> elementList ) {
 
         List<FeedElement> result = new ArrayList<>();
 
         if ( elementList != null ) {
 
-            if ( elementList.size() > 0 ) {
+            if ( !elementList.isEmpty() ) {
                 isElementListFeedList( elementList );
             }
 
             for ( Element element : elementList ) {
-                FeedElement feedElement = new FeedElement( element );
+                FeedElement feedElement = createInstance( element );
                 result.add( feedElement );
             }
         }
@@ -30,7 +42,19 @@ public class FeedElementFactory {
     }
 
 
-    private void isElementListFeedList( List<Element> elementList ) {
+    /**
+     * Creates an Instance of FeedElemnt containing the data of an Element
+     * 
+     * @param feedElement
+     * @return FeedElement
+     */
+    public FeedElement createInstance( final Element feedElement ) {
+
+        return new FeedElement( feedElement );
+    }
+
+
+    private void isElementListFeedList( final List<Element> elementList ) {
 
         Element element = elementList.get( 0 );
         if ( !element.getName().equals( "outline" ) ) {
