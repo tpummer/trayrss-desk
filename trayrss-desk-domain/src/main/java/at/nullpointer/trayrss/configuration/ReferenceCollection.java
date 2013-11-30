@@ -30,7 +30,28 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public final class ReferenceCollection {
 
+    /**
+     * Singleton instance of ReferenceCollcetion
+     */
     private static ReferenceCollection instance;
+    
+    /**
+     * Application Title to display TODO
+     */
+    @Setter
+    @Getter
+    private String trayrssAppTitle = "";
+
+    /**
+     * Context TODO
+     */
+    @Setter
+    @Getter
+    private ClassPathXmlApplicationContext context;
+    
+    private ReferenceCollection() {
+
+    }
 
 
     /**
@@ -45,24 +66,4 @@ public final class ReferenceCollection {
         }
         return instance;
     }
-
-    /**
-     * Application Title to display TODO
-     */
-    @Setter
-    @Getter
-    private String trayrssAppTitle = "";
-
-    /**
-     * Context TODO
-     */
-    @Setter
-    @Getter
-    private ClassPathXmlApplicationContext context;
-
-
-    private ReferenceCollection() {
-
-    }
-
 }

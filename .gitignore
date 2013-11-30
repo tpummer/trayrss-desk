@@ -6,3 +6,4 @@ trayrss-desk-base/data/
 bin
 target
 test-output
+/trayrss-desk-base/nb-configuration.xml

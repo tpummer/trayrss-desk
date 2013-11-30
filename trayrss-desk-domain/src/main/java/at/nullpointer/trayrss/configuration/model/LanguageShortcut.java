@@ -14,22 +14,33 @@
  */
 package at.nullpointer.trayrss.configuration.model;
 
+import lombok.Getter;
 
+/**
+ * Allowed language shortcuts for trayrss
+ * 
+ * @author Thomas Pummer
+ */
 public enum LanguageShortcut {
-    DE( "de" ), EN( "en" );
+    /**
+     * German
+     */
+    DE( "de" ),
+    /**
+     * English
+     */
+    EN( "en" );
 
-    private final String SHORTCUT;
+    /**
+     * Shortcut representing the langauge
+     */
+    @Getter
+    private final String shortcut;
 
 
-    LanguageShortcut( String shortcut ) {
+    private LanguageShortcut( String shortcut ) {
 
-        this.SHORTCUT = shortcut;
-    }
-
-
-    public String getShortcut() {
-
-        return this.SHORTCUT;
+        this.shortcut = shortcut;
     }
 
 }
