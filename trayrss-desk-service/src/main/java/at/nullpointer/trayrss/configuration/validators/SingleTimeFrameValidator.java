@@ -28,7 +28,7 @@ import at.nullpointer.trayrss.configuration.model.SingleTimeFrame;
 public class SingleTimeFrameValidator {
 
     /**
-     * validateSingleTimeFrame is used to validate if a date matches a {@link SingleTimeFrame}</p>
+     * validateSingleTimeFrame is used to validate if a date matches a {@link SingleTimeFrame}
      * 
      * @param stf
      * @param now

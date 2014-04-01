@@ -83,8 +83,6 @@ public class TrayRssConfigWindow {
 
     /**
      * Create the application.
-     * 
-     * @param configController
      */
     public TrayRssConfigWindow() {
 

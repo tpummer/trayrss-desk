@@ -18,7 +18,7 @@ public interface FeedElementListConverter {
      * Transform an List of type FeedElement to type Feed
      * 
      * @param listToCovert
-     * @return List<Feed>
+     * @return List&lt;Feed&gt;
      */
     List<Feed> convertToFeedList( List<FeedElement> listToCovert );
 

@@ -66,7 +66,6 @@ public class FeedEditorInternalFrame
      * Create the frame.
      * 
      * @param window
-     * @wbp.parser.constructor
      */
     public FeedEditorInternalFrame( TrayRssConfigWindow window ) {
 

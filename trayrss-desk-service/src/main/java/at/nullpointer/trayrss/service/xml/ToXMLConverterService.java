@@ -20,7 +20,7 @@ public interface ToXMLConverterService {
      * parses a list of strings
      * 
      * @param file
-     * @return List<Element>
+     * @return List&lt;Element&gt;
      * @throws IOException
      * @throws JDOMException
      */

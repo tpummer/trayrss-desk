@@ -19,7 +19,7 @@ public class FeedElementFactory {
      * Creates a List containing the given elements
      * 
      * @param elementList
-     * @return List<FeedElement>
+     * @return List&lt;FeedElement&gt;
      * @throws IllegalArgumentException
      */
     public List<FeedElement> createList( final List<Element> elementList ) {
