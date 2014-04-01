@@ -31,7 +31,8 @@
                     <target>${compileSource}</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- Removed until Findbugs is Java8 compatible
+			<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>2.5.3</version>
@@ -51,7 +52,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
