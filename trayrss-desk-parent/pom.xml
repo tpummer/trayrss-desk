@@ -153,8 +153,8 @@
                 <configuration>
                     <groups>unit,integration</groups>
                     <!--  //TODO make tests work parallel  -->
-                    <!-- <parallel>methods</parallel> -->
-                    <!-- <threadCount>4</threadCount> -->
+                    <parallel>methods</parallel>
+                    <threadCount>4</threadCount>
                 </configuration>
             </plugin>
         </plugins>
