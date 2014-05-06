@@ -45,17 +45,13 @@ import de.jutzig.jnotification.renderer.RenderDelegate;
 public class TrayNotifierTest {
 
     /**
-     * TrayNotifier
-     */
-    private TrayNotifier tn;
-    /**
      * Feed
      */
-    private Feed testfeed;
+    private static Feed testfeed;
     /**
      * News-Items
      */
-    private News testnews;
+    private static News testnews;
 
 
     /**
@@ -65,6 +61,11 @@ public class TrayNotifierTest {
     public static void setUpBeforeClass() {
 
         Messages.setup( "en" );
+        
+        testfeed = new Feed();
+        testfeed.setName( "testname" );
+        testnews = new News();
+        testnews.setTitle( "testtitle" );
 
     }
 
@@ -72,8 +73,7 @@ public class TrayNotifierTest {
     /**
      * Setup the Notifier and Test News for each Test
      */
-    @BeforeTest( groups = { "unit" } )
-    public void setUp() {
+    public TrayNotifier setUp() {
 
         JNotificationPopup popupMock = EasyMock.createMock( JNotificationPopup.class );
         popupMock.setDelegate( EasyMock.isA( RenderDelegate.class ) );
@@ -85,20 +85,17 @@ public class TrayNotifierTest {
         EasyMock.expect( mock.createPopup( "testtitle", "testname" ) ).andReturn( popupMock );
         EasyMock.replay( mock );
 
-        tn = new TrayNotifier( mock );
+        TrayNotifier tn = new TrayNotifier( mock );
 
         ConfigurationModel model = new ConfigurationModel();
         model.setDisplayCount( 3 );
         ConfigurationControllerImpl controller = (ConfigurationControllerImpl)ConfigurationControllerImpl.getInstance();
         controller.setConfigurationModel( model );
 
-        testfeed = new Feed();
-        testfeed.setName( "testname" );
-        testnews = new News();
-        testnews.setTitle( "testtitle" );
-
         PopupManager popupManger = EasyMock.createMock( PopupManager.class );
         tn.setPopupManager( popupManger );
+        
+        return tn;
 
     }
 
@@ -108,6 +105,8 @@ public class TrayNotifierTest {
      */
     @Test( groups = { "unit" } )
     public void testNotifyNewsFeed() {
+    	
+    	TrayNotifier tn = setUp();
 
         tn.addToNotify( testnews, testfeed );
         int size = tn.getInput().size();
@@ -122,6 +121,8 @@ public class TrayNotifierTest {
      */
     @Test( groups = { "unit" } )
     public void testAddToNotify() {
+    	
+    	TrayNotifier tn = setUp();
 
         int size = tn.getInput().size();
         tn.addToNotify( testnews, testfeed );

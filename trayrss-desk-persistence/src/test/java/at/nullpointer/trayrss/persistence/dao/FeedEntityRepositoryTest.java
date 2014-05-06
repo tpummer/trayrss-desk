@@ -37,7 +37,7 @@ public class FeedEntityRepositoryTest
     /**
      * Method under Test {@link FeedEntityRepository#save(FeedEntity)}
      */
-    @Test( groups = "integration" )
+    @Test( groups = {"integration"} )
     public void testSaveFeed() {
 
         FeedEntity feed = new FeedEntity();
