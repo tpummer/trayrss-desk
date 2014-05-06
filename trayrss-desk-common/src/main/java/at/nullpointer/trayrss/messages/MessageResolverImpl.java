@@ -50,7 +50,7 @@ public class MessageResolverImpl
 
         this.bundleName = bundleName;
         this.resourceBundle = loadBundle();
-        locale = Locale.ENGLISH;
+        this.locale = Locale.ENGLISH;
     }
 
 

@@ -29,27 +29,12 @@ import org.testng.annotations.Test;
 public class MessageResolverImplTest {
 
     /**
-     * MessageResolver
-     */
-    private transient MessageResolver messageResolver;
-
-
-    /**
-     * Setup of the MessageResolver
-     * 
-     */
-    @BeforeMethod( groups = { "unit" } )
-    public void setUp() {
-
-        messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
-    }
-
-
-    /**
      * Tests {@link MessageResolver#getString(String, String)}
      */
-    @Test( groups = { "unit" } )
+    @Test( groups = { "unit" })
     public void testGetString() {
+    	
+    	MessageResolver messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
 
         Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
                 MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_ENG,
@@ -60,8 +45,10 @@ public class MessageResolverImplTest {
     /**
      * Tests fallback of {@link MessageResolver#getString(String, String)}
      */
-    @Test( groups = { "unit" } )
+    @Test( groups = { "unit" })
     public void testGetNonExistingString() {
+    	
+    	MessageResolver messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
 
         Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID_FAIL,
                 MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE,
@@ -72,9 +59,10 @@ public class MessageResolverImplTest {
     /**
      * Tests {@link MessageResolver#chanceLocale(Locale)}
      */
-    @Test( groups = { "unit" } )
+    @Test( groups = { "unit" })
     public void testChanceLocale() {
-
+    	
+    	MessageResolver messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
         messageResolver.chanceLocale( Locale.GERMANY );
         Assert.assertEquals( messageResolver.getString( MessageResolverTestStrings.MESSAGE_TEST_ID,
                 MessageResolverTestStrings.MESSAGE_DEFAULT_VALUE ), MessageResolverTestStrings.MESSAGE_RESULT_GER,
@@ -86,8 +74,10 @@ public class MessageResolverImplTest {
      * Determinates if a new {@link MessageResolverImpl} is affected by a locale change of an other
      * {@link MessageResolverImpl}
      */
-    @Test( groups = { "unit" } )
+    @Test( groups = { "unit" })
     public void testMultiMessageResolverImpl() {
+    	
+    	MessageResolver messageResolver = new MessageResolverImpl( MessageResolverTestStrings.MESSAGE_LOCATION );
 
         final MessageResolver messageResolverTwo = new MessageResolverImpl(
                 "at.nullpointer.trayrss.messages.testmessages" );
