@@ -192,7 +192,7 @@ public class NewsRepositoryTest
 	/**
      * Method under Test {@link NewsRepository#deleteOlderThan(String, int)}
      */
-    @Test( groups = { "integration" }, dependsOnMethods = { "testDeleteOlderThan" } )
+    @Test( groups = { "integration" }, dependsOnMethods = { "testRetrieveNews" } )
     public void testDeleteOlderThan() {
 
         Feed feed = new Feed();
