@@ -57,9 +57,142 @@ public class NewsRepositoryTest
 
 
     /**
+	 * Method under Test {@link NewsRepository#saveOrUpdate(at.nullpointer.trayrss.domain.News)} Save it
+	 */
+	@Test( groups = { "integration" } )
+	public void testSave() {
+	
+	    News news = new News();
+	    news.setAuthor( "author" );
+	    news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
+	    news.setLastRead( new Date() );
+	    news.setPublishedDate( new Date() );
+	    news.setReadCount( 0L );
+	    news.setTitle( "newsTitle" );
+	    news.setUpdatedDate( new Date() );
+	    news.setUri( "newsUri" );
+	    newsRepository.saveOrUpdate( news );
+	
+	    List<NewsEntity> findAll = newsEntityRepository.findAll();
+	    if ( findAll == null ) {
+	        Assert.fail( "Nothing stored" );
+	    }
+	
+	    boolean isStored = false;
+	    for ( NewsEntity newsEntity : findAll ) {
+	        if ( newsEntity.getUri().equals( "newsUri" ) ) {
+	            isStored = true;
+	        }
+	    }
+	    Assert.assertTrue( isStored, "No valid News stored" );
+	}
+
+
+	/**
+	 * Method under Test {@link NewsRepository#saveOrUpdate(News)} Saving a news entity with feed
+	 */
+	@Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
+	public void testSaveWithFeed() {
+	
+	    Feed feed = new Feed();
+	    feed.setUrl( "saveWith" );
+	    feed.setIntervall( 0L );
+	    feed.setLastAction( new Date() );
+	    feed.setMonitored( false );
+	    feed.setName( "testName" );
+	    feedRepository.saveOrUpdate( feed );
+	
+	    News news = new News();
+	    news.setAuthor( "author" );
+	    news.setFeedUrl( "saveWith" );
+	    news.setLastRead( new Date() );
+	    news.setPublishedDate( new Date() );
+	    news.setReadCount( 0L );
+	    news.setTitle( "newsTitle" );
+	    news.setUpdatedDate( new Date() );
+	    news.setUri( "newsUriWith" );
+	    newsRepository.saveOrUpdate( news );
+	
+	    News retrieveNews = newsRepository.retrieveNews( "newsUriWith" );
+	    Assert.assertEquals( retrieveNews.getFeedUrl(), "saveWith", "Not an identical feed" );
+	
+	    Feed retrieveFeed = feedRepository.retrieveFeed( "saveWith" );
+	    List<News> newsList = retrieveFeed.getNews();
+	    Assert.assertEquals( newsList.size(), 1 );
+	    News newsFromFeed = newsList.get( 0 );
+	    Assert.assertEquals( newsFromFeed.getFeedUrl(), "saveWith", "Not an identical feed at news from feed" );
+	
+	}
+
+
+	/**
+	 * Method under Test {@link NewsRepository#saveOrUpdate(at.nullpointer.trayrss.domain.News)} Update it
+	 */
+	@Test( groups = { "integration" }, dependsOnMethods = { "testSaveWithFeed" } )
+	public void testUpdate() {
+	
+	    News news = new News();
+	    news.setAuthor( "author" );
+	    news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
+	    news.setLastRead( new Date() );
+	    news.setPublishedDate( new Date() );
+	    news.setReadCount( 0L );
+	    news.setTitle( "newsTitle" );
+	    news.setUpdatedDate( new Date() );
+	    news.setUri( "newsUri2" );
+	    newsRepository.saveOrUpdate( news );
+	
+	    news.setTitle( "newsTitleNew" );
+	    newsRepository.saveOrUpdate( news );
+	
+	    List<NewsEntity> findAll = newsEntityRepository.findAll();
+	
+	    boolean isStored = false;
+	    boolean oldNotFound = true;
+	    for ( NewsEntity newsEntity : findAll ) {
+	        if ( newsEntity.getUri().equals( "newsUri2" ) && newsEntity.getTitle().equals( "newsTitleNew" ) ) {
+	            isStored = true;
+	        }
+	        if ( newsEntity.getUri().equals( "newsUri2" ) && newsEntity.getTitle().equals( "newsTitle" ) ) {
+	            oldNotFound = false;
+	        }
+	    }
+	    Assert.assertTrue( isStored && oldNotFound, "No valid Feed stored" );
+	}
+
+
+	/**
+	 * Method under Test {@link NewsRepository#retrieveNews(String)}
+	 */
+	@Test( groups = { "integration" }, dependsOnMethods = { "testUpdate" } )
+	public void testRetrieveNews() {
+	
+	    News news = new News();
+	    news.setAuthor( "author" );
+	    news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
+	    news.setLastRead( new Date() );
+	    news.setPublishedDate( new Date() );
+	    news.setReadCount( 0L );
+	    news.setTitle( "newsTitle" );
+	    news.setUpdatedDate( new Date() );
+	    news.setUri( "newsUri3" );
+	    newsRepository.saveOrUpdate( news );
+	
+	    News newsRetrieved = newsRepository.retrieveNews( "newsUri3" );
+	    boolean oneStored = false;
+	
+	    if ( newsRetrieved.getUri().equals( "newsUri3" ) ) {
+	        oneStored = true;
+	    }
+	
+	    Assert.assertTrue( oneStored, "Nothing retrieved" );
+	}
+
+
+	/**
      * Method under Test {@link NewsRepository#deleteOlderThan(String, int)}
      */
-    @Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
+    @Test( groups = { "integration" }, dependsOnMethods = { "testDeleteOlderThan" } )
     public void testDeleteOlderThan() {
 
         Feed feed = new Feed();
@@ -118,139 +251,6 @@ public class NewsRepositoryTest
         }
 
         Assert.assertTrue( !oneStoredAfterDelete10, "Something retrieved" );
-
-    }
-
-
-    /**
-     * Method under Test {@link NewsRepository#retrieveNews(String)}
-     */
-    @Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
-    public void testRetrieveNews() {
-
-        News news = new News();
-        news.setAuthor( "author" );
-        news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
-        news.setLastRead( new Date() );
-        news.setPublishedDate( new Date() );
-        news.setReadCount( 0L );
-        news.setTitle( "newsTitle" );
-        news.setUpdatedDate( new Date() );
-        news.setUri( "newsUri3" );
-        newsRepository.saveOrUpdate( news );
-
-        News newsRetrieved = newsRepository.retrieveNews( "newsUri3" );
-        boolean oneStored = false;
-
-        if ( newsRetrieved.getUri().equals( "newsUri3" ) ) {
-            oneStored = true;
-        }
-
-        Assert.assertTrue( oneStored, "Nothing retrieved" );
-    }
-
-
-    /**
-     * Method under Test {@link NewsRepository#saveOrUpdate(at.nullpointer.trayrss.domain.News)} Save it
-     */
-    @Test( groups = { "integration" } )
-    public void testSave() {
-
-        News news = new News();
-        news.setAuthor( "author" );
-        news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
-        news.setLastRead( new Date() );
-        news.setPublishedDate( new Date() );
-        news.setReadCount( 0L );
-        news.setTitle( "newsTitle" );
-        news.setUpdatedDate( new Date() );
-        news.setUri( "newsUri" );
-        newsRepository.saveOrUpdate( news );
-
-        List<NewsEntity> findAll = newsEntityRepository.findAll();
-        if ( findAll == null ) {
-            Assert.fail( "Nothing stored" );
-        }
-
-        boolean isStored = false;
-        for ( NewsEntity newsEntity : findAll ) {
-            if ( newsEntity.getUri().equals( "newsUri" ) ) {
-                isStored = true;
-            }
-        }
-        Assert.assertTrue( isStored, "No valid News stored" );
-    }
-
-
-    /**
-     * Method under Test {@link NewsRepository#saveOrUpdate(at.nullpointer.trayrss.domain.News)} Update it
-     */
-    @Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
-    public void testUpdate() {
-
-        News news = new News();
-        news.setAuthor( "author" );
-        news.setFeedUrl( "test" ); // no valid feed stored before, will be saved without link to news
-        news.setLastRead( new Date() );
-        news.setPublishedDate( new Date() );
-        news.setReadCount( 0L );
-        news.setTitle( "newsTitle" );
-        news.setUpdatedDate( new Date() );
-        news.setUri( "newsUri2" );
-        newsRepository.saveOrUpdate( news );
-
-        news.setTitle( "newsTitleNew" );
-        newsRepository.saveOrUpdate( news );
-
-        List<NewsEntity> findAll = newsEntityRepository.findAll();
-
-        boolean isStored = false;
-        boolean oldNotFound = true;
-        for ( NewsEntity newsEntity : findAll ) {
-            if ( newsEntity.getUri().equals( "newsUri2" ) && newsEntity.getTitle().equals( "newsTitleNew" ) ) {
-                isStored = true;
-            }
-            if ( newsEntity.getUri().equals( "newsUri2" ) && newsEntity.getTitle().equals( "newsTitle" ) ) {
-                oldNotFound = false;
-            }
-        }
-        Assert.assertTrue( isStored && oldNotFound, "No valid Feed stored" );
-    }
-
-
-    /**
-     * Method under Test {@link NewsRepository#saveOrUpdate(News)} Saving a news entity with feed
-     */
-    @Test( groups = { "integration" }, dependsOnMethods = { "testSave" } )
-    public void testSaveWithFeed() {
-
-        Feed feed = new Feed();
-        feed.setUrl( "saveWith" );
-        feed.setIntervall( 0L );
-        feed.setLastAction( new Date() );
-        feed.setMonitored( false );
-        feed.setName( "testName" );
-        feedRepository.saveOrUpdate( feed );
-
-        News news = new News();
-        news.setAuthor( "author" );
-        news.setFeedUrl( "saveWith" );
-        news.setLastRead( new Date() );
-        news.setPublishedDate( new Date() );
-        news.setReadCount( 0L );
-        news.setTitle( "newsTitle" );
-        news.setUpdatedDate( new Date() );
-        news.setUri( "newsUriWith" );
-        newsRepository.saveOrUpdate( news );
-
-        News retrieveNews = newsRepository.retrieveNews( "newsUriWith" );
-        Assert.assertEquals( retrieveNews.getFeedUrl(), "saveWith", "Not an identical feed" );
-
-        Feed retrieveFeed = feedRepository.retrieveFeed( "saveWith" );
-        List<News> newsList = retrieveFeed.getNews();
-        Assert.assertEquals( newsList.size(), 1 );
-        News newsFromFeed = newsList.get( 0 );
-        Assert.assertEquals( newsFromFeed.getFeedUrl(), "saveWith", "Not an identical feed at news from feed" );
 
     }
 
